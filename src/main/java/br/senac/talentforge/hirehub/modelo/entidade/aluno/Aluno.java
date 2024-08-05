@@ -1,16 +1,33 @@
 package hirehub.talentforge.modelo.entity.aluno;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Column;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.GeneratedValue;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Id;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-public class Aluno extends Usuario {
+public class Aluno extends Usuario implements Serializable {
 	
-	private String matricula;
-	private String codigoTurma;
-	private String dossie;
-	private StatusAluno status;
+private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_aluno")
 	private long id;
+	
+	@Column(name = "matricula", length = 30, nullable = false, unique = false)
+	private String matricula;
+	
+	@Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
+	private String codigoTurma;
+	
+	@Column(name = "dossie", length = 200, nullable = false, unique = false)
+	private String dossie;
+	
+	@Column(name = "status_aluno","CURSANDO","FORMADO","DESISTENTE" , nullable = false, unique = false)
+	private StatusAluno status;
 	
 	public Aluno() {
 		
