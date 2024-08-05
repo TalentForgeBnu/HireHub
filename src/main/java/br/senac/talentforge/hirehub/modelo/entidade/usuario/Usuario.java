@@ -1,15 +1,40 @@
 package hirehub.talentforge.modelo.entity.usuario;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Usuario extends Endereco {
+import exemplo.modelo.entidade.cliente.Column;
+import exemplo.modelo.entidade.contato.JoinColumn;
+import exemplo.modelo.entidade.contato.MapsId;
+import exemplo.modelo.entidade.contato.OneToOne;
 
-	private String nomeUsuario;
-	private String sobrenome;
-	private LocalDate dataNascimento;
-	private String cpf;
-	private Endereco endereco;
+@Entity
+@Table(name = "usuario")
+public abstract class Usuario extends Endereco implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario")
 	private long id;
+	
+	@Column(name = "nome_usuario", length = 25, nullable = false, unique = false)
+	private String nomeUsuario;
+	
+	@Column(name = "sobrenome", length = 25, nullable = false, unique = false)
+	private String sobrenome;
+	
+	@Column(name = "data_nascimento", nullable = false, unique = true)
+	private LocalDate dataNascimento;
+	
+	@Column(name = "cpf", length = 14, nullable = false, unique = true)
+	private String cpf;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
 	
 	public Usuario() {
 		
