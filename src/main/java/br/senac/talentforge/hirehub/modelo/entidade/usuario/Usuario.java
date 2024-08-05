@@ -1,4 +1,4 @@
-package hirehub.talentforge.modelo.entity.usuario;
+package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 import java.io.Serializable;
 import java.time.LocalDate;
