@@ -1,11 +1,28 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario;
+import java.io.Serializable;
 
-public class Instituicao extends Usuario {
+import br.senac.talentforge.hirehub.modelo.entidade.usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.empresa.OneToMany;
+
+@Entity
+@Table(name = "instituicao")
+public class Instituicao extends Usuario implements Serializable {
 	
+private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_instituicao")
+	private long id;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Curso> cursos;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Professor> professores;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;	
     
     public Instituicao() {
@@ -57,6 +74,15 @@ public class Instituicao extends Usuario {
     public void removerAluno(List<Aluno> alunos) {
     	this.alunos.removeAll(alunos);
     }
+    
+    public long getId() {
+		return id;		
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+    
     
     
 }	
