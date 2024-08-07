@@ -1,12 +1,12 @@
-package hirehub.talentforge.modelo.entity.usuario;
+package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import exemplo.modelo.entidade.cliente.Column;
-import exemplo.modelo.entidade.contato.JoinColumn;
-import exemplo.modelo.entidade.contato.MapsId;
-import exemplo.modelo.entidade.contato.OneToOne;
+import exemplo.modelo.entidade.endereco.Column;
+import exemplo.modelo.entidade.endereco.JoinColumn;
+import exemplo.modelo.entidade.endereco.MapsId;
+import exemplo.modelo.entidade.endereco.OneToOne;
 
 @Entity
 @Table(name = "usuario")
@@ -42,25 +42,25 @@ public abstract class Usuario extends Endereco implements Serializable{
 	
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf){
 	    super();
-		setNomeUsuario(nomeUsuario);
+		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
 		setCpf(cpf);
 	}
 	
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, long id){
-		setNomeUsuario(nomeUsuario);
+		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
 		setCpf(cpf);
 		setId(id);
 	}
 	
-	public String getNomeUsuario() {
+	public String getNome() {
 		return nomeUsuario;
 	}
 	
-	public void setNomeUsuario(String nomeUsuario) {
+	public void setNome(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
 	}
 	
