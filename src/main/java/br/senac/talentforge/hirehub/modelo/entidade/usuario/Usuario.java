@@ -3,10 +3,10 @@ package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import exemplo.modelo.entidade.cliente.Column;
-import exemplo.modelo.entidade.contato.JoinColumn;
-import exemplo.modelo.entidade.contato.MapsId;
-import exemplo.modelo.entidade.contato.OneToOne;
+import exemplo.modelo.entidade.endereco.Column;
+import exemplo.modelo.entidade.endereco.JoinColumn;
+import exemplo.modelo.entidade.endereco.MapsId;
+import exemplo.modelo.entidade.endereco.OneToOne;
 
 @Entity
 @Table(name = "usuario")
