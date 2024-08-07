@@ -1,6 +1,9 @@
 package br.senac.talentforge.hirehub.modelo.entidade.curso;
 
+
 import java.io.Serializable;
+import java.time.LocalDate;
+
 
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.statuscurso.StatusCurso;
@@ -24,6 +27,9 @@ public class Curso implements Serializable {
 	
 	@Column(name = "statusCurso")
     private StatusCurso status;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+    private String descricaoCurso;
     
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_professor")
@@ -40,6 +46,21 @@ public class Curso implements Serializable {
     	this.status = status;
     }
     
+    public LocalDate getDataInicio() {
+    	return dataInicio;
+    }
+    
+    public void setDataInicio(LocalDate dataInicio) {
+    	this.dataInicio = dataInicio;
+    }
+    
+    public LocalDate getDataFim() {
+    	return dataFim;
+    }
+    
+    public void setDataFim(LocalDate dataFim) {
+    	this.dataFim = dataFim;
+    }
     
     public String getNomeCurso() {
         return nomeCurso;
@@ -47,6 +68,14 @@ public class Curso implements Serializable {
 
     public void setNomeCurso(String nomeCurso) {
         this.nomeCurso = nomeCurso;
+    }
+    
+    public String getDescricaoCurso() {
+    	return descricaoCurso;
+    }
+    
+    public void setDescricaoCurso(String descricaoCurso) {
+    	this.descricaoCurso = descricaoCurso;
     }
 
     public String getAreaDeAtuacao() {
