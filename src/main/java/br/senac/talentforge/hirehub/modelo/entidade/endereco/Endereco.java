@@ -1,28 +1,56 @@
 package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
-public class Endereco {
+import java.io.Serializable;
 
-	private String rua;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+//@Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro_endereco", "numero_endereco"})})//
+@Entity
+@Table(name = "endereco", uniqueConstraints = { @UniqueConstraint(columnNames = { "logradouro", "numero" }) })
+public class Endereco extends Contato implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTIFY)
+	@Column(name = "id_endereco")
+	private long id;
+
+	@Column(name = "logradouro", length = 50, nullable = false, unique = false)
+	private String logradouro;
+
+	@Column(name = "bairro", length = 50, nullable = false, unique = false)
 	private String bairro;
+
+	@Column(name = "cidade", length = 50, nullable = false, unique = false)
 	private String cidade;
+
+	@Column(name = "estado", length = 50, nullable = false, unique = false)
 	private String estado;
+
+	@Column(name = "cep", length = 9, nullable = false, unique = false)
 	private String cep;
 
-	public Endereco(String rua, String bairro, String cidade, String estado, String cep) {
+	@Column(name = "numero", nullable = false, unique = true)
+	private int numero;
 
-		this.rua = rua;
+	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
+
+		this.logradouro = logradouro;
 		this.bairro = bairro;
 		this.cidade = cidade;
 		this.estado = estado;
 		this.cep = cep;
+		this.numero = numero;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getlogradouro() {
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setlogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getBairro() {
@@ -57,13 +85,11 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public void adicionarEndereco() {
+	public int getNumero() {
+		return numero;
 	}
 
-	public void removerEndereco() {
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
-
-	public void editarEndereco() {
-	}
-
 }
