@@ -2,11 +2,13 @@ package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
-public class Instituicao extends Usuario {
+public class Instituicao extends Usuario implements Serializable {
 	
 	private List<Curso> cursos;
     private List<Professor> professores;
     private List<Aluno> alunos;	
+    private long id;
+    private List<Oferta> ofertas;
     
     public Instituicao() {
     	
@@ -16,6 +18,22 @@ public class Instituicao extends Usuario {
     	this.cursos = cursos;
     	this.professores = professores;
     	this.alunos = alunos;
+    }
+    
+    public List<Oferta> getOfertas(){
+    	return ofertas;
+    }
+    
+    public void setOfertas(List<Oferta> ofertas) {
+    	this.ofertas = ofertas;
+    }
+    
+    public long getId() {
+    	return id;
+    }
+    
+    public void setId(long id) {
+    	this.id = id;
     }
     
     public List<Professor> getProfessores() {
@@ -57,6 +75,7 @@ public class Instituicao extends Usuario {
     public void removerAluno(List<Aluno> alunos) {
     	this.alunos.removeAll(alunos);
     }
+    
     
     
 }	
