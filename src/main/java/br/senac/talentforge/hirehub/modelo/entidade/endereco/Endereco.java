@@ -1,4 +1,4 @@
-package modelo;
+package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
 public class Endereco {
 
