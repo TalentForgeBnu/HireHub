@@ -42,25 +42,25 @@ public abstract class Usuario extends Endereco implements Serializable{
 	
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf){
 	    super();
-		setNomeUsuario(nomeUsuario);
+		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
 		setCpf(cpf);
 	}
 	
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, long id){
-		setNomeUsuario(nomeUsuario);
+		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
 		setCpf(cpf);
 		setId(id);
 	}
 	
-	public String getNomeUsuario() {
+	public String getNome() {
 		return nomeUsuario;
 	}
 	
-	public void setNomeUsuario(String nomeUsuario) {
+	public void setNome(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
 	}
 	
