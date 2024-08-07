@@ -1,11 +1,30 @@
-package modelo;
+package br.senac.talentforge.hirehub.modelo.entidade.vaga;
 
-public class Vaga  {
+import java.io.Serializable;
 
-	private String nomeVaga;
+import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
+
+@Entity
+@Table(name = "vaga")
+public class Vaga implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTIFY)
+	@Column(name = "codigo_vaga")
 	private int codigoVaga;
+	
+	@Column(name = "nome_vaga", length = 50, nullable = false, unique = true)
+	private String nomeVaga;
+	
+	@Column(name = "descricao_vaga", length = 50, nullable = false, unique = false)
 	private String descricaoVaga;
 
+	@ManyToOne(fetch = fetchType.LAZY)
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
+	
 	public Vaga(String nomeVaga, int codigoVaga, String descricaoVaga) {
 		
 		this.nomeVaga = nomeVaga;
@@ -36,14 +55,13 @@ public class Vaga  {
 	public void setDescricaoVaga(String descricaoVaga) {
 		this.descricaoVaga = descricaoVaga;
 	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
 	
-	public void adicionarVaga() {
-	}
-
-	public void removerVaga() {	
-	}
-
-	public void editarVaga() {
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 }

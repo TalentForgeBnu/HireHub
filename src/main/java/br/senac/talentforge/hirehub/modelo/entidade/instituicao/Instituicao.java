@@ -5,12 +5,13 @@ import java.io.Serializable;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.OneToMany;
 
+
 @Entity
 @Table(name = "instituicao")
 public class Instituicao extends Usuario implements Serializable {
-	
-private static final long serialVersionUID = 1L;
-	
+
+  private static final long serialVersionUID = 1L;
+  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_instituicao")
@@ -24,6 +25,8 @@ private static final long serialVersionUID = 1L;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;	
+    private long id;
+    private List<Oferta> ofertas;
     
     public Instituicao() {
     	
@@ -33,6 +36,22 @@ private static final long serialVersionUID = 1L;
     	this.cursos = cursos;
     	this.professores = professores;
     	this.alunos = alunos;
+    }
+    
+    public List<Oferta> getOfertas(){
+    	return ofertas;
+    }
+    
+    public void setOfertas(List<Oferta> ofertas) {
+    	this.ofertas = ofertas;
+    }
+    
+    public long getId() {
+    	return id;
+    }
+    
+    public void setId(long id) {
+    	this.id = id;
     }
     
     public List<Professor> getProfessores() {
@@ -82,6 +101,7 @@ private static final long serialVersionUID = 1L;
 	public void setId(long id) {
 		this.id = id;
 	}
+    
     
     
     
