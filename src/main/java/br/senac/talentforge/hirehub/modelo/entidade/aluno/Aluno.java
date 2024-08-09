@@ -26,7 +26,7 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "dossie", length = 200, nullable = false, unique = false)
 	private String dossie;
 	
-	@Column(name = "status_aluno","CURSANDO","FORMADO","DESISTENTE" , nullable = false, unique = false)
+	@Enumarated(EnumType.STRING)
 	private StatusAluno status;
 	
 	public Aluno() {
