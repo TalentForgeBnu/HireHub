@@ -33,7 +33,7 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	
-	public Aluno(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String matricula, int codigoTurma, String dossie, StatusAluno status, long id) {
+	public Aluno(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String matricula, String codigoTurma, String dossie, StatusAluno status, long id) {
 		
 		super(nomeUsuario,sobrenome,dataNascimento, cpf);
 		setMatricula(matricula);
