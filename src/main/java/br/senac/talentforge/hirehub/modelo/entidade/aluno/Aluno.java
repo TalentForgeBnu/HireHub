@@ -26,14 +26,14 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "dossie", length = 200, nullable = false, unique = false)
 	private String dossie;
 	
-	@Column(name = "AlunoMatriculado","CURSANDO","FORMADO","DESISTENTE" , nullable = false, unique = false)
-	private AlunoMatriculado status;
+	@Enumarated(EnumType.STRING)
+  private AlunoMatriculado status;
 	
 	public Aluno() {
 		
 	}
 	
-	public Aluno(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String matricula, int codigoTurma, String dossie, StatusAluno status, long id) {
+	public Aluno(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String matricula, String codigoTurma, String dossie, StatusAluno status, long id) {
 		
 		super(nomeUsuario,sobrenome,dataNascimento, cpf);
 		setMatricula(matricula);
