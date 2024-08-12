@@ -27,7 +27,7 @@ private static final long serialVersionUID = 1L;
 	private String dossie;
 	
 	@Enumarated(EnumType.STRING)
-	private StatusAluno status;
+  private AlunoMatriculado status;
 	
 	public Aluno() {
 		
