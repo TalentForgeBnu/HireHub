@@ -27,7 +27,7 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "cnpj", length = 14, nullable = false, unique = false)
 	private String cnpj;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vaga",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> demandaVagas;
 	
 	public Empresa(String nomeEmpresa, String cnpj, List<Vaga> vaga) {
