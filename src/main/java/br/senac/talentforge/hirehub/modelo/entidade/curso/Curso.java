@@ -37,7 +37,7 @@ public class Curso implements Serializable {
     private String areaDeAtuacao;
 	
 	@Enumerated(EnumType.STRING)
-    private AndamentoCurso status;
+    private AndamentoCurso andamentoCurso;
 	
 	@Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
@@ -117,11 +117,11 @@ public class Curso implements Serializable {
     }
 
     public AndamentoCurso getStatus() {
-        return status;
+        return andamentoCurso;
     }
 
-    public void setStatus(AndamentoCurso status) {
-        this.status = status;
+    public void setStatus(AndamentoCurso andamentoCurso) {
+        this.andamentoCurso = andamentoCurso;
     }
     
     public Professor getProfessor() {

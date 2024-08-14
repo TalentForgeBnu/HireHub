@@ -1,4 +1,4 @@
-package br.senac.talentforge.hirehub.modelo.entidade.genero;
+package br.senac.talentforge.hirehub.modelo.enumeracao.genero;
 
 public enum Genero {
 

@@ -4,15 +4,22 @@
 	<session-factory>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vendas?createDatabaseIfNotExist=true</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hirehub?createDatabaseIfNotExist=true</property>
 		<property name="hbm2ddl.auto">update</property>
-		<property name="hibernate.connection.username">admin</property>
-		<property name="hibernate.connection.password">password</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
 		<property name="show_sql">true</property>
 		<property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
-		<mapping class="exemplo.modelo.entidade.cliente.Cliente" />
-		<mapping class="exemplo.modelo.entidade.contato.Contato" />
-		<mapping class="exemplo.modelo.entidade.endereco.Endereco" />
-		<mapping class="exemplo.modelo.entidade.pedido.Pedido" />
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno" />
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.contato.Contato" />
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.curso.Curso"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.professor.Professor"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.turma.Turma"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga"/>
 	</session-factory>
 </hibernate-configuration>

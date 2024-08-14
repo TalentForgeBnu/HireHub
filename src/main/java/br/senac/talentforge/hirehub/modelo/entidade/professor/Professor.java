@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.modelo.entidade.professor;
 import java.util.List;
 
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
 public class Professor extends Aluno {
 
