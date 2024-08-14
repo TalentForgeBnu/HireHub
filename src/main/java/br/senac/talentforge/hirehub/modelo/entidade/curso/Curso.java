@@ -4,6 +4,18 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 
@@ -14,18 +26,18 @@ public class Curso implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTIFY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_professor")
 	private Long id;
 	
 	@Column(name = "nome_curso", length = 50, nullable = false, unique = true)
-	private String nomeCurso;
-	
-	@Colum(name = "area_atuacao", length = 50, nullable = false, unique = false)
+	private String nomeCurso;	
+
+	@Column(name = "area_atuacao", length = 50, nullable = false, unique = false)
     private String areaDeAtuacao;
 	
-	@Column(name = "andamento_curso")
-    private AndamentoCurso andamentoCurso;
+	@Enumerated(EnumType.STRING)
+    private AndamentoCurso status;
 	
 	@Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
@@ -45,7 +57,7 @@ public class Curso implements Serializable {
 		
 	}
 	
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, AndamentoCurso andamentoCurso) {
+  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
@@ -105,11 +117,11 @@ public class Curso implements Serializable {
     }
 
     public AndamentoCurso getStatus() {
-        return andamentoCurso;
+        return status;
     }
 
-    public void setStatus(AndamentoCurso andamentoCurso) {
-        this.andamentoCurso = andamentoCurso;
+    public void setStatus(AndamentoCurso status) {
+        this.status = status;
     }
     
     public Professor getProfessor() {

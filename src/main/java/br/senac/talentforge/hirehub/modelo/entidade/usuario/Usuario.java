@@ -2,12 +2,20 @@ package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.genero.Genero;
-import exemplo.modelo.entidade.endereco.Column;
-import exemplo.modelo.entidade.endereco.JoinColumn;
-import exemplo.modelo.entidade.endereco.MapsId;
-import exemplo.modelo.entidade.endereco.OneToOne;
+
 
 @Entity
 @Table(name = "usuario")
@@ -46,12 +54,9 @@ public abstract class Usuario extends Endereco implements Serializable{
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
-	public Usuario() {
-		
-	}
 	
-	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, float rendaFamiliar){
-	    super();
+	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String logradouro, String bairro, String cidade, String estado, String cep){
+	    super(logradouro, bairro, cidade, estado, cep);
 		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
@@ -61,7 +66,7 @@ public abstract class Usuario extends Endereco implements Serializable{
 	}
 	
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar){
-	    super();
+	   super();
 		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
@@ -70,10 +75,12 @@ public abstract class Usuario extends Endereco implements Serializable{
 		setNomeSocial(nomeSocial);
 		setRendaFamiliar(rendaFamiliar);
 	}
-	
+  
+  public Usuario() {
+		
+	}
+  
 	public Usuario(long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar){
-	    super();
-	    setId(id);
 		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);

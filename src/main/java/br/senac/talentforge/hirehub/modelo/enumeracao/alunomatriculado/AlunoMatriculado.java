@@ -1,6 +1,6 @@
 package br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado;
 
-public enum AlunoMatricluado {
+public enum AlunoMatriculado {
 
 	CURSANDO, FORMADO, DESISTENTE
 	

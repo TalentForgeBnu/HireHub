@@ -9,7 +9,7 @@ public class Oferta {
 	private Curso curso;
 	private String proposta;
 	private String resposta;
-	private Status andamentoOferta;
+	//private Status andamentoOferta;
 
 	public Vaga getVaga() {
 		return vaga;
@@ -44,12 +44,12 @@ public class Oferta {
 		this.resposta = resposta;
 	}
 
-	public Status getAndamentoOferta() {
-		return andamentoOferta;
-	}
+	//public Status getAndamentoOferta() {
+	//	return andamentoOferta;
+	//}
 
-	public void setAndamentoOferta(Status andamentoOferta) {
-		this.andamentoOferta = andamentoOferta;
-	}
+	//public void setAndamentoOferta(Status andamentoOferta) {
+	//	this.andamentoOferta = andamentoOferta;
+	//}
 
 }
