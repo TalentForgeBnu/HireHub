@@ -2,8 +2,15 @@ package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
 
 //@Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro_endereco", "numero_endereco"})})//
 @Entity
@@ -13,7 +20,7 @@ public class Endereco extends Contato implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTIFY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private long id;
 
@@ -35,6 +42,10 @@ public class Endereco extends Contato implements Serializable {
 	@Column(name = "numero", nullable = false, unique = true)
 	private int numero;
 
+	public Endereco() {
+		
+	}
+	
 	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
 
 		this.logradouro = logradouro;
@@ -43,6 +54,15 @@ public class Endereco extends Contato implements Serializable {
 		this.estado = estado;
 		this.cep = cep;
 		this.numero = numero;
+	}
+	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep) {
+		
+		super();
+		this.logradouro = logradouro;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
 	}
 
 	public String getlogradouro() {

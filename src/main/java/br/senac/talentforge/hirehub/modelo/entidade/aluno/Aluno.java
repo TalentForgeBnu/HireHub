@@ -3,10 +3,15 @@ package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Column;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.GeneratedValue;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Id;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
 
 public class Aluno extends Usuario implements Serializable {
 	
@@ -26,14 +31,14 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "dossie", length = 200, nullable = false, unique = false)
 	private String dossie;
 	
-	@Enumarated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private AlunoMatriculado status;
 	
 	public Aluno() {
 		
 	}
 	
-	public Aluno(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String matricula, String codigoTurma, String dossie, StatusAluno status, long id) {
+	public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado status, long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf) {
 		
 		super(nomeUsuario,sobrenome,dataNascimento, cpf);
 		setMatricula(matricula);
@@ -68,11 +73,11 @@ private static final long serialVersionUID = 1L;
 		this.dossie = dossie;		
 	}
 	
-	public StatusAluno getStatus() {
+	public AlunoMatriculado getStatus() {
 		return status;
 	}
 	
-	public void setStatusAluno(StatusAluno status) {
+	public void setStatusAluno(AlunoMatriculado status) {
 		this.status = status;		
 	}
 

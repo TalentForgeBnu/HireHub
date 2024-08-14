@@ -2,8 +2,22 @@ package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
 import java.io.Serializable;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario;
-import br.senac.talentforge.hirehub.modelo.entidade.empresa.OneToMany;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import antlr.collections.List;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
+import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 
 @Entity
@@ -24,8 +38,7 @@ public class Instituicao extends Usuario implements Serializable {
     private List<Professor> professores;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Aluno> alunos;	
-    private long id;
+    private List<Aluno> alunos;
     private List<Oferta> ofertas;
     
     public Instituicao() {
