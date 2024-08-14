@@ -28,9 +28,16 @@ private static final long serialVersionUID = 1L;
 	public Contato(){
 		
 	}
-	
-	public Contato(String celular, String telefone, String email, long id) {
+
+	public Contato(String celular, String telefone, String email) {
 		super();
+		setCelular(celular);
+		setTelefone(telefone);
+		setEmail(email);
+	}
+
+
+	public Contato(String celular, String telefone, String email, long id) {
 		setCelular(celular);
 		setTelefone(telefone);
 		setEmail(email);

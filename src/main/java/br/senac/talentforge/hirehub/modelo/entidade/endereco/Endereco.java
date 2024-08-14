@@ -55,9 +55,9 @@ public class Endereco extends Contato implements Serializable {
 		this.cep = cep;
 		this.numero = numero;
 	}
-	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep) {
+	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, String celular, String telefone, String email) {
 		
-		super();
+		super(celular, telefone, email);
 		this.logradouro = logradouro;
 		this.bairro = bairro;
 		this.cidade = cidade;
