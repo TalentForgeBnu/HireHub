@@ -4,6 +4,7 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 
@@ -31,16 +31,21 @@ public class Curso implements Serializable {
 	private Long id;
 	
 	@Column(name = "nome_curso", length = 50, nullable = false, unique = true)
-	private String nomeCurso;
-	
+	private String nomeCurso;	
+
 	@Column(name = "area_atuacao", length = 50, nullable = false, unique = false)
     private String areaDeAtuacao;
 	
 	@Enumerated(EnumType.STRING)
     private AndamentoCurso status;
 	
+	@Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
+	
+	@Column(name = "data_fim", nullable = false, unique = false)
     private LocalDate dataFim;
+	
+	@Column(name = "descricao_curso", length = 300, nullable = true, unique = false)
     private String descricaoCurso;
     
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,10 +57,23 @@ public class Curso implements Serializable {
 		
 	}
 	
-    public Curso(String nomeCurso, String areaDeAtuacao, AndamentoCurso status) {
-    	this.nomeCurso = nomeCurso;
+  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, AndamentoCurso andamentoCurso) {
+    	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
-    	this.status = status;
+    	this.dataInicio = dataInicio;
+    	this.dataFim = dataFim;
+    	this.descricaoCurso = descricaoCurso;
+    	this.andamentoCurso = andamentoCurso;
+    }
+    
+    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, Professor professor, AndamentoCurso andamentoCurso) {
+    	this.nomeCurso = nomeCurso; 
+    	this.areaDeAtuacao = areaDeAtuacao;
+    	this.dataInicio = dataInicio;
+    	this.dataFim = dataFim;
+    	this.descricaoCurso = descricaoCurso;
+    	this.professor = professor;
+    	this.andamentoCurso = andamentoCurso;
     }
     
     public LocalDate getDataInicio() {
@@ -114,6 +132,13 @@ public class Curso implements Serializable {
     	this.professor = professor;
     }
     
+    public long getId() {
+    	return id;
+    }
+    
+    public void setId(long id) {
+    	this.id = id;
+    }
     
 	
 }
