@@ -40,7 +40,7 @@ private static final long serialVersionUID = 1L;
 	
 	public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado status, long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf) {
 		
-		super(nomeUsuario,sobrenome,dataNascimento, cpf);
+		super(id, nomeUsuario,sobrenome,dataNascimento, cpf, cpf);
 		setMatricula(matricula);
 		setCodigoTurma(codigoTurma);
 		setDossie(dossie);

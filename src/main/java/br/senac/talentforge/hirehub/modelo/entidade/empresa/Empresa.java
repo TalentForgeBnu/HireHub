@@ -73,12 +73,13 @@ private static final long serialVersionUID = 1L;
 		this.demandaVagas = vagas;
 	}
 	
-	public void OfertarVagas() {
-		Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, modalidadeContratacao);
-        this.demandaVagas.add(novaVaga);
-        System.out.println("Vaga adicionada: " + novaVaga);
-
+	public void OfertarVagas(String nomeVaga, int codigoVaga, String descricaoVaga) {
+		
+	    Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, descricaoVaga);
+	    this.demandaVagas.add(novaVaga);
+	    System.out.println("Vaga adicionada: " + novaVaga);
 	}
+
 	
 	public void DeterminarDemanda() {
 		
