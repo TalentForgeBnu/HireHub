@@ -3,10 +3,18 @@ package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import exemplo.modelo.entidade.endereco.Column;
-import exemplo.modelo.entidade.endereco.JoinColumn;
-import exemplo.modelo.entidade.endereco.MapsId;
-import exemplo.modelo.entidade.endereco.OneToOne;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 
 @Entity
 @Table(name = "usuario")
@@ -36,18 +44,28 @@ public abstract class Usuario extends Endereco implements Serializable{
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
-	public Usuario() {
-		
-	}
 	
-	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf){
-	    super();
+	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf,String logradouro, String bairro, String cidade, String estado, String cep){
+	    super(logradouro, bairro, cidade, estado, cep);
 		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
 		setDataNascimento(dataNascimento);
 		setCpf(cpf);
 	}
 	
+    public Usuario() {
+		
+	}
+	
+    public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf){
+		
+    	super();
+    	setNome(nomeUsuario);
+		setSobrenome(sobrenome);
+		setDataNascimento(dataNascimento);
+		setCpf(cpf);
+	}
+    
 	public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, long id){
 		setNome(nomeUsuario);
 		setSobrenome(sobrenome);
