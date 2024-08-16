@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 
 @Entity

@@ -2,7 +2,6 @@ package br.senac.talentforge.hirehub.modelo;
 
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 
@@ -26,7 +25,7 @@ public class Main {
         aluno.setCidade("Blumenau");
         aluno.setBairro("Aquele");
         aluno.setGenero(Genero.PREFIRO_NAO_INFORMAR);
-        aluno.setStatusAluno(AlunoMatriculado.CURSANDO);
+        aluno.setAlunoMatriculado(AlunoMatriculado.CURSANDO);
 
         alunoDAO.inserirAluno(aluno);
 

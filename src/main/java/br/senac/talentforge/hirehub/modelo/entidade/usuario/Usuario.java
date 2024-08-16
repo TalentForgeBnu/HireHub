@@ -2,24 +2,14 @@ package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 
-
 @Entity
 @Table(name = "usuario")
-public abstract class Usuario extends Endereco implements Serializable {
+public abstract class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,11 +18,14 @@ public abstract class Usuario extends Endereco implements Serializable {
     @Column(name = "id_usuario")
     private long id;
 
+    @Column(name = "nome_social", length = 20, nullable = true, unique = false)
+    private String nomeSocial;
+
     @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
     private String nomeUsuario;
 
     @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
-    private String sobrenome;
+    private String sobreNome;
 
     @Column(name = "data_nascimento", nullable = false, unique = true)
     private LocalDate dataNascimento;
@@ -40,83 +33,28 @@ public abstract class Usuario extends Endereco implements Serializable {
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
 
-    @Column(name = "genero")
-    private Genero genero;
-
-    @Column(name = "nome_social", length = 20, nullable = true, unique = false)
-    private String nomeSocial;
-
     @Column(name = "renda_familiar", nullable = false, unique = false)
     private float rendaFamiliar;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+    @Enumerated(EnumType.STRING)
+    private Genero genero;
 
-    public Usuario(String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, float rendaFamiliar, String logradouro, String bairro, String cidade, String estado, String cep, String celular, String telefone, String email) {
-        super(logradouro, bairro, cidade, estado, cep, celular, telefone, email);
-        setNome(nomeUsuario);
-        setSobrenome(sobrenome);
-        setDataNascimento(dataNascimento);
-        setCpf(cpf);
-        setGenero(genero);
-        setRendaFamiliar(rendaFamiliar);
-    }
+    public Usuario() {}
 
-    public Usuario() {
-
-    }
-
-    public Usuario(long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar) {
-        setNome(nomeUsuario);
-        setSobrenome(sobrenome);
-        setDataNascimento(dataNascimento);
-        setCpf(cpf);
-        setGenero(genero);
+    public Usuario(long id, String nomeSocial, String nomeUsuario, String sobreNome, LocalDate dataNascimento, String cpf, float rendaFamiliar, Endereco endereco, Genero genero) {
+        setId(id);
         setNomeSocial(nomeSocial);
+        setNomeUsuario(nomeUsuario);
+        setSobreNome(sobreNome);
+        setDataNascimento(dataNascimento);
+        setCpf(cpf);
         setRendaFamiliar(rendaFamiliar);
-    }
-
-    public String getNome() {
-        return nomeUsuario;
-    }
-
-    public void setNome(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        setEndereco(endereco);
+        setGenero(genero);
     }
 
     public Genero getGenero() {
@@ -127,12 +65,12 @@ public abstract class Usuario extends Endereco implements Serializable {
         this.genero = genero;
     }
 
-    public String getNomeSocial() {
-        return nomeSocial;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setNomeSocial(String nomeSocial) {
-        this.nomeSocial = nomeSocial;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public float getRendaFamiliar() {
@@ -141,6 +79,54 @@ public abstract class Usuario extends Endereco implements Serializable {
 
     public void setRendaFamiliar(float rendaFamiliar) {
         this.rendaFamiliar = rendaFamiliar;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getSobreNome() {
+        return sobreNome;
+    }
+
+    public void setSobreNome(String sobreNome) {
+        this.sobreNome = sobreNome;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
+
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 }
