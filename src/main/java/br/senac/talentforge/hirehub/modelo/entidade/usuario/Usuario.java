@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.genero.Genero;
+import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 
 
 @Entity

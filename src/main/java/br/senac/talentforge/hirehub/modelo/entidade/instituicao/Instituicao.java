@@ -1,23 +1,14 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import antlr.collections.List;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -106,16 +97,5 @@ public class Instituicao extends Usuario implements Serializable {
     public void removerAluno(List<Aluno> alunos) {
     	this.alunos.removeAll(alunos);
     }
-    
-    public long getId() {
-		return id;		
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-    
-    
-    
-    
+
 }	

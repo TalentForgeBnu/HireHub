@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
+import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
 
 
 @Entity
@@ -38,7 +39,7 @@ private static final long serialVersionUID = 1L;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> demandaVagas;
-	
+
 	public Empresa(String nomeEmpresa, String cnpj, List<Vaga> vaga) {
 		super();
 		setNomeEmpresa(nomeEmpresa);
@@ -47,7 +48,12 @@ private static final long serialVersionUID = 1L;
 		setId(id);
 	}
 
+	public void OfertarVagas(String nomeVaga, int codigoVaga, String descricao, ModalidadeContratacao modalidadeContratacao) {
+		Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, descricao, modalidadeContratacao);
+		this.demandaVagas.add(novaVaga);
+		System.out.println("Vaga adicionada: " + novaVaga);
 
+	}
 
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
@@ -72,14 +78,7 @@ private static final long serialVersionUID = 1L;
 	public void setVagas(List<Vaga> vagas) {
 		this.demandaVagas = vagas;
 	}
-	
-	public void OfertarVagas() {
-		Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, modalidadeContratacao);
-        this.demandaVagas.add(novaVaga);
-        System.out.println("Vaga adicionada: " + novaVaga);
 
-	}
-	
 	public void DeterminarDemanda() {
 		
 		int totalVagas = demandaVagas.size();
