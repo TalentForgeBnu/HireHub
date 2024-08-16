@@ -27,36 +27,38 @@ public class Aluno extends Usuario implements Serializable {
     private String dossie;
 
     @Enumerated(EnumType.STRING)
-    private AlunoMatriculado status;
+    private AlunoMatriculado alunoMatriculado;
 
     public Aluno() {
 
     }
 
-    public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado status, long idUsuario, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar) {
+    public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado alunoMatriculado, long idUsuario, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar) {
 
         super(idUsuario,nomeUsuario, sobrenome, dataNascimento, cpf, genero, nomeSocial, rendaFamiliar);
         setMatricula(matricula);
         setCodigoTurma(codigoTurma);
         setDossie(dossie);
-        setStatusAluno(status);
+        setAlunoMatriculado(alunoMatriculado);
 
     }
 
-    public String getMatricula() {
-        return matricula;
+    @Override
+    public long getId() {
+        return id;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getCodigoTurma() {
-        return codigoTurma;
+    public AlunoMatriculado getStatus() {
+        return alunoMatriculado;
     }
 
-    public void setCodigoTurma(String codigoTurma) {
-        this.codigoTurma = codigoTurma;
+    public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
+        this.alunoMatriculado = alunoMatriculado;
     }
 
     public String getDossie() {
@@ -67,19 +69,20 @@ public class Aluno extends Usuario implements Serializable {
         this.dossie = dossie;
     }
 
-    public AlunoMatriculado getStatus() {
-        return status;
+    public String getCodigoTurma() {
+        return codigoTurma;
     }
 
-    public void setStatusAluno(AlunoMatriculado status) {
-        this.status = status;
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
     }
 
-    public long getId() {
-        return id;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
+
 }
