@@ -26,7 +26,7 @@ public class Main {
         aluno.setCidade("Blumenau");
         aluno.setBairro("Aquele");
         aluno.setGenero(Genero.PREFIRO_NAO_INFORMAR);
-        aluno.setStatusAluno(AlunoMatriculado.CURSANDO);
+        aluno.setAlunoMatriculado(AlunoMatriculado.CURSANDO);
 
         alunoDAO.inserirAluno(aluno);
 
