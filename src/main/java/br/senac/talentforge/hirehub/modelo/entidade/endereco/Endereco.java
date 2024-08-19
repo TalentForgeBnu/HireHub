@@ -12,7 +12,6 @@ import javax.persistence.UniqueConstraint;
 
 import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
 
-//@Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro_endereco", "numero_endereco"})})//
 @Entity
 @Table(name = "endereco", uniqueConstraints = { @UniqueConstraint(columnNames = { "logradouro", "numero" }) })
 public class Endereco extends Contato implements Serializable {
