@@ -1,5 +1,6 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,6 +19,14 @@ import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
+import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
 
 
 @Entity

@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.oferta;
 
 import java.io.ObjectInputFilter.Status;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.EnumType;
@@ -12,17 +13,23 @@ import javax.persistence.ManyToOne;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
-public class Oferta {
+public class Oferta implements Serializable{
+	
+	private static final long serialversionUID = 1L;
 
 	@Column(name = "proposta", length  = 50, unique = false)
 	private String proposta;
+	
 	@Column(name = "resposta", length  = 50, unique = false)
 	private String resposta;
+	
 	@Enumerated(EnumType.STRING)
 	private Status andamentoOferta;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_vaga")
 	private Vaga vaga;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "curso")
 	private Curso curso;

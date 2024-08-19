@@ -3,34 +3,56 @@ package br.senac.talentforge.hirehub.modelo.entidade.turma;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
-public class Turma {
+@Entity
+@Table(name = "turma")
+public class Turma implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_turma")
-    private Long id;
+    @Column(name = "id_professor")
+    private long id;
 
-    @Column(name = "nome_turma", length = 50, nullable = false)
+    @Column(name = "nomeTurma", length = 30, nullable = false, unique = false)
     private String nomeTurma;
 
-    @Column(name = "codigo_turma", length = 50, nullable = false)
-    private String codigoTurma;
+    @Column(name = "horario")
+    private LocalDate horario;
 
-    @Column(name = "tamanho_turma")
-    private byte tamanhoTurma;
+    @Column(name = "codigo", length = 50, nullable = false, unique = false)
+    private String codigo;
 
-    @Column(name = "horario", nullable = false)
-    private LocalTime horario;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_turma")
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;
 
-    @Column(name = "dossie_turma", length = 300, nullable = true)
-    private String dossieTurma;
+    @Column(name = "tamanho")
+    private byte tamanho;
+
+    //Adicionar turno quando for criado.
+
+    public Turma(){
+    }
+
+    public Turma(long id, String nomeTurma, LocalDate horario, String codigo, List<Aluno> alunos){
+        setId(id);
+        setNomeTurma(nomeTurma);
+        setHorario(horario);
+        setCodigo(codigo);
+        setAlunos(alunos);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getNomeTurma() {
         return nomeTurma;
@@ -40,20 +62,20 @@ public class Turma {
         this.nomeTurma = nomeTurma;
     }
 
-    public LocalTime getHorario() {
+    public LocalDate getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalTime horario) {
+    public void setHorario(LocalDate horario) {
         this.horario = horario;
     }
 
-    public String getCodigoTurma() {
-        return codigoTurma;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoTurma(String codigoTurma) {
-        this.codigoTurma = codigoTurma;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public List<Aluno> getAlunos() {
@@ -64,19 +86,11 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    public byte getTamanhoTurma() {
-        return tamanhoTurma;
+    public byte getTamanho() {
+        return tamanho;
     }
 
-    public void setTamanhoTurma(byte tamanhoTurma) {
-        this.tamanhoTurma = tamanhoTurma;
-    }
-
-    public String getDossieTurma() {
-        return dossieTurma;
-    }
-
-    public void setDossieTurma(String dossieTurma) {
-        this.dossieTurma = dossieTurma;
+    public void setTamanho(byte tamanho) {
+        this.tamanho = tamanho;
     }
 }
