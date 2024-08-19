@@ -1,10 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 import javax.persistence.*;
 import java.io.Serializable;

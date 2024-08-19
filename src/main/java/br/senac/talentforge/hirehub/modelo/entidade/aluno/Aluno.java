@@ -1,5 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "aluno")
 public class Aluno extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,6 +24,14 @@ public class Aluno extends Usuario implements Serializable {
     @Column(name = "matricula", length = 30, nullable = false, unique = false)
     private String matricula;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_instituicao")
+    private Instituicao instituicao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_turma")
+    private Turma turma;
+
     @Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
     private String codigoTurma;
 
@@ -30,35 +42,48 @@ public class Aluno extends Usuario implements Serializable {
     private AlunoMatriculado alunoMatriculado;
 
     public Aluno() {
-
     }
 
-    public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado alunoMatriculado, long idUsuario, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String nomeSocial, float rendaFamiliar) {
-
-        super(idUsuario,nomeUsuario, sobrenome, dataNascimento, cpf, genero, nomeSocial, rendaFamiliar);
+    public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, String dossie, AlunoMatriculado alunoMatriculado){
+        setId(id);
         setMatricula(matricula);
+        setInstituicao(instituicao);
+        setTurma(turma);
         setCodigoTurma(codigoTurma);
         setDossie(dossie);
         setAlunoMatriculado(alunoMatriculado);
-
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    public AlunoMatriculado getStatus() {
-        return alunoMatriculado;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
-        this.alunoMatriculado = alunoMatriculado;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     public String getDossie() {
@@ -77,12 +102,12 @@ public class Aluno extends Usuario implements Serializable {
         this.codigoTurma = codigoTurma;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public AlunoMatriculado getAlunoMatriculado() {
+        return alunoMatriculado;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
+        this.alunoMatriculado = alunoMatriculado;
     }
 
 }
