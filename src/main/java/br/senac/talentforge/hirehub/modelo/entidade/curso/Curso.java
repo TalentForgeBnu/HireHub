@@ -4,7 +4,6 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
@@ -27,7 +26,7 @@ public class Curso implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_professor")
+	@Column(name = "id_curso")
 	private Long id;
 	
 	@Column(name = "nome_curso", length = 50, nullable = false, unique = true)
@@ -45,10 +44,10 @@ public class Curso implements Serializable {
 	@Column(name = "data_fim", nullable = false, unique = false)
     private LocalDate dataFim;
 	
-	@Column(name = "descricao_curso", length = 300, nullable = true, unique = false)
-    private String descricaoCurso;
+	@Column(name = "descricao", length = 300, nullable = true, unique = false)
+    private String descricao;
     
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_professor")
 	private Professor professor;
 	
@@ -57,21 +56,21 @@ public class Curso implements Serializable {
 		
 	}
 	
-  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, AndamentoCurso andamentoCurso) {
+  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
     	this.dataFim = dataFim;
-    	this.descricaoCurso = descricaoCurso;
+    	this.descricao = descricao;
     	this.andamentoCurso = andamentoCurso;
     }
     
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, Professor professor, AndamentoCurso andamentoCurso) {
+    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, Professor professor, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
     	this.dataFim = dataFim;
-    	this.descricaoCurso = descricaoCurso;
+    	this.descricao = descricao;
     	this.professor = professor;
     	this.andamentoCurso = andamentoCurso;
     }
@@ -100,12 +99,12 @@ public class Curso implements Serializable {
         this.nomeCurso = nomeCurso;
     }
     
-    public String getDescricaoCurso() {
-    	return descricaoCurso;
+    public String getDescricao() {
+    	return descricao;
     }
     
-    public void setDescricaoCurso(String descricaoCurso) {
-    	this.descricaoCurso = descricaoCurso;
+    public void setDescricao(String descricaoCurso) {
+    	this.descricao = descricaoCurso;
     }
 
     public String getAreaDeAtuacao() {

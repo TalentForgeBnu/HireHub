@@ -109,4 +109,5 @@ public class Aluno extends Usuario implements Serializable {
     public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
         this.alunoMatriculado = alunoMatriculado;
     }
+
 }
