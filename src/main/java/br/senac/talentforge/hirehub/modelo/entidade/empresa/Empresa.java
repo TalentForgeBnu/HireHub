@@ -14,15 +14,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
 
 
 @Entity
 @Table(name = "empresa")
-public class Empresa extends Usuario implements Serializable {
-	
-	
+public class Empresa implements Serializable {
+		
 private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -38,17 +40,20 @@ private static final long serialVersionUID = 1L;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> demandaVagas;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Oferta> ofertas;
 
-	public Empresa(String nomeEmpresa, String cnpj, List<Vaga> vaga) {
-		super();
+	public Empresa(String nomeEmpresa, String cnpj) {
 		setNomeEmpresa(nomeEmpresa);
-		setCnpj(cnpj);
-		this.demandaVagas = new ArrayList<>();
 		setId(id);
+		this.demandaVagas = new ArrayList<>();
+		this.ofertas = new ArrayList<>();
+		
 	}
 
-	public void OfertarVagas(String nomeVaga, int codigoVaga, String descricao, ModalidadeContratacao modalidadeContratacao) {
-		Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, descricao, modalidadeContratacao);
+	public void OfertarVagas(String nomeVaga, int codigoVaga, String descricao, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga ) {
+		Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, descricao, modalidadeContratacao, situacaoVaga);
 		this.demandaVagas.add(novaVaga);
 		System.out.println("Vaga adicionada: " + novaVaga);
 
@@ -74,10 +79,18 @@ private static final long serialVersionUID = 1L;
 		return demandaVagas;
 	}
 
-	public void setVagas(List<Vaga> vagas) {
-		this.demandaVagas = vagas;
+	public void setVagas(Vaga vaga){	
+	        demandaVagas.add(vaga);
+	}
+	
+	public List<Oferta> getOferta() {
+		return ofertas;
 	}
 
+	public void setOfertas(Oferta oferta){	
+	        ofertas.add(oferta);
+	}
+		
 	public void DeterminarDemanda() {
 		
 		int totalVagas = demandaVagas.size();
