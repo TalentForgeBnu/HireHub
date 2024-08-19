@@ -2,10 +2,21 @@ package br.senac.talentforge.hirehub.modelo.entidade.vaga;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
 
 @Entity
 @Table(name = "vaga")
@@ -24,24 +35,27 @@ public class Vaga implements Serializable {
     @Column(name = "descricao_vaga", length = 50, nullable = false, unique = false)
     private String descricaoVaga;
 
+    @Enumerated(EnumType.STRING)
+    private ModalidadeContratacao modalidadeContratacao;
+    
+    @Enumerated(EnumType.STRING)
+    private SituacaoVaga situacaoVaga;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
-    @Enumerated(EnumType.STRING)
-    private ModalidadeContratacao modalidadeContratacao;
+    public Vaga(){
 
-    public Vaga(String nomeVaga, int codigoVaga, String descricaoVaga, ModalidadeContratacao modalidadeContratacao) {
+    }
+    
+    public Vaga(String nomeVaga, int codigoVaga, String descricaoVaga, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga) {
 
         setNomeVaga(nomeVaga);
         setCodigoVaga(codigoVaga);
         setDescricaoVaga(descricaoVaga);
         setModalidadeContratacao(modalidadeContratacao);
-
-    }
-
-    public Vaga(){
-
+        setSituacaoVaga(situacaoVaga);
     }
 
     public String getNomeVaga() {
@@ -82,6 +96,14 @@ public class Vaga implements Serializable {
 
     public void setModalidadeContratacao(ModalidadeContratacao modalidadeContratacao) {
         this.modalidadeContratacao = modalidadeContratacao;
+    }
+    
+    public SituacaoVaga getSituacaoVaga() {
+        return situacaoVaga;
+    }
+
+    public void setSituacaoVaga(SituacaoVaga situacaoVaga ) {
+        this.situacaoVaga = situacaoVaga;
     }
 
 }

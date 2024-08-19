@@ -1,19 +1,28 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
 
 @Entity
 @Table(name = "instituicao")
-public class Instituicao extends Usuario implements Serializable {
+public class Instituicao implements Serializable {
 
   private static final long serialVersionUID = 1L;
   
@@ -30,8 +39,15 @@ public class Instituicao extends Usuario implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
     
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Turma> turma;
+	
+	private ApontamentDossie dossie;
+	
     public Instituicao() {
     	
     }
@@ -78,8 +94,8 @@ public class Instituicao extends Usuario implements Serializable {
     	return alunos;
     }
     
-    public void setAlunos(List<Aluno> Alunos) {
-    	this.alunos = alunos;
+    public void setAlunos(Aluno aluno) {
+    	alunos.add(aluno);
     }
     
     public void atualizarProfessor(List<Professor> professores) {
@@ -96,6 +112,14 @@ public class Instituicao extends Usuario implements Serializable {
     
     public void removerAluno(List<Aluno> alunos) {
     	this.alunos.removeAll(alunos);
+    }
+    
+    public ApontamentoDossie getApontamentoDossie() {
+    	return dossie;
+    }
+    
+    public void setApontamentoDossie(ApontamentoDossie dossie) {
+    	this.dossie = dossie;
     }
 
 }	
