@@ -10,11 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
-
 @Entity
 @Table(name = "endereco", uniqueConstraints = { @UniqueConstraint(columnNames = { "logradouro", "numero" }) })
-public class Endereco extends Contato implements Serializable {
+public class Endereco implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -56,7 +54,7 @@ public class Endereco extends Contato implements Serializable {
 	}
 	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, String celular, String telefone, String email) {
 		
-		super(celular, telefone, email);
+		super();
 		this.logradouro = logradouro;
 		this.bairro = bairro;
 		this.cidade = cidade;

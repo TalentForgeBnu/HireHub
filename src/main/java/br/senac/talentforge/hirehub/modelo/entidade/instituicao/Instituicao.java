@@ -20,14 +20,6 @@ import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
-
-
 
 @Entity
 @Table(name = "instituicao")
@@ -39,7 +31,9 @@ public class Instituicao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_instituicao")
 	private long id;
-	
+
+    //Não precisa de nome ???
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Curso> cursos;
 	
@@ -55,7 +49,7 @@ public class Instituicao implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Turma> turma;
 	
-	private ApontamentDossie dossie;
+    //	private ApontamentDossie dossie;
 	
     public Instituicao() {
     	
@@ -115,14 +109,23 @@ public class Instituicao implements Serializable {
     	this.professores.removeAll(professores);
     }
     
-    public void atualizarAluno(List<Aluno> alunos) {
-    	setAlunos(alunos);
-    }
-    
     public void removerAluno(List<Aluno> alunos) {
     	this.alunos.removeAll(alunos);
     }
-    
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public List<Turma> getTurma() {
+        return turma;
+    }
+
+    public void setTurma(List<Turma> turma) {
+        this.turma = turma;
+    }
+
+    /*
     public ApontamentoDossie getApontamentoDossie() {
     	return dossie;
     }
@@ -130,5 +133,5 @@ public class Instituicao implements Serializable {
     public void setApontamentoDossie(ApontamentoDossie dossie) {
     	this.dossie = dossie;
     }
-
+*/
 }	

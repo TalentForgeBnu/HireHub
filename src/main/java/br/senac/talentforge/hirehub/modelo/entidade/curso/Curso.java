@@ -13,9 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 
 @Entity
@@ -47,9 +48,9 @@ public class Curso implements Serializable {
 	@Column(name = "descricao", length = 300, nullable = true, unique = false)
     private String descricao;
     
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_professor")
-	private Professor professor;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_instituica")
+	private Instituicao instituicao;
 	
 	
 	public Curso() {
@@ -65,13 +66,13 @@ public class Curso implements Serializable {
     	this.andamentoCurso = andamentoCurso;
     }
     
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, Professor professor, AndamentoCurso andamentoCurso) {
+    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, Instituicao instituica, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
     	this.dataFim = dataFim;
     	this.descricao = descricao;
-    	this.professor = professor;
+    	this.instituicao = instituica;
     	this.andamentoCurso = andamentoCurso;
     }
     
@@ -123,12 +124,12 @@ public class Curso implements Serializable {
         this.andamentoCurso = andamentoCurso;
     }
     
-    public Professor getProfessor() {
-    	return professor;
+    public Instituicao getInsituicao() {
+    	return instituicao;
     }
     
-    public void setProfessor(Professor professor) {
-    	this.professor = professor;
+    public void setInsituicao(Instituicao instituicao) {
+    	this.instituicao = instituicao;
     }
     
     public long getId() {

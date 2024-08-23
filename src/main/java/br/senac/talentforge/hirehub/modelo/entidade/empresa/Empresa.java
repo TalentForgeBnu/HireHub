@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,10 +37,10 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "cnpj", length = 14, nullable = false, unique = false)
 	private String cnpj;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> demandaVagas;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Oferta> ofertas;
 
 	public Empresa(String nomeEmpresa, String cnpj) {
@@ -82,7 +81,7 @@ private static final long serialVersionUID = 1L;
 	public void setVagas(Vaga vaga){	
 	        demandaVagas.add(vaga);
 	}
-	
+
 	public List<Oferta> getOferta() {
 		return ofertas;
 	}
