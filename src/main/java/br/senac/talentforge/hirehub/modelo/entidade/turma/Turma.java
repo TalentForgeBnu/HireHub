@@ -1,6 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.turma;
 
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +17,7 @@ public class Turma implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_professor")
+    @Column(name = "id_turma")
     private long id;
 
     @Column(name = "nomeTurma", length = 30, nullable = false, unique = false)
@@ -33,6 +35,13 @@ public class Turma implements Serializable {
     @Column(name = "tamanho")
     private byte tamanho;
 
+    @ManyToOne
+    @JoinColumn(name = "id_professor", nullable = false)
+    private Professor professor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_instituicao", nullable = false)
+    private Instituicao instituicao;
     //Adicionar turno quando for criado.
 
     public Turma(){
@@ -92,5 +101,21 @@ public class Turma implements Serializable {
 
     public void setTamanho(byte tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 }

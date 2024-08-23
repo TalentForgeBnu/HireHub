@@ -4,22 +4,15 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
-import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "aluno")
 public class Aluno extends Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_aluno")
-    private long id;
+	private static final long serialVersionUID = 1L;
 
     @Column(name = "matricula", length = 30, nullable = false, unique = false)
     private String matricula;

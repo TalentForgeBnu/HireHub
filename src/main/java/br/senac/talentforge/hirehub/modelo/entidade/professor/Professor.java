@@ -1,5 +1,6 @@
 package br.senac.talentforge.hirehub.modelo.entidade.professor;
 
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
@@ -13,35 +14,32 @@ public class Professor extends Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_professor")
-    private long id;
-
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turma> turmas;
-    private Turma turma;
+
+    @ManyToOne
+    @JoinColumn(name = "id_instituicao", nullable = false)
+    private Instituicao instituicao;
 
     @Column(name = "materia", length = 30, nullable = false, unique = false)
     private String materia;
 
     //Adicionar Lista de Dosie;
 
+
     public Professor() {
-    }
-
-    public Professor(long id, List<Turma> turmas, String materia) {
-        setId(id);
-        setTurmas(turmas);
-        setMateria(materia);
-    }
-
-    public long getId() {
-        return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
     }
 
     public List<Turma> getTurmas() {
@@ -52,19 +50,11 @@ public class Professor extends Usuario implements Serializable {
         this.turmas = turmas;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public Instituicao getInstituicao() {
+        return instituicao;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
-    public String getMateria() {
-        return materia;
-    }
-
-    public void setMateria(String materia) {
-        this.materia = materia;
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
     }
 }
