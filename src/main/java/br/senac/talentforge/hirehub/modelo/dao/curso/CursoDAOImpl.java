@@ -8,6 +8,10 @@ public class CursoDAOImpl implements CursoDAO{
 
     private ConexaoFactory fabrica;
 
+    public CursoDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+    
     public void inserirCurso(Curso curso) {
         Session sessao = null;
         try {

@@ -1,34 +1,23 @@
 package br.senac.talentforge.hirehub.modelo;
 
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
-import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
-
 import java.time.LocalDate;
+
+import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 
 public class Main {
     public static void main(String[] args) {
 
-        AlunoDAO alunoDAO = new AlunoDAOImpl();
+        InstituicaoDAO instituicaoDAO = new InstituicaoDAOImpl();
 
-        Aluno aluno = new Aluno();
-
+        Instituicao instituicao = new Instituicao();
+        
         LocalDate date = LocalDate.now();
-
-        aluno.setNome("Thomas");
-        aluno.setSobrenome("Sim");
-        aluno.setEmail("Thomas@Test.com");
-        aluno.setCelular("47 99999-0000");
-        aluno.setDataNascimento(date);
-        aluno.setEstado("Santa Catarina");
-        aluno.setCidade("Blumenau");
-        aluno.setBairro("Aquele");
-        aluno.setGenero(Genero.PREFIRO_NAO_INFORMAR);
-        aluno.setAlunoMatriculado(AlunoMatriculado.CURSANDO);
-
-        alunoDAO.inserirAluno(aluno);
-
+        
+        instituicaoDAO.inserirInstituicao(instituicao);
+        
+        
         System.out.println("Teste DAO");
     }
 }

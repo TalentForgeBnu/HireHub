@@ -7,13 +7,17 @@ import org.hibernate.Session;
 public class ProfessorDAOImpl implements ProfessorDAO {
 
     private ConexaoFactory fabrica;
+    
+    public ProfessorDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public void inserirProfessor(Professor professor) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(professor);
+            sessao.save(professor);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);

@@ -34,19 +34,19 @@ public class Instituicao implements Serializable {
 
     //Não precisa de nome ???
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Curso> cursos;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Professor> professores;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
     
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Turma> turma;
 	
     //	private ApontamentDossie dossie;
