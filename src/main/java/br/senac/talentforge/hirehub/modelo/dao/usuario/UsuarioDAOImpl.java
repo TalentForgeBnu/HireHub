@@ -13,12 +13,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
     private ConexaoFactory fabrica;
 
+    public UsuarioDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+    
     public void inserirUsuario(Usuario usuario) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(usuario);
+            sessao.save(usuario);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);

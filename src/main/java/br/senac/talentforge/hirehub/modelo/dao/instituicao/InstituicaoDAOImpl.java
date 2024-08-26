@@ -8,6 +8,10 @@ public class InstituicaoDAOImpl implements InstituicaoDAO{
 
     private ConexaoFactory fabrica;
 
+    public InstituicaoDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+    
     public void inserirInstituicao(Instituicao instituicao) {
         Session sessao = null;
         try {

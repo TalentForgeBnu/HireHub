@@ -8,12 +8,16 @@ public class OfertaDAOImpl implements OfertaDAO{
 
     private ConexaoFactory fabrica;
 
+    public OfertaDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+    
     public void inserirOferta(Oferta oferta) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(oferta);
+            sessao.save(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
