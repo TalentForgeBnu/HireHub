@@ -49,7 +49,7 @@ public class Curso implements Serializable {
     private String descricao;
     
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_instituica")
+	@JoinColumn(name = "id_instituicao")
 	private Instituicao instituicao;
 	
 	

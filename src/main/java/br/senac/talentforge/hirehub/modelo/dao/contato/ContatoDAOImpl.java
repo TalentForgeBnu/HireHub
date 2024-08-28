@@ -7,6 +7,10 @@ import org.hibernate.Session;
 public class ContatoDAOImpl implements ContatoDAO{
 
     private ConexaoFactory fabrica;
+    
+    public ContatoDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public void inserirContato(Contato contato) {
         Session sessao = null;

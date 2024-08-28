@@ -24,10 +24,10 @@ public abstract class Usuario implements Serializable {
     protected String nomeSocial;
 
     @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
-    protected String primerioNome;
+    protected String nome;
 
     @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
-    protected String sobreNome;
+    protected String sobrenome;
 
     @Column(name = "data_nascimento", nullable = false, unique = true)
     protected LocalDate dataNascimento;
@@ -47,11 +47,11 @@ public abstract class Usuario implements Serializable {
 
     public Usuario() {}
 
-    public Usuario(long id, String nomeSocial, String primerioNome, String sobreNome, LocalDate dataNascimento, String cpf, float rendaFamiliar, Endereco endereco, Genero genero) {
+    public Usuario(long id, String nomeSocial, String nome, String sobrenome, LocalDate dataNascimento, String cpf, float rendaFamiliar, Endereco endereco, Genero genero) {
         setId(id);
         setNomeSocial(nomeSocial);
-        setPrimerioNome(primerioNome);
-        setSobreNome(sobreNome);
+		setnome(nome);
+        setsobrenome(sobrenome);
         setDataNascimento(dataNascimento);
         setCpf(cpf);
         setRendaFamiliar(rendaFamiliar);
@@ -59,12 +59,12 @@ public abstract class Usuario implements Serializable {
         setGenero(genero);
     }
 
-    public String getPrimerioNome() {
-        return primerioNome;
+    public String getnome() {
+        return nome;
     }
 
-    public void setPrimerioNome(String primerioNome) {
-        this.primerioNome = primerioNome;
+    public void setnome(String nome) {
+        this.nome = nome;
     }
 
     public Genero getGenero() {
@@ -107,12 +107,12 @@ public abstract class Usuario implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getSobreNome() {
-        return sobreNome;
+    public String getsobrenome() {
+        return sobrenome;
     }
 
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
+    public void setsobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public String getNomeSocial() {
