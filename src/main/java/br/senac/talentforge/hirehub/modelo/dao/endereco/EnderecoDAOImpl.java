@@ -7,6 +7,10 @@ import org.hibernate.Session;
 public class EnderecoDAOImpl implements EnderecoDAO{
 
     private ConexaoFactory fabrica;
+    
+    public EnderecoDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public void inserirEndereco(Endereco endereco) {
         Session sessao = null;
