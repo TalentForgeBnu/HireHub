@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+
 @Entity
 @Table(name = "apontamento")
 public class Apontamento implements Serializable {
