@@ -1,5 +1,6 @@
 package br.senac.talentforge.hirehub.modelo.dao.professor;
 
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
@@ -12,8 +13,13 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         fabrica = new ConexaoFactory();
     }
 
+    public ProfessorDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+
     public void inserirProfessor(Professor professor) {
         Session sessao = null;
+        Endereco endereco = professor.getEndereco();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();

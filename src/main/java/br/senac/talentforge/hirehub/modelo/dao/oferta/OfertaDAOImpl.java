@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.dao.oferta;
 
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
@@ -11,12 +12,17 @@ public class OfertaDAOImpl implements OfertaDAO{
     public OfertaDAOImpl() {
         fabrica = new ConexaoFactory();
     }
-    
+  
     public void inserirOferta(Oferta oferta) {
         Session sessao = null;
+        Vaga vaga = oferta.getVaga();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
+
+            if(vaga != null){
+                sessao.save(vaga);
+            }
             sessao.save(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
@@ -24,15 +23,9 @@ public class AlunoDAOImpl implements AlunoDAO {
 
     public void inserirAluno(Aluno aluno) {
         Session sessao = null;
-        Endereco endereco = aluno.getEndereco();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-
-            if (endereco != null) {
-                sessao.save(endereco);
-            }
-
             sessao.save(aluno);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
@@ -92,11 +85,8 @@ public class AlunoDAOImpl implements AlunoDAO {
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
             Root<Aluno> raizAluno = criteria.from(Aluno.class);
-
-            raizAluno.fetch(Aluno_.endereco, JoinType.LEFT);
-
+            criteria.select(raizAluno);
             alunos = sessao.createQuery(criteria).getResultList();
-
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -104,6 +94,27 @@ public class AlunoDAOImpl implements AlunoDAO {
             fecharSessao(sessao);
         }
         return alunos;
+    }
+
+    public Aluno recuperarAluno(String cpf) {
+        ConexaoFactory fabrica = new ConexaoFactory();
+        Session sessao = null;
+        Aluno alunoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
+            Root<Aluno> raizAluno = criteria.from(Aluno.class);
+            criteria.select(raizAluno).where(construtor.equal(raizAluno.get(Aluno_.CPF), cpf));
+            alunoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return alunoRecuperado;
     }
 
     private void erroSessao(Session sessao, Exception exception) {
