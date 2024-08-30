@@ -19,10 +19,6 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public EnderecoDAOImpl() {
-        fabrica = new ConexaoFactory();
-    }
-
     public void inserirEndereco(Endereco endereco) {
         Session sessao = null;
         try {

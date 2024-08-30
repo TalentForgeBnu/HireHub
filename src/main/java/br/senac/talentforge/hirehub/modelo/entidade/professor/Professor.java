@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.professor;
 
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "professor")
-public class Professor extends Usuario implements Serializable {
+public class Professor extends PessoaFisica implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,22 +24,7 @@ public class Professor extends Usuario implements Serializable {
     @Column(name = "materia", length = 30, nullable = false, unique = false)
     private String materia;
 
-    //Adicionar Lista de Dosie;
-
-
     public Professor() {
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getMateria() {
-        return materia;
-    }
-
-    public void setMateria(String materia) {
-        this.materia = materia;
     }
 
     public List<Turma> getTurmas() {
@@ -56,5 +41,13 @@ public class Professor extends Usuario implements Serializable {
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
     }
 }
