@@ -8,13 +8,16 @@ public class VagaDAOImpl implements VagaDAO{
 
     private ConexaoFactory fabrica;
 
+    public VagaDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public void inserirVaga(Vaga vaga) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(vaga);
+            sessao.save(vaga);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);

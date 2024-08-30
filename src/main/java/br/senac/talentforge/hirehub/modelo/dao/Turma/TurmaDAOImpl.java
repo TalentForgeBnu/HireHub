@@ -1,37 +1,28 @@
-package br.senac.talentforge.hirehub.modelo.dao.instituicao;
+package br.senac.talentforge.hirehub.modelo.dao.Turma;
 
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
-public class InstituicaoDAOImpl implements InstituicaoDAO{
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+public class TurmaDAOImpl implements TurmaDAO {
 
     private ConexaoFactory fabrica;
 
-    public InstituicaoDAOImpl() {
+    public TurmaDAOImpl() {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirInstituicao(Instituicao instituicao) {
+    public void inserirTurma(Turma turma) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.save(instituicao);
-            sessao.getTransaction().commit();
-        } catch (Exception sqlException) {
-            erroSessao(sessao, sqlException);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void deletarInstituicao(Instituicao instituicao) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.delete(instituicao);
+            sessao.save(turma);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -40,18 +31,53 @@ public class InstituicaoDAOImpl implements InstituicaoDAO{
         }
     }
 
-    public void atualizarInstituicao(Instituicao instituicao) {
+    public void deletarTurma(Turma turma) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.update(instituicao);
+            sessao.delete(turma);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
+    }
+
+    public void atualizarTurma(Turma turma) {
+        Session sessao = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            sessao.update(turma);
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+    }
+
+    public List<Turma> recuperarTurmas() {
+        Session sessao = null;
+        List<Turma> turmas = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
+            Root<Turma> raizAluno = criteria.from(Turma.class);
+            criteria.select(raizAluno);
+            turmas = sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return turmas;
     }
 
     private void erroSessao(Session sessao, Exception exception) {
