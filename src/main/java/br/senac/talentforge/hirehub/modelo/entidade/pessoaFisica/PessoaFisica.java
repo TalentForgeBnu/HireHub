@@ -1,4 +1,4 @@
-package br.senac.talentforge.hirehub.modelo.entidade.PessoaFisica;
+package br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica;
 
 import java.io.Serializable;
 
@@ -6,9 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
@@ -20,13 +17,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 @Table(name = "pessoafisica")
 public class PessoaFisica extends Usuario implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_pessoa_fisica")
-    private long codigoPessoaFisica;
 	
 	@Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
@@ -49,24 +40,14 @@ public class PessoaFisica extends Usuario implements Serializable {
 	}
 
 
-	public PessoaFisica(long codigoPessoaFisica, String cpf, String nomeSocial, float rendaFamiliar, Etnia etnia,
+	public PessoaFisica(String cpf, String nomeSocial, float rendaFamiliar, Etnia etnia,
 			Genero genero) {
-		this.codigoPessoaFisica = codigoPessoaFisica;
 		this.cpf = cpf;
 		this.nomeSocial = nomeSocial;
 		this.rendaFamiliar = rendaFamiliar;
 		this.etnia = etnia;
 		this.genero = genero;
 	}
-	
-	
-	public long getCodigoPessoaFisica() {
-        return codigoPessoaFisica;
-    }
-
-    public void setCodigoPessoaFisica(long codigoPessoaFisica) {
-        this.codigoPessoaFisica= codigoPessoaFisica;
-    }
     
     public String getCpf() {
         return cpf;
