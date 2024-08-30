@@ -1,7 +1,6 @@
-package br.senac.talentforge.hirehub.modelo.dao.aluno;
+package br.senac.talentforge.hirehub.modelo.dao.dossie;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
+import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
@@ -10,20 +9,20 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class AlunoDAOImpl implements AlunoDAO {
+public class DossieDAOImpl implements DossieDAO {
 
     private final ConexaoFactory fabrica;
 
-    public AlunoDAOImpl() {
+    public DossieDAOImpl() {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirAluno(Aluno aluno) {
+    public void inserirDossie(Dossie dossie) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.save(aluno);
+            sessao.save(dossie);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -32,12 +31,12 @@ public class AlunoDAOImpl implements AlunoDAO {
         }
     }
 
-    public void deletarAluno(Aluno aluno) {
+    public void deletarDossie(Dossie dossie) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(aluno);
+            sessao.delete(dossie);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -46,12 +45,12 @@ public class AlunoDAOImpl implements AlunoDAO {
         }
     }
 
-    public void atualizarAluno(Aluno aluno) {
+    public void atualizarDossie(Dossie dossie) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.update(aluno);
+            sessao.update(dossie);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -60,45 +59,24 @@ public class AlunoDAOImpl implements AlunoDAO {
         }
     }
 
-    public List<Aluno> recuperarAluno() {
+    public List<Dossie> recuperarDossies() {
         Session sessao = null;
-        List<Aluno> alunos = null;
+        List<Dossie> dossies = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
-            Root<Aluno> raizAluno = criteria.from(Aluno.class);
-            criteria.select(raizAluno);
-            alunos = sessao.createQuery(criteria).getResultList();
+            CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
+            Root<Dossie> raizDossie = criteria.from(Dossie.class);
+            criteria.select(raizDossie);
+            dossies = sessao.createQuery(criteria).getResultList();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-        return alunos;
-    }
-
-    public Aluno recuperarAluno(String cpf) {
-        ConexaoFactory fabrica = new ConexaoFactory();
-        Session sessao = null;
-        Aluno alunoRecuperado = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
-            Root<Aluno> raizAluno = criteria.from(Aluno.class);
-            criteria.select(raizAluno).where(construtor.equal(raizAluno.get(Aluno_.CPF), cpf));
-            alunoRecuperado = sessao.createQuery(criteria).getSingleResult();
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-        return alunoRecuperado;
+        return dossies;
     }
 
     private void erroSessao(Session sessao, Exception exception) {
