@@ -43,6 +43,10 @@ private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Oferta> ofertas;
 
+	public Empresa() {
+		
+	}
+	
 	public Empresa(String nomeEmpresa, String cnpj) {
 		setNomeEmpresa(nomeEmpresa);
 		setId(id);

@@ -14,6 +14,10 @@ import javax.persistence.criteria.Root;
 public class EnderecoDAOImpl implements EnderecoDAO {
 
     private ConexaoFactory fabrica;
+    
+    public EnderecoDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public EnderecoDAOImpl() {
         fabrica = new ConexaoFactory();

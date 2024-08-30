@@ -12,7 +12,7 @@ public class OfertaDAOImpl implements OfertaDAO{
     public OfertaDAOImpl() {
         fabrica = new ConexaoFactory();
     }
-
+  
     public void inserirOferta(Oferta oferta) {
         Session sessao = null;
         Vaga vaga = oferta.getVaga();
@@ -23,7 +23,6 @@ public class OfertaDAOImpl implements OfertaDAO{
             if(vaga != null){
                 sessao.save(vaga);
             }
-
             sessao.save(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {

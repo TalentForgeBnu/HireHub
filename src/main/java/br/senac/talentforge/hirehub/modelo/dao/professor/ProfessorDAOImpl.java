@@ -8,6 +8,10 @@ import org.hibernate.Session;
 public class ProfessorDAOImpl implements ProfessorDAO {
 
     private ConexaoFactory fabrica;
+    
+    public ProfessorDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
 
     public ProfessorDAOImpl() {
         fabrica = new ConexaoFactory();
