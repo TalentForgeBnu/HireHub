@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +23,20 @@ public class PessoaFisica extends Usuario implements Serializable {
 	@Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
 	
-	@Column(name = "nome_social", length = 50, nullable = false, unique = true)
-    private String nomeSocial;
-	
-	@Column(name = "renda_familiar", nullable = false, unique = false)
-    private float rendaFamiliar;
+	 @Column(name = "nome_social", length = 20, nullable = true, unique = false)
+	    private String nomeSocial;
+
+	    @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
+	    private String nome;
+
+	    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
+	    private String sobrenome;
+
+	    @Column(name = "data_nascimento", nullable = false, unique = true)
+	    private LocalDate dataNascimento;
+
+	    @Column(name = "renda_familiar", nullable = false, unique = false)
+	    private float rendaFamiliar;
 	
 	@Enumerated(EnumType.STRING)
     private Etnia etnia;
@@ -40,13 +50,15 @@ public class PessoaFisica extends Usuario implements Serializable {
 	}
 
 
-	public PessoaFisica(String cpf, String nomeSocial, float rendaFamiliar, Etnia etnia,
-			Genero genero) {
-		this.cpf = cpf;
-		this.nomeSocial = nomeSocial;
-		this.rendaFamiliar = rendaFamiliar;
-		this.etnia = etnia;
-		this.genero = genero;
+	public PessoaFisica(String cpf, String nomeSocial, String nome, String sobrenome,LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Genero genero) {
+		setCpf(cpf);
+		setNomeSocial(nomeSocial);
+		setNome(nome);
+		setSobrenome(sobrenome);
+		setDataNascimento(dataNascimento);
+		setRendaFamiliar(rendaFamiliar);
+		setEtnia(etnia);
+		setGenero(genero);		
 	}
     
     public String getCpf() {
@@ -63,6 +75,22 @@ public class PessoaFisica extends Usuario implements Serializable {
 
     public void setNomeSocial(String nomeSocial) {
         this.nomeSocial = nomeSocial;
+    }
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
     
     public float getRendaFamiliar() {
@@ -87,6 +115,17 @@ public class PessoaFisica extends Usuario implements Serializable {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+    
+
+    
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
     
 }
