@@ -25,7 +25,7 @@ public class PessoaJuridica extends Usuario implements Serializable {
 	@Column(name = "nome_empresa", length = 20, nullable = false, unique = false)
     private String nomeEmpresa;
 	
-	@Column(name = "data_fundacao", nullable = false, unique = true)
+	@Column(name = "data_fundacao", nullable = false, unique = false)
 	private LocalDate dataFundacao;
 	
 	@Column(name = "descricao", length = 300, nullable = false, unique = false)
@@ -67,5 +67,12 @@ public class PessoaJuridica extends Usuario implements Serializable {
 
 	public void setDataFundacao(LocalDate dataFundacao) {
 		this.dataFundacao = dataFundacao;
+	}
+
+	public String getDescricao(){
+		return descricao;
+	}
+	public void setDescricao(String descricao){
+		this.descricao = descricao;
 	}
 }
