@@ -32,7 +32,7 @@ public class PessoaFisica extends Usuario implements Serializable {
 	    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
 	    private String sobrenome;
 
-	    @Column(name = "data_nascimento", nullable = false, unique = true)
+	    @Column(name = "data_nascimento", nullable = false, unique = false)
 	    private LocalDate dataNascimento;
 
 	    @Column(name = "renda_familiar", nullable = false, unique = false)
