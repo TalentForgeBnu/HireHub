@@ -22,6 +22,8 @@ public class ConexaoFactory {
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.turma.Turma.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga.class);
+        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento.class);
+        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie.class);
 
         configuracao.configure("hibernate.cfg.xml");
 

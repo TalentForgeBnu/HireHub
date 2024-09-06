@@ -20,5 +20,7 @@
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.turma.Turma"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento"/>
 	</session-factory>
 </hibernate-configuration>
