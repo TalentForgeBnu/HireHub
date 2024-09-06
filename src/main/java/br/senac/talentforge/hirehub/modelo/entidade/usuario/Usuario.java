@@ -1,7 +1,10 @@
 package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 
+import java.io.Serializable;
+import javax.persistence.*;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -18,25 +21,23 @@ public abstract class Usuario implements Serializable {
     @Column(name = "id_usuario")
     protected long id;
 
-    @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
-    protected String nome;
+    
+    @Column(name = "senha", length = 20, nullable = false, unique = false)
+    private String senha;
 
-    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
-    protected String sobreNome;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
     protected Endereco endereco;
 
-    public Usuario() {
-    }
 
-    public Usuario(long id, String nome, String sobreNome, Endereco endereco) {
-        setId(id);
-        setNome(nome);
-        setSobreNome(sobreNome);
+    public Usuario() {}
+
+    public Usuario(long id, String senha, Endereco endereco) {
+        setId(id);       
+        setSenha(senha);
         setEndereco(endereco);
-    }
+
 
     public long getId() {
         return id;
@@ -45,22 +46,13 @@ public abstract class Usuario implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getNome() {
-        return nome;
+    
+    public String getSenha() {
+    	return senha;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobreNome() {
-        return sobreNome;
-    }
-
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
-    }
+    
+    public void setSenha(String senha) {
+    	this.senha = senha;
 
     public Endereco getEndereco() {
         return endereco;
