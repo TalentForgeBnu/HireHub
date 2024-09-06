@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.turma;
 
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 
@@ -43,16 +44,20 @@ public class Turma implements Serializable {
     @JoinColumn(name = "id_instituicao", nullable = false)
     private Instituicao instituicao;
     //Adicionar turno quando for criado.
+    @ManyToOne
+    @JoinColumn(name = "id_curso", nullable = false)
+    private Curso curso;
 
     public Turma(){
     }
 
-    public Turma(long id, String nomeTurma, LocalDate horario, String codigo, List<Aluno> alunos){
+    public Turma(long id, String nomeTurma, LocalDate horario, String codigo, List<Aluno> alunos, Curso curso){
         setId(id);
         setNomeTurma(nomeTurma);
         setHorario(horario);
         setCodigo(codigo);
         setAlunos(alunos);
+        setCurso(curso);
     }
 
     public long getId() {
@@ -117,5 +122,13 @@ public class Turma implements Serializable {
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

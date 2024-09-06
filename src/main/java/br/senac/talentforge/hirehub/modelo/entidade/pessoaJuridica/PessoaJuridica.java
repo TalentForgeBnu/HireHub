@@ -1,25 +1,26 @@
 package br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
+import java.io.Serializable;
+import java.time.LocalDate;
+
 
 
 @Entity
 @Table(name = "pessoajuridica")
-public class PessoaJuridica extends Usuario implements Serializable {
+public abstract class PessoaJuridica extends Usuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "cnpj", length = 18, nullable = false, unique = true)
+    @Column(name = "cnpj", length = 18, nullable = false, unique = true)
     private String cnpj;
 
 	@Column(name = "nome_empresa", length = 20, nullable = false, unique = false)
@@ -30,9 +31,7 @@ public class PessoaJuridica extends Usuario implements Serializable {
 	
 	@Column(name = "descricao", length = 300, nullable = false, unique = false)
     private String descricao;
-	
-	@Enumerated(EnumType.STRING)
-    protected Genero genero;
+
 	
 	public PessoaJuridica() {
 		
@@ -44,7 +43,7 @@ public class PessoaJuridica extends Usuario implements Serializable {
 		this.dataFundacao = dataFundacao;
 		this.descricao = descricao;
 	}
-	
+
     public String getCnpj() {
         return cnpj;
     }
@@ -52,6 +51,7 @@ public class PessoaJuridica extends Usuario implements Serializable {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
     
     public String getNomeEmpresa() {
         return nomeEmpresa;
@@ -61,13 +61,14 @@ public class PessoaJuridica extends Usuario implements Serializable {
         this.nomeEmpresa = nomeEmpresa;
     }
     
-    public LocalDate getDataFundacao() {
-		return dataFundacao;
-	}
 
-	public void setDataFundacao(LocalDate dataFundacao) {
-		this.dataFundacao = dataFundacao;
-	}
+    public LocalDate getDataFundacao() {
+        return dataFundacao;
+    }
+
+    public void setDataFundacao(LocalDate dataFundacao) {
+        this.dataFundacao = dataFundacao;
+    }
 
 	public String getDescricao(){
 		return descricao;
@@ -75,4 +76,5 @@ public class PessoaJuridica extends Usuario implements Serializable {
 	public void setDescricao(String descricao){
 		this.descricao = descricao;
 	}
+
 }

@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "aluno")
-public class Aluno extends Usuario implements Serializable {
+public class Aluno extends PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,22 +28,18 @@ public class Aluno extends Usuario implements Serializable {
     @Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
     private String codigoTurma;
 
-    @Column(name = "dossie", length = 200, nullable = false, unique = false)
-    private String dossie;
-
     @Enumerated(EnumType.STRING)
     private AlunoMatriculado alunoMatriculado;
 
     public Aluno() {
     }
 
-    public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, String dossie, AlunoMatriculado alunoMatriculado){
+    public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, AlunoMatriculado alunoMatriculado){
         setId(id);
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
         setCodigoTurma(codigoTurma);
-        setDossie(dossie);
         setAlunoMatriculado(alunoMatriculado);
     }
 
@@ -77,14 +73,6 @@ public class Aluno extends Usuario implements Serializable {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
-    }
-
-    public String getDossie() {
-        return dossie;
-    }
-
-    public void setDossie(String dossie) {
-        this.dossie = dossie;
     }
 
     public String getCodigoTurma() {

@@ -13,10 +13,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public ProfessorDAOImpl() {
-        fabrica = new ConexaoFactory();
-    }
-
     public void inserirProfessor(Professor professor) {
         Session sessao = null;
         Endereco endereco = professor.getEndereco();

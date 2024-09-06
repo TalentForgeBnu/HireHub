@@ -1,44 +1,28 @@
-package br.senac.talentforge.hirehub.modelo.dao.endereco;
+package br.senac.talentforge.hirehub.modelo.dao.dossie;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
-public class EnderecoDAOImpl implements EnderecoDAO {
+public class DossieDAOImpl implements DossieDAO {
 
-    private ConexaoFactory fabrica;
-    
-    public EnderecoDAOImpl() {
+    private final ConexaoFactory fabrica;
+
+    public DossieDAOImpl() {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirEndereco(Endereco endereco) {
+    public void inserirDossie(Dossie dossie) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.save(endereco);
-            sessao.getTransaction().commit();
-        } catch (Exception sqlException) {
-            erroSessao(sessao, sqlException);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void deletarEndereco(Endereco endereco) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.delete(endereco);
+            sessao.save(dossie);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -47,12 +31,12 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         }
     }
 
-    public void atualizarEndereco(Endereco endereco) {
+    public void deletarDossie(Dossie dossie) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.update(endereco);
+            sessao.delete(dossie);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -61,26 +45,38 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         }
     }
 
-    private Endereco recuperarEnderecoDoAluno(Aluno aluno) {
-        ConexaoFactory fabrica = new ConexaoFactory();
+    public void atualizarDossie(Dossie dossie) {
         Session sessao = null;
-        Endereco enderecoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            sessao.update(dossie);
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+    }
+
+    public List<Dossie> recuperarDossies() {
+        Session sessao = null;
+        List<Dossie> dossies = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Endereco> criteria = construtor.createQuery(Endereco.class);
-            Root<Aluno> raizAluno = criteria.from(Aluno.class);
-            Join<Aluno, Endereco> joinEndereco = raizAluno.join(Aluno_.endereco);
-            criteria.select(joinEndereco).where(construtor.equal(raizAluno.get(Aluno_.CPF), aluno.getCpf()));
-            enderecoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
+            Root<Dossie> raizDossie = criteria.from(Dossie.class);
+            criteria.select(raizDossie);
+            dossies = sessao.createQuery(criteria).getResultList();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-        return enderecoRecuperado;
+        return dossies;
     }
 
     private void erroSessao(Session sessao, Exception exception) {
@@ -95,4 +91,5 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             sessao.close();
         }
     }
+
 }

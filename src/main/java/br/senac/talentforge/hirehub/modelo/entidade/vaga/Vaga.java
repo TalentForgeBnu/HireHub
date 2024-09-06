@@ -1,22 +1,11 @@
 package br.senac.talentforge.hirehub.modelo.entidade.vaga;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "vaga")
@@ -25,15 +14,14 @@ public class Vaga implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_vaga")
-    private int codigoVaga;
+    @Column(name = "codigo_vaga", length = 32, nullable = false, unique = true)
+    private String codigo;
 
     @Column(name = "nome_vaga", length = 50, nullable = false, unique = true)
-    private String nomeVaga;
+    private String nome;
 
     @Column(name = "descricao_vaga", length = 50, nullable = false, unique = false)
-    private String descricaoVaga;
+    private String descricao;
 
     @Enumerated(EnumType.STRING)
     private ModalidadeContratacao modalidadeContratacao;
@@ -48,38 +36,22 @@ public class Vaga implements Serializable {
     public Vaga(){
 
     }
-    
-    public Vaga(String nomeVaga, int codigoVaga, String descricaoVaga, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga) {
 
-        setNomeVaga(nomeVaga);
-        setCodigoVaga(codigoVaga);
-        setDescricaoVaga(descricaoVaga);
+    public Vaga(String codigo, String nome, String descricao, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa){
+        setCodigo(codigo);
+        setNome(nome);
+        setDescricao(descricao);
         setModalidadeContratacao(modalidadeContratacao);
         setSituacaoVaga(situacaoVaga);
+        setEmpresa(empresa);
     }
 
-    public String getNomeVaga() {
-        return nomeVaga;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNomeVaga(String nomeVaga) {
-        this.nomeVaga = nomeVaga;
-    }
-
-    public int getCodigoVaga() {
-        return codigoVaga;
-    }
-
-    public void setCodigoVaga(int codigoVaga) {
-        this.codigoVaga = codigoVaga;
-    }
-
-    public String getDescricaoVaga() {
-        return descricaoVaga;
-    }
-
-    public void setDescricaoVaga(String descricaoVaga) {
-        this.descricaoVaga = descricaoVaga;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public Empresa getEmpresa() {
@@ -90,6 +62,14 @@ public class Vaga implements Serializable {
         this.empresa = empresa;
     }
 
+    public SituacaoVaga getSituacaoVaga() {
+        return situacaoVaga;
+    }
+
+    public void setSituacaoVaga(SituacaoVaga situacaoVaga) {
+        this.situacaoVaga = situacaoVaga;
+    }
+
     public ModalidadeContratacao getModalidadeContratacao() {
         return modalidadeContratacao;
     }
@@ -97,13 +77,20 @@ public class Vaga implements Serializable {
     public void setModalidadeContratacao(ModalidadeContratacao modalidadeContratacao) {
         this.modalidadeContratacao = modalidadeContratacao;
     }
-    
-    public SituacaoVaga getSituacaoVaga() {
-        return situacaoVaga;
+
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setSituacaoVaga(SituacaoVaga situacaoVaga ) {
-        this.situacaoVaga = situacaoVaga;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

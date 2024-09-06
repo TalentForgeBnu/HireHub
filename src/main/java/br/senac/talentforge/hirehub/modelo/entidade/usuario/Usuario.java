@@ -1,9 +1,12 @@
 package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
+
 import java.io.Serializable;
 import javax.persistence.*;
-
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,9 +20,11 @@ public abstract class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     protected long id;
+
     
     @Column(name = "senha", length = 20, nullable = false, unique = false)
     private String senha;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
@@ -32,7 +37,7 @@ public abstract class Usuario implements Serializable {
         setId(id);       
         setSenha(senha);
         setEndereco(endereco);
-    }
+
 
     public long getId() {
         return id;
@@ -48,7 +53,6 @@ public abstract class Usuario implements Serializable {
     
     public void setSenha(String senha) {
     	this.senha = senha;
-    }
 
     public Endereco getEndereco() {
         return endereco;
@@ -57,6 +61,5 @@ public abstract class Usuario implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
 
 }

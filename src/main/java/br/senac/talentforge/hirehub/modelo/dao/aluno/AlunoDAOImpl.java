@@ -1,17 +1,14 @@
 package br.senac.talentforge.hirehub.modelo.dao.aluno;
 
-import java.util.List;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import org.hibernate.Session;
-
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import java.util.List;
 
 public class AlunoDAOImpl implements AlunoDAO {
 
@@ -37,15 +34,9 @@ public class AlunoDAOImpl implements AlunoDAO {
 
     public void deletarAluno(Aluno aluno) {
         Session sessao = null;
-        Endereco endereco = aluno.getEndereco();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-
-            if (endereco != null) {
-                sessao.delete(endereco);
-            }
-
             sessao.delete(aluno);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
@@ -57,15 +48,9 @@ public class AlunoDAOImpl implements AlunoDAO {
 
     public void atualizarAluno(Aluno aluno) {
         Session sessao = null;
-        Endereco endereco = aluno.getEndereco();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-
-            if (endereco != null) {
-                sessao.update(endereco);
-            }
-
             sessao.update(aluno);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
@@ -81,7 +66,6 @@ public class AlunoDAOImpl implements AlunoDAO {
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
             Root<Aluno> raizAluno = criteria.from(Aluno.class);
