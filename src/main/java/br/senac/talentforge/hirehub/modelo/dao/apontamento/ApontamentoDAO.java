@@ -10,6 +10,6 @@ public interface ApontamentoDAO {
     void deletarApontamento(Apontamento apontamento);
  
     void atualizarApontamento(Apontamento apontamento);
- 
-    List<Apontamento> recuperarApontamentos();
+
+    Apontamento recuperarApontamentoPeloIdDossie(long id);
 }

@@ -21,104 +21,93 @@ import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentooferta.AndamentoOferta;
 
 @Entity
-@Table(name ="oferta")
-public class Oferta implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+@Table(name = "oferta")
+public class Oferta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_oferta")
     private long id;
-    
-	@Column(name = "proposta", length  = 50, unique = false)
-	private String proposta;
-	
-	@Column(name = "resposta", length  = 50, unique = false)
-	private String resposta;
-	
-	@Enumerated(EnumType.STRING)
-	private AndamentoOferta andamentoOferta;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_vaga")
-	private Vaga vaga;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_curso")
-	private Curso curso;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_empresa")
-	private Empresa empresa;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_instituicao")
-	private Instituicao instituicao;
-	
 
-	public Oferta() {
-		
-	}
-	
+    @Column(name = "proposta", length = 50, unique = false)
+    private String proposta;
+
+    @Column(name = "resposta", length = 50, unique = false)
+    private String resposta;
+
+    @Enumerated(EnumType.STRING)
+    private AndamentoOferta andamentoOferta;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codigo_vaga")
+    private Vaga vaga;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_curso")
+    private Curso curso;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empresa")
+    private Empresa empresa;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_instituicao")
+    private Instituicao instituicao;
+
+
+    public Oferta() {
+
+    }
+
     public Oferta(long id, String proposta, String resposta, AndamentoOferta andamentoOferta, Vaga vaga, Curso curso) {
-		
-    	setId(id);
-    	setProposta(proposta);
-    	setResposta(resposta);
+        setId(id);
+        setProposta(proposta);
+        setResposta(resposta);
         setVaga(vaga);
         setCurso(curso);
- 
-	}
-	
-	
-	public Vaga getVaga() {
-		return vaga;
-	}
+    }
 
-	public void setVaga(Vaga vaga) {
-		this.vaga = vaga;
-	}
 
-	public Curso getCurso() {
-		return curso;
-	}
+    public Vaga getVaga() {
+        return vaga;
+    }
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
+    public void setVaga(Vaga vaga) {
+        this.vaga = vaga;
+    }
 
-	public String getProposta() {
-		return proposta;
-	}
+    public Curso getCurso() {
+        return curso;
+    }
 
-	public void setProposta(String proposta) {
-		this.proposta = proposta;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
 
-	}
+    public String getProposta() {
+        return proposta;
+    }
 
-	public String getResposta() {
-		return resposta;
-	}
+    public void setProposta(String proposta) {
+        this.proposta = proposta;
+    }
 
-	public void setResposta(String resposta) {
-		this.resposta = resposta;
-	}
-	 
-	public long getId() {
-	        return id;
-	    }
+    public String getResposta() {
+        return resposta;
+    }
 
-	public void setId(long id) {
-	        this.id = id;
-	    }
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
+    }
 
-	//public Status getAndamentoOferta() {
-	//	return andamentoOferta;
-	//}
+    public long getId() {
+        return id;
+    }
 
-	//public void setAndamentoOferta(Status andamentoOferta) {
-	//	this.andamentoOferta = andamentoOferta;
-	//}
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

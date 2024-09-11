@@ -1,8 +1,13 @@
 package br.senac.talentforge.hirehub.modelo.dao.instituicao;
 
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class InstituicaoDAOImpl implements InstituicaoDAO{
 
@@ -12,46 +17,24 @@ public class InstituicaoDAOImpl implements InstituicaoDAO{
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirInstituicao(Instituicao instituicao) {
+    public Instituicao recuperarIntituicao(String cnpj) {
         Session sessao = null;
+        Instituicao instituicaoRecuperada = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.save(instituicao);
-            sessao.getTransaction().commit();
-        } catch (Exception sqlException) {
-            erroSessao(sessao, sqlException);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void deletarInstituicao(Instituicao instituicao) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.delete(instituicao);
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Instituicao> criteria = construtor.createQuery(Instituicao.class);
+            Root<Instituicao> raizIntituicao = criteria.from(Instituicao.class);
+            criteria.select(raizIntituicao).where(construtor.equal(raizIntituicao.get(Instituicao_.CNPJ), cnpj));
+            instituicaoRecuperada = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-    }
-
-    public void atualizarInstituicao(Instituicao instituicao) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.update(instituicao);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
+        return instituicaoRecuperada;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

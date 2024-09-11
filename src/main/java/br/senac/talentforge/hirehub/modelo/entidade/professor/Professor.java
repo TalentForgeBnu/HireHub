@@ -6,6 +6,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +19,14 @@ public class Professor extends PessoaFisica implements Serializable {
     private List<Turma> turmas;
 
     @ManyToOne
-    @JoinColumn(name = "id_instituicao", nullable = false)
+    @JoinColumn(name = "id_instituicao", nullable = true)
     private Instituicao instituicao;
 
     @Column(name = "materia", length = 30, nullable = false, unique = false)
     private String materia;
 
     public Professor() {
+        turmas = new ArrayList<>();
     }
 
     public List<Turma> getTurmas() {
@@ -33,6 +35,10 @@ public class Professor extends PessoaFisica implements Serializable {
 
     public void setTurmas(List<Turma> turmas) {
         this.turmas = turmas;
+    }
+
+    public void addTurma(Turma turma){
+        this.turmas.add(turma);
     }
 
     public Instituicao getInstituicao() {
