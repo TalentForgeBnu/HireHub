@@ -1,13 +1,19 @@
 package br.senac.talentforge.hirehub.modelo.dao.dossie;
 
+import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie_;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
-import java.util.List;
 
 public class DossieDAOImpl implements DossieDAO {
 
@@ -59,24 +65,44 @@ public class DossieDAOImpl implements DossieDAO {
         }
     }
 
-    public List<Dossie> recuperarDossies() {
+    public Dossie recuperarDossiePeloIdDoUsuario(long idUsuario){
         Session sessao = null;
-        List<Dossie> dossies = null;
+        Dossie dossieRecuperado = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
             Root<Dossie> raizDossie = criteria.from(Dossie.class);
-            criteria.select(raizDossie);
-            dossies = sessao.createQuery(criteria).getResultList();
+            criteria.select(raizDossie).where(construtor.equal(raizDossie.get(Dossie_.ALUNO), idUsuario));
+            dossieRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-        return dossies;
+        return dossieRecuperado;
+    }
+
+    public Dossie recuperarDossiePeloIdDaTurma(long idTurma){
+        Session sessao = null;
+        Dossie dossieRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
+            Root<Dossie> raizDossie = criteria.from(Dossie.class);
+            criteria.select(raizDossie).where(construtor.equal(raizDossie.get(Dossie_.turma), idTurma));
+            dossieRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return dossieRecuperado;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

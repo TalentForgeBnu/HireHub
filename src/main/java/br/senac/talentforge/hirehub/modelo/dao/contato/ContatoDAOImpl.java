@@ -1,13 +1,20 @@
 package br.senac.talentforge.hirehub.modelo.dao.contato;
 
 import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
-public class ContatoDAOImpl implements ContatoDAO{
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
+
+public class ContatoDAOImpl implements ContatoDAO {
 
     private ConexaoFactory fabrica;
-    
+
     public ContatoDAOImpl() {
         fabrica = new ConexaoFactory();
     }
@@ -52,6 +59,28 @@ public class ContatoDAOImpl implements ContatoDAO{
         } finally {
             fecharSessao(sessao);
         }
+    }
+
+    public Contato recuperarContatoPeloEndereco(Endereco endereco) {
+        ConexaoFactory fabrica = new ConexaoFactory();
+        Session sessao = null;
+        Contato contatoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Contato> criteria = construtor.createQuery(Contato.class);
+            Root<Endereco> raizEndereco = criteria.from(Endereco.class);
+            Join<Endereco, Contato> joinContato = raizEndereco.join(Endereco_.contato);
+            criteria.select(joinContato).where(construtor.equal(raizEndereco.get(Endereco_.CONTATO), endereco.getContato()));
+            contatoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return contatoRecuperado;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

@@ -18,49 +18,7 @@ public class AlunoDAOImpl implements AlunoDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirAluno(Aluno aluno) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.save(aluno);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void deletarAluno(Aluno aluno) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.delete(aluno);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void atualizarAluno(Aluno aluno) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.update(aluno);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public List<Aluno> recuperarAluno() {
+    public List<Aluno> recuperarAlunos() {
         Session sessao = null;
         List<Aluno> alunos = null;
         try {

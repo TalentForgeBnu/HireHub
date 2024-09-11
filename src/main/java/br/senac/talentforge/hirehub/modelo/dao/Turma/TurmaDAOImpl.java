@@ -1,5 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.dao.Turma;
 
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao_;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
@@ -78,6 +80,26 @@ public class TurmaDAOImpl implements TurmaDAO {
             fecharSessao(sessao);
         }
         return turmas;
+    }
+
+    public Turma recuperarPeloidIntituicao(long idInstituicao){
+        Session sessao = null;
+        Turma turmaRecuperada = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Instituicao> criteria = construtor.createQuery(Instituicao.class);
+            Root<Instituicao> raizIntituicao = criteria.from(Instituicao.class);
+            criteria.select(raizIntituicao).where(construtor.equal(raizIntituicao.get(Instituicao_.CNPJ), cnpj));
+            instituicaoRecuperada = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return turmaRecuperada;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

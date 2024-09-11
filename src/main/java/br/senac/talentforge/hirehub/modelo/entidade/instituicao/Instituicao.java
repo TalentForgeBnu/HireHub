@@ -10,6 +10,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,10 +38,14 @@ public class Instituicao extends PessoaJuridica implements Serializable {
     private List<Oferta> ofertas;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Turma> turma;
+    private List<Turma> turmas;
 
     public Instituicao() {
-
+        cursos = new ArrayList<>();
+        professores = new ArrayList<>();
+        alunos = new ArrayList<>();
+        ofertas = new ArrayList<>();
+        turmas = new ArrayList<>();
     }
 
     @Override
@@ -54,11 +59,15 @@ public class Instituicao extends PessoaJuridica implements Serializable {
     }
 
     public List<Turma> getTurma() {
-        return turma;
+        return turmas;
     }
 
     public void setTurma(List<Turma> turma) {
-        this.turma = turma;
+        turmas = turma;
+    }
+
+    public void addTurma(Turma turma){
+        turmas.add(turma);
     }
 
     public List<Oferta> getOfertas() {
@@ -69,12 +78,20 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         this.ofertas = ofertas;
     }
 
+    public void addOferta(Oferta oferta){
+        this.ofertas.add(oferta);
+    }
+
     public List<Aluno> getAlunos() {
         return alunos;
     }
 
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    public void addAluno(Aluno aluno){
+        this.alunos.add(aluno);
     }
 
     public List<Professor> getProfessores() {
@@ -85,11 +102,19 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         this.professores = professores;
     }
 
+    public void addProfessores(Professor professor){
+        this.professores.add(professor);
+    }
+
     public List<Curso> getCursos() {
         return cursos;
     }
 
-    public void setCursos(List<Curso> cursos) {
+    public void setListaCursos(List<Curso> cursos) {
         this.cursos = cursos;
+    }
+
+    public void addCurso(Curso curso){
+        this.cursos.add(curso);
     }
 }

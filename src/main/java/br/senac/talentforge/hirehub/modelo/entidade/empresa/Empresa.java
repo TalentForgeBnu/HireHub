@@ -19,9 +19,6 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_empresa")
 	private long id;
-	
-	@Column(name = "nomeEmpresa", length = 25, nullable = false, unique = false)
-	private String nome;
 
 	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> vagas;
@@ -33,13 +30,11 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	public Empresa(long id, String nome, List<Vaga> vagas, List<Oferta> ofertas){
+	public Empresa(long id, List<Vaga> vagas, List<Oferta> ofertas){
 		setId(id);
-		setNome(nome);
 		setVagas(vagas);
 		setOfertas(ofertas);
 	}
-
 
 	public long getId() {
 		return id;
@@ -47,14 +42,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public List<Vaga> getVagas() {

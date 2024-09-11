@@ -61,7 +61,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         }
     }
 
-    private Endereco recuperarEnderecoDoAluno(Aluno aluno) {
+    public Endereco recuperarEnderecoDoAluno(Aluno aluno) {
         ConexaoFactory fabrica = new ConexaoFactory();
         Session sessao = null;
         Endereco enderecoRecuperado = null;

@@ -13,6 +13,4 @@ public interface DossieDAO {
 
     void atualizarDossie(Dossie dossie);
 
-    List<Dossie> recuperarDossies();
-
 }

@@ -5,11 +5,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import java.util.List;
 
 public interface AlunoDAO {
-    void inserirAluno(Aluno aluno);
+    List<Aluno> recuperarAlunos();
 
-    void deletarAluno(Aluno aluno);
-
-    void atualizarAluno(Aluno aluno);
-
-    List<Aluno> recuperarAluno();
+    Aluno recuperarAluno(String cpf);
 }

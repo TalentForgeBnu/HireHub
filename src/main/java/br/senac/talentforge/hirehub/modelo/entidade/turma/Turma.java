@@ -4,10 +4,12 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +27,7 @@ public class Turma implements Serializable {
     private String nomeTurma;
 
     @Column(name = "horario")
-    private LocalDate horario;
+    private LocalTime horario;
 
     @Column(name = "codigo", length = 50, nullable = false, unique = false)
     private String codigo;
@@ -37,21 +39,25 @@ public class Turma implements Serializable {
     private byte tamanho;
 
     @ManyToOne
-    @JoinColumn(name = "id_professor", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Professor professor;
 
     @ManyToOne
     @JoinColumn(name = "id_instituicao", nullable = false)
     private Instituicao instituicao;
-    //Adicionar turno quando for criado.
+
+    @Enumerated(EnumType.STRING)
+    private Turno turno;
+
     @ManyToOne
     @JoinColumn(name = "id_curso", nullable = false)
     private Curso curso;
 
     public Turma(){
+        alunos = new ArrayList<>();
     }
 
-    public Turma(long id, String nomeTurma, LocalDate horario, String codigo, List<Aluno> alunos, Curso curso){
+    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, List<Aluno> alunos, Curso curso){
         setId(id);
         setNomeTurma(nomeTurma);
         setHorario(horario);
@@ -76,11 +82,11 @@ public class Turma implements Serializable {
         this.nomeTurma = nomeTurma;
     }
 
-    public LocalDate getHorario() {
+    public LocalTime getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDate horario) {
+    public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
 
@@ -98,6 +104,10 @@ public class Turma implements Serializable {
 
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    public void addAluno(Aluno aluno){
+        this.alunos.add(aluno);
     }
 
     public byte getTamanho() {
@@ -122,6 +132,14 @@ public class Turma implements Serializable {
 
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
     }
 
     public Curso getCurso() {

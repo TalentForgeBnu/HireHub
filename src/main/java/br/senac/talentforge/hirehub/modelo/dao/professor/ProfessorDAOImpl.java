@@ -1,9 +1,13 @@
 package br.senac.talentforge.hirehub.modelo.dao.professor;
 
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public class ProfessorDAOImpl implements ProfessorDAO {
 
@@ -13,47 +17,25 @@ public class ProfessorDAOImpl implements ProfessorDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirProfessor(Professor professor) {
+    public Professor recuperarProfessor(String cpf) {
+        ConexaoFactory fabrica = new ConexaoFactory();
         Session sessao = null;
-        Endereco endereco = professor.getEndereco();
+        Professor professorRecuperado = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.save(professor);
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Professor> criteria = construtor.createQuery(Professor.class);
+            Root<Professor> raizProfessor = criteria.from(Professor.class);
+            criteria.select(raizProfessor).where(construtor.equal(raizProfessor.get(Professor_.CPF), cpf));
+            professorRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-    }
-
-    public void deletarProfessor(Professor professor) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.delete(professor);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-    }
-
-    public void atualizarProfessor(Professor professor) {
-        Session sessao = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            sessao.update(professor);
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
+        return professorRecuperado;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

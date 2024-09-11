@@ -34,12 +34,8 @@ private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name="id_dossie", nullable = false)
 	private Dossie dossie;
-		
-	
-	public Apontamento(){
-		
-	}
 
+	public Apontamento(){}
 
 	public Apontamento( String descricao, LocalDate data, long id) {
 		setDescricao(descricao);
@@ -69,6 +65,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setData(LocalDate data) {
 		this.data = data;
+	}
+
+	public Dossie getDossie() {
+		return dossie;
+	}
+
+	public void setDossie(Dossie dossie) {
+		this.dossie = dossie;
 	}
 
 }

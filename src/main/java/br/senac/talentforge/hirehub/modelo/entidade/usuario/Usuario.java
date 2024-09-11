@@ -34,10 +34,10 @@ public abstract class Usuario implements Serializable {
     public Usuario() {}
 
     public Usuario(long id, String senha, Endereco endereco) {
-        setId(id);       
+        setId(id);
         setSenha(senha);
         setEndereco(endereco);
-
+    }
 
     public long getId() {
         return id;
@@ -46,13 +46,14 @@ public abstract class Usuario implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    
+
     public String getSenha() {
-    	return senha;
+        return senha;
     }
-    
+
     public void setSenha(String senha) {
-    	this.senha = senha;
+        this.senha = senha;
+    }
 
     public Endereco getEndereco() {
         return endereco;
