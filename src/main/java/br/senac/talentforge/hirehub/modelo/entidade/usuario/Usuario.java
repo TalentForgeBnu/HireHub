@@ -2,11 +2,22 @@ package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import javax.persistence.*;
-import java.io.Serializable;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -29,15 +40,28 @@ public abstract class Usuario implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
     protected Endereco endereco;
-
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nome_papel")
+    private Papel papel;
 
     public Usuario() {}
 
-    public Usuario(long id, String senha, Endereco endereco) {
+    public Usuario(long id, String senha, Endereco endereco, Papel papel) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
+        setPapel(papel);
     }
+    
+    public Papel getPapel() {
+    	return papel;
+    }
+    
+    public void setPapel(Papel papel) {
+    	this.papel = papel;
+    }
+    
 
     public long getId() {
         return id;

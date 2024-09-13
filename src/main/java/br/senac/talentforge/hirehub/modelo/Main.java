@@ -12,6 +12,8 @@ import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
+import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
@@ -31,16 +33,18 @@ public class Main {
     	endereco.setCidade("Gaspar");
     	endereco.setBairro("Figueira");
     	endereco.setCep("89110430");
-    	endereco.setlogradouro("Manoel Bernardo Da Silva");
+    	endereco.setLogradouro("Manoel Bernardo Da Silva");
     	endereco.setNumero(1016);
     	
     	enderecoDAO.inserirEndereco(endereco);
 
         InstituicaoDAO instituicaoDAO = new InstituicaoDAOImpl();
         
+        UsuarioDAO usuarioDAO = new UsuarioDAOImpl();
+        
         Instituicao instituicao = new Instituicao();
         
-        instituicaoDAO.inserirInstituicao(instituicao);
+        usuarioDAO.inserirUsuario(instituicao);
         
         ContatoDAO contatoDAO = new ContatoDAOImpl();
         
@@ -71,8 +75,8 @@ public class Main {
         
         Professor professor = new Professor();
         
-        professor.setnome("Raico");
-        professor.setsobrenome("Ronda");
+        professor.setNome("Raico");
+        professor.setSobrenome("Ronda");
         professor.setGenero(Genero.MASCULINO);
         professor.setCpf("15946823536");
         professor.setEndereco(endereco);
@@ -81,7 +85,7 @@ public class Main {
         professor.setRendaFamiliar(4500);
         professor.setTurmas(null);
         
-        professorDAO.inserirProfessor(professor);
+        usuarioDAO.inserirUsuario(professor);
         
         System.out.println("Teste DAO");
     }
