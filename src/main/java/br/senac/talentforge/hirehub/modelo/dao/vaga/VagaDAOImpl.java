@@ -1,8 +1,14 @@
 package br.senac.talentforge.hirehub.modelo.dao.vaga;
 
-import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
+
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 
 public class VagaDAOImpl implements VagaDAO{
 
@@ -53,6 +59,28 @@ public class VagaDAOImpl implements VagaDAO{
             fecharSessao(sessao);
         }
     }
+    
+    public Vaga recuperarVagaPeloIdEmpresa(long codigo) {
+        Session sessao = null;
+        Vaga vagaRecuperada = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
+            Root<Vaga> raizVaga = criteria.from(Vaga.class);
+            criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.EMPRESA), codigo));
+            vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return vagaRecuperada;
+    }
+    
+    
 
     private void erroSessao(Session sessao, Exception exception) {
         exception.printStackTrace();
