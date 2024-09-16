@@ -14,6 +14,10 @@ public class Vaga implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "id_vaga")
+    private long id;
+    
     @Column(name = "codigo_vaga", length = 32, nullable = false, unique = true)
     private String codigo;
 
@@ -37,8 +41,9 @@ public class Vaga implements Serializable {
 
     }
 
-    public Vaga(String codigo, String nome, String descricao, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa){
-        setCodigo(codigo);
+    public Vaga(String codigo, String nome, String descricao,long id, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa){
+        setId(id);
+    	setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
         setModalidadeContratacao(modalidadeContratacao);
@@ -92,5 +97,12 @@ public class Vaga implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
