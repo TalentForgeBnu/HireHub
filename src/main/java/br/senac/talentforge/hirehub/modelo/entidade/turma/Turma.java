@@ -15,10 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "turma")
 public class Turma implements Serializable {
+	
+	private static final long serialVersionUID = 1823313068976794708L;
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_turma")
     private long id;

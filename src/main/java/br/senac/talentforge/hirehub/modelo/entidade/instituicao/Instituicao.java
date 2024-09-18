@@ -19,12 +19,7 @@ import java.util.List;
 public class Instituicao extends PessoaJuridica implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_instituicao")
-    private long id;
-
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Curso> cursos;
 

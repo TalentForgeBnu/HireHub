@@ -5,17 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridica;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
 
@@ -23,12 +18,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 @Table(name = "empresa")
 public class Empresa extends PessoaJuridica implements Serializable {
 		
-private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_empresa")
-	private long id;
+	private static final long serialVersionUID = -6802369364395050191L;
 
 	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Vaga> vagas;

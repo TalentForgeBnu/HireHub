@@ -9,9 +9,9 @@ import java.io.Serializable;
 @Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro", "numero"})})
 public class Endereco implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8443988268200843684L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_endereco")
     private long id;

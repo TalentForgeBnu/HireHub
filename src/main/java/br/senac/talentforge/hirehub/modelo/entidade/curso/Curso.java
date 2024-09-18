@@ -22,8 +22,8 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCu
 @Entity
 @Table(name = "curso" )
 public class Curso implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 5425389670106431381L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

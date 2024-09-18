@@ -12,10 +12,10 @@ import java.util.List;
 @Entity
 @Table(name = "professor")
 public class Professor extends PessoaFisica implements Serializable {
+	
+	private static final long serialVersionUID = 8321801558181373534L;
 
-    private static final long serialVersionUID = 1L;
-
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turma> turmas;
 
     @ManyToOne

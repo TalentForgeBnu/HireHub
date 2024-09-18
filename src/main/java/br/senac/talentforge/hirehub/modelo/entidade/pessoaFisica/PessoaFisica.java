@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoafisica")
 public abstract class PessoaFisica extends Usuario implements Serializable {
+	
+	private static final long serialVersionUID = -6846672268949621291L;
 
-    private static final long serialVersionUID = 1L;
-
-    @Column(name = "cpf", length = 14, nullable = false, unique = true)
+	@Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
 
     @Column(name = "nome_social", length = 20, nullable = true, unique = false)
