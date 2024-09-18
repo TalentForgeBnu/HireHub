@@ -18,28 +18,7 @@ public class AlunoDAOImpl implements AlunoDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public List<Aluno> recuperarAlunos() {
-        Session sessao = null;
-        List<Aluno> alunos = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
-            Root<Aluno> raizAluno = criteria.from(Aluno.class);
-            criteria.select(raizAluno);
-            alunos = sessao.createQuery(criteria).getResultList();
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-        return alunos;
-    }
-
-    public Aluno recuperarAluno(String cpf) {
-        ConexaoFactory fabrica = new ConexaoFactory();
+    public Aluno recuperarAlunoPeloCpf(String cpf) {
         Session sessao = null;
         Aluno alunoRecuperado = null;
         try {
@@ -57,6 +36,26 @@ public class AlunoDAOImpl implements AlunoDAO {
             fecharSessao(sessao);
         }
         return alunoRecuperado;
+    }
+
+    public List<Aluno> recuperarAlunosPeloIdTurma(long idTurma){
+        Session sessao = null;
+        List<Aluno> alunosRecuperados = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Aluno> criteria = construtor.createQuery(Aluno.class);
+            Root<Aluno> raizAluno = criteria.from(Aluno.class);
+            criteria.select(raizAluno).where(construtor.equal(raizAluno.get(Aluno_.TURMA), idTurma));
+            alunosRecuperados = sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return alunosRecuperados;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

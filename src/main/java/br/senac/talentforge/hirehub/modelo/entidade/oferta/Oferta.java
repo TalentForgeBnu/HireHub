@@ -31,10 +31,7 @@ public class Oferta implements Serializable {
     @Column(name = "id_oferta")
     private long id;
 
-    @Column(name = "proposta", length = 50, unique = false)
-    private String proposta;
-
-    @Column(name = "resposta", length = 50, unique = false)
+    @Column(name = "resposta", length = 250, unique = false)
     private String resposta;
 
     @Enumerated(EnumType.STRING)
@@ -61,9 +58,8 @@ public class Oferta implements Serializable {
 
     }
 
-    public Oferta(long id, String proposta, String resposta, AndamentoOferta andamentoOferta, Vaga vaga, Curso curso) {
+    public Oferta(long id, String resposta, AndamentoOferta andamentoOferta, Vaga vaga, Curso curso) {
         setId(id);
-        setProposta(proposta);
         setResposta(resposta);
         setVaga(vaga);
         setCurso(curso);
@@ -84,14 +80,6 @@ public class Oferta implements Serializable {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
-    }
-
-    public String getProposta() {
-        return proposta;
-    }
-
-    public void setProposta(String proposta) {
-        this.proposta = proposta;
     }
 
     public String getResposta() {

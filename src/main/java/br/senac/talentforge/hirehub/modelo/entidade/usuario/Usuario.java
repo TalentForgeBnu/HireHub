@@ -1,23 +1,11 @@
 package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,36 +20,34 @@ public abstract class Usuario implements Serializable {
     @Column(name = "id_usuario")
     protected long id;
 
-    
     @Column(name = "senha", length = 20, nullable = false, unique = false)
     private String senha;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco")
     protected Endereco endereco;
-    
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nome_papel")
     private Papel papel;
 
-    public Usuario() {}
+    @Column(name = "telefone", length = 13, nullable = false, unique = true)
+    private String telefone;
 
-    public Usuario(long id, String senha, Endereco endereco, Papel papel) {
+    @Column(name = "email", length = 40, nullable = false, unique = true)
+    private String email;
+
+    public Usuario() {
+    }
+
+    public Usuario(long id, String senha, Endereco endereco, Papel papel, String telefone, String email) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
     }
-    
-    public Papel getPapel() {
-    	return papel;
-    }
-    
-    public void setPapel(Papel papel) {
-    	this.papel = papel;
-    }
-    
 
     public long getId() {
         return id;
@@ -85,6 +71,30 @@ public abstract class Usuario implements Serializable {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Papel getPapel() {
+        return papel;
+    }
+
+    public void setPapel(Papel papel) {
+        this.papel = papel;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

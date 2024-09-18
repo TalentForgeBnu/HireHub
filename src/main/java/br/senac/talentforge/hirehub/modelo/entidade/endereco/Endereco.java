@@ -1,7 +1,5 @@
 package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
-import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -33,10 +31,6 @@ public class Endereco implements Serializable {
 
     @Column(name = "numero", nullable = false, unique = false)
     private int numero;
-
-    @OneToOne
-    @JoinColumn(name = "id_contato")
-    Contato contato;
 
     public Endereco() {
 
@@ -107,11 +101,4 @@ public class Endereco implements Serializable {
         this.numero = numero;
     }
 
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
 }

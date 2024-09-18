@@ -1,17 +1,14 @@
 package br.senac.talentforge.hirehub.modelo.dao.curso;
 
-import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
-import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
-import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class CursoDAOImpl implements CursoDAO{
 
@@ -64,7 +61,6 @@ public class CursoDAOImpl implements CursoDAO{
     }
 
     public Curso recuperarCursoPeloIdDaInstotuicao(long idInstituicao){
-        ConexaoFactory fabrica = new ConexaoFactory();
         Session sessao = null;
         Curso cursoRecuperado = null;
         try {
@@ -82,6 +78,46 @@ public class CursoDAOImpl implements CursoDAO{
             fecharSessao(sessao);
         }
         return cursoRecuperado;
+    }
+
+    public List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao){
+        Session sessao = null;
+        List<Curso> cursosRecuperados = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
+            Root<Curso> raizCurso = criteria.from(Curso.class);
+            criteria.where(construtor.equal(raizCurso.get(Curso_.AREA_DE_ATUACAO), areaDeAtuacao));
+            cursosRecuperados= sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return cursosRecuperados;
+    }
+
+    public List<Curso> recuperarCursos() {
+        Session sessao = null;
+        List<Curso> cursos = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
+            Root<Curso> raizCurso = criteria.from(Curso.class);
+            criteria.select(raizCurso);
+            cursos = sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return cursos;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

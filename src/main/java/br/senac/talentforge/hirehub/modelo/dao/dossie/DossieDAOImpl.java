@@ -65,7 +65,7 @@ public class DossieDAOImpl implements DossieDAO {
         }
     }
 
-    public Dossie recuperarDossiePeloIdDoUsuario(long idUsuario){
+    public Dossie recuperarDossiePeloIdDoUsuarioAluno(long idUsuario){
         Session sessao = null;
         Dossie dossieRecuperado = null;
         try {
@@ -75,26 +75,6 @@ public class DossieDAOImpl implements DossieDAO {
             CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
             Root<Dossie> raizDossie = criteria.from(Dossie.class);
             criteria.select(raizDossie).where(construtor.equal(raizDossie.get(Dossie_.ALUNO), idUsuario));
-            dossieRecuperado = sessao.createQuery(criteria).getSingleResult();
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-        return dossieRecuperado;
-    }
-
-    public Dossie recuperarDossiePeloIdDaTurma(long idTurma){
-        Session sessao = null;
-        Dossie dossieRecuperado = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Dossie> criteria = construtor.createQuery(Dossie.class);
-            Root<Dossie> raizDossie = criteria.from(Dossie.class);
-            criteria.select(raizDossie).where(construtor.equal(raizDossie.get(Dossie_.turma), idTurma));
             dossieRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {

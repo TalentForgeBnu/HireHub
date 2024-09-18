@@ -10,5 +10,5 @@ public interface EnderecoDAO {
 
     void atualizarEndereco(Endereco endereco);
 
-    Endereco recuperarEnderecoDoAluno(Aluno aluno);
+    Endereco recuperarEnderecoPeloIdUsuario(long idUsuario);
 }

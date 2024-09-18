@@ -12,7 +12,6 @@ public class ConexaoFactory {
         Configuration configuracao = new Configuration();
 
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno.class);
-        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.contato.Contato.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.curso.Curso.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco.class);

@@ -26,10 +26,6 @@ public class Dossie implements Serializable {
 	
 	@OneToMany(mappedBy = "dossie", cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Apontamento> apontamentos;
-	
-	@OneToOne
-	@JoinColumn(name="id_turma",nullable = false)
-	private Turma turma;
  
 	@OneToOne
 	@JoinColumn(name="id_usuario", nullable = false)
@@ -67,14 +63,6 @@ public class Dossie implements Serializable {
 
 	public void addApontamento(Apontamento apontamento){
 		this.apontamentos.add(apontamento);
-	}
-
-	public Turma getTurma() {
-		return turma;
-	}
-
-	public void setTurma(Turma turma) {
-		this.turma = turma;
 	}
 
 	public Aluno getAluno() {

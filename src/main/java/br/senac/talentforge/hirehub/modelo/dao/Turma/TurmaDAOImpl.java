@@ -1,8 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.dao.Turma;
 
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao_;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
@@ -61,38 +60,17 @@ public class TurmaDAOImpl implements TurmaDAO {
         }
     }
 
-    public List<Turma> recuperarTurmas() {
-        Session sessao = null;
-        List<Turma> turmas = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
-            Root<Turma> raizAluno = criteria.from(Turma.class);
-            criteria.select(raizAluno);
-            turmas = sessao.createQuery(criteria).getResultList();
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-        return turmas;
-    }
-
-    public Turma recuperarPeloidIntituicao(long idInstituicao){
+    public Turma recuperarTurmaPeloIdIntituicao(long idInstituicao){
         Session sessao = null;
         Turma turmaRecuperada = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Instituicao> criteria = construtor.createQuery(Instituicao.class);
-            Root<Instituicao> raizIntituicao = criteria.from(Instituicao.class);
-            criteria.select(raizIntituicao).where(construtor.equal(raizIntituicao.get(Instituicao_.CNPJ), cnpj));
-            instituicaoRecuperada = sessao.createQuery(criteria).getSingleResult();
+            CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
+            Root<Turma> raizTurma = criteria.from(Turma.class);
+            criteria.select(raizTurma).where(construtor.equal(raizTurma.get(Turma_.INSTITUICAO), idInstituicao));
+            turmaRecuperada = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -100,6 +78,26 @@ public class TurmaDAOImpl implements TurmaDAO {
             fecharSessao(sessao);
         }
         return turmaRecuperada;
+    }
+
+    public List<Turma> recuperarTurmasPeloIdCurso(long idCurso){
+        Session sessao = null;
+        List<Turma> turmaRecuperadas = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
+            Root<Turma> raizTurma = criteria.from(Turma.class);
+            criteria.select(raizTurma).where(construtor.equal(raizTurma.get(Turma_.CURSO), idCurso));
+            turmaRecuperadas = sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return turmaRecuperadas;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

@@ -4,11 +4,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -24,7 +20,7 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
     private String cnpj;
 
 	@Column(name = "nome_empresa", length = 20, nullable = false, unique = false)
-    private String nomeEmpresa;
+    private String nome;
 	
 	@Column(name = "data_fundacao", nullable = false, unique = false)
 	private LocalDate dataFundacao;
@@ -37,9 +33,9 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
 		
 		}
 
-	public PessoaJuridica(String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+	public PessoaJuridica(String cnpj, String nome, LocalDate dataFundacao, String descricao) {
 		this.cnpj = cnpj;
-		this.nomeEmpresa = nomeEmpresa;
+		this.nome = nome;
 		this.dataFundacao = dataFundacao;
 		this.descricao = descricao;
 	}
@@ -53,12 +49,12 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
     }
 
     
-    public String getNomeEmpresa() {
-        return nomeEmpresa;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeEmpresa(String nomeEmpresa) {
-        this.nomeEmpresa = nomeEmpresa;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 

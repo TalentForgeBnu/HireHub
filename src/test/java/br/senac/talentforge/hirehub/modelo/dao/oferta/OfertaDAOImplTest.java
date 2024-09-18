@@ -1,13 +1,17 @@
-package br.senac.talentforge.hirehub.modelo.dao.apontamento;
+package br.senac.talentforge.hirehub.modelo.dao.oferta;
 
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAO;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
@@ -16,16 +20,23 @@ import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
+import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -35,12 +46,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ApontamentoDAOImplTest {
+class OfertaDAOImplTest {
 
     private final ApontamentoDAO apontamentoDAO = new ApontamentoDAOImpl();
     private final DossieDAO dossieDAO = new DossieDAOImpl();
     private final EnderecoDAO enderecoDAO = new EnderecoDAOImpl();
+    private final EmpresaDAO empresaDAO = new EmpresaDAOImpl();
     private final CursoDAO cursoDAO = new CursoDAOImpl();
+    private final VagaDAO vagaDAO = new VagaDAOImpl();
+    private final OfertaDAO ofertaDAO = new OfertaDAOImpl();
     private final TurmaDAO turmaDAO = new TurmaDAOImpl();
     private final InstituicaoDAO instituicaoDAO = new InstituicaoDAOImpl();
     private final AlunoDAO alunoDAO = new AlunoDAOImpl();
@@ -52,7 +66,11 @@ class ApontamentoDAOImplTest {
     private final Endereco enderecoTeste1 = new Endereco();
     private final Endereco enderecoTeste2 = new Endereco();
     private final Endereco enderecoTeste3 = new Endereco();
+    private final Endereco enderecoTeste4 = new Endereco();
+    private final Empresa empresaTeste = new Empresa();
     private final Curso cursoTeste = new Curso();
+    private final Vaga vagaTeste = new Vaga();
+    private final Oferta ofertaTeste = new Oferta();
     private final Turma turmaTeste = new Turma();
     private final Instituicao instituicaoTeste = new Instituicao();
     private final Aluno alunoTeste = new Aluno();
@@ -60,13 +78,18 @@ class ApontamentoDAOImplTest {
 
     @Test
     @Order(1)
-    void inserirApontamento() {
-        setarDados();
-
+    void inserirOferta() {
         enderecoDAO.inserirEndereco(enderecoTeste3);
         usuarioDAO.inserirUsuario(instituicaoTeste);
 
+        enderecoDAO.inserirEndereco(enderecoTeste4);
+        usuarioDAO.inserirUsuario(empresaTeste);
+
         cursoDAO.inserirCurso(cursoTeste);
+
+        vagaDAO.inserirVaga(vagaTeste);
+        ofertaDAO.inserirOferta(ofertaTeste);
+
         enderecoDAO.inserirEndereco(enderecoTeste2);
         usuarioDAO.inserirUsuario(professorTeste);
 
@@ -74,6 +97,9 @@ class ApontamentoDAOImplTest {
         usuarioDAO.inserirUsuario(alunoTeste);
 
         turmaDAO.inserirTurma(turmaTeste);
+
+        atualizarEmpresa();
+        usuarioDAO.atualizarUsuario(empresaTeste);
 
         atualizarProfessor();
         usuarioDAO.atualizarUsuario(professorTeste);
@@ -90,24 +116,32 @@ class ApontamentoDAOImplTest {
     }
 
     @Test
-    @Order(2)
-    void recuperarApontamentoPeloIdDossie() {
+    void atualizarOferta() {
     }
 
     @Test
-    @Order(3)
-    void atualizarApontamento() {
+    void recuperarOfertaPeloIdCurso() {
     }
 
     @Test
-    @Order(4)
-    void deletarApontamento() {
+    void recuperarOfertaSPelosIdEmpresa() {
+    }
+
+    @Test
+    void recuperarOfertaSPelosIdInstituicao() {
+    }
+
+    @Test
+    void deletarOferta() {
     }
 
     private void setarDados() {
         dadosEndereco();
         dadosIntituicao();
 
+        dadosEmpresa();
+        dadosVaga();
+        dadosOferta();
         dadosCurso();
         dadosProfessor();
         dadosTurmas();
@@ -138,6 +172,13 @@ class ApontamentoDAOImplTest {
         enderecoTeste3.setBairro("Garcia");
         enderecoTeste3.setNumero(7812);
         enderecoTeste3.setLogradouro("Rua São Paulo");
+
+        enderecoTeste4.setCep("23456-789");
+        enderecoTeste4.setEstado("Santa Catarina");
+        enderecoTeste4.setCidade("Blumenau");
+        enderecoTeste4.setBairro("Garcia");
+        enderecoTeste4.setNumero(7412);
+        enderecoTeste4.setLogradouro("Rua São Paulo");
     }
 
     private void dadosIntituicao() {
@@ -149,6 +190,14 @@ class ApontamentoDAOImplTest {
         instituicaoTeste.setEndereco(enderecoTeste3);
     }
 
+    private void dadosEmpresa(){
+        empresaTeste.setNome("Tiago Techs");
+        empresaTeste.setDescricao("Empresa dedicada na area de programação");
+        empresaTeste.setSenha("cs-GO123");
+        empresaTeste.setEndereco(enderecoTeste4);
+        empresaTeste.setDataFundacao(LocalDate.of(2018, 3, 20));
+    }
+
     private void dadosCurso() {
         cursoTeste.setNomeCurso("Desenvolvimento de Sistemas");
         cursoTeste.setStatus(AndamentoCurso.INICIADO);
@@ -156,6 +205,18 @@ class ApontamentoDAOImplTest {
         cursoTeste.setDataInicio(LocalDate.of(2024, 3, 12));
         cursoTeste.setDataFim(LocalDate.of(2025, 12, 21));
         cursoTeste.setInsituicao(instituicaoTeste);
+    }
+
+    private void dadosVaga(){
+        vagaTeste.setNome("Vaga de Analista de Sistemas");
+        vagaTeste.setSituacaoVaga(SituacaoVaga.ABERTA);
+        vagaTeste.setModalidadeContratacao(ModalidadeContratacao.MEIO_PERIODO);
+        vagaTeste.setEmpresa(empresaTeste);
+    }
+
+    private void dadosOferta(){
+        ofertaTeste.setCurso(cursoTeste);
+        ofertaTeste.setVaga(vagaTeste);
     }
 
     private void dadosProfessor() {
@@ -218,4 +279,9 @@ class ApontamentoDAOImplTest {
     private void atualizarDossie(){
         dossieTeste.addApontamento(apontamentoTeste);
     }
+
+    private void atualizarEmpresa(){
+        empresaTeste.addVaga(vagaTeste);
+    }
+
 }
