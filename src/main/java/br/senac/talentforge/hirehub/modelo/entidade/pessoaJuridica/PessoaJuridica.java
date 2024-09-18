@@ -1,16 +1,13 @@
 package br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
-import java.io.Serializable;
-import java.time.LocalDate;
 
 
 
@@ -18,9 +15,9 @@ import java.time.LocalDate;
 @Table(name = "pessoajuridica")
 public abstract class PessoaJuridica extends Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2650136282802411329L;
 
-    @Column(name = "cnpj", length = 18, nullable = false, unique = true)
+	@Column(name = "cnpj", length = 18, nullable = false, unique = true)
     private String cnpj;
 
 	@Column(name = "nome_empresa", length = 20, nullable = false, unique = false)

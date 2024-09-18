@@ -24,9 +24,9 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.andamentooferta.AndamentoO
 @Table(name = "oferta")
 public class Oferta implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3383714348610491036L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_oferta")
     private long id;

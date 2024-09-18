@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Table(name = "aluno")
 public class Aluno extends PessoaFisica implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1588651712344525933L;
 
-    @Column(name = "matricula", length = 30, nullable = false, unique = false)
+	@Column(name = "matricula", length = 30, nullable = false, unique = false)
     private String matricula;
 
     @ManyToOne(fetch = FetchType.LAZY)

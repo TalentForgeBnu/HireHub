@@ -25,9 +25,10 @@ import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
 public abstract class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 387637421011881759L;
 
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     protected long id;

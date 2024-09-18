@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Table(name = "vaga")
 public class Vaga implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3028127181895527836L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "id_vaga")
     private long id;

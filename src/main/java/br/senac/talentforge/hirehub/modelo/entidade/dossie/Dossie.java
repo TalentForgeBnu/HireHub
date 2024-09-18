@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="dossie")
 public class Dossie implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4638951545394835839L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
