@@ -4,7 +4,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
-public class UsuarioDAOImpl implements UsuarioDAO{
+public class UsuarioDAOImpl implements UsuarioDAO {
 
     private ConexaoFactory fabrica;
 

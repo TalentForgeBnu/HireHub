@@ -18,19 +18,19 @@ import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 @Table(name = "apontamento")
 public class Apontamento implements Serializable {
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -7307291718586965410L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_apontamento")
 	private long id;
-	
+
 	@Column(name = "descricao", length = 200, nullable = false, unique = true)
 	private String descricao;
-	
+
 	@Column(name = "data_criacao", nullable = false, unique = true)
 	private LocalDate data;
-	
+
 	@ManyToOne
 	@JoinColumn(name="id_dossie", nullable = false)
 	private Dossie dossie;

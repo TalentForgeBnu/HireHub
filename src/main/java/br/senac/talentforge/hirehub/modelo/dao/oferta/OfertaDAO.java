@@ -5,7 +5,6 @@ import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
 import java.util.List;
 
 public interface OfertaDAO {
-
     void inserirOferta(Oferta oferta);
 
     void deletarOferta(Oferta oferta);
@@ -17,5 +16,4 @@ public interface OfertaDAO {
     List<Oferta> recuperarOfertaSPelosIdEmpresa(long idEmpresa);
 
     List<Oferta> recuperarOfertaSPelosIdInstituicao(long idInstituicao);
-
 }

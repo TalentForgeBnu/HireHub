@@ -1,18 +1,12 @@
 package br.senac.talentforge.hirehub.modelo.dao.dossie;
 
-import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie_;
-import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 public class DossieDAOImpl implements DossieDAO {
@@ -65,7 +59,7 @@ public class DossieDAOImpl implements DossieDAO {
         }
     }
 
-    public Dossie recuperarDossiePeloIdDoUsuarioAluno(long idUsuario){
+    public Dossie recuperarDossiePeloIdDoUsuarioAluno(long idUsuario) {
         Session sessao = null;
         Dossie dossieRecuperado = null;
         try {

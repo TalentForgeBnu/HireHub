@@ -4,7 +4,13 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +19,7 @@ import java.util.List;
 @Table(name = "professor")
 public class Professor extends PessoaFisica implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8321801558181373534L;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turma> turmas;
@@ -37,7 +43,7 @@ public class Professor extends PessoaFisica implements Serializable {
         this.turmas = turmas;
     }
 
-    public void addTurma(Turma turma){
+    public void addTurma(Turma turma) {
         this.turmas.add(turma);
     }
 
@@ -56,4 +62,5 @@ public class Professor extends PessoaFisica implements Serializable {
     public void setMateria(String materia) {
         this.materia = materia;
     }
+
 }

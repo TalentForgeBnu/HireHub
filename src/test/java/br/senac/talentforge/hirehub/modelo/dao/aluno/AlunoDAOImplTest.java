@@ -61,14 +61,12 @@ class AlunoDAOImplTest {
 
         assertNotNull(alunoRecuperado);
         assertEquals(alunoTeste1.getNome(), alunoRecuperado.getNome());
-        deletarDados();
     }
 
     @Test
     @Order(2)
     void recuperarAlunosPeloIdTurma() {
         setarDadosTeste();
-        inserirDados();
 
         Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicao(instituicaoTeste.getCnpj());
         Turma turmaRecuperada = turmaDAO.recuperarTurmaPeloIdIntituicao(instituicaoRecuperada.getId());
@@ -76,8 +74,12 @@ class AlunoDAOImplTest {
         Aluno alunoRecuperado1 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste1.getCpf());
         Aluno alunoRecuperado2 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste2.getCpf());
 
+        alunoRecuperado1.setTurma(turmaRecuperada);
+        alunoRecuperado2.setTurma(turmaRecuperada);
+
         usuarioDAO.atualizarUsuario(alunoRecuperado1);
         usuarioDAO.atualizarUsuario(alunoRecuperado2);
+        turmaDAO.atualizarTurma(turmaRecuperada);
 
         List<Aluno> alunos = alunoDAO.recuperarAlunosPeloIdTurma(turmaRecuperada.getId());
 
@@ -98,7 +100,7 @@ class AlunoDAOImplTest {
     }
 
     private void dadosIntituicao() {
-        instituicaoTeste.setNome("Senac");
+        instituicaoTeste.setNomeEmpresa("Senac");
         instituicaoTeste.setSenha("1234");
         instituicaoTeste.setDescricao("Empresa focada na area de educação");
         instituicaoTeste.setDataFundacao(LocalDate.of(2000, 3, 9));
@@ -135,7 +137,7 @@ class AlunoDAOImplTest {
 
     private void dadosTurma() {
         turmaTeste.setNomeTurma("Turma Da Bagunça");
-        turmaTeste.addAluno(alunoTeste1);
+        turmaTeste.adicionarAluno(alunoTeste1);
         turmaTeste.setCodigo("codigoSecreto");
         turmaTeste.setHorario(LocalTime.of(15, 30));
         turmaTeste.setCurso(cursoTeste);
@@ -197,7 +199,7 @@ class AlunoDAOImplTest {
         alunoTeste2.setCodigoTurma("123");
         alunoTeste2.setCpf("123-456-789-20");
         alunoTeste2.setEmail("pauloguedes@emial.com");
-        alunoTeste1.setTelefone("11-99244-1354");
+        alunoTeste2.setTelefone("11-99244-1354");
     }
 
     private void inserirDados() {

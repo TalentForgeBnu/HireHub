@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro", "numero"})})
 public class Endereco implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8443988268200843684L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +32,7 @@ public class Endereco implements Serializable {
     @Column(name = "numero", nullable = false, unique = false)
     private int numero;
 
-    public Endereco() {
-
-    }
+    public Endereco() {}
 
     public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
         this.logradouro = logradouro;

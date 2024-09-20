@@ -28,9 +28,7 @@ public class ConexaoFactory {
         configuracao.configure("hibernate.cfg.xml");
 
         ServiceRegistry servico = new StandardServiceRegistryBuilder().applySettings(configuracao.getProperties()).build();
-        SessionFactory fabricaSessao = configuracao.buildSessionFactory(servico);
-
-        return fabricaSessao;
+        return configuracao.buildSessionFactory(servico);
     }
 
 }

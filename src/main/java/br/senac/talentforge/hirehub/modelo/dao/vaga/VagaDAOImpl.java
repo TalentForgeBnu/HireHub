@@ -1,18 +1,17 @@
 package br.senac.talentforge.hirehub.modelo.dao.vaga;
 
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
+import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
-import org.hibernate.Session;
-
-import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-
-public class VagaDAOImpl implements VagaDAO{
+public class VagaDAOImpl implements VagaDAO {
 
     private ConexaoFactory fabrica;
 
@@ -61,7 +60,7 @@ public class VagaDAOImpl implements VagaDAO{
             fecharSessao(sessao);
         }
     }
-    
+
     public Vaga recuperarVagaPeloIdEmpresa(long codigo) {
         Session sessao = null;
         Vaga vagaRecuperada = null;

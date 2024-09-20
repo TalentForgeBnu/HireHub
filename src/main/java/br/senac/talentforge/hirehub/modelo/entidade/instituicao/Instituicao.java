@@ -1,6 +1,5 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
-
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
@@ -8,22 +7,20 @@ import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridic
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @Table(name = "instituicao")
 public class Instituicao extends PessoaJuridica implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_instituicao")
-    private long id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Curso> cursos;
@@ -48,12 +45,10 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         turmas = new ArrayList<>();
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
@@ -117,4 +112,5 @@ public class Instituicao extends PessoaJuridica implements Serializable {
     public void addCurso(Curso curso){
         this.cursos.add(curso);
     }
+
 }

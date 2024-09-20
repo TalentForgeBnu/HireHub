@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 public class ProfessorDAOImpl implements ProfessorDAO {
 
     private ConexaoFactory fabrica;
-    
+
     public ProfessorDAOImpl() {
         fabrica = new ConexaoFactory();
     }
@@ -50,4 +50,5 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             sessao.close();
         }
     }
+
 }

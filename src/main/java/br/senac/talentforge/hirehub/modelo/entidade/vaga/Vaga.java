@@ -4,20 +4,30 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "vaga")
 public class Vaga implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3028127181895527836L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_vaga")
+    @Column(name = "id_vaga")
     private long id;
-    
+
     @Column(name = "codigo_vaga", length = 32, nullable = false, unique = true)
     private String codigo;
 
@@ -29,21 +39,19 @@ public class Vaga implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private ModalidadeContratacao modalidadeContratacao;
-    
+
     @Enumerated(EnumType.STRING)
     private SituacaoVaga situacaoVaga;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
-    public Vaga(){
+    public Vaga() {}
 
-    }
-
-    public Vaga(String codigo, String nome, String descricao,long id, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa){
+    public Vaga(String codigo, String nome, String descricao, long id, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa) {
         setId(id);
-    	setCodigo(codigo);
+        setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
         setModalidadeContratacao(modalidadeContratacao);
@@ -98,6 +106,7 @@ public class Vaga implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public long getId() {
         return id;
     }
@@ -105,4 +114,5 @@ public class Vaga implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
 }

@@ -141,7 +141,7 @@ class ApontamentoDAOImplTest {
     }
 
     private void dadosIntituicao() {
-        instituicaoTeste.setNome("Senac");
+        instituicaoTeste.setNomeEmpresa("Senac");
         instituicaoTeste.setSenha("1234");
         instituicaoTeste.setDescricao("Empresa focada na area de educação");
         instituicaoTeste.setDataFundacao(LocalDate.of(2000,3,9));
@@ -173,7 +173,7 @@ class ApontamentoDAOImplTest {
 
     private void dadosTurmas() {
         turmaTeste.setNomeTurma("Turma Da Bagunça");
-        turmaTeste.addAluno(alunoTeste);
+        turmaTeste.adicionarAluno(alunoTeste);
         turmaTeste.setCodigo("codigoSecreto");
         turmaTeste.setHorario(LocalTime.of(15, 30));
         turmaTeste.setCurso(cursoTeste);

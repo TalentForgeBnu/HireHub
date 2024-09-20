@@ -1,7 +1,6 @@
 package br.senac.talentforge.hirehub.modelo.dao.endereco;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco_;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
@@ -15,7 +14,7 @@ import javax.persistence.criteria.Root;
 public class EnderecoDAOImpl implements EnderecoDAO {
 
     private ConexaoFactory fabrica;
-    
+
     public EnderecoDAOImpl() {
         fabrica = new ConexaoFactory();
     }

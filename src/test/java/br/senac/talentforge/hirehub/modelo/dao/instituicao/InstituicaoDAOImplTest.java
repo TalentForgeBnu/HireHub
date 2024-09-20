@@ -29,7 +29,7 @@ class InstituicaoDAOImplTest {
 
         Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicao(instituicaoTeste.getCnpj());
 
-        assertEquals(instituicaoTeste.getNome(), instituicaoRecuperada.getNome());
+        assertEquals(instituicaoTeste.getNomeEmpresa(), instituicaoRecuperada.getNomeEmpresa());
 
         deletarDados();
     }
@@ -49,7 +49,7 @@ class InstituicaoDAOImplTest {
     }
 
     private void dadosIntituicao() {
-        instituicaoTeste.setNome("Senac");
+        instituicaoTeste.setNomeEmpresa("Senac");
         instituicaoTeste.setSenha("1234");
         instituicaoTeste.setDescricao("Empresa focada na area de educação");
         instituicaoTeste.setDataFundacao(LocalDate.of(2000, 3, 9));

@@ -60,7 +60,7 @@ public class TurmaDAOImpl implements TurmaDAO {
         }
     }
 
-    public Turma recuperarTurmaPeloIdIntituicao(long idInstituicao){
+    public Turma recuperarTurmaPeloIdIntituicao(long idInstituicao) {
         Session sessao = null;
         Turma turmaRecuperada = null;
         try {
@@ -80,7 +80,7 @@ public class TurmaDAOImpl implements TurmaDAO {
         return turmaRecuperada;
     }
 
-    public List<Turma> recuperarTurmasPeloIdCurso(long idCurso){
+    public List<Turma> recuperarTurmasPeloIdCurso(long idCurso) {
         Session sessao = null;
         List<Turma> turmaRecuperadas = null;
         try {

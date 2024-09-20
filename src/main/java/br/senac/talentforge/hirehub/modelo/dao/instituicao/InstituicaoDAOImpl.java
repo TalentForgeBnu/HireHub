@@ -9,7 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public class InstituicaoDAOImpl implements InstituicaoDAO{
+public class InstituicaoDAOImpl implements InstituicaoDAO {
 
     private ConexaoFactory fabrica;
 

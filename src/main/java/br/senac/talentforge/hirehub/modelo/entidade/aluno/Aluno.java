@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "aluno")
 public class Aluno extends PessoaFisica implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1588651712344525933L;
 
     @Column(name = "matricula", length = 30, nullable = false, unique = false)
     private String matricula;
@@ -31,8 +31,7 @@ public class Aluno extends PessoaFisica implements Serializable {
     @Enumerated(EnumType.STRING)
     private AlunoMatriculado alunoMatriculado;
 
-    public Aluno() {
-    }
+    public Aluno() {}
 
     public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, AlunoMatriculado alunoMatriculado){
         setId(id);
