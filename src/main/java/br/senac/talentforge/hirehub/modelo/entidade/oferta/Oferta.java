@@ -1,113 +1,55 @@
 package br.senac.talentforge.hirehub.modelo.entidade.oferta;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.enumeracao.andamentooferta.AndamentoOferta;
 
-@Entity
-@Table(name = "oferta")
-public class Oferta implements Serializable {
+public class Oferta {
 
-	private static final long serialVersionUID = -3383714348610491036L;
+	private Vaga vaga;
+	private Curso curso;
+	private String proposta;
+	private String resposta;
+	//private Status andamentoOferta;
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_oferta")
-    private long id;
+	public Vaga getVaga() {
+		return vaga;
+	}
 
-    @Column(name = "proposta", length = 50, unique = false)
-    private String proposta;
+	public void setVaga(Vaga vaga) {
+		this.vaga = vaga;
+	}
 
-    @Column(name = "resposta", length = 50, unique = false)
-    private String resposta;
+	public Curso getCurso() {
+		return curso;
+	}
 
-    @Enumerated(EnumType.STRING)
-    private AndamentoOferta andamentoOferta;
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codigo_vaga")
-    private Vaga vaga;
+	public String getProposta() {
+		return proposta;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_curso")
-    private Curso curso;
+	public void setProposta(String proposta) {
+		this.proposta = proposta;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_empresa")
-    private Empresa empresa;
+	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_instituicao")
-    private Instituicao instituicao;
+	public String getResposta() {
+		return resposta;
+	}
 
+	public void setResposta(String resposta) {
+		this.resposta = resposta;
+	}
 
-    public Oferta() {
+	//public Status getAndamentoOferta() {
+	//	return andamentoOferta;
+	//}
 
-    }
-
-    public Oferta(long id, String proposta, String resposta, AndamentoOferta andamentoOferta, Vaga vaga, Curso curso) {
-        setId(id);
-        setProposta(proposta);
-        setResposta(resposta);
-        setVaga(vaga);
-        setCurso(curso);
-    }
-
-
-    public Vaga getVaga() {
-        return vaga;
-    }
-
-    public void setVaga(Vaga vaga) {
-        this.vaga = vaga;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public String getProposta() {
-        return proposta;
-    }
-
-    public void setProposta(String proposta) {
-        this.proposta = proposta;
-    }
-
-    public String getResposta() {
-        return resposta;
-    }
-
-    public void setResposta(String resposta) {
-        this.resposta = resposta;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+	//public void setAndamentoOferta(Status andamentoOferta) {
+	//	this.andamentoOferta = andamentoOferta;
+	//}
 
 }

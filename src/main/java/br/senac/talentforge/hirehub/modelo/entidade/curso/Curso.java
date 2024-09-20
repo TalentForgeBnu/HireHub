@@ -4,6 +4,7 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,19 +16,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
 
 @Entity
 @Table(name = "curso" )
 public class Curso implements Serializable {
-
-	private static final long serialVersionUID = 5425389670106431381L;
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_curso")
+	@Column(name = "id_professor")
 	private Long id;
 	
 	@Column(name = "nome_curso", length = 50, nullable = false, unique = true)
@@ -37,7 +37,7 @@ public class Curso implements Serializable {
     private String areaDeAtuacao;
 	
 	@Enumerated(EnumType.STRING)
-    private AndamentoCurso andamentoCurso;
+    private AndamentoCurso status;
 	
 	@Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
@@ -45,33 +45,34 @@ public class Curso implements Serializable {
 	@Column(name = "data_fim", nullable = false, unique = false)
     private LocalDate dataFim;
 	
-	@Column(name = "descricao", length = 300, nullable = true, unique = false)
-    private String descricao;
+	@Column(name = "descricao_curso", length = 300, nullable = true, unique = false)
+    private String descricaoCurso;
     
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_instituicao")
-	private Instituicao instituicao;
-
+	@JoinColumn(name = "id_professor")
+	private Professor professor;
+	
+	
 	public Curso() {
 		
 	}
 	
-  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, AndamentoCurso andamentoCurso) {
+  public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
     	this.dataFim = dataFim;
-    	this.descricao = descricao;
+    	this.descricaoCurso = descricaoCurso;
     	this.andamentoCurso = andamentoCurso;
     }
     
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, Instituicao instituica, AndamentoCurso andamentoCurso) {
+    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricaoCurso, Professor professor, AndamentoCurso andamentoCurso) {
     	this.nomeCurso = nomeCurso; 
     	this.areaDeAtuacao = areaDeAtuacao;
     	this.dataInicio = dataInicio;
     	this.dataFim = dataFim;
-    	this.descricao = descricao;
-    	this.instituicao = instituica;
+    	this.descricaoCurso = descricaoCurso;
+    	this.professor = professor;
     	this.andamentoCurso = andamentoCurso;
     }
     
@@ -99,12 +100,12 @@ public class Curso implements Serializable {
         this.nomeCurso = nomeCurso;
     }
     
-    public String getDescricao() {
-    	return descricao;
+    public String getDescricaoCurso() {
+    	return descricaoCurso;
     }
     
-    public void setDescricao(String descricaoCurso) {
-    	this.descricao = descricaoCurso;
+    public void setDescricaoCurso(String descricaoCurso) {
+    	this.descricaoCurso = descricaoCurso;
     }
 
     public String getAreaDeAtuacao() {
@@ -116,19 +117,19 @@ public class Curso implements Serializable {
     }
 
     public AndamentoCurso getStatus() {
-        return andamentoCurso;
+        return status;
     }
 
-    public void setStatus(AndamentoCurso andamentoCurso) {
-        this.andamentoCurso = andamentoCurso;
+    public void setStatus(AndamentoCurso status) {
+        this.status = status;
     }
     
-    public Instituicao getInsituicao() {
-    	return instituicao;
+    public Professor getProfessor() {
+    	return professor;
     }
     
-    public void setInsituicao(Instituicao instituicao) {
-    	this.instituicao = instituicao;
+    public void setProfessor(Professor professor) {
+    	this.professor = professor;
     }
     
     public long getId() {
