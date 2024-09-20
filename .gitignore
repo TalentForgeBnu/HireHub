@@ -1,1 +1,6 @@
 /target/
+
+.settings/
+.project
+.classpath
+.apt_generated_tests/
