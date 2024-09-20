@@ -5,7 +5,8 @@
 
 ## 🌟 Objetivos
 - **Diminuir a desigualdade:** Promover oportunidades iguais para todos os profissionais, independentemente de sua origem ou condição.
-- **Aumentar a empregabilidade:** Facilitar a capacitação e a contratação, conectando candidatos a empresas que valorizam a inclusão.
+- **Aumentar a empregabilidade:** Facilitar a capacitação e a contratação, utilizando um sistema que promove a inclusão com perfis de alunos mais personalizados, conectando-os a oportunidades que se adequem às suas habilidades e necessidades.
+
 
 ## 🛠️ Tecnologias Utilizadas
 ### Backend:
