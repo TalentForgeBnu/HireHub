@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.dao.endereco;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 public class EnderecoDAOImpl implements EnderecoDAO {
 
     private ConexaoFactory fabrica;
-    
+
     public EnderecoDAOImpl() {
         fabrica = new ConexaoFactory();
     }
@@ -61,18 +61,16 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         }
     }
 
-    public Endereco recuperarEnderecoDoAluno(Aluno aluno) {
-        ConexaoFactory fabrica = new ConexaoFactory();
+    public Endereco recuperarEnderecoPeloIdUsuario(long idUsuario) {
         Session sessao = null;
         Endereco enderecoRecuperado = null;
         try {
-            sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Endereco> criteria = construtor.createQuery(Endereco.class);
-            Root<Aluno> raizAluno = criteria.from(Aluno.class);
-            Join<Aluno, Endereco> joinEndereco = raizAluno.join(Aluno_.endereco);
-            criteria.select(joinEndereco).where(construtor.equal(raizAluno.get(Aluno_.CPF), aluno.getCpf()));
+            Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+            Join<Usuario, Endereco> joinEnderecoUsuario = raizUsuario.join(Usuario_.ENDERECO);
+            criteria.select(joinEnderecoUsuario).where(construtor.equal(raizUsuario.get(Usuario_.ID), idUsuario));
             enderecoRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {

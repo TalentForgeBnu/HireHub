@@ -12,7 +12,6 @@ public class ConexaoFactory {
         Configuration configuracao = new Configuration();
 
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno.class);
-        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.contato.Contato.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.curso.Curso.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco.class);
@@ -29,9 +28,7 @@ public class ConexaoFactory {
         configuracao.configure("hibernate.cfg.xml");
 
         ServiceRegistry servico = new StandardServiceRegistryBuilder().applySettings(configuracao.getProperties()).build();
-        SessionFactory fabricaSessao = configuracao.buildSessionFactory(servico);
-
-        return fabricaSessao;
+        return configuracao.buildSessionFactory(servico);
     }
 
 }
