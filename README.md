@@ -33,6 +33,7 @@ Sinta-se à vontade para clonar o repositório usando o seguinte comando:
 
 ```bash
 git clone https://github.com/seu-usuario/hirehub.git
+```
 
 
 Licença
