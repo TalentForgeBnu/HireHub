@@ -24,13 +24,13 @@ public class Apontamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_apontamento")
 	private long id;
-	
+
 	@Column(name = "descricao", length = 200, nullable = false, unique = true)
 	private String descricao;
-	
+
 	@Column(name = "data_criacao", nullable = false, unique = true)
 	private LocalDate data;
-	
+
 	@ManyToOne
 	@JoinColumn(name="id_dossie", nullable = false)
 	private Dossie dossie;

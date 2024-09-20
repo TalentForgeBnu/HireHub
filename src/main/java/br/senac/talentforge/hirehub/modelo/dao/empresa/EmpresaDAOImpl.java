@@ -13,8 +13,11 @@ public class EmpresaDAOImpl implements EmpresaDAO {
 
     private ConexaoFactory fabrica;
 
+    public EmpresaDAOImpl() {
+        fabrica = new ConexaoFactory();
+    }
+
     public Empresa recuperarEmpresa(String cnpj) {
-        ConexaoFactory fabrica = new ConexaoFactory();
         Session sessao = null;
         Empresa empresaRecuperada = null;
         try {
@@ -46,4 +49,5 @@ public class EmpresaDAOImpl implements EmpresaDAO {
             sessao.close();
         }
     }
+
 }

@@ -1,19 +1,18 @@
 package br.senac.talentforge.hirehub.modelo.dao.papel;
 
-import org.hibernate.Session;
-
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
 
 public class PapelDAOImpl implements PapelDAO {
-	
-	private ConexaoFactory fabrica;
-	
-	public PapelDAOImpl() {
+
+    private ConexaoFactory fabrica;
+
+    public PapelDAOImpl() {
         fabrica = new ConexaoFactory();
     }
-	
-	public void inserirPapel(Papel papel) {
+
+    public void inserirPapel(Papel papel) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
@@ -26,8 +25,8 @@ public class PapelDAOImpl implements PapelDAO {
             fecharSessao(sessao);
         }
     }
-	
-	public void deletarPapel(Papel papel) {
+
+    public void deletarPapel(Papel papel) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
@@ -40,8 +39,8 @@ public class PapelDAOImpl implements PapelDAO {
             fecharSessao(sessao);
         }
     }
-	
-	public void atualizarPapel(Papel papel) {
+
+    public void atualizarPapel(Papel papel) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
@@ -54,8 +53,8 @@ public class PapelDAOImpl implements PapelDAO {
             fecharSessao(sessao);
         }
     }
-	
-	private void erroSessao(Session sessao, Exception exception) {
+
+    private void erroSessao(Session sessao, Exception exception) {
         exception.printStackTrace();
         if (sessao.getTransaction() != null) {
             sessao.getTransaction().rollback();

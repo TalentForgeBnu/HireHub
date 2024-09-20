@@ -4,7 +4,13 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -12,10 +18,10 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "pessoafisica")
 public abstract class PessoaFisica extends Usuario implements Serializable {
-	
-	private static final long serialVersionUID = -6846672268949621291L;
 
-	@Column(name = "cpf", length = 14, nullable = false, unique = true)
+    private static final long serialVersionUID = -6846672268949621291L;
+
+    @Column(name = "cpf", length = 14, nullable = false, unique = true)
     private String cpf;
 
     @Column(name = "nome_social", length = 20, nullable = true, unique = false)
@@ -39,10 +45,7 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-
-    public PessoaFisica() {
-
-    }
+    public PessoaFisica() {}
 
     public PessoaFisica(String cpf, String nomeSocial, String nome, String sobrenome, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Genero genero) {
         setCpf(cpf);
@@ -118,4 +121,5 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
+
 }

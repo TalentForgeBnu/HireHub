@@ -6,7 +6,18 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,10 +26,10 @@ import java.util.List;
 @Entity
 @Table(name = "turma")
 public class Turma implements Serializable {
-	
-	private static final long serialVersionUID = 1823313068976794708L;
 
-	@Id
+    private static final long serialVersionUID = 387637421011881759L;
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_turma")
     private long id;
@@ -53,11 +64,11 @@ public class Turma implements Serializable {
     @JoinColumn(name = "id_curso", nullable = false)
     private Curso curso;
 
-    public Turma(){
+    public Turma() {
         alunos = new ArrayList<>();
     }
 
-    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, List<Aluno> alunos, Curso curso){
+    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, List<Aluno> alunos, Curso curso) {
         setId(id);
         setNomeTurma(nomeTurma);
         setHorario(horario);
@@ -106,7 +117,7 @@ public class Turma implements Serializable {
         this.alunos = alunos;
     }
 
-    public void addAluno(Aluno aluno){
+    public void adicionarAluno(Aluno aluno) {
         this.alunos.add(aluno);
     }
 
@@ -149,4 +160,5 @@ public class Turma implements Serializable {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+
 }

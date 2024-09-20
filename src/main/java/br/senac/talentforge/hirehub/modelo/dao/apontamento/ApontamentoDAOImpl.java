@@ -70,7 +70,7 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
         }
     }
 
-    public Apontamento recuperarApontamentoPeloIdDossie(long id) {
+    public Apontamento recuperarApontamentoPeloIdDossie(long idDossie) {
         Session sessao = null;
         Apontamento apontamentoRecuperado = null;
         try {
@@ -80,7 +80,7 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
             CriteriaQuery<Apontamento> criteria = construtor.createQuery(Apontamento.class);
             Root<Dossie> raizDossie = criteria.from(Dossie.class);
             Join<Dossie, Apontamento> joinApontamento = raizDossie.join(Dossie_.ID);
-            criteria.select(joinApontamento).where(construtor.equal(raizDossie.get(Dossie_.ID), id));
+            criteria.select(joinApontamento).where(construtor.equal(raizDossie.get(Dossie_.ID), idDossie));
             apontamentoRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
