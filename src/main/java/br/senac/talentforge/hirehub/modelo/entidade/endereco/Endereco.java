@@ -1,117 +1,115 @@
 package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
-import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
+
+//@Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro_endereco", "numero_endereco"})})//
 @Entity
-@Table(name = "endereco", uniqueConstraints = {@UniqueConstraint(columnNames = {"logradouro", "numero"})})
-public class Endereco implements Serializable {
-
-	private static final long serialVersionUID = -8443988268200843684L;
-
+@Table(name = "endereco", uniqueConstraints = { @UniqueConstraint(columnNames = { "logradouro", "numero" }) })
+public class Endereco extends Contato implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_endereco")
-    private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_endereco")
+	private long id;
 
-    @Column(name = "logradouro", length = 50, nullable = false, unique = false)
-    private String logradouro;
+	@Column(name = "logradouro", length = 50, nullable = false, unique = false)
+	private String logradouro;
 
-    @Column(name = "bairro", length = 50, nullable = false, unique = false)
-    private String bairro;
+	@Column(name = "bairro", length = 50, nullable = false, unique = false)
+	private String bairro;
 
-    @Column(name = "cidade", length = 50, nullable = false, unique = false)
-    private String cidade;
+	@Column(name = "cidade", length = 50, nullable = false, unique = false)
+	private String cidade;
 
-    @Column(name = "estado", length = 50, nullable = false, unique = false)
-    private String estado;
+	@Column(name = "estado", length = 50, nullable = false, unique = false)
+	private String estado;
 
-    @Column(name = "cep", length = 9, nullable = false, unique = false)
-    private String cep;
+	@Column(name = "cep", length = 9, nullable = false, unique = false)
+	private String cep;
 
-    @Column(name = "numero", nullable = false, unique = false)
-    private int numero;
+	@Column(name = "numero", nullable = false, unique = true)
+	private int numero;
 
-    @OneToOne
-    @JoinColumn(name = "id_contato")
-    Contato contato;
+	public Endereco() {
+		
+	}
+	
+	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
 
-    public Endereco() {
+		this.logradouro = logradouro;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+		this.numero = numero;
+	}
+	public Endereco(String logradouro, String bairro, String cidade, String estado, String cep) {
+		
+		super();
+		this.logradouro = logradouro;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+	}
 
-    }
+	public String getlogradouro() {
+		return logradouro;
+	}
 
-    public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
-        this.logradouro = logradouro;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.numero = numero;
-    }
+	public void setlogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public String getBairro() {
+		return bairro;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
 
-    public String getLogradouro() {
-        return logradouro;
-    }
+	public String getCidade() {
+		return cidade;
+	}
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
-    public String getBairro() {
-        return bairro;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public String getCidade() {
-        return cidade;
-    }
+	public String getCep() {
+		return cep;
+	}
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-    public String getEstado() {
-        return estado;
-    }
+	public int getNumero() {
+		return numero;
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public Contato getContato() {
-        return contato;
-    }
-
-    public void setContato(Contato contato) {
-        this.contato = contato;
-    }
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 }
