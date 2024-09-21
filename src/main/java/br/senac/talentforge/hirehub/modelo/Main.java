@@ -2,8 +2,6 @@ package br.senac.talentforge.hirehub.modelo;
 
 import java.time.LocalDate;
 
-import br.senac.talentforge.hirehub.modelo.dao.contato.ContatoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.contato.ContatoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
@@ -14,7 +12,6 @@ import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.contato.Contato;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
@@ -45,15 +42,6 @@ public class Main {
         Instituicao instituicao = new Instituicao();
         
         usuarioDAO.inserirUsuario(instituicao);
-        
-        ContatoDAO contatoDAO = new ContatoDAOImpl();
-        
-        Contato contato = new Contato();
-        
-        contato.setEmail("JASDHJASHDJASDLKAD");
-        contato.setnumero("34538535");
-        
-        contatoDAO.inserirContato(contato);
        
         
         CursoDAO cursoDAO = new CursoDAOImpl();
