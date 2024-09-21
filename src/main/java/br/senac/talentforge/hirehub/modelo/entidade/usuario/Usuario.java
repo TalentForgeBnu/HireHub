@@ -1,11 +1,23 @@
 package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -13,9 +25,9 @@ import java.io.Serializable;
 
 public abstract class Usuario implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7754498462408877687L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     protected long id;
