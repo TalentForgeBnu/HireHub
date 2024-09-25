@@ -27,7 +27,7 @@ class InstituicaoDAOImplTest {
         setarDados();
         inserirDados();
 
-        Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicao(instituicaoTeste.getCnpj());
+        Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(instituicaoTeste.getCnpj());
 
         assertEquals(instituicaoTeste.getNomeEmpresa(), instituicaoRecuperada.getNomeEmpresa());
 
@@ -55,6 +55,8 @@ class InstituicaoDAOImplTest {
         instituicaoTeste.setDataFundacao(LocalDate.of(2000, 3, 9));
         instituicaoTeste.setCnpj("12.345.678/0001-95");
         instituicaoTeste.setEndereco(enderecoTeste);
+        instituicaoTeste.setEmail("Senac@email.com");
+        instituicaoTeste.setTelefone("47-3332-1234");
     }
 
     private void inserirDados() {

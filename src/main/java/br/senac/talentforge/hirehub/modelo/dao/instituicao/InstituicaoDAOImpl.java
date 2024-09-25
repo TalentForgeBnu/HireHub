@@ -17,7 +17,7 @@ public class InstituicaoDAOImpl implements InstituicaoDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public Instituicao recuperarIntituicao(String cnpj) {
+    public Instituicao recuperarIntituicaoPeloCnpj(String cnpj) {
         Session sessao = null;
         Instituicao instituicaoRecuperada = null;
         try {

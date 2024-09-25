@@ -17,7 +17,7 @@ public class EmpresaDAOImpl implements EmpresaDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public Empresa recuperarEmpresa(String cnpj) {
+    public Empresa recuperarEmpresaPeloCnpj(String cnpj) {
         Session sessao = null;
         Empresa empresaRecuperada = null;
         try {

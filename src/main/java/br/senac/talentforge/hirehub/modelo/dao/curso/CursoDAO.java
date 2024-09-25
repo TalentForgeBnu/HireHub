@@ -11,7 +11,7 @@ public interface CursoDAO {
 
     void atualizarCurso(Curso curso);
 
-    Curso recuperarCursoPeloIdDaInstotuicao(long idInstituicao);
+    List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao);
 
     List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao);
 
