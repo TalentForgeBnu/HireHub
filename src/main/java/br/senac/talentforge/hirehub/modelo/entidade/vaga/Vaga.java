@@ -1,9 +1,10 @@
 package br.senac.talentforge.hirehub.modelo.entidade.vaga;
 
-import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
-import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,8 +15,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.io.Serializable;
+
+import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
+import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
 
 @Entity
 @Table(name = "vaga")
@@ -46,11 +52,17 @@ public class Vaga implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
+    
+    @OneToMany(mappedBy = "oferta",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Oferta> ofertas;
 
-    public Vaga() {}
-
+    public Vaga() {
+    	ofertas = new ArrayList<Oferta>();
+    }
+    
     public Vaga(String codigo, String nome, String descricao, long id, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa) {
-        setId(id);
+        ofertas = new ArrayList<Oferta>();
+    	setId(id);
         setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
@@ -113,6 +125,14 @@ public class Vaga implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public List<Oferta> getOferta(){
+    	return ofertas;
+    }
+    
+    public void setOferta(Oferta oferta) {
+    	ofertas.add(oferta);
     }
 
 }
