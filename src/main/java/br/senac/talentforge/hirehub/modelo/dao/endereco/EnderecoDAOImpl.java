@@ -65,6 +65,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         Session sessao = null;
         Endereco enderecoRecuperado = null;
         try {
+            sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Endereco> criteria = construtor.createQuery(Endereco.class);
@@ -93,4 +94,5 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             sessao.close();
         }
     }
+
 }

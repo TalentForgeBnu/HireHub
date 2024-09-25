@@ -33,6 +33,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApontamentoDAOImplTest {
@@ -87,21 +93,81 @@ class ApontamentoDAOImplTest {
         atualizarDossie();
         dossieDAO.atualizarDossie(dossieTeste);
 
+        Aluno alunoRecuperdado = alunoDAO.recuperarAlunoPeloCpf(alunoTeste.getCpf());
+        Dossie dossieRecuperado = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(alunoRecuperdado.getId());
+        Apontamento apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        assertEquals(apontamentoRecuperado.getDescricao(), apontamentoTeste.getDescricao());
     }
 
     @Test
     @Order(2)
     void recuperarApontamentoPeloIdDossie() {
+        setarDados();
+
+        Aluno alunoRecuperdado = alunoDAO.recuperarAlunoPeloCpf(alunoTeste.getCpf());
+        Dossie dossieRecuperado = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(alunoRecuperdado.getId());
+        Apontamento apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        assertEquals(apontamentoRecuperado.getDescricao(), apontamentoTeste.getDescricao());
     }
 
     @Test
     @Order(3)
     void atualizarApontamento() {
+        setarDados();
+
+        Aluno alunoRecuperdado = alunoDAO.recuperarAlunoPeloCpf(alunoTeste.getCpf());
+        Dossie dossieRecuperado = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(alunoRecuperdado.getId());
+        Apontamento apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        Apontamento apontamentoAtualizado = new Apontamento();
+        apontamentoAtualizado.setId(apontamentoRecuperado.getId());
+        apontamentoAtualizado.setDescricao(apontamentoRecuperado.getDescricao());
+        apontamentoAtualizado.setData(LocalDate.of(2024, 9, 23));
+        apontamentoAtualizado.setDossie(apontamentoRecuperado.getDossie());
+
+        assertNotEquals(apontamentoAtualizado.getData(), apontamentoRecuperado.getData());
+
+        apontamentoDAO.atualizarApontamento(apontamentoAtualizado);
+        apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        assertEquals(apontamentoAtualizado.getData(), apontamentoRecuperado.getData());
     }
 
     @Test
     @Order(4)
     void deletarApontamento() {
+        setarDados();
+        Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(instituicaoTeste.getCnpj());
+        Aluno alunoRecuperado = alunoDAO.recuperarAlunoPeloCpf(alunoTeste.getCpf());
+        Professor professorRecuperado = professorDAO.recuperarProfessor(professorTeste.getCpf());
+        Endereco enderecoRecuperado1 = enderecoDAO.recuperarEnderecoPeloIdUsuario(alunoRecuperado.getId());
+        Endereco enderecoRecuperado2 = enderecoDAO.recuperarEnderecoPeloIdUsuario(professorRecuperado.getId());
+        Endereco enderecoRecuperado3 = enderecoDAO.recuperarEnderecoPeloIdUsuario(instituicaoRecuperada.getId());
+        List<Curso> cursosRecuperados = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicaoRecuperada.getId());
+        Turma turmaRecuperada = turmaDAO.recuperarTurmaPeloIdIntituicao(instituicaoRecuperada.getId());
+        Dossie dossieRecuperado = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(alunoRecuperado.getId());
+        Apontamento apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        assertNotNull(apontamentoRecuperado);
+
+        apontamentoDAO.deletarApontamento(apontamentoRecuperado);
+        dossieDAO.deletarDossie(dossieRecuperado);
+        turmaDAO.deletarTurma(turmaRecuperada);
+        usuarioDAO.deletarUsuario(alunoRecuperado);
+        enderecoDAO.deletarEndereco(enderecoRecuperado1);
+        usuarioDAO.deletarUsuario(professorRecuperado);
+        enderecoDAO.deletarEndereco(enderecoRecuperado2);
+        for (Curso curso : cursosRecuperados) {
+            cursoDAO.deletarCurso(curso);
+        }
+        usuarioDAO.deletarUsuario(instituicaoRecuperada);
+        enderecoDAO.deletarEndereco(enderecoRecuperado3);
+
+        apontamentoRecuperado = apontamentoDAO.recuperarApontamentoPeloIdDossie(dossieRecuperado.getId());
+
+        assertNull(apontamentoRecuperado);
     }
 
     private void setarDados() {
@@ -144,9 +210,11 @@ class ApontamentoDAOImplTest {
         instituicaoTeste.setNomeEmpresa("Senac");
         instituicaoTeste.setSenha("1234");
         instituicaoTeste.setDescricao("Empresa focada na area de educação");
-        instituicaoTeste.setDataFundacao(LocalDate.of(2000,3,9));
+        instituicaoTeste.setDataFundacao(LocalDate.of(2000, 3, 9));
         instituicaoTeste.setCnpj("12.345.678/0001-95");
         instituicaoTeste.setEndereco(enderecoTeste3);
+        instituicaoTeste.setEmail("Senac@email.com");
+        instituicaoTeste.setTelefone("47-3332-1234");
     }
 
     private void dadosCurso() {
@@ -169,6 +237,8 @@ class ApontamentoDAOImplTest {
         professorTeste.setGenero(Genero.MASCULINO);
         professorTeste.setDataNascimento(LocalDate.of(1994, 1, 3));
         professorTeste.setInstituicao(instituicaoTeste);
+        professorTeste.setEmail("Lucas@email.com");
+        professorTeste.setTelefone("47-91234-5678");
     }
 
     private void dadosTurmas() {
@@ -188,10 +258,12 @@ class ApontamentoDAOImplTest {
         alunoTeste.setNomeSocial("Joaozinho");
         alunoTeste.setGenero(Genero.MASCULINO);
         alunoTeste.setDataNascimento(LocalDate.of(2005, 11, 20));
-        alunoTeste.setMatricula("matricula :)");
+        alunoTeste.setMatricula("3rt6");
         alunoTeste.setCodigoTurma("123");
         alunoTeste.setCpf("123-456-789-10");
         alunoTeste.setEndereco(enderecoTeste1);
+        alunoTeste.setEmail("Joaozinho@email.com");
+        alunoTeste.setTelefone("12-93456-7890");
     }
 
     private void dadosDossie() {
@@ -205,17 +277,17 @@ class ApontamentoDAOImplTest {
         apontamentoTeste.setDossie(dossieTeste);
     }
 
-    private void atualizarIntituicao(){
+    private void atualizarIntituicao() {
         instituicaoTeste.addCurso(cursoTeste);
         instituicaoTeste.addTurma(turmaTeste);
         instituicaoTeste.addProfessores(professorTeste);
     }
 
-    private void atualizarProfessor(){
+    private void atualizarProfessor() {
         professorTeste.addTurma(turmaTeste);
     }
 
-    private void atualizarDossie(){
-        dossieTeste.addApontamento(apontamentoTeste);
+    private void atualizarDossie() {
+        dossieTeste.adicionarApontamento(apontamentoTeste);
     }
 }

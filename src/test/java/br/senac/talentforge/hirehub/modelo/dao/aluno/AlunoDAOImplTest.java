@@ -8,6 +8,8 @@ import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
+import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
@@ -25,15 +27,19 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AlunoDAOImplTest {
 
     private final InstituicaoDAO instituicaoDAO = new InstituicaoDAOImpl();
+    private final ProfessorDAO professorDAO = new ProfessorDAOImpl();
     private final CursoDAO cursoDAO = new CursoDAOImpl();
     private final TurmaDAO turmaDAO = new TurmaDAOImpl();
     private final EnderecoDAO enderecoDAO = new EnderecoDAOImpl();
@@ -53,14 +59,14 @@ class AlunoDAOImplTest {
 
     @Test
     @Order(1)
-    void recuperarAluno() {
+    void recuperarAlunoPeloCpf() {
         setarDadosTeste();
         inserirDados();
 
         Aluno alunoRecuperado = alunoDAO.recuperarAlunoPeloCpf(alunoTeste1.getCpf());
 
         assertNotNull(alunoRecuperado);
-        assertEquals(alunoTeste1.getNome(), alunoRecuperado.getNome());
+        assertEquals(alunoTeste1.getCpf(), alunoRecuperado.getCpf());
     }
 
     @Test
@@ -68,35 +74,66 @@ class AlunoDAOImplTest {
     void recuperarAlunosPeloIdTurma() {
         setarDadosTeste();
 
-        Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicao(instituicaoTeste.getCnpj());
+        Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(instituicaoTeste.getCnpj());
         Turma turmaRecuperada = turmaDAO.recuperarTurmaPeloIdIntituicao(instituicaoRecuperada.getId());
 
         Aluno alunoRecuperado1 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste1.getCpf());
         Aluno alunoRecuperado2 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste2.getCpf());
 
-        alunoRecuperado1.setTurma(turmaRecuperada);
-        alunoRecuperado2.setTurma(turmaRecuperada);
+        atualizarTurmaDoAluno(alunoRecuperado1, turmaRecuperada);
+        atualizarTurmaDoAluno(alunoRecuperado2, turmaRecuperada);
 
-        usuarioDAO.atualizarUsuario(alunoRecuperado1);
-        usuarioDAO.atualizarUsuario(alunoRecuperado2);
-        turmaDAO.atualizarTurma(turmaRecuperada);
+        List<Aluno> alunosRecuperados = alunoDAO.recuperarAlunosPeloIdTurma(turmaRecuperada.getId());
 
-        List<Aluno> alunos = alunoDAO.recuperarAlunosPeloIdTurma(turmaRecuperada.getId());
+        assertNotNull(alunosRecuperados);
 
-        assertNotNull(alunos);
+        List<Long> listaDeId1 = alunosRecuperados.stream().map(Aluno::getId).collect(Collectors.toList());
+        List<Long> listaDeId2 = new ArrayList<>();
+        listaDeId2.add(alunoRecuperado1.getId());
+        listaDeId2.add(alunoRecuperado2.getId());
 
-        assertEquals(2, alunos.size());
+        assertTrue(listaDeId1.containsAll(listaDeId2));
 
         deletarDados();
     }
 
     private void setarDadosTeste() {
+        dadosEndereco();
         dadosIntituicao();
         dadosCurso();
         dadosProfessor();
         dadosTurma();
-        dadosEndereco();
         dadosAluno();
+    }
+
+    private void dadosEndereco() {
+        enderecoTeste1.setCep("12345-678");
+        enderecoTeste1.setEstado("Santa Catarina");
+        enderecoTeste1.setCidade("Blumenau");
+        enderecoTeste1.setBairro("Alameda");
+        enderecoTeste1.setNumero(123);
+        enderecoTeste1.setLogradouro("Rua das Rosas");
+
+        enderecoTeste2.setCep("12345-679");
+        enderecoTeste2.setEstado("Santa Catarina");
+        enderecoTeste2.setCidade("Blumenau");
+        enderecoTeste2.setBairro("Alameda");
+        enderecoTeste2.setNumero(456);
+        enderecoTeste2.setLogradouro("Rua das Roxas");
+
+        enderecoTeste3.setCep("23456-789");
+        enderecoTeste3.setEstado("Santa Catarina");
+        enderecoTeste3.setCidade("Blumenau");
+        enderecoTeste3.setBairro("Garcia");
+        enderecoTeste3.setNumero(7812);
+        enderecoTeste3.setLogradouro("Rua São Paulo");
+
+        enderecoTeste4.setCep("23416-723");
+        enderecoTeste4.setEstado("São Paulo");
+        enderecoTeste4.setCidade("Piracicaba");
+        enderecoTeste4.setBairro("Hugo");
+        enderecoTeste4.setNumero(3);
+        enderecoTeste4.setLogradouro("Rua Brasil");
     }
 
     private void dadosIntituicao() {
@@ -132,7 +169,6 @@ class AlunoDAOImplTest {
         professorTeste.setInstituicao(instituicaoTeste);
         professorTeste.setEmail("Lucas@email.com");
         professorTeste.setTelefone("47-91234-5678");
-
     }
 
     private void dadosTurma() {
@@ -143,36 +179,6 @@ class AlunoDAOImplTest {
         turmaTeste.setCurso(cursoTeste);
         turmaTeste.setInstituicao(instituicaoTeste);
         turmaTeste.setProfessor(professorTeste);
-    }
-
-    private void dadosEndereco() {
-        enderecoTeste1.setCep("12345-678");
-        enderecoTeste1.setEstado("Santa Catarina");
-        enderecoTeste1.setCidade("Blumenau");
-        enderecoTeste1.setBairro("Alameda");
-        enderecoTeste1.setNumero(123);
-        enderecoTeste1.setLogradouro("Rua das Rosas");
-
-        enderecoTeste2.setCep("12345-679");
-        enderecoTeste2.setEstado("Santa Catarina");
-        enderecoTeste2.setCidade("Blumenau");
-        enderecoTeste2.setBairro("Alameda");
-        enderecoTeste2.setNumero(456);
-        enderecoTeste2.setLogradouro("Rua das Roxas");
-
-        enderecoTeste3.setCep("23456-789");
-        enderecoTeste3.setEstado("Santa Catarina");
-        enderecoTeste3.setCidade("Blumenau");
-        enderecoTeste3.setBairro("Garcia");
-        enderecoTeste3.setNumero(7812);
-        enderecoTeste3.setLogradouro("Rua São Paulo");
-
-        enderecoTeste4.setCep("23416-723");
-        enderecoTeste4.setEstado("São Paulo");
-        enderecoTeste4.setCidade("Piracicaba");
-        enderecoTeste4.setBairro("Hugo");
-        enderecoTeste4.setNumero(3);
-        enderecoTeste4.setLogradouro("Rua Brasil");
     }
 
     private void dadosAluno() {
@@ -198,6 +204,7 @@ class AlunoDAOImplTest {
         alunoTeste2.setMatricula("ik28");
         alunoTeste2.setCodigoTurma("123");
         alunoTeste2.setCpf("123-456-789-20");
+        alunoTeste2.setEndereco(enderecoTeste4);
         alunoTeste2.setEmail("pauloguedes@emial.com");
         alunoTeste2.setTelefone("11-99244-1354");
     }
@@ -225,24 +232,6 @@ class AlunoDAOImplTest {
         usuarioDAO.atualizarUsuario(instituicaoTeste);
     }
 
-    private void deletarDados() {
-        turmaDAO.deletarTurma(turmaTeste);
-
-        usuarioDAO.deletarUsuario(alunoTeste2);
-        enderecoDAO.deletarEndereco(enderecoTeste4);
-
-        usuarioDAO.deletarUsuario(alunoTeste1);
-        enderecoDAO.deletarEndereco(enderecoTeste1);
-
-        cursoDAO.deletarCurso(cursoTeste);
-
-        usuarioDAO.deletarUsuario(professorTeste);
-        enderecoDAO.deletarEndereco(enderecoTeste2);
-
-        usuarioDAO.deletarUsuario(instituicaoTeste);
-        enderecoDAO.deletarEndereco(enderecoTeste3);
-    }
-
     private void atualizarIntituicao() {
         instituicaoTeste.addCurso(cursoTeste);
         instituicaoTeste.addTurma(turmaTeste);
@@ -251,6 +240,43 @@ class AlunoDAOImplTest {
 
     private void atualizarProfessor() {
         professorTeste.addTurma(turmaTeste);
+    }
+
+    private void atualizarTurmaDoAluno(Aluno aluno, Turma turma) {
+        aluno.setTurma(turma);
+        usuarioDAO.atualizarUsuario(aluno);
+        turmaDAO.atualizarTurma(turma);
+    }
+
+    private void deletarDados() {
+        Instituicao instituicaoDeletada = instituicaoDAO.recuperarIntituicaoPeloCnpj(instituicaoTeste.getCnpj());
+        Professor professorDeletado = professorDAO.recuperarProfessor(professorTeste.getCpf());
+        List<Curso> cursosDeletados = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicaoDeletada.getId());
+        Turma turmaDeletada = turmaDAO.recuperarTurmaPeloIdIntituicao(instituicaoDeletada.getId());
+        Aluno alunoDeletado1 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste1.getCpf());
+        Aluno alunoDeletado2 = alunoDAO.recuperarAlunoPeloCpf(alunoTeste2.getCpf());
+        Endereco enderecoDeletado1 = enderecoDAO.recuperarEnderecoPeloIdUsuario(alunoDeletado1.getId());
+        Endereco enderecoDeletado2 = enderecoDAO.recuperarEnderecoPeloIdUsuario(professorDeletado.getId());
+        Endereco enderecoDeletado3 = enderecoDAO.recuperarEnderecoPeloIdUsuario(instituicaoDeletada.getId());
+        Endereco enderecoDeletado4 = enderecoDAO.recuperarEnderecoPeloIdUsuario(alunoDeletado2.getId());
+
+        turmaDAO.deletarTurma(turmaDeletada);
+
+        usuarioDAO.deletarUsuario(alunoDeletado2);
+        enderecoDAO.deletarEndereco(enderecoDeletado4);
+
+        usuarioDAO.deletarUsuario(alunoDeletado1);
+        enderecoDAO.deletarEndereco(enderecoDeletado1);
+
+        for (Curso curso : cursosDeletados) {
+            cursoDAO.deletarCurso(curso);
+        }
+
+        usuarioDAO.deletarUsuario(professorDeletado);
+        enderecoDAO.deletarEndereco(enderecoDeletado2);
+
+        usuarioDAO.deletarUsuario(instituicaoDeletada);
+        enderecoDAO.deletarEndereco(enderecoDeletado3);
     }
 
 }

@@ -13,7 +13,7 @@ public interface OfertaDAO {
 
     Oferta recuperarOfertaPeloIdCurso(long idCurso);
 
-    List<Oferta> recuperarOfertaSPelosIdEmpresa(long idEmpresa);
+    List<Oferta> recuperarOfertasPelosIdEmpresa(long idEmpresa);
 
     List<Oferta> recuperarOfertaSPelosIdInstituicao(long idInstituicao);
 }

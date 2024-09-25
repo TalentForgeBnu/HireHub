@@ -60,9 +60,9 @@ public class CursoDAOImpl implements CursoDAO{
         }
     }
 
-    public Curso recuperarCursoPeloIdDaInstotuicao(long idInstituicao){
+    public List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao){
         Session sessao = null;
-        Curso cursoRecuperado = null;
+        List<Curso> cursosRecuperados = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
@@ -70,14 +70,14 @@ public class CursoDAOImpl implements CursoDAO{
             CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
             Root<Curso> raizCurso = criteria.from(Curso.class);
             criteria.where(construtor.equal(raizCurso.get(Curso_.instituicao), idInstituicao));
-            cursoRecuperado= sessao.createQuery(criteria).getSingleResult();
+            cursosRecuperados = sessao.createQuery(criteria).getResultList();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-        return cursoRecuperado;
+        return cursosRecuperados;
     }
 
     public List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao){

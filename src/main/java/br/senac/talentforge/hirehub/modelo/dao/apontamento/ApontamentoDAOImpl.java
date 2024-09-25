@@ -1,15 +1,13 @@
 package br.senac.talentforge.hirehub.modelo.dao.apontamento;
 
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
-import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
-import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie_;
+import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 public class ApontamentoDAOImpl implements ApontamentoDAO {
@@ -36,7 +34,6 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
         }
     }
 
-
     public void deletarApontamento(Apontamento apontamento) {
         Session sessao = null;
         Transaction transacao = null;
@@ -52,7 +49,6 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
             fecharSessao(sessao);
         }
     }
-
 
     public void atualizarApontamento(Apontamento apontamento) {
         Session sessao = null;
@@ -78,9 +74,8 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Apontamento> criteria = construtor.createQuery(Apontamento.class);
-            Root<Dossie> raizDossie = criteria.from(Dossie.class);
-            Join<Dossie, Apontamento> joinApontamento = raizDossie.join(Dossie_.ID);
-            criteria.select(joinApontamento).where(construtor.equal(raizDossie.get(Dossie_.ID), idDossie));
+            Root<Apontamento> raizApontamento = criteria.from(Apontamento.class);
+            criteria.select(raizApontamento).where(construtor.equal(raizApontamento.get(Apontamento_.DOSSIE), idDossie));
             apontamentoRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
@@ -103,4 +98,5 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
             sessao.close();
         }
     }
+
 }

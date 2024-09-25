@@ -85,7 +85,7 @@ public class OfertaDAOImpl implements OfertaDAO {
         return oferta;
     }
 
-    public List<Oferta> recuperarOfertaSPelosIdEmpresa(long idEmpresa) {
+    public List<Oferta> recuperarOfertasPelosIdEmpresa(long idEmpresa) {
         Session sessao = null;
         List<Oferta> ofertas = null;
         try {
