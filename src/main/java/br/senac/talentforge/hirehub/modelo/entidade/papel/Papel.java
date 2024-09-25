@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.papel;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +24,8 @@ public class Papel implements Serializable{
     @Column(name = "id_papel")
     private long id;
 
-    @Column(name = "nome_papel", length = 20, nullable = false, unique = false)
-    private String nomePapel;
+    @Column(name = "nome_papel", nullable = false, unique = false)
+    private List<String> nomePapel;
 
     public Papel() {}
 
@@ -42,10 +43,10 @@ public class Papel implements Serializable{
     }
 
     public void setNomePapel(String nomePapel) {
-        this.nomePapel = nomePapel;
+        this.nomePapel.add(nomePapel);
     }
 
-    public String getNomePapel() {
+    public List<String> getNomePapel() {
         return nomePapel;
     }
 
