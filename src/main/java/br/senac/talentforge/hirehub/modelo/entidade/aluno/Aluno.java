@@ -1,91 +1,101 @@
 package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
 
-public class Aluno extends Usuario implements Serializable {
-	
-private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_aluno")
-	private long id;
-	
-	@Column(name = "matricula", length = 30, nullable = false, unique = false)
-	private String matricula;
-	
-	@Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
-	private String codigoTurma;
-	
-	@Column(name = "dossie", length = 200, nullable = false, unique = false)
-	private String dossie;
-	
-	@Enumerated(EnumType.STRING)
-	private AlunoMatriculado status;
-	
-	public Aluno() {
-		
-	}
-	
-	public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado status, long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf) {
-		
-		super(id, nomeUsuario,sobrenome,dataNascimento, cpf, cpf);
-		setMatricula(matricula);
-		setCodigoTurma(codigoTurma);
-		setDossie(dossie);
-		setStatusAluno(status);
-		setId(id);
-		
-	}
-	
-	public String getMatricula() {
-		return matricula;
-	}
-	
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;		
-	}
-	
-	public String getCodigoTurma() {
-		return codigoTurma;
-	}
-	
-	public void setCodigoTurma(String codigoTurma) {
-		this.codigoTurma = codigoTurma;		
-	}
-	
-	public String getDossie() {
-		return dossie;
-	}
-	
-	public void setDossie(String dossie) {
-		this.dossie = dossie;		
-	}
-	
-	public AlunoMatriculado getStatus() {
-		return status;
-	}
-	
-	public void setStatusAluno(AlunoMatriculado status) {
-		this.status = status;		
-	}
+@Entity
+@Table(name = "aluno")
+public class Aluno extends PessoaFisica implements Serializable {
 
-	public long getId() {
-		return id;		
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
+    private static final long serialVersionUID = -1588651712344525933L;
+
+    @Column(name = "matricula", length = 30, nullable = false, unique = false)
+    private String matricula;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_instituicao")
+    private Instituicao instituicao;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_turma")
+    private Turma turma;
+
+    @Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
+    private String codigoTurma;
+
+    @Enumerated(EnumType.STRING)
+    private AlunoMatriculado alunoMatriculado;
+
+    public Aluno() {}
+
+    public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, AlunoMatriculado alunoMatriculado){
+        setId(id);
+        setMatricula(matricula);
+        setInstituicao(instituicao);
+        setTurma(turma);
+        setCodigoTurma(codigoTurma);
+        setAlunoMatriculado(alunoMatriculado);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public Instituicao getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(Instituicao instituicao) {
+        this.instituicao = instituicao;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public String getCodigoTurma() {
+        return codigoTurma;
+    }
+
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
+    }
+
+    public AlunoMatriculado getAlunoMatriculado() {
+        return alunoMatriculado;
+    }
+
+    public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
+        this.alunoMatriculado = alunoMatriculado;
+    }
+
 }

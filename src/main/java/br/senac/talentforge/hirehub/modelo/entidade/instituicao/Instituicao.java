@@ -1,121 +1,116 @@
 package br.senac.talentforge.hirehub.modelo.entidade.instituicao;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import antlr.collections.List;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridica;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "instituicao")
-public class Instituicao extends Usuario implements Serializable {
+public class Instituicao extends PessoaJuridica implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_instituicao")
-	private long id;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Curso> cursos;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+    private static final long serialVersionUID = 1L;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Curso> cursos;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Professor> professores;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao",cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oferta> ofertas;
-    
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Turma> turmas;
+
     public Instituicao() {
-    	
+        cursos = new ArrayList<>();
+        professores = new ArrayList<>();
+        alunos = new ArrayList<>();
+        ofertas = new ArrayList<>();
+        turmas = new ArrayList<>();
     }
-    
-    public Instituicao(List<Curso> cursos, List<Professor> professores, List<Aluno> alunos) {
-    	this.cursos = cursos;
-    	this.professores = professores;
-    	this.alunos = alunos;
-    }
-    
-    public List<Oferta> getOfertas(){
-    	return ofertas;
-    }
-    
-    public void setOfertas(List<Oferta> ofertas) {
-    	this.ofertas = ofertas;
-    }
-    
+
     public long getId() {
-    	return id;
+        return id;
     }
-    
+
     public void setId(long id) {
-    	this.id = id;
+        this.id = id;
     }
-    
-    public List<Professor> getProfessores() {
-    	return professores;
+
+    public List<Turma> getTurma() {
+        return turmas;
     }
-    
-    public void setProfessores(List<Professor> professores) {
-    	this.professores = professores;
+
+    public void setTurma(List<Turma> turma) {
+        turmas = turma;
     }
-	
-    public List<Curso> getCursos() {
-    	return cursos;
+
+    public void addTurma(Turma turma){
+        turmas.add(turma);
     }
-    
-    public void setCursos(List<Curso> cursos) {
-    	this.cursos = cursos;
+
+    public List<Oferta> getOfertas() {
+        return ofertas;
     }
-    
+
+    public void setOfertas(List<Oferta> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    public void addOferta(Oferta oferta){
+        this.ofertas.add(oferta);
+    }
+
     public List<Aluno> getAlunos() {
-    	return alunos;
+        return alunos;
     }
-    
-    public void setAlunos(List<Aluno> Alunos) {
-    	this.alunos = alunos;
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
     }
-    
-    public void atualizarProfessor(List<Professor> professores) {
-    	setProfessores(professores);
+
+    public void addAluno(Aluno aluno){
+        this.alunos.add(aluno);
     }
-    
-    public void removerProfessor(List<Professor> professores) {
-    	this.professores.removeAll(professores);
+
+    public List<Professor> getProfessores() {
+        return professores;
     }
-    
-    public void atualizarAluno(List<Aluno> alunos) {
-    	setAlunos(alunos);
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
     }
-    
-    public void removerAluno(List<Aluno> alunos) {
-    	this.alunos.removeAll(alunos);
+
+    public void addProfessores(Professor professor){
+        this.professores.add(professor);
     }
-    
-    public long getId() {
-		return id;		
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-    
-    
-    
-    
-}	
+
+    public List<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setListaCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void addCurso(Curso curso){
+        this.cursos.add(curso);
+    }
+
+}
