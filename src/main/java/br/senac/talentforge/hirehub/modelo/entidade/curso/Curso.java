@@ -2,6 +2,7 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.andamentocurso.AndamentoCurso;
+import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
 @Entity
-@Table(name = "curso" )
+@Table(name = "curso")
 public class Curso implements Serializable {
 
     private static final long serialVersionUID = 5425389670106431381L;
@@ -36,7 +37,7 @@ public class Curso implements Serializable {
     private String areaDeAtuacao;
 
     @Enumerated(EnumType.STRING)
-    private AndamentoCurso andamentoCurso;
+    private Disponibilidade andamentoCurso;
 
     @Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
@@ -51,25 +52,58 @@ public class Curso implements Serializable {
     @JoinColumn(name = "id_instituicao")
     private Instituicao instituicao;
 
-    public Curso() {}
+    public Curso() {
+    }
 
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, AndamentoCurso andamentoCurso) {
+    public Curso(String nomeCurso, String areaDeAtuacao, Disponibilidade andamentoCurso, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+        setNomeCurso(nomeCurso);
+        setAreaDeAtuacao(areaDeAtuacao);
+        setAndamentoCurso(andamentoCurso);
+        setDataInicio(dataInicio);
+        setDataFim(dataFim);
+        setDescricao(descricao);
+    }
+
+    public Curso(long id, String nomeCurso, String areaDeAtuacao, Disponibilidade andamentoCurso, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+        setId(id);
+        setNomeCurso(nomeCurso);
+        setAreaDeAtuacao(areaDeAtuacao);
+        setAndamentoCurso(andamentoCurso);
+        setDataInicio(dataInicio);
+        setDataFim(dataFim);
+        setDescricao(descricao);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
         this.nomeCurso = nomeCurso;
-        this.areaDeAtuacao = areaDeAtuacao;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.descricao = descricao;
+    }
+
+    public Disponibilidade getAndamentoCurso() {
+        return andamentoCurso;
+    }
+
+    public void setAndamentoCurso(Disponibilidade andamentoCurso) {
         this.andamentoCurso = andamentoCurso;
     }
 
-    public Curso(String nomeCurso, String areaDeAtuacao, LocalDate dataInicio, LocalDate dataFim, String descricao, Instituicao instituica, AndamentoCurso andamentoCurso) {
-        this.nomeCurso = nomeCurso;
+    public String getAreaDeAtuacao() {
+        return areaDeAtuacao;
+    }
+
+    public void setAreaDeAtuacao(String areaDeAtuacao) {
         this.areaDeAtuacao = areaDeAtuacao;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
-        this.descricao = descricao;
-        this.instituicao = instituica;
-        this.andamentoCurso = andamentoCurso;
     }
 
     public LocalDate getDataInicio() {
@@ -88,52 +122,39 @@ public class Curso implements Serializable {
         this.dataFim = dataFim;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
-    }
-
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricaoCurso) {
-        this.descricao = descricaoCurso;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getAreaDeAtuacao() {
-        return areaDeAtuacao;
-    }
-
-    public void setAreaDeAtuacao(String areaDeAtuacao) {
-        this.areaDeAtuacao = areaDeAtuacao;
-    }
-
-    public AndamentoCurso getStatus() {
-        return andamentoCurso;
-    }
-
-    public void setStatus(AndamentoCurso andamentoCurso) {
-        this.andamentoCurso = andamentoCurso;
-    }
-
-    public Instituicao getInsituicao() {
+    public Instituicao getInstituicao() {
         return instituicao;
     }
 
-    public void setInsituicao(Instituicao instituicao) {
+    public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
     }
 
-    public long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Curso curso = (Curso) o;
+        return Objects.equals(id, curso.id) &&
+                Objects.equals(nomeCurso, curso.nomeCurso) &&
+                Objects.equals(areaDeAtuacao, curso.areaDeAtuacao) &&
+                andamentoCurso == curso.andamentoCurso &&
+                Objects.equals(dataInicio, curso.dataInicio) &&
+                Objects.equals(dataFim, curso.dataFim) &&
+                Objects.equals(descricao, curso.descricao) &&
+                Objects.equals(instituicao, curso.instituicao);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nomeCurso, areaDeAtuacao, andamentoCurso, dataInicio, dataFim, descricao, instituicao);
     }
-
 }

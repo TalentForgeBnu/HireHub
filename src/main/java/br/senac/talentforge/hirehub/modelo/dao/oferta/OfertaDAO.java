@@ -1,19 +1,19 @@
 package br.senac.talentforge.hirehub.modelo.dao.oferta;
 
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
-
 import java.util.List;
 
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
+
 public interface OfertaDAO {
-    void inserirOferta(Oferta oferta);
+    void inserirOferta(Proposta oferta);
 
-    void deletarOferta(Oferta oferta);
+    void deletarOferta(Proposta oferta);
 
-    void atualizarOferta(Oferta oferta);
+    void atualizarOferta(Proposta oferta);
 
-    Oferta recuperarOfertaPeloIdCurso(long idCurso);
+    Proposta recuperarOfertaPeloIdCurso(long idCurso);
 
-    List<Oferta> recuperarOfertasPelosIdEmpresa(long idEmpresa);
+    List<Proposta> recuperarOfertasPelosIdEmpresa(long idEmpresa);
 
-    List<Oferta> recuperarOfertaSPelosIdInstituicao(long idInstituicao);
+    List<Proposta> recuperarOfertaSPelosIdInstituicao(long idInstituicao);
 }

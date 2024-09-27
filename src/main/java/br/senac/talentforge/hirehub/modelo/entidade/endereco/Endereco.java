@@ -1,7 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.endereco;
 
-
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,15 +40,26 @@ public class Endereco implements Serializable {
     @Column(name = "numero", nullable = false, unique = false)
     private int numero;
 
-    public Endereco() {}
+    public Endereco() {
+    }
 
     public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
-        this.logradouro = logradouro;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
-        this.numero = numero;
+        setLogradouro(logradouro);
+        setBairro(bairro);
+        setCidade(cidade);
+        setEstado(estado);
+        setCep(cep);
+        setNumero(numero);
+    }
+
+    public Endereco(long id, String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
+        setId(id);
+        setLogradouro(logradouro);
+        setBairro(bairro);
+        setCidade(cidade);
+        setEstado(estado);
+        setCep(cep);
+        setNumero(numero);
     }
 
     public long getId() {

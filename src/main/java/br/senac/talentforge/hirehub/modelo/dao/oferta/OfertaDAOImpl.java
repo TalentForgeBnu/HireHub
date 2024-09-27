@@ -1,7 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.dao.oferta;
 
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta_;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Oferta_;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
@@ -19,7 +19,7 @@ public class OfertaDAOImpl implements OfertaDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirOferta(Oferta oferta) {
+    public void inserirOferta(Proposta oferta) {
         Session sessao = null;
         Vaga vaga = oferta.getVaga();
         try {
@@ -38,7 +38,7 @@ public class OfertaDAOImpl implements OfertaDAO {
         }
     }
 
-    public void deletarOferta(Oferta oferta) {
+    public void deletarOferta(Proposta oferta) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
@@ -52,7 +52,7 @@ public class OfertaDAOImpl implements OfertaDAO {
         }
     }
 
-    public void atualizarOferta(Oferta oferta) {
+    public void atualizarOferta(Proposta oferta) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
@@ -66,15 +66,15 @@ public class OfertaDAOImpl implements OfertaDAO {
         }
     }
 
-    public Oferta recuperarOfertaPeloIdCurso(long idCurso) {
+    public Proposta recuperarOfertaPeloIdCurso(long idCurso) {
         Session sessao = null;
-        Oferta oferta = null;
+        Proposta oferta = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Oferta> criteria = construtor.createQuery(Oferta.class);
-            Root<Oferta> raizOferta = criteria.from(Oferta.class);
+            CriteriaQuery<Proposta> criteria = construtor.createQuery(Proposta.class);
+            Root<Proposta> raizOferta = criteria.from(Proposta.class);
             criteria.select(raizOferta).where(construtor.equal(raizOferta.get(Oferta_.CURSO), idCurso));
             oferta = sessao.createQuery(criteria).getSingleResult();
         } catch (Exception exception) {
@@ -85,15 +85,15 @@ public class OfertaDAOImpl implements OfertaDAO {
         return oferta;
     }
 
-    public List<Oferta> recuperarOfertasPelosIdEmpresa(long idEmpresa) {
+    public List<Proposta> recuperarOfertasPelosIdEmpresa(long idEmpresa) {
         Session sessao = null;
-        List<Oferta> ofertas = null;
+        List<Proposta> ofertas = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Oferta> criteria = construtor.createQuery(Oferta.class);
-            Root<Oferta> raizOferta = criteria.from(Oferta.class);
+            CriteriaQuery<Proposta> criteria = construtor.createQuery(Proposta.class);
+            Root<Proposta> raizOferta = criteria.from(Proposta.class);
             criteria.select(raizOferta).where(construtor.equal(raizOferta.get(Oferta_.EMPRESA), idEmpresa));
             ofertas = sessao.createQuery(criteria).getResultList();
         } catch (Exception exception) {
@@ -104,15 +104,15 @@ public class OfertaDAOImpl implements OfertaDAO {
         return ofertas;
     }
 
-    public List<Oferta> recuperarOfertaSPelosIdInstituicao(long idInstituicao) {
+    public List<Proposta> recuperarOfertaSPelosIdInstituicao(long idInstituicao) {
         Session sessao = null;
-        List<Oferta> ofertas = null;
+        List<Proposta> ofertas = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Oferta> criteria = construtor.createQuery(Oferta.class);
-            Root<Oferta> raizOferta = criteria.from(Oferta.class);
+            CriteriaQuery<Proposta> criteria = construtor.createQuery(Proposta.class);
+            Root<Proposta> raizOferta = criteria.from(Proposta.class);
             criteria.select(raizOferta).where(construtor.equal(raizOferta.get(Oferta_.INSTITUICAO), idInstituicao));
             ofertas = sessao.createQuery(criteria).getResultList();
         } catch (Exception exception) {

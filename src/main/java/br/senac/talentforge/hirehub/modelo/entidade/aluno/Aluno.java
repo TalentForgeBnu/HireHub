@@ -1,6 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
+import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
+import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @Entity
 @Table(name = "aluno")
@@ -33,29 +39,49 @@ public class Aluno extends PessoaFisica implements Serializable {
     @JoinColumn(name = "id_turma")
     private Turma turma;
 
-    @Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
-    private String codigoTurma;
-
     @Enumerated(EnumType.STRING)
-    private AlunoMatriculado alunoMatriculado;
+    private Estudante alunoMatriculado;
 
-    public Aluno() {}
+    public Aluno() {
+    }
 
-    public Aluno(long id, String matricula, Instituicao instituicao, Turma turma, String codigoTurma, AlunoMatriculado alunoMatriculado){
-        setId(id);
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobreNome(sobrenome);
+        setDataNascimento(dataNascimento);
+        setRendaFamiliar(rendaFamiliar);
+        setEtnia(etnia);
+        setGenero(genero);
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
-        setCodigoTurma(codigoTurma);
         setAlunoMatriculado(alunoMatriculado);
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobreNome(sobrenome);
+        setDataNascimento(dataNacimento);
+        setRendaFamiliar(rendaFamiliar);
+        setEtnia(etnia);
+        setGenero(genero);
+        setMatricula(matricula);
+        setInstituicao(instituicao);
+        setTurma(turma);
+        setAlunoMatriculado(alunoMatriculado);
     }
 
     public String getMatricula() {
@@ -82,20 +108,28 @@ public class Aluno extends PessoaFisica implements Serializable {
         this.turma = turma;
     }
 
-    public String getCodigoTurma() {
-        return codigoTurma;
-    }
-
-    public void setCodigoTurma(String codigoTurma) {
-        this.codigoTurma = codigoTurma;
-    }
-
-    public AlunoMatriculado getAlunoMatriculado() {
+    public Estudante getAlunoMatriculado() {
         return alunoMatriculado;
     }
 
-    public void setAlunoMatriculado(AlunoMatriculado alunoMatriculado) {
+    public void setAlunoMatriculado(Estudante alunoMatriculado) {
         this.alunoMatriculado = alunoMatriculado;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (!super.equals(object)) return false;
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Aluno aluno = (Aluno) object;
+        return Objects.equals(matricula, aluno.matricula) &&
+                Objects.equals(instituicao, aluno.instituicao) &&
+                Objects.equals(turma, aluno.turma) &&
+                alunoMatriculado == aluno.alunoMatriculado;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), matricula, instituicao, turma, alunoMatriculado);
+    }
 }

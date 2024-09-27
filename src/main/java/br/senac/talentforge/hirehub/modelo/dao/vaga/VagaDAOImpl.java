@@ -2,8 +2,8 @@ package br.senac.talentforge.hirehub.modelo.dao.vaga;
 
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
-import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 import org.hibernate.Session;
 
@@ -81,7 +81,7 @@ public class VagaDAOImpl implements VagaDAO {
         return vagaRecuperada;
     }
 
-    public Vaga recuperarVagaPelaModalidade(ModalidadeContratacao modalidadeContratacao) {
+    public Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao) {
         Session sessao = null;
         Vaga vagaRecuperada = null;
         try {
@@ -101,7 +101,7 @@ public class VagaDAOImpl implements VagaDAO {
         return vagaRecuperada;
     }
 
-    public Vaga recuperarVagaPelaSituacaoVaga(SituacaoVaga situacaoVaga) {
+    public Vaga recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga) {
         Session sessao = null;
         Vaga vagaRecuperada = null;
         try {

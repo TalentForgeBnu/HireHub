@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.modelo.entidade.vaga;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,9 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
-import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
+import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
+
 
 @Entity
 @Table(name = "vaga")
@@ -44,31 +46,46 @@ public class Vaga implements Serializable {
     private String descricao;
 
     @Enumerated(EnumType.STRING)
-    private ModalidadeContratacao modalidadeContratacao;
+    private Contratacao modalidadeContratacao;
 
     @Enumerated(EnumType.STRING)
-    private SituacaoVaga situacaoVaga;
+    private Situacao situacaoVaga;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
-    
-    @OneToMany(mappedBy = "oferta",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Oferta> ofertas;
+
+    @OneToMany(mappedBy = "vaga", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Proposta> ofertas = new ArrayList<Proposta>();
 
     public Vaga() {
-    	ofertas = new ArrayList<Oferta>();
     }
-    
-    public Vaga(String codigo, String nome, String descricao, long id, ModalidadeContratacao modalidadeContratacao, SituacaoVaga situacaoVaga, Empresa empresa) {
-        ofertas = new ArrayList<Oferta>();
-    	setId(id);
+
+    public Vaga(String codigo, String nome, String descricao, Contratacao modalidadeContratacao, Situacao situacaoVaga, Empresa empresa) {
         setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
         setModalidadeContratacao(modalidadeContratacao);
         setSituacaoVaga(situacaoVaga);
         setEmpresa(empresa);
+    }
+
+    public Vaga(long id, String codigo, String nome, String descricao, Contratacao modalidadeContratacao, Situacao situacaoVaga, Empresa empresa) {
+        setId(id);
+        setCodigo(codigo);
+        setNome(nome);
+        setDescricao(descricao);
+        setModalidadeContratacao(modalidadeContratacao);
+        setSituacaoVaga(situacaoVaga);
+        setEmpresa(empresa);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCodigo() {
@@ -79,28 +96,12 @@ public class Vaga implements Serializable {
         this.codigo = codigo;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public String getNome() {
+        return nome;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    public SituacaoVaga getSituacaoVaga() {
-        return situacaoVaga;
-    }
-
-    public void setSituacaoVaga(SituacaoVaga situacaoVaga) {
-        this.situacaoVaga = situacaoVaga;
-    }
-
-    public ModalidadeContratacao getModalidadeContratacao() {
-        return modalidadeContratacao;
-    }
-
-    public void setModalidadeContratacao(ModalidadeContratacao modalidadeContratacao) {
-        this.modalidadeContratacao = modalidadeContratacao;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -111,28 +112,59 @@ public class Vaga implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getNome() {
-        return nome;
+    public Contratacao getModalidadeContratacao() {
+        return modalidadeContratacao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setModalidadeContratacao(Contratacao modalidadeContratacao) {
+        this.modalidadeContratacao = modalidadeContratacao;
     }
 
-    public long getId() {
-        return id;
+    public Situacao getSituacaoVaga() {
+        return situacaoVaga;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-    
-    public List<Oferta> getOferta(){
-    	return ofertas;
-    }
-    
-    public void setOferta(Oferta oferta) {
-    	ofertas.add(oferta);
+    public void setSituacaoVaga(Situacao situacaoVaga) {
+        this.situacaoVaga = situacaoVaga;
     }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public List<Proposta> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(List<Proposta> ofertas) {
+        this.ofertas = ofertas;
+    }
+
+    public void adicionarOferta(Proposta oferta) {
+        this.ofertas.add(oferta);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vaga vaga = (Vaga) o;
+        return id == vaga.id &&
+                Objects.equals(codigo, vaga.codigo) &&
+                Objects.equals(nome, vaga.nome) &&
+                Objects.equals(descricao, vaga.descricao) &&
+                modalidadeContratacao == vaga.modalidadeContratacao &&
+                situacaoVaga == vaga.situacaoVaga &&
+                Objects.equals(empresa, vaga.empresa) &&
+                Objects.equals(ofertas, vaga.ofertas);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, codigo, nome, descricao, modalidadeContratacao, situacaoVaga, empresa, ofertas);
+    }
 }

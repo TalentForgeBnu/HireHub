@@ -100,26 +100,6 @@ public class CursoDAOImpl implements CursoDAO{
         return cursosRecuperados;
     }
 
-    public List<Curso> recuperarCursos() {
-        Session sessao = null;
-        List<Curso> cursos = null;
-        try {
-            sessao = fabrica.getConexao().openSession();
-            sessao.beginTransaction();
-            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
-            Root<Curso> raizCurso = criteria.from(Curso.class);
-            criteria.select(raizCurso);
-            cursos = sessao.createQuery(criteria).getResultList();
-            sessao.getTransaction().commit();
-        } catch (Exception exception) {
-            erroSessao(sessao, exception);
-        } finally {
-            fecharSessao(sessao);
-        }
-        return cursos;
-    }
-
     private void erroSessao(Session sessao, Exception exception) {
         exception.printStackTrace();
         if (sessao.getTransaction() != null) {

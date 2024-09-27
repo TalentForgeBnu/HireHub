@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.dao.vaga;
 
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.enumeracao.modalidadecontratacao.ModalidadeContratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacaovaga.SituacaoVaga;
+import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
 public interface VagaDAO {
     void inserirVaga(Vaga vaga);
@@ -13,7 +13,7 @@ public interface VagaDAO {
 
     Vaga recuperarVagaPeloIdEmpresa(long codigo);
 
-    Vaga recuperarVagaPelaModalidade(ModalidadeContratacao modalidadeContratacao);
+    Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao);
 
-    Vaga recuperarVagaPelaSituacaoVaga(SituacaoVaga situacaoVaga);
+    Vaga recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga);
 }
