@@ -26,24 +26,24 @@ public class Empresa extends PessoaJuridica implements Serializable {
     private List<Vaga> vagas = new ArrayList<Vaga>();
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Proposta> ofertas = new ArrayList<Proposta>();
+    private List<Proposta> propostas = new ArrayList<Proposta>();
 
     public Empresa() {
     }
 
-    public Empresa(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+    public Empresa(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);
-        setNomeEmpresa(nomeEmpresa);
+        setNome(nome);
         setDataFundacao(dataFundacao);
         setDescricao(descricao);
     }
 
-    public Empresa(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+    public Empresa(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -51,7 +51,7 @@ public class Empresa extends PessoaJuridica implements Serializable {
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);
-        setNomeEmpresa(nomeEmpresa);
+        setNome(nome);
         setDataFundacao(dataFundacao);
         setDescricao(descricao);
     }
@@ -69,15 +69,15 @@ public class Empresa extends PessoaJuridica implements Serializable {
     }
 
     public List<Proposta> getOfertas() {
-        return ofertas;
+        return propostas;
     }
 
-    public void setOfertas(List<Proposta> ofertas) {
-        this.ofertas = ofertas;
+    public void setOfertas(List<Proposta> propostas) {
+        this.propostas = propostas;
     }
 
-    public void adicionarOferta(Proposta oferta) {
-        this.ofertas.add(oferta);
+    public void adicionarOferta(Proposta propostas) {
+        this.propostas.add(propostas);
     }
 
 }

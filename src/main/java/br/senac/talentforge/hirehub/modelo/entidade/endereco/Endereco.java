@@ -40,8 +40,7 @@ public class Endereco implements Serializable {
     @Column(name = "numero", nullable = false, unique = false)
     private int numero;
 
-    public Endereco() {
-    }
+    public Endereco() {}
 
     public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
         setLogradouro(logradouro);

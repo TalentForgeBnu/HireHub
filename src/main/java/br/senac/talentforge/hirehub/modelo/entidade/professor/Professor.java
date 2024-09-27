@@ -25,84 +25,69 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 @Table(name = "professor")
 public class Professor extends PessoaFisica implements Serializable {
 
-    private static final long serialVersionUID = 8321801558181373534L;
+	private static final long serialVersionUID = 8321801558181373534L;
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Turma> turmas = new ArrayList<Turma>();
+	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Turma> turmas = new ArrayList<Turma>();
 
-    @ManyToOne
-    @JoinColumn(name = "id_instituicao", nullable = true)
-    private Instituicao instituicao;
+	@ManyToOne
+	@JoinColumn(name = "id_instituicao", nullable = true)
+	private Instituicao instituicao;
 
-    @Column(name = "materia", length = 30, nullable = false, unique = false)
-    private String materia;
+	public Professor() {}
 
-    public Professor() {
-    }
+	public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, Instituicao instituicao) {
+		setSenha(senha);
+		setEndereco(endereco);
+		setPapel(papel);
+		setTelefone(telefone);
+		setEmail(email);
+		setCpf(cpf);
+		setNome(nome);
+		setSobrenome(sobrenome);
+		setNomeSocial(nomeSocial);
+		setDataNascimento(dataNacimento);
+		setRendaFamiliar(rendaFamiliar);
+		setEtnia(etnia);
+		setSexo(sexo);
+		setInstituicao(instituicao);
+	}
 
-    public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
-        setSenha(senha);
-        setEndereco(endereco);
-        setPapel(papel);
-        setTelefone(telefone);
-        setEmail(email);
-        setCpf(cpf);
-        setNome(nome);
-        setSobrenome(sobrenome);
-        setNomeSocial(nomeSocial);
-        setDataNascimento(dataNacimento);
-        setRendaFamiliar(rendaFamiliar);
-        setEtnia(etnia);
-        setGenero(genero);
-        setInstituicao(instituicao);
-        setMateria(materia);
-    }
+	public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, Instituicao instituicao) {
+		setId(id);
+		setSenha(senha);
+		setEndereco(endereco);
+		setPapel(papel);
+		setTelefone(telefone);
+		setEmail(email);
+		setCpf(cpf);
+		setNome(nome);
+		setSobrenome(sobrenome);
+		setNomeSocial(nomeSocial);
+		setDataNascimento(dataNacimento);
+		setRendaFamiliar(rendaFamiliar);
+		setEtnia(etnia);
+		setSexo(sexo);
+		setInstituicao(instituicao);
+	}
 
-    public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
-        setId(id);
-        setSenha(senha);
-        setEndereco(endereco);
-        setPapel(papel);
-        setTelefone(telefone);
-        setEmail(email);
-        setCpf(cpf);
-        setNome(nome);
-        setSobrenome(sobrenome);
-        setNomeSocial(nomeSocial);
-        setDataNascimento(dataNacimento);
-        setRendaFamiliar(rendaFamiliar);
-        setEtnia(etnia);
-        setGenero(genero);
-        setInstituicao(instituicao);
-        setMateria(materia);
-    }
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
 
-    public List<Turma> getTurmas() {
-        return turmas;
-    }
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
 
-    public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
-    }
+	public void adicionarTurma(Turma turma) {
+		this.turmas.add(turma);
+	}
 
-    public void adicionarTurma(Turma turma) {
-        this.turmas.add(turma);
-    }
+	public Instituicao getInstituicao() {
+		return instituicao;
+	}
 
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
-    }
-
-    public String getMateria() {
-        return materia;
-    }
-
-    public void setMateria(String materia) {
-        this.materia = materia;
-    }
-
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
+	}
 }

@@ -36,8 +36,8 @@ public class Turma implements Serializable {
     @Column(name = "id_turma")
     private long id;
 
-    @Column(name = "nomeTurma", length = 30, nullable = false, unique = false)
-    private String nomeTurma;
+    @Column(name = "nome_turma", length = 30, nullable = false, unique = false)
+    private String nome;
 
     @Column(name = "horario")
     private LocalTime horario;
@@ -48,7 +48,7 @@ public class Turma implements Serializable {
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos = new ArrayList<Aluno>();
 
-    @Column(name = "tamanho")
+    @Column(name = "tamanho_turma")
     private byte tamanho;
 
     @ManyToOne
@@ -69,8 +69,8 @@ public class Turma implements Serializable {
     public Turma() {
     }
 
-    public Turma(String nomeTurma, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
-        setNomeTurma(nomeTurma);
+    public Turma(String nome, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
+        setNome(nome);
         setHorario(horario);
         setCodigo(codigo);
         setTamanho(tamanho);
@@ -80,9 +80,9 @@ public class Turma implements Serializable {
         setCurso(curso);
     }
 
-    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
+    public Turma(long id, String nome, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
         setId(id);
-        setNomeTurma(nomeTurma);
+        setNome(nome);
         setHorario(horario);
         setCodigo(codigo);
         setTamanho(tamanho);
@@ -100,12 +100,12 @@ public class Turma implements Serializable {
         this.id = id;
     }
 
-    public String getNomeTurma() {
-        return nomeTurma;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeTurma(String nomeTurma) {
-        this.nomeTurma = nomeTurma;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCodigo() {
@@ -183,7 +183,7 @@ public class Turma implements Serializable {
         Turma turma = (Turma) o;
         return id == turma.id &&
                 tamanho == turma.tamanho &&
-                Objects.equals(nomeTurma, turma.nomeTurma) &&
+                Objects.equals(nome, turma.nome) &&
                 Objects.equals(horario, turma.horario) &&
                 Objects.equals(codigo, turma.codigo) &&
                 Objects.equals(alunos, turma.alunos) &&
@@ -194,6 +194,6 @@ public class Turma implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeTurma, horario, codigo, alunos, tamanho, professor, instituicao, turno, curso);
+        return Objects.hash(id, nome, horario, codigo, alunos, tamanho, professor, instituicao, turno, curso);
     }
 }

@@ -46,10 +46,10 @@ public class Vaga implements Serializable {
     private String descricao;
 
     @Enumerated(EnumType.STRING)
-    private Contratacao modalidadeContratacao;
+	private Contratacao contratacao;
 
     @Enumerated(EnumType.STRING)
-    private Situacao situacaoVaga;
+    private Situacao situacao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_empresa")
@@ -61,22 +61,22 @@ public class Vaga implements Serializable {
     public Vaga() {
     }
 
-    public Vaga(String codigo, String nome, String descricao, Contratacao modalidadeContratacao, Situacao situacaoVaga, Empresa empresa) {
+    public Vaga(String codigo, String nome, String descricao, Contratacao contratacao, Situacao situacao, Empresa empresa) {
         setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
-        setModalidadeContratacao(modalidadeContratacao);
-        setSituacaoVaga(situacaoVaga);
+        setContratacao(contratacao);
+        setSituacao(situacao);
         setEmpresa(empresa);
     }
 
-    public Vaga(long id, String codigo, String nome, String descricao, Contratacao modalidadeContratacao, Situacao situacaoVaga, Empresa empresa) {
+    public Vaga(long id, String codigo, String nome, String descricao, Contratacao contratacao, Situacao situacao, Empresa empresa) {
         setId(id);
         setCodigo(codigo);
         setNome(nome);
         setDescricao(descricao);
-        setModalidadeContratacao(modalidadeContratacao);
-        setSituacaoVaga(situacaoVaga);
+        setContratacao(contratacao);
+        setSituacao(situacao);
         setEmpresa(empresa);
     }
 
@@ -112,20 +112,20 @@ public class Vaga implements Serializable {
         this.descricao = descricao;
     }
 
-    public Contratacao getModalidadeContratacao() {
-        return modalidadeContratacao;
+    public Contratacao getContratacao() {
+        return contratacao;
     }
 
-    public void setModalidadeContratacao(Contratacao modalidadeContratacao) {
-        this.modalidadeContratacao = modalidadeContratacao;
+    public void setContratacao(Contratacao contratacao) {
+        this.contratacao = contratacao;
     }
 
-    public Situacao getSituacaoVaga() {
-        return situacaoVaga;
+    public Situacao getSituacao() {
+        return situacao;
     }
 
-    public void setSituacaoVaga(Situacao situacaoVaga) {
-        this.situacaoVaga = situacaoVaga;
+    public void setSituacao(Situacao situacao) {
+        this.situacao= situacao;
     }
 
     public Empresa getEmpresa() {
@@ -157,14 +157,14 @@ public class Vaga implements Serializable {
                 Objects.equals(codigo, vaga.codigo) &&
                 Objects.equals(nome, vaga.nome) &&
                 Objects.equals(descricao, vaga.descricao) &&
-                modalidadeContratacao == vaga.modalidadeContratacao &&
-                situacaoVaga == vaga.situacaoVaga &&
+                contratacao == vaga.contratacao &&
+                situacao == vaga.situacao &&
                 Objects.equals(empresa, vaga.empresa) &&
                 Objects.equals(ofertas, vaga.ofertas);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, codigo, nome, descricao, modalidadeContratacao, situacaoVaga, empresa, ofertas);
+        return Objects.hash(id, codigo, nome, descricao, contratacao, situacao, empresa, ofertas);
     }
 }

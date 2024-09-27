@@ -29,7 +29,7 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
     protected String nome;
 
-    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
+    @Column(name = "sobrenome_usuario", length = 20, nullable = false, unique = false)
     protected String sobrenome;
 
     @Column(name = "nome_social", length = 20, nullable = false, unique = false)
@@ -45,7 +45,7 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     protected Etnia etnia;
 
     @Enumerated(EnumType.STRING)
-    protected Sexo genero;
+    protected Sexo sexo;
 
     public PessoaFisica() {
     }
@@ -98,12 +98,12 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.rendaFamiliar = rendaFamiliar;
     }
 
-    public Sexo getGenero() {
-        return genero;
+    public Sexo getSexo() {
+        return sexo;
     }
 
-    public void setGenero(Sexo genero) {
-        this.genero = genero;
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
     public Etnia getEtnia() {
@@ -126,11 +126,11 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
                 Objects.equals(sobrenome, that.sobrenome) &&
                 Objects.equals(nomeSocial, that.nomeSocial) &&
                 Objects.equals(dataNascimento, that.dataNascimento) &&
-                etnia == that.etnia && genero == that.genero;
+                etnia == that.etnia && sexo == that.sexo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, genero);
+        return Objects.hash(super.hashCode(), cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo);
     }
 }
