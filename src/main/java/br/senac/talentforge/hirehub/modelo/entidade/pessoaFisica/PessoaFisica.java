@@ -29,8 +29,11 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
     protected String nome;
 
-    @Column(name = "sobreNome", length = 20, nullable = false, unique = false)
-    protected String sobreNome;
+    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
+    protected String sobrenome;
+
+    @Column(name = "nome_social", length = 20, nullable = false, unique = false)
+    protected String nomeSocial;
 
     @Column(name = "data_nascimento", nullable = false, unique = false)
     protected LocalDate dataNascimento;
@@ -63,12 +66,20 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.nome = nome;
     }
 
-    public String getSobreNome() {
-        return sobreNome;
+    public String getSobrenome() {
+        return sobrenome;
     }
 
-    public void setSobreNome(String sobreNome) {
-        this.sobreNome = sobreNome;
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getNomeSocial() {
+        return nomeSocial;
+    }
+
+    public void setNomeSocial(String nomeSocial) {
+        this.nomeSocial = nomeSocial;
     }
 
     public LocalDate getDataNascimento() {
@@ -87,14 +98,6 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.rendaFamiliar = rendaFamiliar;
     }
 
-    public Etnia getEtnia() {
-        return etnia;
-    }
-
-    public void setEtnia(Etnia etnia) {
-        this.etnia = etnia;
-    }
-
     public Sexo getGenero() {
         return genero;
     }
@@ -103,23 +106,31 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.genero = genero;
     }
 
+    public Etnia getEtnia() {
+        return etnia;
+    }
+
+    public void setEtnia(Etnia etnia) {
+        this.etnia = etnia;
+    }
+
     @Override
     public boolean equals(Object object) {
-        if (!super.equals(object)) return false;
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
         PessoaFisica that = (PessoaFisica) object;
         return Float.compare(rendaFamiliar, that.rendaFamiliar) == 0 &&
                 Objects.equals(cpf, that.cpf) &&
                 Objects.equals(nome, that.nome) &&
-                Objects.equals(sobreNome, that.sobreNome) &&
+                Objects.equals(sobrenome, that.sobrenome) &&
+                Objects.equals(nomeSocial, that.nomeSocial) &&
                 Objects.equals(dataNascimento, that.dataNascimento) &&
                 etnia == that.etnia && genero == that.genero;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf, nome, sobreNome, dataNascimento, rendaFamiliar, etnia, genero);
+        return Objects.hash(super.hashCode(), cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, genero);
     }
-
 }

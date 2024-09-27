@@ -45,7 +45,7 @@ public class Aluno extends PessoaFisica implements Serializable {
     public Aluno() {
     }
 
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -53,7 +53,8 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEmail(email);
         setCpf(cpf);
         setNome(nome);
-        setSobreNome(sobrenome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
         setDataNascimento(dataNascimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
@@ -64,7 +65,7 @@ public class Aluno extends PessoaFisica implements Serializable {
         setAlunoMatriculado(alunoMatriculado);
     }
 
-    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -73,7 +74,8 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEmail(email);
         setCpf(cpf);
         setNome(nome);
-        setSobreNome(sobrenome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
         setDataNascimento(dataNacimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
@@ -118,9 +120,9 @@ public class Aluno extends PessoaFisica implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!super.equals(object)) return false;
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
         Aluno aluno = (Aluno) object;
         return Objects.equals(matricula, aluno.matricula) &&
                 Objects.equals(instituicao, aluno.instituicao) &&
