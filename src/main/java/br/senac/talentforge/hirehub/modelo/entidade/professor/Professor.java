@@ -40,7 +40,7 @@ public class Professor extends PessoaFisica implements Serializable {
     public Professor() {
     }
 
-    public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
+    public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -48,7 +48,8 @@ public class Professor extends PessoaFisica implements Serializable {
         setEmail(email);
         setCpf(cpf);
         setNome(nome);
-        setSobreNome(sobrenome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
         setDataNascimento(dataNacimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
@@ -57,7 +58,7 @@ public class Professor extends PessoaFisica implements Serializable {
         setMateria(materia);
     }
 
-    public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
+    public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, Instituicao instituicao, String materia) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -66,7 +67,8 @@ public class Professor extends PessoaFisica implements Serializable {
         setEmail(email);
         setCpf(cpf);
         setNome(nome);
-        setSobreNome(sobrenome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
         setDataNascimento(dataNacimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
