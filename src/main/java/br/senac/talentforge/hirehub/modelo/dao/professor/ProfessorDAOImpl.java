@@ -18,7 +18,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
 
     public Professor recuperarProfessor(String cpf) {
-        ConexaoFactory fabrica = new ConexaoFactory();
+
         Session sessao = null;
         Professor professorRecuperado = null;
         try {
