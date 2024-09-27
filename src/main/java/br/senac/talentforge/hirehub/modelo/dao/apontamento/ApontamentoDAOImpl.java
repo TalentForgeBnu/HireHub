@@ -1,14 +1,15 @@
 package br.senac.talentforge.hirehub.modelo.dao.apontamento;
 
-import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
-import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento_;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
+import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
 
 public class ApontamentoDAOImpl implements ApontamentoDAO {
 
@@ -20,13 +21,11 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
 
     public void inserirApontamento(Apontamento apontamento) {
         Session sessao = null;
-        Transaction transacao = null;
         try {
             sessao = fabrica.getConexao().openSession();
-            transacao = sessao.beginTransaction();
-
+            sessao.beginTransaction();
             sessao.save(apontamento);
-            transacao.commit();
+            sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
@@ -36,13 +35,11 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
 
     public void deletarApontamento(Apontamento apontamento) {
         Session sessao = null;
-        Transaction transacao = null;
         try {
             sessao = fabrica.getConexao().openSession();
-            transacao = sessao.beginTransaction();
-
+            sessao.beginTransaction();
             sessao.delete(apontamento);
-            transacao.commit();
+            sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
@@ -52,13 +49,11 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
 
     public void atualizarApontamento(Apontamento apontamento) {
         Session sessao = null;
-        Transaction transacao = null;
         try {
             sessao = fabrica.getConexao().openSession();
-            transacao = sessao.beginTransaction();
-
+            sessao.beginTransaction();
             sessao.update(apontamento);
-            transacao.commit();
+            sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
@@ -66,9 +61,9 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
         }
     }
 
-    public Apontamento recuperarApontamentoPeloIdDossie(long idDossie) {
+    public List<Apontamento> recuperarApontamentosPeloIdDossie(long idDossie) {
         Session sessao = null;
-        Apontamento apontamentoRecuperado = null;
+        List<Apontamento> apontamentosRecuperados = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
@@ -76,14 +71,14 @@ public class ApontamentoDAOImpl implements ApontamentoDAO {
             CriteriaQuery<Apontamento> criteria = construtor.createQuery(Apontamento.class);
             Root<Apontamento> raizApontamento = criteria.from(Apontamento.class);
             criteria.select(raizApontamento).where(construtor.equal(raizApontamento.get(Apontamento_.DOSSIE), idDossie));
-            apontamentoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            apontamentosRecuperados = sessao.createQuery(criteria).getResultList();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
         } finally {
             fecharSessao(sessao);
         }
-        return apontamentoRecuperado;
+        return apontamentosRecuperados;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

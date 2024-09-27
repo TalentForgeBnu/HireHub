@@ -1,12 +1,13 @@
 package br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.time.LocalDate;
+
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 @Entity
 @Table(name = "pessoajuridica")
@@ -15,24 +16,18 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
     private static final long serialVersionUID = -2650136282802411329L;
 
     @Column(name = "cnpj", length = 18, nullable = false, unique = true)
-    private String cnpj;
+    protected String cnpj;
 
     @Column(name = "nome_empresa", length = 20, nullable = false, unique = false)
-    private String nomeEmpresa;
+    protected String nomeEmpresa;
 
     @Column(name = "data_fundacao", nullable = false, unique = false)
-    private LocalDate dataFundacao;
+    protected LocalDate dataFundacao;
 
     @Column(name = "descricao", length = 300, nullable = false, unique = false)
-    private String descricao;
+    protected String descricao;
 
-    public PessoaJuridica() {}
-
-    public PessoaJuridica(String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
-        this.cnpj = cnpj;
-        this.nomeEmpresa = nomeEmpresa;
-        this.dataFundacao = dataFundacao;
-        this.descricao = descricao;
+    public PessoaJuridica() {
     }
 
     public String getCnpj() {
@@ -42,7 +37,6 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-
 
     public String getNomeEmpresa() {
         return nomeEmpresa;

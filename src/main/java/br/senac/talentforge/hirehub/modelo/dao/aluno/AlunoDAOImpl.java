@@ -1,14 +1,15 @@
 package br.senac.talentforge.hirehub.modelo.dao.aluno;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
 
 public class AlunoDAOImpl implements AlunoDAO {
 
@@ -38,7 +39,7 @@ public class AlunoDAOImpl implements AlunoDAO {
         return alunoRecuperado;
     }
 
-    public List<Aluno> recuperarAlunosPeloIdTurma(long idTurma){
+    public List<Aluno> recuperarAlunosPeloIdTurma(long idTurma) {
         Session sessao = null;
         List<Aluno> alunosRecuperados = null;
         try {

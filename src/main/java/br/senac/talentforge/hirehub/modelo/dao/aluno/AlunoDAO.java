@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.dao.aluno;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-
 import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 
 public interface AlunoDAO {
     Aluno recuperarAlunoPeloCpf(String cpf);

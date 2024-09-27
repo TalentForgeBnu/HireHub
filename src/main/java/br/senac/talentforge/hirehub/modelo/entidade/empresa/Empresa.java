@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.entidade.empresa;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridica;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
@@ -17,48 +20,64 @@ import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 @Table(name = "empresa")
 public class Empresa extends PessoaJuridica implements Serializable {
 
-	private static final long serialVersionUID = -6802369364395050191L;
+    private static final long serialVersionUID = -6802369364395050191L;
 
-	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Vaga> vagas;
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vaga> vagas = new ArrayList<Vaga>();
 
-	@OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Oferta> ofertas;
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Proposta> ofertas = new ArrayList<Proposta>();
 
-	public Empresa() {
-		vagas = new ArrayList<Vaga>();
-		ofertas = new ArrayList<Oferta>();
-	}
+    public Empresa() {
+    }
 
-	public long getId() {
-		return id;
-	}
+    public Empresa(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNomeEmpresa(nomeEmpresa);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public Empresa(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNomeEmpresa(nomeEmpresa);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public List<Vaga> getVagas() {
-		return vagas;
-	}
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
 
-	public void setVagas(List<Vaga> vagas) {
-		this.vagas = vagas;
-	}
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
 
-	public List<Oferta> getOfertas() {
-		return ofertas;
-	}
+    public void adicionarVaga(Vaga vaga) {
+        this.vagas.add(vaga);
+    }
 
-	public void setOfertas(List<Oferta> ofertas) {
-		this.ofertas = ofertas;
-	}
+    public List<Proposta> getOfertas() {
+        return ofertas;
+    }
 
-	public void addVaga(Vaga vaga){
-		this.vagas.add(vaga);
-	}
+    public void setOfertas(List<Proposta> ofertas) {
+        this.ofertas = ofertas;
+    }
 
-	public void addOferta(Oferta oferta){
-		this.ofertas.add(oferta);
-	}
+    public void adicionarOferta(Proposta oferta) {
+        this.ofertas.add(oferta);
+    }
+
 }

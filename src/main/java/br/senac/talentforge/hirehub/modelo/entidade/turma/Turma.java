@@ -1,10 +1,10 @@
 package br.senac.talentforge.hirehub.modelo.entidade.turma;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
+import java.io.Serializable;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
 @Entity
 @Table(name = "turma")
@@ -44,7 +46,7 @@ public class Turma implements Serializable {
     private String codigo;
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Aluno> alunos;
+    private List<Aluno> alunos = new ArrayList<Aluno>();
 
     @Column(name = "tamanho")
     private byte tamanho;
@@ -65,15 +67,28 @@ public class Turma implements Serializable {
     private Curso curso;
 
     public Turma() {
-        alunos = new ArrayList<>();
     }
 
-    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, List<Aluno> alunos, Curso curso) {
+    public Turma(String nomeTurma, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
+        setNomeTurma(nomeTurma);
+        setHorario(horario);
+        setCodigo(codigo);
+        setTamanho(tamanho);
+        setProfessor(professor);
+        setInstituicao(instituicao);
+        setTurno(turno);
+        setCurso(curso);
+    }
+
+    public Turma(long id, String nomeTurma, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
         setId(id);
         setNomeTurma(nomeTurma);
         setHorario(horario);
         setCodigo(codigo);
-        setAlunos(alunos);
+        setTamanho(tamanho);
+        setProfessor(professor);
+        setInstituicao(instituicao);
+        setTurno(turno);
         setCurso(curso);
     }
 
@@ -93,20 +108,20 @@ public class Turma implements Serializable {
         this.nomeTurma = nomeTurma;
     }
 
-    public LocalTime getHorario() {
-        return horario;
-    }
-
-    public void setHorario(LocalTime horario) {
-        this.horario = horario;
-    }
-
     public String getCodigo() {
         return codigo;
     }
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public LocalTime getHorario() {
+        return horario;
+    }
+
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
     }
 
     public List<Aluno> getAlunos() {
@@ -121,20 +136,20 @@ public class Turma implements Serializable {
         this.alunos.add(aluno);
     }
 
-    public byte getTamanho() {
-        return tamanho;
-    }
-
-    public void setTamanho(byte tamanho) {
-        this.tamanho = tamanho;
-    }
-
     public Professor getProfessor() {
         return professor;
     }
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public byte getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(byte tamanho) {
+        this.tamanho = tamanho;
     }
 
     public Instituicao getInstituicao() {
@@ -161,4 +176,24 @@ public class Turma implements Serializable {
         this.curso = curso;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Turma turma = (Turma) o;
+        return id == turma.id &&
+                tamanho == turma.tamanho &&
+                Objects.equals(nomeTurma, turma.nomeTurma) &&
+                Objects.equals(horario, turma.horario) &&
+                Objects.equals(codigo, turma.codigo) &&
+                Objects.equals(alunos, turma.alunos) &&
+                Objects.equals(professor, turma.professor) &&
+                Objects.equals(instituicao, turma.instituicao) &&
+                turno == turma.turno && Objects.equals(curso, turma.curso);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nomeTurma, horario, codigo, alunos, tamanho, professor, instituicao, turno, curso);
+    }
 }

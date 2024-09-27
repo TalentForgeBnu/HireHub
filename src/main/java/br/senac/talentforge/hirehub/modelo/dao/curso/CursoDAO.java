@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.dao.curso;
 
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-
 import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 
 public interface CursoDAO {
     void inserirCurso(Curso curso);
@@ -14,6 +14,4 @@ public interface CursoDAO {
     List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao);
 
     List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao);
-
-    List<Curso> recuperarCursos();
 }

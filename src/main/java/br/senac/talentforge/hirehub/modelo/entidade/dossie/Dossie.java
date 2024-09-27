@@ -1,7 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.dossie;
 
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
-import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,9 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 
 @Entity
 @Table(name = "dossie")
@@ -32,14 +33,24 @@ public class Dossie implements Serializable {
     private String descricao;
 
     @OneToMany(mappedBy = "dossie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Apontamento> apontamentos;
+    private List<Apontamento> apontamentos = new ArrayList<Apontamento>();
 
     @OneToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_aluno", nullable = false)
     private Aluno aluno;
 
     public Dossie() {
-        apontamentos = new ArrayList<>();
+    }
+
+    public Dossie(String descricao, Aluno aluno) {
+        setDescricao(descricao);
+        setAluno(aluno);
+    }
+
+    public Dossie(long id, String descricao, Aluno aluno) {
+        setId(id);
+        setDescricao(descricao);
+        setAluno(aluno);
     }
 
     public long getId() {
@@ -64,10 +75,6 @@ public class Dossie implements Serializable {
 
     public void setApontamentos(List<Apontamento> apontamentos) {
         this.apontamentos = apontamentos;
-    }
-
-    public void adicionarApontamento(Apontamento apontamento) {
-        this.apontamentos.add(apontamento);
     }
 
     public Aluno getAluno() {

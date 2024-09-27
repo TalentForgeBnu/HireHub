@@ -15,7 +15,7 @@
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao"/>
-		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.oferta.Oferta"/>
+		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.professor.Professor"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.turma.Turma"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario"/>

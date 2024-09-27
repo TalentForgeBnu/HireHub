@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
-import br.senac.talentforge.hirehub.modelo.enumeracao.genero.Genero;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +11,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.time.LocalDate;
+
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -22,40 +24,27 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     private static final long serialVersionUID = -6846672268949621291L;
 
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
-    private String cpf;
-
-    @Column(name = "nome_social", length = 20, nullable = true, unique = false)
-    private String nomeSocial;
+    protected String cpf;
 
     @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
-    private String nome;
+    protected String nome;
 
-    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
-    private String sobrenome;
+    @Column(name = "sobreNome", length = 20, nullable = false, unique = false)
+    protected String sobreNome;
 
     @Column(name = "data_nascimento", nullable = false, unique = false)
-    private LocalDate dataNascimento;
+    protected LocalDate dataNascimento;
 
     @Column(name = "renda_familiar", nullable = false, unique = false)
-    private float rendaFamiliar;
+    protected float rendaFamiliar;
 
     @Enumerated(EnumType.STRING)
-    private Etnia etnia;
+    protected Etnia etnia;
 
     @Enumerated(EnumType.STRING)
-    private Genero genero;
+    protected Sexo genero;
 
-    public PessoaFisica() {}
-
-    public PessoaFisica(String cpf, String nomeSocial, String nome, String sobrenome, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Genero genero) {
-        setCpf(cpf);
-        setNomeSocial(nomeSocial);
-        setNome(nome);
-        setSobrenome(sobrenome);
-        setDataNascimento(dataNascimento);
-        setRendaFamiliar(rendaFamiliar);
-        setEtnia(etnia);
-        setGenero(genero);
+    public PessoaFisica() {
     }
 
     public String getCpf() {
@@ -66,14 +55,6 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getNomeSocial() {
-        return nomeSocial;
-    }
-
-    public void setNomeSocial(String nomeSocial) {
-        this.nomeSocial = nomeSocial;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -82,12 +63,12 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.nome = nome;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public String getSobreNome() {
+        return sobreNome;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setSobreNome(String sobreNome) {
+        this.sobreNome = sobreNome;
     }
 
     public LocalDate getDataNascimento() {
@@ -114,12 +95,31 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.etnia = etnia;
     }
 
-    public Genero getGenero() {
+    public Sexo getGenero() {
         return genero;
     }
 
-    public void setGenero(Genero genero) {
+    public void setGenero(Sexo genero) {
         this.genero = genero;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!super.equals(object)) return false;
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        PessoaFisica that = (PessoaFisica) object;
+        return Float.compare(rendaFamiliar, that.rendaFamiliar) == 0 &&
+                Objects.equals(cpf, that.cpf) &&
+                Objects.equals(nome, that.nome) &&
+                Objects.equals(sobreNome, that.sobreNome) &&
+                Objects.equals(dataNascimento, that.dataNascimento) &&
+                etnia == that.etnia && genero == that.genero;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), cpf, nome, sobreNome, dataNascimento, rendaFamiliar, etnia, genero);
     }
 
 }
