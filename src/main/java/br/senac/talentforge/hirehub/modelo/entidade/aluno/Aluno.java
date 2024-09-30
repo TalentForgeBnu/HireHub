@@ -40,12 +40,12 @@ public class Aluno extends PessoaFisica implements Serializable {
     private Turma turma;
 
     @Enumerated(EnumType.STRING)
-    private Estudante alunoMatriculado;
+    private Estudante estudante;
 
     public Aluno() {
     }
 
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -58,14 +58,14 @@ public class Aluno extends PessoaFisica implements Serializable {
         setDataNascimento(dataNascimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
-        setGenero(genero);
+        setSexo(sexo);
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
-        setAlunoMatriculado(alunoMatriculado);
+        setEstudante(estudante);
     }
 
-    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo genero, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -79,11 +79,11 @@ public class Aluno extends PessoaFisica implements Serializable {
         setDataNascimento(dataNacimento);
         setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
-        setGenero(genero);
+        setSexo(sexo);
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
-        setAlunoMatriculado(alunoMatriculado);
+        setEstudante(estudante);
     }
 
     public String getMatricula() {
@@ -110,12 +110,12 @@ public class Aluno extends PessoaFisica implements Serializable {
         this.turma = turma;
     }
 
-    public Estudante getAlunoMatriculado() {
-        return alunoMatriculado;
+    public Estudante getEstudante() {
+        return estudante;
     }
 
-    public void setAlunoMatriculado(Estudante alunoMatriculado) {
-        this.alunoMatriculado = alunoMatriculado;
+    public void setEstudante(Estudante estudante) {
+        this.estudante= estudante;
     }
 
     @Override
@@ -127,11 +127,11 @@ public class Aluno extends PessoaFisica implements Serializable {
         return Objects.equals(matricula, aluno.matricula) &&
                 Objects.equals(instituicao, aluno.instituicao) &&
                 Objects.equals(turma, aluno.turma) &&
-                alunoMatriculado == aluno.alunoMatriculado;
+                estudante == aluno.estudante;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), matricula, instituicao, turma, alunoMatriculado);
+        return Objects.hash(super.hashCode(), matricula, instituicao, turma, estudante);
     }
 }

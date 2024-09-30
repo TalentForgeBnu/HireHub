@@ -3,7 +3,6 @@ package br.senac.talentforge.hirehub.modelo.entidade.curso;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
@@ -31,13 +29,13 @@ public class Curso implements Serializable {
     private Long id;
 
     @Column(name = "nome_curso", length = 50, nullable = false, unique = true)
-    private String nomeCurso;
+    private String nome;
 
     @Column(name = "area_atuacao", length = 50, nullable = false, unique = false)
-    private String areaDeAtuacao;
+    private String areaAtuacao;
 
     @Enumerated(EnumType.STRING)
-    private Disponibilidade andamentoCurso;
+    private Disponibilidade disponibilidade;
 
     @Column(name = "data_inicio", nullable = false, unique = false)
     private LocalDate dataInicio;
@@ -52,23 +50,22 @@ public class Curso implements Serializable {
     @JoinColumn(name = "id_instituicao")
     private Instituicao instituicao;
 
-    public Curso() {
-    }
+    public Curso() {}
 
-    public Curso(String nomeCurso, String areaDeAtuacao, Disponibilidade andamentoCurso, LocalDate dataInicio, LocalDate dataFim, String descricao) {
-        setNomeCurso(nomeCurso);
-        setAreaDeAtuacao(areaDeAtuacao);
-        setAndamentoCurso(andamentoCurso);
+    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+        setNome(nome);
+        setAreaAtuacao(areaAtuacao);
+        setDisponibilidade(disponibilidade);
         setDataInicio(dataInicio);
         setDataFim(dataFim);
         setDescricao(descricao);
     }
 
-    public Curso(long id, String nomeCurso, String areaDeAtuacao, Disponibilidade andamentoCurso, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+    public Curso(long id, String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao) {
         setId(id);
-        setNomeCurso(nomeCurso);
-        setAreaDeAtuacao(areaDeAtuacao);
-        setAndamentoCurso(andamentoCurso);
+        setNome(nome);
+        setAreaAtuacao(areaAtuacao);
+        setDisponibilidade(disponibilidade);
         setDataInicio(dataInicio);
         setDataFim(dataFim);
         setDescricao(descricao);
@@ -82,28 +79,28 @@ public class Curso implements Serializable {
         this.id = id;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Disponibilidade getAndamentoCurso() {
-        return andamentoCurso;
+    public Disponibilidade getDisponibilidade() {
+        return disponibilidade;
     }
 
-    public void setAndamentoCurso(Disponibilidade andamentoCurso) {
-        this.andamentoCurso = andamentoCurso;
+    public void setDisponibilidade(Disponibilidade disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 
-    public String getAreaDeAtuacao() {
-        return areaDeAtuacao;
+    public String getAreaAtuacao() {
+        return areaAtuacao;
     }
 
-    public void setAreaDeAtuacao(String areaDeAtuacao) {
-        this.areaDeAtuacao = areaDeAtuacao;
+    public void setAreaAtuacao(String areaAtuacao) {
+        this.areaAtuacao = areaAtuacao;
     }
 
     public LocalDate getDataInicio() {
@@ -144,9 +141,9 @@ public class Curso implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Curso curso = (Curso) o;
         return Objects.equals(id, curso.id) &&
-                Objects.equals(nomeCurso, curso.nomeCurso) &&
-                Objects.equals(areaDeAtuacao, curso.areaDeAtuacao) &&
-                andamentoCurso == curso.andamentoCurso &&
+                Objects.equals(nome, curso.nome) &&
+                Objects.equals(areaAtuacao, curso.areaAtuacao) &&
+                disponibilidade == curso.disponibilidade &&
                 Objects.equals(dataInicio, curso.dataInicio) &&
                 Objects.equals(dataFim, curso.dataFim) &&
                 Objects.equals(descricao, curso.descricao) &&
@@ -155,6 +152,6 @@ public class Curso implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeCurso, areaDeAtuacao, andamentoCurso, dataInicio, dataFim, descricao, instituicao);
+        return Objects.hash(id, nome, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
     }
 }

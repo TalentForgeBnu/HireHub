@@ -19,7 +19,7 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
     protected String cnpj;
 
     @Column(name = "nome_empresa", length = 20, nullable = false, unique = false)
-    protected String nomeEmpresa;
+    protected String nome;
 
     @Column(name = "data_fundacao", nullable = false, unique = false)
     protected LocalDate dataFundacao;
@@ -38,12 +38,12 @@ public abstract class PessoaJuridica extends Usuario implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public String getNomeEmpresa() {
-        return nomeEmpresa;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeEmpresa(String nomeEmpresa) {
-        this.nomeEmpresa = nomeEmpresa;
+    public void setNome(String nome) {
+        this.nome= nome;
     }
 
     public LocalDate getDataFundacao() {

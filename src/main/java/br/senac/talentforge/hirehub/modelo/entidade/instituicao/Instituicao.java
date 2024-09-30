@@ -36,7 +36,7 @@ public class Instituicao extends PessoaJuridica implements Serializable {
     private List<Aluno> alunos = new ArrayList<Aluno>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Proposta> ofertas = new ArrayList<Proposta>();
+    private List<Proposta> propostas = new ArrayList<Proposta>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turma> turmas = new ArrayList<Turma>();
@@ -44,19 +44,19 @@ public class Instituicao extends PessoaJuridica implements Serializable {
     public Instituicao() {
     }
 
-    public Instituicao(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+    public Instituicao(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);
-        setNomeEmpresa(nomeEmpresa);
+        setNome(nome);
         setDataFundacao(dataFundacao);
         setDescricao(descricao);
     }
 
-    public Instituicao(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nomeEmpresa, LocalDate dataFundacao, String descricao) {
+    public Instituicao(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -64,7 +64,7 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);
-        setNomeEmpresa(nomeEmpresa);
+        setNome(nome);
         setDataFundacao(dataFundacao);
         setDescricao(descricao);
     }
@@ -105,16 +105,16 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         this.alunos.add(aluno);
     }
 
-    public List<Proposta> getOfertas() {
-        return ofertas;
+    public List<Proposta> getPropostas() {
+        return propostas;
     }
 
-    public void setOfertas(List<Proposta> ofertas) {
-        this.ofertas = ofertas;
+    public void setPropostas(List<Proposta> propostas) {
+        this.propostas= propostas;
     }
 
-    public void adicionarOfertas(Proposta oferta) {
-        this.ofertas.add(oferta);
+    public void adicionarProposta(Proposta proposta) {
+        this.propostas.add(proposta);
     }
 
     public List<Turma> getTurmas() {
