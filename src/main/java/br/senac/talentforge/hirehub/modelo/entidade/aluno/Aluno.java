@@ -86,6 +86,23 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEstudante(estudante);
     }
 
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, Float rendaFamiliar, Etnia etnia, Sexo sexo) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
+        setDataNascimento(dataNascimento);
+        setRendaFamiliar(rendaFamiliar);
+        setEtnia(etnia);
+        setSexo(sexo);
+    }
+
     public String getMatricula() {
         return matricula;
     }
