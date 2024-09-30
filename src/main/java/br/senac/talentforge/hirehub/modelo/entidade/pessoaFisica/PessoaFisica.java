@@ -26,10 +26,10 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     @Column(name = "cpf", length = 14, nullable = false, unique = true)
     protected String cpf;
 
-    @Column(name = "nome_usuario", length = 20, nullable = false, unique = false)
+    @Column(name = "nome", length = 20, nullable = false, unique = false)
     protected String nome;
 
-    @Column(name = "sobrenome_usuario", length = 20, nullable = false, unique = false)
+    @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
     protected String sobrenome;
 
     @Column(name = "nome_social", length = 20, nullable = false, unique = false)
