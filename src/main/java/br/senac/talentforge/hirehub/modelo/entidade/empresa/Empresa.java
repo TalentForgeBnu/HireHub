@@ -76,7 +76,7 @@ public class Empresa extends PessoaJuridica implements Serializable {
         this.propostas = propostas;
     }
 
-    public void adicionarProposta(Proposta propostas) {
+    public void adicionarPropostas(Proposta propostas) {
         this.propostas.add(propostas);
     }
 
