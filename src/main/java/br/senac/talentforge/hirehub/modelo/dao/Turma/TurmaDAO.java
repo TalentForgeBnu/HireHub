@@ -1,8 +1,8 @@
 package br.senac.talentforge.hirehub.modelo.dao.Turma;
 
-import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-
 import java.util.List;
+
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 
 public interface TurmaDAO {
     void inserirTurma(Turma turma);

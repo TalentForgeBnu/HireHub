@@ -1,14 +1,16 @@
 package br.senac.talentforge.hirehub.modelo.dao.curso;
 
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import org.hibernate.Session;
+
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 
 public class CursoDAOImpl implements CursoDAO{
 
@@ -89,7 +91,7 @@ public class CursoDAOImpl implements CursoDAO{
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
             Root<Curso> raizCurso = criteria.from(Curso.class);
-            criteria.where(construtor.equal(raizCurso.get(Curso_.AREA_DE_ATUACAO), areaDeAtuacao));
+            criteria.where(construtor.equal(raizCurso.get(Curso_.AREA_ATUACAO), areaDeAtuacao));
             cursosRecuperados= sessao.createQuery(criteria).getResultList();
             sessao.getTransaction().commit();
         } catch (Exception exception) {

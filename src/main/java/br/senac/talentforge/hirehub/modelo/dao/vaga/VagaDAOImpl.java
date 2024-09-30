@@ -1,15 +1,16 @@
 package br.senac.talentforge.hirehub.modelo.dao.vaga;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 public class VagaDAOImpl implements VagaDAO {
 
@@ -90,7 +91,7 @@ public class VagaDAOImpl implements VagaDAO {
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
             Root<Vaga> raizVaga = criteria.from(Vaga.class);
-            criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.MODALIDADE_CONTRATACAO), modalidadeContratacao));
+            criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.contratacao), modalidadeContratacao));
             vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {
@@ -110,7 +111,7 @@ public class VagaDAOImpl implements VagaDAO {
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
             Root<Vaga> raizVaga = criteria.from(Vaga.class);
-            criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.SITUACAO_VAGA), situacaoVaga));
+            criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.SITUACAO), situacaoVaga));
             vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();
         } catch (Exception exception) {

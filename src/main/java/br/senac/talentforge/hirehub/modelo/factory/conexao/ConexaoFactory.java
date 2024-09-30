@@ -1,6 +1,5 @@
 package br.senac.talentforge.hirehub.modelo.factory.conexao;
 
-import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -17,7 +16,7 @@ public class ConexaoFactory {
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao.class);
-        configuracao.addAnnotatedClass(Proposta.class);
+        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.professor.Professor.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.turma.Turma.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario.class);

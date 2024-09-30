@@ -1,13 +1,14 @@
 package br.senac.talentforge.hirehub.modelo.dao.professor;
 
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor_;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor_;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 
 public class ProfessorDAOImpl implements ProfessorDAO {
 
