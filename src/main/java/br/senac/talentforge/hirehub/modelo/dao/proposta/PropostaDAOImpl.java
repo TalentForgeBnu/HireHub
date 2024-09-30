@@ -1,15 +1,17 @@
 package br.senac.talentforge.hirehub.modelo.dao.proposta;
 
-import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
-import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta_;
-import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
+
+import org.hibernate.Session;
+
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta_;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
+import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 
 public class PropostaDAOImpl implements PropostaDAO {
 

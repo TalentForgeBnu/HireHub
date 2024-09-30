@@ -11,9 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridica;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
 @Entity

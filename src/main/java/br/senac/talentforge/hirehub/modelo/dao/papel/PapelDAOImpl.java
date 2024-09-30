@@ -1,8 +1,9 @@
 package br.senac.talentforge.hirehub.modelo.dao.papel;
 
+import org.hibernate.Session;
+
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
 
 public class PapelDAOImpl implements PapelDAO {
 

@@ -6,10 +6,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Session;
+
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
 
 public class AlunoDAOImpl implements AlunoDAO {
 
