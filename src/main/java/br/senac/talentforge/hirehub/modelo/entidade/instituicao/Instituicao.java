@@ -113,8 +113,8 @@ public class Instituicao extends PessoaJuridica implements Serializable {
         this.propostas= propostas;
     }
 
-    public void adicionarPropostas(Proposta propostas) {
-        this.propostas.add(propostas);
+    public void adicionarProposta(Proposta proposta) {
+        this.propostas.add(proposta);
     }
 
     public List<Turma> getTurmas() {
