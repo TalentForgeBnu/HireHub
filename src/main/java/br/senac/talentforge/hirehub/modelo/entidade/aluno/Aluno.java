@@ -45,7 +45,7 @@ public class Aluno extends PessoaFisica implements Serializable {
     public Aluno() {
     }
 
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -62,10 +62,10 @@ public class Aluno extends PessoaFisica implements Serializable {
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
-        setEstudante(alunoMatriculado);
+        setEstudante(estudante);
     }
 
-    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante alunoMatriculado) {
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -83,7 +83,7 @@ public class Aluno extends PessoaFisica implements Serializable {
         setMatricula(matricula);
         setInstituicao(instituicao);
         setTurma(turma);
-        setEstudante(alunoMatriculado);
+        setEstudante(estudante);
     }
 
     public String getMatricula() {
