@@ -121,10 +121,10 @@
 
 </head>
 <body>
-  	
+
 	<div class="container">
         <div class="left-section">
-            <img src="./Resources/Images/cadastroAluno.png" alt="Ilustração de pessoa em cadeira de rodas">
+            <img src="../Resources/Images/cadastroAluno.png" alt="Ilustração de pessoa em cadeira de rodas">
         </div>
         <div class="right-section">
             <h1>CADASTRO</h1>
