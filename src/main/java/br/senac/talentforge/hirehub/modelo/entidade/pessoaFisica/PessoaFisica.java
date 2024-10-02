@@ -32,14 +32,11 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
     @Column(name = "sobrenome", length = 20, nullable = false, unique = false)
     protected String sobrenome;
 
-    @Column(name = "nome_social", length = 20, nullable = false, unique = false)
+    @Column(name = "nome_social", length = 20, nullable = true, unique = false)
     protected String nomeSocial;
 
     @Column(name = "data_nascimento", nullable = false, unique = false)
     protected LocalDate dataNascimento;
-
-    @Column(name = "renda_familiar", nullable = false, unique = false)
-    protected float rendaFamiliar;
 
     @Enumerated(EnumType.STRING)
     protected Etnia etnia;
@@ -90,14 +87,6 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public float getRendaFamiliar() {
-        return rendaFamiliar;
-    }
-
-    public void setRendaFamiliar(float rendaFamiliar) {
-        this.rendaFamiliar = rendaFamiliar;
-    }
-
     public Sexo getSexo() {
         return sexo;
     }
@@ -120,17 +109,17 @@ public abstract class PessoaFisica extends Usuario implements Serializable {
         if (object == null || getClass() != object.getClass()) return false;
         if (!super.equals(object)) return false;
         PessoaFisica that = (PessoaFisica) object;
-        return Float.compare(rendaFamiliar, that.rendaFamiliar) == 0 &&
-                Objects.equals(cpf, that.cpf) &&
+        return Objects.equals(cpf, that.cpf) &&
                 Objects.equals(nome, that.nome) &&
                 Objects.equals(sobrenome, that.sobrenome) &&
                 Objects.equals(nomeSocial, that.nomeSocial) &&
                 Objects.equals(dataNascimento, that.dataNascimento) &&
                 etnia == that.etnia && sexo == that.sexo;
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo);
+        return Objects.hash(super.hashCode(), cpf, nome, sobrenome, nomeSocial, dataNascimento, etnia, sexo);
     }
 }
