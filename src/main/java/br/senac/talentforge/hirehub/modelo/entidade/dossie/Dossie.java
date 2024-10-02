@@ -29,8 +29,8 @@ public class Dossie implements Serializable {
     @Column(name = "id_dossie")
     private long id;
 
-    @Column(name = "descricao", length = 200, nullable = false, unique = false)
-    private String descricao;
+    @Column(name = "conteudo_dossie", length = 200, nullable = false, unique = false)
+    private String conteudo;
 
     @OneToMany(mappedBy = "dossie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Apontamento> apontamentos = new ArrayList<Apontamento>();
@@ -42,14 +42,14 @@ public class Dossie implements Serializable {
     public Dossie() {
     }
 
-    public Dossie(String descricao, Aluno aluno) {
-        setDescricao(descricao);
+    public Dossie(String conteudo, Aluno aluno) {
+        setConteudo(conteudo);
         setAluno(aluno);
     }
 
-    public Dossie(long id, String descricao, Aluno aluno) {
+    public Dossie(long id, String conteudo, Aluno aluno) {
         setId(id);
-        setDescricao(descricao);
+        setConteudo(conteudo);
         setAluno(aluno);
     }
 
@@ -61,12 +61,12 @@ public class Dossie implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getConteudo() {
+        return conteudo;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
     }
 
     public List<Apontamento> getApontamentos() {

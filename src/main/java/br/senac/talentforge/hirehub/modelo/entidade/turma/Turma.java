@@ -1,11 +1,9 @@
 package br.senac.talentforge.hirehub.modelo.entidade.turma;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
@@ -39,17 +36,14 @@ public class Turma implements Serializable {
     @Column(name = "nome_turma", length = 30, nullable = false, unique = false)
     private String nome;
 
-    @Column(name = "horario")
-    private LocalTime horario;
-
     @Column(name = "codigo", length = 50, nullable = false, unique = false)
     private String codigo;
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Aluno> alunos = new ArrayList<Aluno>();
 
-    @Column(name = "tamanho_turma")
-    private byte tamanho;
+    @Column(name = "capacidade_turma")
+    private byte capacidade;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
@@ -69,23 +63,21 @@ public class Turma implements Serializable {
     public Turma() {
     }
 
-    public Turma(String nome, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
+    public Turma(String nome, String codigo, byte capacidade, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
         setNome(nome);
-        setHorario(horario);
         setCodigo(codigo);
-        setTamanho(tamanho);
+        setCapacidade(capacidade);
         setProfessor(professor);
         setInstituicao(instituicao);
         setTurno(turno);
         setCurso(curso);
     }
 
-    public Turma(long id, String nome, LocalTime horario, String codigo, byte tamanho, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
+    public Turma(long id, String nome, String codigo, byte capacidade, Professor professor, Instituicao instituicao, Turno turno, Curso curso) {
         setId(id);
         setNome(nome);
-        setHorario(horario);
         setCodigo(codigo);
-        setTamanho(tamanho);
+        setCapacidade(capacidade);
         setProfessor(professor);
         setInstituicao(instituicao);
         setTurno(turno);
@@ -116,14 +108,6 @@ public class Turma implements Serializable {
         this.codigo = codigo;
     }
 
-    public LocalTime getHorario() {
-        return horario;
-    }
-
-    public void setHorario(LocalTime horario) {
-        this.horario = horario;
-    }
-
     public List<Aluno> getAlunos() {
         return alunos;
     }
@@ -144,12 +128,12 @@ public class Turma implements Serializable {
         this.professor = professor;
     }
 
-    public byte getTamanho() {
-        return tamanho;
+    public byte getCapacidade() {
+        return capacidade;
     }
 
-    public void setTamanho(byte tamanho) {
-        this.tamanho = tamanho;
+    public void setCapacidade(byte capacidade) {
+        this.capacidade = capacidade;
     }
 
     public Instituicao getInstituicao() {
@@ -182,9 +166,8 @@ public class Turma implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Turma turma = (Turma) o;
         return id == turma.id &&
-                tamanho == turma.tamanho &&
+                capacidade == turma.capacidade &&
                 Objects.equals(nome, turma.nome) &&
-                Objects.equals(horario, turma.horario) &&
                 Objects.equals(codigo, turma.codigo) &&
                 Objects.equals(alunos, turma.alunos) &&
                 Objects.equals(professor, turma.professor) &&
@@ -194,6 +177,6 @@ public class Turma implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, horario, codigo, alunos, tamanho, professor, instituicao, turno, curso);
+        return Objects.hash(id, nome, codigo, alunos, capacidade, professor, instituicao, turno, curso);
     }
 }
