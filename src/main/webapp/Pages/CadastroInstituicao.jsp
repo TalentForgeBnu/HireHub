@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -121,7 +124,7 @@
         <div class="right-section">
             <h1>CADASTRO</h1>
             <p>Por favor preencha as informações da Instituição.</p>
-            <form id="formCadastro" action="<%= request.getContextPath() %>/Pages/CadastroInstituicao.jsp" method="POST">
+            <form>
                 <input type="text" name="cnpj" placeholder="CNPJ" required>
                 <input type="text" name="nomeinstituicao" placeholder="Nome da Instituição" required>
                 <div class="form-group">
@@ -431,8 +434,9 @@
                     <input type="text" name="numero" placeholder="Número" required>
                 </div>
                 <input type="text" name="cep" placeholder="CEP" required>
+				<input type="text" name="logradouro" placeholder="Logradouro" required>   
                 <input type="date" name="datafundacao" placeholder="Data de Fundação" required>
-                <textarea rows="4" placeholder="Adicione uma descrição da sua Instituição" required></textarea>
+                <textarea rows="4" name="descricaoinstituicao" placeholder="Adicione uma descrição da sua Instituição" required></textarea>
                 <div>
                     <input type="checkbox" required> Li e concordo com os <a href="#">termos de uso</a>.
                 </div>
@@ -449,3 +453,4 @@
 
 </body>
 </html>
+    

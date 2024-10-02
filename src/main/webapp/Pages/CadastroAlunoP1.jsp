@@ -138,7 +138,6 @@
                     <select id="estado" name="estado" required>
                         <option value="" disabled selected>Estado</option>
                         <option value="SC">Santa Catarina</option>
-                        <!-- Mais opções de estado -->
                     </select>
                     <select id="cidade" name="cidade" required>
                         <option value="" disabled selected>Cidade</option>
