@@ -28,7 +28,7 @@ public class Aluno extends PessoaFisica implements Serializable {
 
     private static final long serialVersionUID = -1588651712344525933L;
 
-    @Column(name = "matricula", length = 30, nullable = false, unique = false)
+    @Column(name = "matricula", length = 30, nullable = true, unique = false)
     private String matricula;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -86,6 +86,7 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEstudante(estudante);
     }
 
+    //esse contrutor no momento foi criado para pode suprir a necessidade do AlunoServlet.
     public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, Float rendaFamiliar, Etnia etnia, Sexo sexo) {
         setId(id);
         setSenha(senha);
