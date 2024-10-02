@@ -42,7 +42,7 @@ public class ProfessorServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action){
-               case "/inserir" -> inserirAluno(request,response);
+               case "/inserir" -> inserirProfessor(request,response);
                default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class ProfessorServlet extends HttpServlet {
         doGet(request, response);
     }
 	
-	private void inserirAluno(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+	private void inserirProfessor(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         
 		//Lembrar de remover intituicao pois é para testes
 		
