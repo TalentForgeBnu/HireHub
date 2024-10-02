@@ -35,7 +35,7 @@ public class Professor extends PessoaFisica implements Serializable {
 
 	public Professor() {}
 
-	public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento,Etnia etnia, Sexo sexo, Instituicao instituicao) {
+	public Professor(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento,Etnia etnia, Sexo sexo, Instituicao instituicao) {
 		setSenha(senha);
 		setEndereco(endereco);
 		setPapel(papel);
@@ -45,14 +45,14 @@ public class Professor extends PessoaFisica implements Serializable {
 		setNome(nome);
 		setSobrenome(sobrenome);
 		setNomeSocial(nomeSocial);
-		setDataNascimento(dataNacimento);
+		setDataNascimento(dataNascimento);
 		setEtnia(etnia);
 		setSexo(sexo);
 		setInstituicao(instituicao);
 	}
 
 
-	public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, Instituicao instituicao) {
+	public Professor(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, Etnia etnia, Sexo sexo, Instituicao instituicao) {
 		setId(id);
 		setSenha(senha);
 		setEndereco(endereco);
@@ -64,7 +64,6 @@ public class Professor extends PessoaFisica implements Serializable {
 		setSobrenome(sobrenome);
 		setNomeSocial(nomeSocial);
 		setDataNascimento(dataNacimento);
-		setRendaFamiliar(rendaFamiliar);
 		setEtnia(etnia);
 		setSexo(sexo);
 		setInstituicao(instituicao);

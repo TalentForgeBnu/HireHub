@@ -20,6 +20,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
+import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @Entity
@@ -41,11 +42,15 @@ public class Aluno extends PessoaFisica implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Estudante estudante;
+    
+    @Enumerated(EnumType.STRING)
+    private RendaFamiliar rendaFamiliar;
+    
 
     public Aluno() {
     }
 
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -65,7 +70,7 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEstudante(estudante);
     }
 
-    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, float rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -87,7 +92,7 @@ public class Aluno extends PessoaFisica implements Serializable {
     }
 
     //esse contrutor no momento foi criado para pode suprir a necessidade do AlunoServlet.
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, Float rendaFamiliar, Etnia etnia, Sexo sexo) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -135,6 +140,14 @@ public class Aluno extends PessoaFisica implements Serializable {
     public void setEstudante(Estudante estudante) {
         this.estudante= estudante;
     }
+    
+    public RendaFamiliar getRendaFamiliar() {
+        return rendaFamiliar;
+    }
+
+    public void setRendaFamiliar(RendaFamiliar rendaFamiliar) {
+        this.rendaFamiliar= rendaFamiliar;
+    }
 
     @Override
     public boolean equals(Object object) {
@@ -145,7 +158,8 @@ public class Aluno extends PessoaFisica implements Serializable {
         return Objects.equals(matricula, aluno.matricula) &&
                 Objects.equals(instituicao, aluno.instituicao) &&
                 Objects.equals(turma, aluno.turma) &&
-                estudante == aluno.estudante;
+                estudante == aluno.estudante &&
+        		rendaFamiliar == aluno.rendaFamiliar;
     }
 
     @Override
