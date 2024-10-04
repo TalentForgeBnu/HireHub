@@ -38,19 +38,27 @@ public class Endereco implements Serializable {
 
     @Column(name = "numero", nullable = false, unique = false)
     private int numero;
+    
+    @Column(name = "complemento", length = 50, nullable = true, unique = false)
+    private String complemento;
+    
+    @Column(name = "tipo_via", length = 25, nullable = false, unique = false)
+    private String tipoVia;
 
     public Endereco() {}
 
-    public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
+    public Endereco(String logradouro, String bairro, String cidade, String estado, String cep, int numero, String complemento, String tipoVia) {
         setLogradouro(logradouro);
         setBairro(bairro);
         setCidade(cidade);
         setEstado(estado);
         setCep(cep);
         setNumero(numero);
+        setComplemento(complemento);
+        setTipoVia(tipoVia);
     }
 
-    public Endereco(long id, String logradouro, String bairro, String cidade, String estado, String cep, int numero) {
+    public Endereco(long id, String logradouro, String bairro, String cidade, String estado, String cep, int numero, String complemento, String tipoVia) {
         setId(id);
         setLogradouro(logradouro);
         setBairro(bairro);
@@ -58,6 +66,8 @@ public class Endereco implements Serializable {
         setEstado(estado);
         setCep(cep);
         setNumero(numero);
+        setComplemento(complemento);
+        setTipoVia(tipoVia);
     }
 
     public long getId() {
@@ -114,6 +124,22 @@ public class Endereco implements Serializable {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+    
+    public String getComplemento() {
+    	return complemento;
+    }
+    
+    public void setComplemento(String complemento) {
+    	this.complemento = complemento;
+    }
+    
+    public String getTipoVia() {
+    	return tipoVia;
+    }
+    
+    public void setTipoVia(String tipoVia) {
+    	this.tipoVia = tipoVia;
     }
 
 }
