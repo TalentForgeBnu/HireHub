@@ -23,6 +23,8 @@ import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
+
+
 @WebServlet("/professor/*")
 public class ProfessorServlet extends HttpServlet {
 

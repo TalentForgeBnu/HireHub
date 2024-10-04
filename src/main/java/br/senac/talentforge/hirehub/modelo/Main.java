@@ -12,6 +12,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Gerar Banco");

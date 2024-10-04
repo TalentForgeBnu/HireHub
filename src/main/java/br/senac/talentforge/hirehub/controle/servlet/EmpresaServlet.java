@@ -20,6 +20,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
+
 @WebServlet("/empresa/*")
 public class EmpresaServlet extends HttpServlet {
 
