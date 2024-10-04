@@ -87,8 +87,10 @@ public class ProfessorServlet extends HttpServlet {
         Sexo sexo = Sexo.valueOf(request.getParameter("sexo"));
        
         int numeroCasa = Integer.valueOf(numero);
+        String complemento = request.getParameter("complemento");
+        String via = request.getParameter("via");
         
-        Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numeroCasa);
+        Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numeroCasa,complemento,via);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Professor(senha,endereco,papel,telefone,email,cpf,nome,sobrenome,nomeSocial,dataNascimento,etnia,sexo,instTest));
       

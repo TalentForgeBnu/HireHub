@@ -74,8 +74,10 @@ public class EmpresaServlet extends HttpServlet {
         String cidade = request.getParameter("cidade");
         String estado = request.getParameter("estado");
         int numero = Integer.valueOf("numero");
+        String complemento = request.getParameter("complemento");
+        String via = request.getParameter("via");
         
-        Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numero);
+        Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numero,complemento,via);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Empresa(senha,endereco,papel,telefone,email,cnpj,nome,dataFundacao,descricao));
     	

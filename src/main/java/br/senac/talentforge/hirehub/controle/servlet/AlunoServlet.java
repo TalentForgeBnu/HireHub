@@ -80,6 +80,8 @@ public class AlunoServlet extends HttpServlet {
         String bairro = request.getParameter("bairro");
         String cep = request.getParameter("cep");
         int numero = Integer.parseInt(request.getParameter("numero"));
+        String complemento = request.getParameter("complemento");
+        String via = request.getParameter("via");
 
         //Pt2 Dados Aluno
         String email = request.getParameter("email");
@@ -88,7 +90,7 @@ public class AlunoServlet extends HttpServlet {
 
 
         papel.setPapel("Sim");
-        Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero);
+        Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero,complemento,via);
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
