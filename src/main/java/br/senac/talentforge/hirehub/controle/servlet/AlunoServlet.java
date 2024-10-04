@@ -21,7 +21,9 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
+
 
 @WebServlet("/aluno/*")
 public class AlunoServlet extends HttpServlet {
@@ -69,6 +71,7 @@ public class AlunoServlet extends HttpServlet {
         LocalDate dataNascimento = LocalDate.parse(request.getParameter("datanascimento"));
         Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
         Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+        RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(request.getParameter("rendafamiliar").toUpperCase());
 
         //Pt1 Dados Endereco
         String estado = request.getParameter("estado");
@@ -82,7 +85,6 @@ public class AlunoServlet extends HttpServlet {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
-        float rendaFamiliar = 134;
 
 
         papel.setPapel("Sim");
