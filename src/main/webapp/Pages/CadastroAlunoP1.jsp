@@ -441,6 +441,8 @@
                     <input type="text" name="bairro" placeholder="Bairro" required>
                     <input type="text" name="logadouro" placeholder="Logadouro" required>
                     <input type="text" name="numero" placeholder="Número" required>
+                    <input type="text" name="complemento" placeholder="Complemento">
+                    <input type="text" name="via" placeholder="Via"> 
                 </div>
                 <input type="text" name="cep" placeholder="CEP" required>
                 <input type="date" name="datanascimento" placeholder="Data de Nascimento" required>

@@ -142,6 +142,8 @@
                 <div class="form-group">
                     <input type="text" placeholder="Bairro" required>
                     <input type="text" placeholder="Número" required>
+                    <input type="text" name="complemento" placeholder="Complemento">
+                    <input type="text" name="via" placeholder="Via"> 
                 </div>
                 <input type="text" placeholder="CEP" required>
                 <input type="date" placeholder="Data de Nascimento" required>
