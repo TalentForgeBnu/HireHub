@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resposta da Vaga</title>
+</head>
+<body>
+    <form action="RespostaVaga.html">
+        <div>
+            <input type="hidden" name="id" id="id">
+            <input type="text" placeholder="Nome da Vaga" name="nomevaga" id="nomevaga">
+            <input type="text" placeholder="Código da Vaga" name="codigovaga" id="vaga">
+            <select name="modalidadecontratacao" id="modalidadecontratacao">
+                <option value="estagio">Estágio</option>
+                <option value="meioperiodo">Meio-Período</option>
+                <option value="integral">Integral</option>
+            </select>
+        </div>
+        <div>
+            <label for="descricao">Descrição da vaga</label>
+            <textarea id="descricao" placeholder="Detalhes sobre a vaga..."></textarea>
+        </div>
+        <div>
+            <button type="button" class="accept">Aceitar</button>
+            <button type="button" class="reject">Recusar</button>
+        </div>
+        <!-- Botão Salvar Resposta -->
+        <div>
+            <button type="submit">✔ Salvar Resposta</button>
+        </div>
+        </div>
+</body>
+</html>
