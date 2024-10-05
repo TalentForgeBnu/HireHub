@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/apontamento")
 public class ApontamentoServlet extends HttpServlet {
