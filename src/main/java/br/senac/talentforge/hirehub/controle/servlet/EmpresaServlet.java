@@ -20,8 +20,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
-
-@WebServlet("/empresa/*")
+@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-empresa"})
 public class EmpresaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -7157263069775551523L;
@@ -42,10 +41,10 @@ public class EmpresaServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = request.getPathInfo();
+        String action = request.getServletPath();
         try {
             switch (action) {
-                case "/inserir" -> inserirEmpresa(request, response);
+                case "/inserir-empresa" -> inserirEmpresa(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -58,8 +57,8 @@ public class EmpresaServlet extends HttpServlet {
     	//Pt1 Dados Empresa
     	Papel papel = new Papel();
     	
-    	String nome = request.getParameter("nomeempresa");
-        String descricao = request.getParameter("descricaoempresa");
+    	String nome = request.getParameter("nome-empresa");
+        String descricao = request.getParameter("descricao-empresa");
         String email = request.getParameter("email");
         String cnpj = request.getParameter("cnpj");
         String telefone = request.getParameter("telefone");

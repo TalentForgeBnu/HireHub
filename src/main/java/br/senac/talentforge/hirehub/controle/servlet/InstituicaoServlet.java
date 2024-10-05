@@ -20,9 +20,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
-
-
-@WebServlet("/instituicao")
+@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-instituicao"})
 public class InstituicaoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 772514583419437616L;
@@ -43,10 +41,10 @@ public class InstituicaoServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = request.getPathInfo();
+        String action = request.getServletPath();
         try {
             switch (action) {
-                case "/inserir" -> inserirInstituicao(request, response);
+                case "/inserir-instituicao" -> inserirInstituicao(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {

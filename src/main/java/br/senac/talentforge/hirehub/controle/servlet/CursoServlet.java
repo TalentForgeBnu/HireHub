@@ -16,7 +16,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet("/curso")
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso"})
 public class CursoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6830527891806311155L;
@@ -33,10 +33,10 @@ public class CursoServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = request.getPathInfo();
+        String action = request.getServletPath();
         try {
             switch (action) {
-                case "/inserir" -> inserirCurso(request, response);
+                case "/inserir-curso" -> inserirCurso(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class CursoServlet extends HttpServlet {
     	String descricao = request.getParameter("descricaocurso");    	
     	LocalDate dataInicio = LocalDate.ofEpochDay(request.getDateHeader("dataInicio"));
     	LocalDate dataFim = LocalDate.ofEpochDay(request.getDateHeader("dataTermino"));
-    	Disponibilidade disponibilidade = Disponibilidade.valueOf(request.getParameter("disponibilidade").toUpperCase());
+    	Disponibilidade disponibilidade = Disponibilidade.ABERTO;
     	   	
     	cursoDAO.inserirCurso(new Curso(nomeCurso,areaAtuacao,disponibilidade,dataInicio,dataFim,descricao,proposta));
     	

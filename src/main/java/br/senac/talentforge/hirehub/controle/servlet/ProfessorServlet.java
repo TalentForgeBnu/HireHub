@@ -23,9 +23,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-
-
-@WebServlet("/professor/*")
+@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-professor"})
 public class ProfessorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 512561250174084370L;
@@ -39,24 +37,24 @@ public class ProfessorServlet extends HttpServlet {
 		usuarioDAO = new UsuarioDAOImpl();
 		enderecoDAO = new EnderecoDAOImpl();
 	}
-	
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
         try {
             switch (action){
-               case "/inserir" -> inserirProfessor(request,response);
+               case "/inserir-professor" -> inserirProfessor(request,response);
                default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
       }
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-	
+
 	private void inserirProfessor(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         
 		//Lembrar de remover intituicao pois é para testes
