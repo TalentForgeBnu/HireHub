@@ -98,15 +98,14 @@
             <h2>Adicionar Vaga</h2>
             <form>
                 <input type="text" placeholder="Nome da Vaga" name="nome" required>
-                <input type="text" placeholder="Descrição da vaga" name="descricaovaga" required>
-                <input type="number" placeholder="Salário" name="salario" required>
+                <input type="text" placeholder="Descrição da vaga" name="descricao-vaga" required>
                 <select required>
-                    <option value="" id="modalidadecontratacao" disabled selected>Modalidade da Contratação</option>
+                    <option value="" id="modalidade-contratacao" disabled selected>Modalidade da Contratação</option>
                     <option value="estagio">Estágio</option>
                     <option value="integral">Integral</option>
                     <option value="meioperiodo">Meio Período</option>
                 </select>
-                <input type="text" name="codigovaga" placeholder="Código da Vaga" required>
+                <input type="text" name="codigo-vaga" placeholder="codigo-vaga" required>
                 <input type="file" name="imagem" placeholder="Anexar Imagem" accept="image/*">
                 <div class="form-actions">
                     <button type="submit">✔ Enviar Oferta de Vaga</button>
