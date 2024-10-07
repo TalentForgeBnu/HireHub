@@ -164,7 +164,7 @@
                     </select>
                 </div>
                 <div class="form-actions">
-                    <button type="submit">â Salvar Turma</button>
+                    <button type="submit">Salvar Turma</button>
                 </div>
             </form>
         </div>
