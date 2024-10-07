@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
  
-@WebServlet("/vaga/*")
+@WebServlet(urlPatterns = {"/inserir-vaga", "/atualizar-vaga"})
 public class VagaServlet extends HttpServlet {
  
 	private static final long serialVersionUID = 3963892615335298562L;
@@ -33,7 +33,7 @@ public class VagaServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action) {
-                case "/inserirVaga":
+                case "/inserir-vaga":
                     inserirVaga(request, response);
                     break;
                 default:
@@ -51,13 +51,13 @@ public class VagaServlet extends HttpServlet {
  
     private void inserirVaga(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
  
-    	String codigo = request.getParameter("codigovaga");
+    	String codigo = request.getParameter("codigo-vaga");
         String nome = request.getParameter("nome");
-        String descricao = request.getParameter("descricaovaga");
-        String empresaId = request.getParameter("idempresa");
+        String descricao = request.getParameter("descricao-vaga");
+        String empresaId = request.getParameter("id-empresa");
         Empresa empresa = empresaDAO.recuperarEmpresaPeloCnpj(empresaId);
-        Contratacao contratacao = Contratacao.valueOf(request.getParameter("modalidadecontratacao"));
-        Situacao situacao = Situacao.valueOf(request.getParameter("situacao"));
+        Contratacao contratacao = Contratacao.valueOf(request.getParameter("modalidade-contratacao").toUpperCase());
+        Situacao situacao = Situacao.valueOf(request.getParameter("situacao").toUpperCase());
         Vaga vaga = new Vaga(codigo, nome, descricao, contratacao, situacao, empresa);
         vagaDAO.inserirVaga(vaga);
     }

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/dossie")
+@WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie"})
 public class DossieServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -5219702605927605608L;
@@ -30,10 +30,10 @@ public class DossieServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        String action = request.getPathInfo();
+        String action = request.getServletPath();
         try {
             switch (action) {
-                case "/inserir" -> inserirDossie(request, response);
+                case "/inserir-dossie" -> inserirDossie(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {

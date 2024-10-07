@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/apontamento")
+@WebServlet(urlPatterns = {"/inserir-apontamento", "/atualizar-apontamento"})
 public class ApontamentoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -4592280850903991380L;
@@ -29,7 +29,7 @@ public class ApontamentoServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action){
-               case "/inserir" -> inserirApontamento(request,response);
+               case "/inserir-apontamento" -> inserirApontamento(request,response);
                default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
