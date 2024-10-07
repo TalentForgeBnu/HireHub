@@ -62,7 +62,7 @@ public class EmpresaServlet extends HttpServlet {
         String cnpj = request.getParameter("cnpj");
         String telefone = request.getParameter("telefone");
         String senha = request.getParameter("senha");
-        LocalDate dataFundacao = LocalDate.ofEpochDay(request.getDateHeader("datafundacao"));
+        LocalDate dataFundacao = LocalDate.ofEpochDay(request.getDateHeader("data-fundacao"));
     	
         //Pt2 Dados Empresa
         
