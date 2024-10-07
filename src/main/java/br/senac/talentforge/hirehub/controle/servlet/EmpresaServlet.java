@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
@@ -13,11 +19,7 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 @WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-empresa"})
 public class EmpresaServlet extends HttpServlet {
@@ -62,7 +64,7 @@ public class EmpresaServlet extends HttpServlet {
         String cnpj = request.getParameter("cnpj");
         String telefone = request.getParameter("telefone");
         String senha = request.getParameter("senha");
-        LocalDate dataFundacao = LocalDate.ofEpochDay(request.getDateHeader("data-fundacao"));
+        LocalDate dataFundacao = LocalDate.ofEpochDay(request.getDateHeader("datafundacao"));
     	
         //Pt2 Dados Empresa
         

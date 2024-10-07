@@ -3,6 +3,12 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
@@ -10,11 +16,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 
 @WebServlet(urlPatterns = {"/inserir-turma", "/atualizar-turma"})
 public class TurmaServlet extends HttpServlet {

@@ -3,6 +3,12 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
@@ -11,11 +17,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
  
 @WebServlet(urlPatterns = {"/inserir-vaga", "/atualizar-vaga"})
 public class VagaServlet extends HttpServlet {
