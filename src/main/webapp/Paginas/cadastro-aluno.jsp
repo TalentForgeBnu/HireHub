@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -149,14 +152,14 @@
 <body>
     <div class="container">
         <div class="image-section">
-            <img src="./Recursos/Imagens/cadastroAluno.png" alt="Ilustração">
+            <img src="./Recursos/Imagens/cadastroAluno.png" alt="IlustraÃ§Ã£o">
         </div>
 
         <div class="form-section">
             <h1>CADASTRO</h1>
-            <p>Olá, aluno! Por favor preencha suas informações.</p>
+            <p>OlÃ¡, aluno! Por favor preencha suas informaÃ§Ãµes.</p>
 
-            <form action="cadastrar" method="POST">
+            <form action="<%=request.getContextPath()%>/inserir-aluno" method="POST">
                 <input type="text" name="nome" placeholder="Nome" required>
                 <input type="text" name="sobrenome" placeholder="Sobrenome" required>
                 <input type="text" name="nome_social" placeholder="Nome Social">
@@ -165,17 +168,19 @@
                 <div class="input-group">
                     <select name="estado" required>
                         <option value="" disabled selected>Estado</option>
-                        <!-- Coloque aqui as opções de estado -->
+                        <option value="SC">Santa Catarina</option>
+                        <!-- Coloque aqui as opÃ§Ãµes de estado -->
                     </select>
                     <select name="cidade" required>
                         <option value="" disabled selected>Cidade</option>
-                        <!-- Coloque aqui as opções de cidade -->
+                        <option value="blumenau">Blumenau</option>
+                        <!-- Coloque aqui as opÃ§Ãµes de cidade -->
                     </select>
                 </div>
 
                 <div class="input-group">
                     <input type="text" name="bairro" placeholder="Bairro">
-                    <input type="text" name="numero" placeholder="Número">
+                    <input type="text" name="numero" placeholder="NÃºmero">
                 </div>
 
                 <input type="text" name="cep" placeholder="CEP">
@@ -193,11 +198,11 @@
 
                 <input type="password" name="senha" placeholder="Senha" required>
                 <input type="password" name="confirmar_senha" placeholder="Confirme sua Senha" required>
-                <input type="tel" name="telefone" placeholder="Número de Telefone" required>
+                <input type="tel" name="telefone" placeholder="NÃºmero de Telefone" required>
 
                 <select name="renda_familiar" required>
                     <option value="" disabled selected>Renda Familiar</option>
-                    <!-- Coloque aqui as opções de renda -->
+                    <!-- Coloque aqui as opÃ§Ãµes de renda -->
                 </select>
 
                 <div class="checkbox-container">
@@ -212,7 +217,7 @@
             </form>
 
             <div class="form-footer">
-                <p>Já possui uma conta? <a href="#">Entrar</a></p>
+                <p>JÃ¡ possui uma conta? <a href="#">Entrar</a></p>
             </div>
         </div>
     </div>
