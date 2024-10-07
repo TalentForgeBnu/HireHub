@@ -125,8 +125,8 @@
             <h1>CADASTRO</h1>
             <p>Por favor preencha as informaÃ§Ãµes da empresa.</p>
             <form>
-                <input type="text" placeholder="CNPJ" required>
-                <input type="text" placeholder="Nome da Empresa" required>
+                <input type="text" name="cnpj"placeholder="CNPJ" required>
+                <input type="text" name="nome-empresa" placeholder="Nome da Empresa" required>
                 <div class="form-group">
                     <select required>
                         <option value="" disabled selected>Estado</option>
@@ -142,14 +142,16 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Bairro" required>
-                    <input type="text" placeholder="NÃºmero" required>
+                    <input type="text" name="bairro" placeholder="Bairro" required>
+                    <input type="text" name="numero" placeholder="NÃºmero" required>
                     <input type="text" name="complemento" placeholder="Complemento">
                     <input type="text" name="via" placeholder="Via"> 
                 </div>
-                <input type="text" placeholder="CEP" required>
-                <input type="date" placeholder="Data de FundaÃ§Ã£o" required>
-                <textarea rows="4" placeholder="Adicione uma descriÃ§Ã£o da sua empresa" required></textarea>
+                <input type="text" name="cep" placeholder="CEP" required>
+                <input type="date" name="data-fundacao" placeholder="Data de FundaÃ§Ã£o" required>
+                <textarea rows="4" name="descricao-empresa" placeholder="Adicione uma descriÃ§Ã£o da sua empresa" required></textarea>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <input type="password" name="confimarsenha" placeholder="Confirme sua Senha" required>
                 <div>
                     <input type="checkbox" required> Li e concordo com os <a href="#">termos de uso</a>.
                 </div>

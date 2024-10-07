@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Cadastro - InstituiÃ§Ã£o</title>
+    <title>Tela de Cadastro - Instituição</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -119,37 +119,38 @@
 
     <div class="container">
         <div class="left-section">
-            <img src="../Resources/Images/cadastroInstituicao.png" alt="IlustraÃ§Ã£o de prÃ©dio institucional">
+            <img src="../Resources/Images/cadastroInstituicao.png" alt="Ilustração de prédio institucional">
         </div>
         <div class="right-section">
             <h1>CADASTRO</h1>
-            <p>Por favor preencha as informaÃ§Ãµes da InstituiÃ§Ã£o.</p>
+            <p>Por favor preencha as informações da Instituição.</p>
             <form>
                 <input type="text" placeholder="CNPJ" required>
-                <input type="text" placeholder="Nome da InstituiÃ§Ã£o" required>
+                <input type="text" placeholder="Nome da Instituição" required>
                 <div class="form-group">
                     <select required>
                         <option value="" disabled selected>Estado</option>
-                        <option value="SP">SÃ£o Paulo</option>
+                        <option value="SP">São Paulo</option>
                         <option value="RJ">Rio de Janeiro</option>
-                        <!-- Mais opÃ§Ãµes de estado -->
+                        <!-- Mais opções de estado -->
                     </select>
                     <select required>
                         <option value="" disabled selected>Cidade</option>
-                        <option value="SÃ£o Paulo">SÃ£o Paulo</option>
+                        <option value="São Paulo">São Paulo</option>
                         <option value="Rio de Janeiro">Rio de Janeiro</option>
-                        <!-- Mais opÃ§Ãµes de cidade -->
+                        <!-- Mais opções de cidade -->
                     </select>
                 </div>
                 <div class="form-group">
                     <input type="text" placeholder="Bairro" required>
-                    <input type="text" placeholder="NÃºmero" required>
-                    <input type="text" name="complemento" placeholder="Complemento">
-                    <input type="text" name="via" placeholder="Via"> 
+                    <input type="text" placeholder="Número" required>
                 </div>
-                <input type="text" placeholder="CEP" required>
-                <input type="date" placeholder="Data de FundaÃ§Ã£o" required>
-                <textarea rows="4" placeholder="Adicione uma descriÃ§Ã£o da sua InstituiÃ§Ã£o" required></textarea>
+                    <input type="text" placeholder="CEP" required>
+                    <input type="email" placeholder="Email" name="email" required>
+                    <input type="password" name="senha" placeholder="Senha" required>
+                    <input type="password" name="confimarsenha" placeholder="Confirme sua Senha" required>
+                    <input type="date" placeholder="Data de Fundação" required>
+                <textarea rows="4" placeholder="Adicione uma descrição da sua Instituição" required></textarea>
                 <div>
                     <input type="checkbox" required> Li e concordo com os <a href="#">termos de uso</a>.
                 </div>
@@ -159,7 +160,7 @@
                 </div>
             </form>
             <div class="form-footer">
-                <p>JÃ¡ possui uma conta? <a href="#">Entrar</a></p>
+                <p>Já possui uma conta? <a href="#">Entrar</a></p>
             </div>
         </div>
     </div>
