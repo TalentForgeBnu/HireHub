@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,7 @@
     <title>Tela Perfil Aluno</title>
 </head>
 <body>
-    <img src="../Resources/Images/Component 8.png" alt="Ilustração de Aluno" width="204" height="200">
+    <img src="../Resources/Images/Component 8.png" alt="IlustraÃ§Ã£o de Aluno" width="204" height="200">
 
     <form action="TelaPerfilAluno.html">
     <div>
@@ -17,21 +20,21 @@
 
         <select required>
             <option value="" disabled selected>Renda Familiar</option>
-            <option value="Menos de um salario mínimo">Até 1 salario mínimo</option>
-            <option value="Entre um á dois salarios mínimos">Entre 1 a 2 salarios mínimos</option>
-            <option value="Entre dois á quatro salarios mínimos">Entre 2 a 4 salarios mínimos</option>
-            <option value="Entre quatro á seis salarios mínimos">Entre 4 a 6 salarios mínimos</option>
-            <option value="Mais de seis salarios mínimos">Mais de 6 salarios mínimos</option>
+            <option value="Menos de um salario mÃ­nimo">AtÃ© 1 salario mÃ­nimo</option>
+            <option value="Entre um Ã¡ dois salarios mÃ­nimos">Entre 1 a 2 salarios mÃ­nimos</option>
+            <option value="Entre dois Ã¡ quatro salarios mÃ­nimos">Entre 2 a 4 salarios mÃ­nimos</option>
+            <option value="Entre quatro Ã¡ seis salarios mÃ­nimos">Entre 4 a 6 salarios mÃ­nimos</option>
+            <option value="Mais de seis salarios mÃ­nimos">Mais de 6 salarios mÃ­nimos</option>
         </select>
         <select name="Etnia" id="etnia">
             <option value="branco">Branco</option>
             <option value="preto">Preto</option>
             <option value="pardo">Pardo</option>
-            <option value="indigena">Indígena</option>
-            <option value="Asiatico">Asiático</option>
+            <option value="indigena">IndÃ­gena</option>
+            <option value="Asiatico">AsiÃ¡tico</option>
         </select>
         
-        <input type="text" placeholder="Endereço" id="endereco" name="endereco">
+        <input type="text" placeholder="EndereÃ§o" id="endereco" name="endereco">
     </div>
 </form>
 </body>

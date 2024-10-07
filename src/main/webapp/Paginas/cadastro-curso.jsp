@@ -1,4 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -127,18 +129,18 @@ w        <div class="image-section">
                     <input type="text" id="nomecurso" name="nomeCurso" placeholder="Nome do Curso" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="areaatuacao" name="areaAtuacao" placeholder="Área de Atuação" required>
+                    <input type="text" id="areaatuacao" name="areaAtuacao" placeholder="Ãrea de AtuaÃ§Ã£o" required>
                 </div>
                 <div class="form-group">
-                	<label for="dataTermino">Data de Término</label>
+                	<label for="dataTermino">Data de TÃ©rmino</label>
                     <input type="datetime-local" id="datainicio" name="dataInicio" required>
                 </div>
                 <div class="form-group">
-                    <label for="dataTermino">Data de Término</label>
+                    <label for="dataTermino">Data de TÃ©rmino</label>
                     <input type="datetime-local" id="datatermino" name="dataTermino" required>
                 </div>
                 <div class="form-group">
-                    <textarea id="descricao" name="descricaocurso" rows="4" placeholder="Descrição do curso" required></textarea>
+                    <textarea id="descricao" name="descricaocurso" rows="4" placeholder="DescriÃ§Ã£o do curso" required></textarea>
                 </div>
                 <button type="submit" class="submit-button">Enviar Oferta do Curso</button>
             </form>

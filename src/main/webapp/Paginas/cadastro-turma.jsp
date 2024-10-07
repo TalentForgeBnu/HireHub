@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -147,7 +150,7 @@
                     <input type="text" id="nome" name="nome" placeholder="Nome da turma">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="codigo" name="codigo" placeholder="Código da turma">
+                    <input type="text" id="codigo" name="codigo" placeholder="CÃ³digo da turma">
                 </div>
                 <div class="form-group">
                     <input type="number" id="tamanho" name="tamanho" placeholder="Tamanho da turma">
@@ -161,7 +164,7 @@
                     </select>
                 </div>
                 <div class="form-actions">
-                    <button type="submit">✔ Salvar Turma</button>
+                    <button type="submit">â Salvar Turma</button>
                 </div>
             </form>
         </div>
