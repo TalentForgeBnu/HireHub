@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Cadastro - Quase Lá!</title>
+    <title>Tela de Cadastro - Quase LÃ¡!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,17 +106,17 @@
 
     <div class="container">
         <div class="left-section">
-            <img src="../Resources/Images/cadastroProfessor.png" alt="Ilustração de pessoa em cadeira de rodas">
+            <img src="../Resources/Images/cadastroProfessor.png" alt="IlustraÃ§Ã£o de pessoa em cadeira de rodas">
         </div>
         <div class="right-section">
-            <h1>QUASE LÁ!</h1>
-            <p>Preencha o resto das informações para cadastrar!</p>
+            <h1>QUASE LÃ!</h1>
+            <p>Preencha o resto das informaÃ§Ãµes para cadastrar!</p>
             <form>
                 <input type="password" placeholder="Senha" required>
                 <input type="password" placeholder="Confirme sua Senha" required>
                 <input type="text" placeholder="Nome Social" required>
-                <input type="email" placeholder="E-mail para Recuperação de Senha" required>
-                <input type="tel" placeholder="Número de Telefone" required>
+                <input type="email" placeholder="E-mail para RecuperaÃ§Ã£o de Senha" required>
+                <input type="tel" placeholder="NÃºmero de Telefone" required>
                 
                 <div class="form-actions">
                     <button type="button" class="cancel">Cancelar</button>
@@ -121,7 +124,7 @@
                 </div>
             </form>
             <div class="form-footer">
-                <p>Já possui uma conta? <a href="#">Entrar</a></p>
+                <p>JÃ¡ possui uma conta? <a href="#">Entrar</a></p>
             </div>
         </div>
     </div>
