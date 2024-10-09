@@ -14,26 +14,29 @@ import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
+import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
-
 @WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-empresa"})
 public class EmpresaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -7157263069775551523L;
-	
+
+    private PapelDAO papelDAO;
 	private EmpresaDAO empresaDAO;
 	private UsuarioDAO usuarioDAO;
 	private EnderecoDAO enderecoDAO;
 	
-	public void init() {	  
-	     empresaDAO = new EmpresaDAOImpl();
-	     usuarioDAO = new UsuarioDAOImpl();
-	     enderecoDAO = new EnderecoDAOImpl();
+	public void init() {
+        papelDAO = new PapelDAOImpl();
+        empresaDAO = new EmpresaDAOImpl();
+        usuarioDAO = new UsuarioDAOImpl();
+        enderecoDAO = new EnderecoDAOImpl();
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,8 +57,6 @@ public class EmpresaServlet extends HttpServlet {
     }
 	
     private void inserirEmpresa(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException {
-    	
-    	//Pt1 Dados Empresa
     	Papel papel = new Papel();
     	
     	String nome = request.getParameter("nome-empresa");
@@ -64,23 +65,21 @@ public class EmpresaServlet extends HttpServlet {
         String cnpj = request.getParameter("cnpj");
         String telefone = request.getParameter("telefone");
         String senha = request.getParameter("senha");
-        LocalDate dataFundacao = LocalDate.ofEpochDay(request.getDateHeader("datafundacao"));
-    	
-        //Pt2 Dados Empresa
-        
+        LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
         String logradouro = request.getParameter("logradouro");
         String bairro = request.getParameter("bairro");
         String cep = request.getParameter("cep");
         String cidade = request.getParameter("cidade");
         String estado = request.getParameter("estado");
-        int numero = Integer.valueOf("numero");
+        int numero = Integer.parseInt(request.getParameter("numero"));
         String complemento = request.getParameter("complemento");
         String via = request.getParameter("via");
-        
+        papel.setPapel("sim:)");
+
         Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numero,complemento,via);
+        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Empresa(senha,endereco,papel,telefone,email,cnpj,nome,dataFundacao,descricao));
-    	
     }
     
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {

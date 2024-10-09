@@ -8,16 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HireHub</title>
 </head>
-<body>
-<div>
-<a href="Pages/CadastroInstituicao.jsp">Cadastro Instituição</a>
-</div>
-<div>
-<a href="Pages/CadastroEmpresa.jsp">Cadastro Empresa</a>
-</div>
-<div>
-<a href="Pages/CadastroAlunoP1.jsp">Cadastro Aluno</a>
-</div>
 
+<body>
+    <div>
+        <a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a>
+    </div>
+
+    <div>
+        <a href="Paginas/cadastro-empresa.jsp">Cadastro Empresa</a>
+    </div>
+
+    <div>
+        <a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a>
+    </div>
+    <div>
+        <a href="Paginas/cadastro-dossie.jsp">Cadastro Dossie</a>
+    </div>
 </body>
 </html>

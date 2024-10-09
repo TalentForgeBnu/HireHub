@@ -28,6 +28,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
+
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
     private AlunoDAO alunoDAO;
@@ -45,7 +46,7 @@ public class AlunoServlet extends HttpServlet {
         doGet(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String action = request.getServletPath();
         try {
             switch (action) {
@@ -59,7 +60,7 @@ public class AlunoServlet extends HttpServlet {
     }
 
 
-    private void inserirAluno(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
         //Papel ainda tem que ser melhor revisado com o professor.
         Papel papel = new Papel();
 
@@ -75,7 +76,7 @@ public class AlunoServlet extends HttpServlet {
         //Pt1 Dados Endereco
         String estado = request.getParameter("estado");
         String cidade = request.getParameter("cidade");
-        String logadouro = request.getParameter("logadouro");
+        String logadouro = request.getParameter("logradouro");
         String bairro = request.getParameter("bairro");
         String cep = request.getParameter("cep");
         int numero = Integer.parseInt(request.getParameter("numero"));
@@ -94,8 +95,6 @@ public class AlunoServlet extends HttpServlet {
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
-
-        response.sendRedirect(request.getContextPath() + "/pages/cadastro-aluno-pt1.jsp");
     }
 
     private void atualizarAluno(HttpServletRequest request, HttpServletResponse response) throws IOException {

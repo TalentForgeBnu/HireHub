@@ -18,7 +18,6 @@ import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
- 
 @WebServlet(urlPatterns = {"/inserir-vaga", "/atualizar-vaga"})
 public class VagaServlet extends HttpServlet {
  

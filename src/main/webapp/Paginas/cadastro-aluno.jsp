@@ -152,7 +152,7 @@
 <body>
     <div class="container">
         <div class="image-section">
-            <img src="./Recursos/Imagens/cadastroAluno.png" alt="Ilustração">
+            <img src="../Recursos/Imagens/cadastro-aluno.png" alt="Ilustração">
         </div>
 
         <div class="form-section">
@@ -164,6 +164,7 @@
                 <input type="text" name="sobrenome" placeholder="Sobrenome" required>
                 <input type="text" name="nome_social" placeholder="Nome Social">
                 <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="cpf" placeholder="Cpf" required>
 
                 <div class="input-group">
                     <select name="estado" required>
@@ -185,11 +186,21 @@
 
                 <input type="text" name="cep" placeholder="CEP">
                 <input type="text" name="logradouro" placeholder="Logradouro">
+                <input type="text" name="via" placeholder="Via">
+                <input type="text" name="complemento" placeholder="Complemento">
 
-                <input type="date" name="data_nascimento" placeholder="Data de Nascimento" required>
-                <input type="text" name="etnia" placeholder="Etnia">
+                <input type="date" name="data-nascimento" placeholder="Data de Nascimento" require>
 
-                <select name="sexo" required>
+                <select id="etnia" name="etnia" required>
+                    <option value="" disabled selected>Etnia</option>
+                    <option value="branco">Branco</option>
+                    <option value="pardo">Pardo</option>
+                    <option value="preto">Preto</option>
+                    <option value="indigena">Indígena</option>
+                    <option value="asiatico">Asiático</option>
+                </select>
+
+                <select id="sexo" name="sexo" required>
                     <option value="" disabled selected>Sexo</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
@@ -200,9 +211,13 @@
                 <input type="password" name="confirmar_senha" placeholder="Confirme sua Senha" required>
                 <input type="tel" name="telefone" placeholder="Número de Telefone" required>
 
-                <select name="renda_familiar" required>
+                <select id="renda-familiar" name="renda-familiar" required>
                     <option value="" disabled selected>Renda Familiar</option>
-                    <!-- Coloque aqui as opções de renda -->
+                    <option value="ate-1-salario-minimo">Menos de um salario minimo</option>
+                    <option value="entre-1-a-2-salarios-minimos">Entre um a dois salarios minimos</option>
+                    <option value="entre-2-a-4-salarios-minimos">Entre dois a quatro salarios minimos</option>
+                    <option value="entre-4-a-6-salarios-minimos">Entre quatro a seis salarios minimos</option>
+                    <option value="acima-de-6-salarios-minimos">Acima de seis salarios minimos</option>
                 </select>
 
                 <div class="checkbox-container">
