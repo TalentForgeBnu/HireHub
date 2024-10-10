@@ -24,5 +24,8 @@
     <div>
         <a href="Paginas/cadastro-dossie.jsp">Cadastro Dossie</a>
     </div>
+    <div>
+        <a href="Paginas/perfil-aluno.jsp">Perfil Aluno</a>
+    </div>
 </body>
 </html>
