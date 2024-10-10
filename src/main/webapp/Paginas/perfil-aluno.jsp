@@ -13,30 +13,33 @@
 		<div>
 			<c:forEach var="aluno" items="${aluno}">
 				<input type="hidden" <c:out value="${aluno.id}"/> id="id" name="id">
-				<input type="text" <c:out value="${aluno.cpf}"/> id="cpf" name="cpf" disabled>
+				<input type="text" <c:out value="${aluno.cpf}"/> id="cpf" name="cpf"
+					disabled>
 				<input type="text" <c:out value="${aluno.nome}"/> placeholder="Nome"
 					id="nome" name="nome">
-				<input type="text" <c:out value="${aluno.sobrenome}"/>placeholder="Sobrenome" id="sobrenome"
-					name="sobrenome" >
+				<input type="text" <c:out value="${aluno.sobrenome}"/>
+					placeholder="Sobrenome" id="sobrenome" name="sobrenome">
 				<input type="text" placeholder="Nome Social" id="nomeSocial"
 					name="nomesocial" <c:out value="${aluno.nomeSocial}"/>>
 				<input type="date" placeholder="Data de Nascimento" id="dataNasc"
 					name="datanascimento" <c:out value="${aluno.dataNascimento}"/>>
 				<select required>
-					<option value="" disabled selected><c:out value="${aluno.rendaFamiliar}"/></option>
-					<option value="Menos de um salario mínimo">Até 1 salario
-						mínimo</option>
-					<option value="Entre um á dois salarios mínimos">Entre 1 a
-						2 salarios mínimos</option>
-					<option value="Entre dois á quatro salarios mínimos">Entre
-						2 a 4 salarios mínimos</option>
-					<option value="Entre quatro á seis salarios mínimos">Entre
-						4 a 6 salarios mínimos</option>
-					<option value="Mais de seis salarios mínimos">Mais de 6
-						salarios mínimos</option>
+					<option value="" disabled selected><c:out
+							value="${aluno.rendaFamiliar}" /></option>
+					<option value="ate-1-salario-minimo">Menos de um salario
+						minimo</option>
+					<option value="entre-1-a-2-salarios-minimos">Entre um a
+						dois salarios minimos</option>
+					<option value="entre-2-a-4-salarios-minimos">Entre dois a
+						quatro salarios minimos</option>
+					<option value="entre-4-a-6-salarios-minimos">Entre quatro
+						a seis salarios minimos</option>
+					<option value="acima-de-6-salarios-minimos">Acima de seis
+						salarios minimos</option>
 				</select>
 				<select name="Etnia" id="etnia">
-					<option value="" disabled selected><c:out value="${aluno.etnia}"/></option>
+					<option value="" disabled selected><c:out
+							value="${aluno.etnia}" /></option>
 					<option value="branco">Branco</option>
 					<option value="preto">Preto</option>
 					<option value="pardo">Pardo</option>
@@ -44,7 +47,8 @@
 					<option value="Asiatico">Asiático</option>
 				</select>
 				<select name="Sexo" id="sexo">
-					<option value="" disabled selected><c:out value="${aluno.sexo}"/></option>
+					<option value="" disabled selected><c:out
+							value="${aluno.sexo}" /></option>
 					<option value="Masculino">Masculino</option>
 					<option value="Feminino">Feminino</option>
 					<option value="Outros">Outros</option>
