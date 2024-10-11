@@ -22,7 +22,6 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
@@ -30,15 +29,15 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 @WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie"})
 public class DossieServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -5219702605927605608L;
+    private static final long serialVersionUID = -5219702605927605608L;
 
-	private DossieDAO dossieDAO;
-	
-	public void init() {
-		dossieDAO = new DossieDAOImpl();
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    private DossieDAO dossieDAO;
+
+    public void init() {
+        dossieDAO = new DossieDAOImpl();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
@@ -54,14 +53,14 @@ public class DossieServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-    
-    private void inserirDossie(HttpServletRequest request, HttpServletResponse response)throws SQLException, IOException {
+
+    private void inserirDossie(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         //metodos papel aluno e endereço apenas para testes.
         //remover após criar os metodos de login.
 
         Papel papel = new Papel();
         papel.setPapel("sim");
-        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai","via");
+        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
         Aluno aluno = new Aluno("minhasenha", endereco, papel, "12345678", "aluno@email.com", "1234567890", "nomealuno", "sobrenome aluno", "sim", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO, Etnia.BRANCO, Sexo.MASCULINO);
 
         PapelDAO papelDAO = new PapelDAOImpl();
@@ -71,14 +70,14 @@ public class DossieServlet extends HttpServlet {
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(aluno);
-    	
-    	String conteudo = request.getParameter("conteudo");
-    	
-    	dossieDAO.inserirDossie(new Dossie(conteudo,aluno));
+
+        String conteudo = request.getParameter("conteudo");
+
+        dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
     }
-    
+
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
     }
-	
+
 }

@@ -35,7 +35,6 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibil
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
-
 @WebServlet(urlPatterns = {"/inserir-turma", "/atualizar-turma"})
 public class TurmaServlet extends HttpServlet {
 
@@ -55,8 +54,8 @@ public class TurmaServlet extends HttpServlet {
         papelDAO = new PapelDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         professorDAO = new ProfessorDAOImpl();
-        instituicaoDAO = new InstituicaoDAOImpl();       
-		cursoDAO = new CursoDAOImpl();
+        instituicaoDAO = new InstituicaoDAOImpl();
+        cursoDAO = new CursoDAOImpl();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,7 +76,7 @@ public class TurmaServlet extends HttpServlet {
     }
 
     private void inserirTurma(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        
+
         //Endereco Professor e inst retirar depois
 
         String estado = "SC";
@@ -96,25 +95,25 @@ public class TurmaServlet extends HttpServlet {
         Etnia etnia = Etnia.ASIATICO;
         Sexo sexo = Sexo.FEMININO;
         Disponibilidade disponibilidade = Disponibilidade.ABERTO;
-        
+
         Endereco end = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
         Endereco end2 = new Endereco(logradouro, bairro2, cidade, estado, cep, numero2, complemento, via);
-        
+
         //Prof, curso, inst retirar depois
         Papel papel = new Papel();
         papel.setPapel("Sim");
         papelDAO.inserirPapel(papel);
-        
+
         enderecoDAO.inserirEndereco(end);
         enderecoDAO.inserirEndereco(end2);
-        
-        Instituicao inst = new Instituicao("123",end,papel,"123123","thiago@gmail.com","12312312","Senac",dataFundacao,"sim");       
+
+        Instituicao inst = new Instituicao("123", end, papel, "123123", "thiago@gmail.com", "12312312", "Senac", dataFundacao, "sim");
         usuarioDAO.inserirUsuario(inst);
-        
-        Professor prof = new Professor("123",end2,papel,"1231123","thiago123@gmail.com","123122","Sim","Oi","Oiii",dataNascimento,etnia, sexo,inst);
+
+        Professor prof = new Professor("123", end2, papel, "1231123", "thiago123@gmail.com", "123122", "Sim", "Oi", "Oiii", dataNascimento, etnia, sexo, inst);
         usuarioDAO.inserirUsuario(prof);
-        
-        Curso curso = new Curso("Java","Java",disponibilidade,dataFundacao,dataNascimento,"é ai");
+
+        Curso curso = new Curso("Java", "Java", disponibilidade, dataFundacao, dataNascimento, "é ai", null);
         cursoDAO.inserirCurso(curso);
 
         String nome = request.getParameter("nome");
@@ -123,7 +122,6 @@ public class TurmaServlet extends HttpServlet {
         Turno turno = Turno.valueOf(request.getParameter("turno").toUpperCase());
 
         turmaDAO.inserirTurma(new Turma(nome, codigo, tamanho, prof, inst, turno, curso));
-
     }
 
 
