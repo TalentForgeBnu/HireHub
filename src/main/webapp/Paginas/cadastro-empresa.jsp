@@ -7,113 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Cadastro - Empresa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            background-color: white;
-            width: 70%;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .left-section {
-            width: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .left-section img {
-            max-width: 100%;
-        }
-
-        .right-section {
-            width: 55%;
-        }
-
-        .right-section h1 {
-            font-size: 36px;
-            color: #4a90e2;
-            margin-bottom: 10px;
-        }
-
-        .right-section p {
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input, select, textarea {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .form-group select, .form-group input {
-            width: 48%;
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .form-actions button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .form-actions button.cancel {
-            background-color: white;
-            border: 1px solid black;
-        }
-
-        .form-actions button.submit {
-            background-color: #4a90e2;
-            color: white;
-        }
-
-        .form-footer {
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .form-footer a {
-            color: black;
-            text-decoration: none;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Recursos/Css/cadastro-empresa.css">
 </head>
 <body>
 
@@ -126,7 +20,7 @@
             <p>Por favor, preencha as informações da empresa.</p>
             <form action="<%=request.getContextPath()%>/inserir-empresa" method="post">
                 <input type="text" name="cnpj"placeholder="CNPJ" required>
-                <input type="text" name="nome-empresa" placeholder="Nome da Empresa" required>
+                <input type="text" name="nome" placeholder="Nome da Empresa" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <div class="form-group">
                     <select id="estado" name="estado" required>
@@ -154,7 +48,7 @@
                 <input type="text" name="cep" placeholder="CEP" required>
                 <input type="date" name="data-fundacao" placeholder="Data de Fundação" required>
                 <input type="tel" name="telefone" placeholder="Telefone" required>
-                <textarea rows="4" name="descricao-empresa" placeholder="Adicione uma descrição da sua empresa" required></textarea>
+                <textarea rows="4" name="descricao" placeholder="Adicione uma descrição da sua empresa" required></textarea>
                 <input type="password" name="senha" placeholder="Senha" required>
                 <input type="password" name="confimar-senha" placeholder="Confirme sua Senha" required>
                 <div>

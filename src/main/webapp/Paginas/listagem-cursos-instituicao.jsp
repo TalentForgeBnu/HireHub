@@ -5,6 +5,7 @@
 <html lang="pt-br">
 <head>
 <body>
+<form action="<%=request.getContextPath()%>/recuperar-curso" method="post">
     <h1>Seus Cursos</h1>
     <div>
         <div>
@@ -26,7 +27,6 @@
             <input type="button" value="Expandir">
         </div>
         </c:forEach>
-        </div>
-        
+        </div>       
 </body>
 </head>

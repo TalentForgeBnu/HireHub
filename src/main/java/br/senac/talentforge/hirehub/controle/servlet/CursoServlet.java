@@ -16,9 +16,13 @@ import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos"})
+
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-curso", "/recuperar-lista-cursos"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -42,7 +46,7 @@ public class CursoServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
-                default -> referenciaNaoEncontrada(request, response);
+                case "/recuperar-curso" -> recuperarCurso(request, response);     
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,6 +65,15 @@ public class CursoServlet extends HttpServlet {
 
         cursoDAO.inserirCurso(curso);
     }
+  
+    private void recuperarCurso(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+
+    	Curso curso = new Curso("Sistemas da Informação","Informatica", Disponibilidade.ABERTO, LocalDate.now(), LocalDate.now(),"Curso de TI massa", null);
+
+    	  request.setAttribute("curso", curso);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
+        dispatcher.forward(request, response);
+    }  
 
     private void recuperarListaCursos(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -75,9 +88,5 @@ public class CursoServlet extends HttpServlet {
         request.setAttribute("cursos", cursos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
         dispatcher.forward(request, response);
-    }
-
-    private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
-
     }
 }
