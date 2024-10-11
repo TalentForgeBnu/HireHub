@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie"})
+@WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie", "/recuperar-dossie"})
 public class DossieServlet extends HttpServlet {
 
     private static final long serialVersionUID = -5219702605927605608L;
@@ -47,7 +48,7 @@ public class DossieServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-dossie" -> inserirDossie(request, response);
-                default -> referenciaNaoEncontrada(request, response);
+                case "/recuperar-dossie" -> recuperarDossie(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,9 +76,11 @@ public class DossieServlet extends HttpServlet {
 
         dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
     }
-
-    private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
-        //pagina para referência não encontrada.
+    
+    private void recuperarDossie(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    	Dossie dossie = new Dossie("o aluno é daora", null);
+        request.setAttribute("dossie", dossie);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+        dispatcher.forward(request, response);
     }
-
 }
