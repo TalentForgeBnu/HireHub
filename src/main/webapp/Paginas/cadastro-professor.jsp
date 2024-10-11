@@ -9,16 +9,14 @@
 <title>CADASTRO</title>
 </head>
 <style>
-
-
-
 body {
 	font-family: Arial, sans-serif;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 100vh;
 	margin: 0;
-	background-color: #f4f4f9;
+	background-color: #f0f0f0;
 }
  
 .container {
@@ -60,15 +58,6 @@ form {
 	display: flex;
 	flex-direction: column;
 }
-.form-section {
-		    width: 50%;
-		}
-		
-		h1 {
-		    font-size: 36px;
-		    color: #3B82F6;
-		    margin-bottom: 10px;
-		}
  
 input, select {
 	padding: 10px;
@@ -127,56 +116,60 @@ input[type="checkbox"] {
 </style>
 <body>
 	<div>
-		<img src="../Resources/Images/cadastroProfessor.png"
-			alt="Ilustra��o de pessoa em cadeira de rodas">
+		<img src="../Recursos/Imagens/cadastro-professor.png"
+			alt="Ilustração de um professor">
 	</div>
-	<div class="form-section">
-		<h1>CADASTRO</h1>
+	<div>
 		<p>Olá, professor! Por favor, preencha suas informações.</p>
-		<form>
-			<input type="text" placeholder="Nome" required> <input
-				type="text" placeholder="Sobrenome" required> <input
-				type="email" placeholder="Email" required>
-			<div class="form-group">
-				<select required>
-					<option value="" disabled selected>Estado</option>
-					<option value="SP">S�o Paulo</option>
-					<option value="RJ">Rio de Janeiro</option>
-					<!-- Mais op��es de estado -->
-				</select> <select required>
-					<option value="" disabled selected>Cidade</option>
-					<option value="S�o Paulo">S�o Paulo</option>
-					<option value="Rio de Janeiro">Rio de Janeiro</option>
-					<!-- Mais op��es de cidade -->
-				</select> <input type="text" placeholder="Bairro" required> <input
-					type="text" placeholder="Numero" required>
-			</div>
-			<input type="text" name="complemento" placeholder="complemento">
-			<input type="text" name="logradouro" placeholder="logradouro">
-			<input type="text" placeholder="CEP" required> <input
-				type="date" placeholder="Data de Nascimento" required> <select
-				required>
-				<option value="" disabled selected>Etnia</option>
-				<option value="Branco">Branco</option>
-				<option value="Preto">Preto</option>
-				<option value="Pardo">Pardo</option>
-				<option value="Indigena">Indigena</option>
-				<option value="Amarelo">Amarelo</option>
-				<!-- Mais op��es -->
-			</select> <select required>
-				<option value="" disabled selected>Sexo</option>
-				<option value="Masculino">Masculino</option>
-				<option value="Feminino">Feminino</option>
-				<!-- Mais op��es -->
-			</select> <input type="password" placeholder="Senha" required> <input
-				type="password" placeholder="Confirme sua Senha" required> <input
-				type="text" placeholder="Nome Social" required> <input
-				type="email" placeholder="E-mail para Recupera��o de Senha" required>
-			<input type="tel" placeholder="Numero de Telefone" required>
-			<div class="form-actions">
-				<button type="button" class="cancel">Cancelar</button>
-				<button type="submit" class="next">Próximo</button>
-			</div>
+		<form action="<%=request.getContextPath()%>/inserir-professor" method="post">
+            <input type="text" name="nome" placeholder="Nome" required>
+               <input type="text" name="sobrenome" placeholder="Sobrenome" required>
+               <input type="text" name="nome-social" placeholder="Nome Social">
+               <input type="email" name="email" placeholder="Email" required>
+               <input type="text" name="cpf" placeholder="Cpf" required>
+               <div class="form-actions">
+                   <select name="estado" required>
+                       <option value="" disabled selected>Estado</option>
+                       <option value="SC">Santa Catarina</option>
+                       <!-- Coloque aqui as opções de estado -->
+                   </select>
+                   <select name="cidade" required>
+                       <option value="" disabled selected>Cidade</option>
+                       <option value="blumenau">Blumenau</option>
+                       <!-- Coloque aqui as opções de cidade -->
+                   </select>
+               </div>
+               <div class="form-actions">
+                   <input type="text" name="bairro" placeholder="Bairro">
+                   <input type="text" name="numero" placeholder="Número">
+               </div>
+               <input type="text" name="cep" placeholder="CEP">
+               <input type="text" name="logradouro" placeholder="Logradouro">
+               <input type="text" name="via" placeholder="Via">
+               <input type="text" name="complemento" placeholder="Complemento">
+               <input type="date" name="data-nascimento" placeholder="Data de Nascimento" require>
+               <select id="etnia" name="etnia" required>
+                   <option value="" disabled selected>Etnia</option>
+                   <option value="branco">Branco</option>
+                   <option value="pardo">Pardo</option>
+                   <option value="preto">Preto</option>
+                   <option value="indigena">Indígena</option>
+                   <option value="asiatico">Asiático</option>
+               </select>
+               <select id="sexo" name="sexo" required>
+                   <option value="" disabled selected>Sexo</option>
+                   <option value="Masculino">Masculino</option>
+                   <option value="Feminino">Feminino</option>
+                   <option value="Outro">Outro</option>
+               </select>
+               <input type="password" name="senha" placeholder="Senha" required>
+               <input type="password" name="confirmar_senha" placeholder="Confirme sua Senha" required>
+               <input type="tel" name="telefone" placeholder="Número de Telefone" required>
+
+                <div class="form-actions">
+                    <button type="button" class="cancelar">Cancelar</button>
+                    <button type="submit" class="cadastrar">Cadastrar-se</button>
+                </div>
 		</form>
 	</div>
 	<div>

@@ -124,23 +124,24 @@ w        <div class="image-section">
         </div>
         <div class="form-section">
             <h2>Adicionar Curso</h2>
-            <form action="submitCurso" method="post">
+            <form action="<%=request.getContextPath()%>/inserir-curso" method="post">
+
                 <div class="form-group">
-                    <input type="text" id="nomecurso" name="nomeCurso" placeholder="Nome do Curso" required>
+                    <input type="text" id="nome-curso" name="nome-curso" placeholder="Nome do Curso" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="areaatuacao" name="areaAtuacao" placeholder="Área de Atuação" required>
+                    <input type="text" id="area-atuacao" name="area-atuacao" placeholder="Área de Atuação" required>
                 </div>
                 <div class="form-group">
-                	<label for="dataTermino">Data de Término</label>
-                    <input type="datetime-local" id="datainicio" name="dataInicio" required>
+                    <label>Data de Inicio</label>
+                    <input type="date" id="data-inicio" name="data-inicio" required>
                 </div>
                 <div class="form-group">
-                    <label for="dataTermino">Data de Término</label>
-                    <input type="datetime-local" id="datatermino" name="dataTermino" required>
+                    <label>Data de Término</label>
+                    <input type="date" id="data-termino" name="data-termino" required>
                 </div>
                 <div class="form-group">
-                    <textarea id="descricao" name="descricaocurso" rows="4" placeholder="Descrição do curso" required></textarea>
+                    <textarea id="descricao-curso" name="descricao-curso" rows="4" placeholder="Descrição do curso" required></textarea>
                 </div>
                 <button type="submit" class="submit-button">Enviar Oferta do Curso</button>
             </form>
