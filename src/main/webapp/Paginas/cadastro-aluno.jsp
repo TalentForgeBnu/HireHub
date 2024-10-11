@@ -189,7 +189,7 @@
                 <input type="text" name="via" placeholder="Via">
                 <input type="text" name="complemento" placeholder="Complemento">
 
-                <input type="date" name="data-nascimento" placeholder="Data de Nascimento" require>
+                <input type="date" name="data-nascimento" placeholder="Data de Nascimento" required>
 
                 <select id="etnia" name="etnia" required>
                     <option value="" disabled selected>Etnia</option>
