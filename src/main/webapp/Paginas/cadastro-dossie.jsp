@@ -6,20 +6,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Dossie</title>
+    <title>Registro do aluno</title>
 </head>
 <body>
-    <form action="CadastroDossie.html">
+    <h1>Registros do Aluno</h1>
+    <form action="inserir-dossie" method="post">
         <div>
+            <h2>Dossie</h2>
             <textarea placeholder="Escreva o Dossiê" id="conteudo" name="conteudo"></textarea>
-            <input type="button" value="Cadastrar Apontamento">
-            <input type="button" value="Retornar">
             <input type="submit" value="Cadastrar">
         </div>
+    </form>
+
+    <form action="<%=request.getContextPath()%>/inserir-apontamento" method="post">
         <div>
-            <h1>Apontamento</h1>
+            <h2>Apontamento</h2>
             <textarea placeholder="Escreva o Apontamento" name="apontamento" id="apontamento"></textarea>
-            <input type="date" name="datacriacao" id="datacriacao">
+            <div><input type="date" name="data-criacao" id="data-criacao"></div>
+            <input type="submit" value="Cadastrar">
         </div>
     </form>
 </body>

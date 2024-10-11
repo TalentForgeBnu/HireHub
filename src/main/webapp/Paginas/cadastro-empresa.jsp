@@ -119,39 +119,44 @@
 
     <div class="container">
         <div class="left-section">
-            <img src="../Resources/Images/cadastroEmpresa.png" alt="IlustraÃ§Ã£o de prÃ©dio empresarial">
+            <img src="../Recursos/Imagens/cadastro-empresa.png" alt="IlustraÃ§Ã£o de prÃ©dio empresarial">
         </div>
         <div class="right-section">
             <h1>CADASTRO</h1>
-            <p>Por favor preencha as informaÃ§Ãµes da empresa.</p>
-            <form>
+            <p>Por favor, preencha as informações da empresa.</p>
+            <form action="<%=request.getContextPath()%>/inserir-empresa" method="post">
                 <input type="text" name="cnpj"placeholder="CNPJ" required>
                 <input type="text" name="nome-empresa" placeholder="Nome da Empresa" required>
+                <input type="email" name="email" placeholder="Email" required>
                 <div class="form-group">
-                    <select required>
+                    <select id="estado" name="estado" required>
                         <option value="" disabled selected>Estado</option>
                         <option value="SP">SÃ£o Paulo</option>
                         <option value="RJ">Rio de Janeiro</option>
                         <!-- Mais opÃ§Ãµes de estado -->
                     </select>
-                    <select required>
+                    <select id="cidade" name="cidade" required>
                         <option value="" disabled selected>Cidade</option>
-                        <option value="SÃ£o Paulo">SÃ£o Paulo</option>
+                        <option value="São Paulo">São Paulo</option>
                         <option value="Rio de Janeiro">Rio de Janeiro</option>
                         <!-- Mais opÃ§Ãµes de cidade -->
                     </select>
                 </div>
                 <div class="form-group">
                     <input type="text" name="bairro" placeholder="Bairro" required>
-                    <input type="text" name="numero" placeholder="NÃºmero" required>
+                    <input type="text" name="numero" placeholder="Numero" required>
+                </div>
+                <div class="=form-group">
                     <input type="text" name="complemento" placeholder="Complemento">
-                    <input type="text" name="via" placeholder="Via"> 
+                    <input type="text" name="via" placeholder="Via">
+                    <input type="text" name="logradouro" placeholder="Logradouro">
                 </div>
                 <input type="text" name="cep" placeholder="CEP" required>
-                <input type="date" name="data-fundacao" placeholder="Data de FundaÃ§Ã£o" required>
-                <textarea rows="4" name="descricao-empresa" placeholder="Adicione uma descriÃ§Ã£o da sua empresa" required></textarea>
+                <input type="date" name="data-fundacao" placeholder="Data de Fundação" required>
+                <input type="tel" name="telefone" placeholder="Telefone" required>
+                <textarea rows="4" name="descricao-empresa" placeholder="Adicione uma descrição da sua empresa" required></textarea>
                 <input type="password" name="senha" placeholder="Senha" required>
-                <input type="password" name="confimarsenha" placeholder="Confirme sua Senha" required>
+                <input type="password" name="confimar-senha" placeholder="Confirme sua Senha" required>
                 <div>
                     <input type="checkbox" required> Li e concordo com os <a href="#">termos de uso</a>.
                 </div>
@@ -161,7 +166,7 @@
                 </div>
             </form>
             <div class="form-footer">
-                <p>JÃ¡ possui uma conta? <a href="#">Entrar</a></p>
+                <p>Já possui uma conta? <a href="#">Entrar</a></p>
             </div>
         </div>
     </div>

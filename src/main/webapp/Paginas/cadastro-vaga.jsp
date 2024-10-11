@@ -96,14 +96,14 @@
         <!-- Seção do Formulário à Direita -->
         <div class="right-section">
             <h2>Adicionar Vaga</h2>
-            <form>
+            <form action="<%=request.getContextPath()%>/inserir-vaga" method="POST">
                 <input type="text" placeholder="Nome da Vaga" name="nome" required>
                 <input type="text" placeholder="Descrição da vaga" name="descricao-vaga" required>
-                <select required>
+                <select name="modalidade-contratacao" required>
                     <option value="" id="modalidade-contratacao" disabled selected>Modalidade da Contratação</option>
                     <option value="estagio">Estágio</option>
                     <option value="integral">Integral</option>
-                    <option value="meioperiodo">Meio Período</option>
+                    <option value="meio_periodo">Meio Período</option>
                 </select>
                 <input type="text" name="codigo-vaga" placeholder="codigo-vaga" required>
                 <input type="file" name="imagem" placeholder="Anexar Imagem" accept="image/*">

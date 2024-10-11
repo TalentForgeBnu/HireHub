@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HireHub</title>
 </head>
+
 <body>
 <div>
 <a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a>
@@ -24,6 +25,11 @@
 <div>
 <a href="Paginas/proposta-curso.jsp">Proposta Curso</a>
 </div>
-
+    <div>
+        <a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a>
+    </div>
+    <div>
+        <a href="Paginas/cadastro-dossie.jsp">Cadastro Dossie</a>
+    </div>
 </body>
 </html>

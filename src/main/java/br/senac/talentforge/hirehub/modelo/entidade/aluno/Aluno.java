@@ -45,7 +45,6 @@ public class Aluno extends PessoaFisica implements Serializable {
     
     @Enumerated(EnumType.STRING)
     private RendaFamiliar rendaFamiliar;
-    
 
     public Aluno() {
     }
@@ -93,7 +92,6 @@ public class Aluno extends PessoaFisica implements Serializable {
 
     //esse contrutor no momento foi criado para pode suprir a necessidade do AlunoServlet.
     public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo) {
-        setId(id);
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
