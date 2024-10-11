@@ -1,7 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turmas - Hire Hub</title>
     <style>
@@ -111,51 +112,24 @@
 </head>
 <body>
 
-    <!-- Cabeçalho -->
+    <!-- Cabeï¿½alho -->
     <header>
         <h1>Hire Hub</h1>
         <div class="profile-icon">
             <img src="https://via.placeholder.com/50" alt="Profile">
         </div>
     </header>
-
-    <!-- Conteúdo Principal -->
     <div class="content">
         <h2>Turmas</h2>
         <div class="turmas-container">
-            <!-- Cartões de Turmas -->
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
-            <div class="turma-card">
-                <h3>Nome da Turma</h3>
-                <p>DESCRIÇÃO DA TURMA</p>
-                <button>Ver Detalhes</button>
-            </div>
+            <c:forEach var="turma" items="${turmas}">
+                <div class="turma-card">
+                    <h5><c:out value="${turma.codigo}"/></h5>
+                    <h3><c:out value="${turma.nome}"/></h3>
+                    <button>Ver Detalhes</button>
+                </div>
+            </c:forEach>
         </div>
     </div>
-
 </body>
 </html>

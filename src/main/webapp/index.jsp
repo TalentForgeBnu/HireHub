@@ -46,7 +46,7 @@
 <a href="Paginas/listagem-cursos-instituicao.jsp">Listagem Cursos</a>
 </div>
 <div>
-<a href="Paginas/listagem-turmas.jsp">Listagem Turmas</a>
+<a href="recuperar-lista-turma">Listagem Turmas</a>
 </div>
 <div>
 <a href="Paginas/listagem-vagas-empresa.jsp">Listagem Vagas</a>
