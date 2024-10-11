@@ -53,6 +53,7 @@ public class VagaServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-vaga" -> inserirVaga(request, response);
                 case "/recuperar-lista-vagas" -> recuperaListaVagas(request, response);
+                case "/recuperar-vagas" -> recuperarVaga(request, response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -125,5 +126,18 @@ public class VagaServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa.jsp");
         dispatcher.forward(request, response);
     }
+    
+    private void recuperarVaga(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+    	Papel papel = new Papel();
+    	papel.setPapel("sim");
+    	Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
+    	Empresa empresa = new Empresa("123",endereco,papel,"123456789","a@a.com","1234567","nomeempresa",LocalDate.now(),"Empresa");
+    	Vaga vaga =  new Vaga("codigo1","nome1","descricao1", Contratacao.MEIO_PERIODO , Situacao.ABERTA, empresa);
+    			
+    	request.setAttribute("vaga", vaga);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-aluno.jsp");
+        dispatcher.forward(request, response);
+    }
+ 
 
 }
