@@ -77,6 +77,15 @@ public class Curso implements Serializable {
         setDescricao(descricao);
         setProposta(proposta);
     }
+    
+    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+        setNome(nome);
+        setAreaAtuacao(areaAtuacao);
+        setDisponibilidade(disponibilidade);
+        setDataInicio(dataInicio);
+        setDataFim(dataFim);
+        setDescricao(descricao);
+    }
 
     public Curso(long id, String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta) {
         setId(id);

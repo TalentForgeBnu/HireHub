@@ -10,12 +10,13 @@
         <div>
             <img src="https://via.placeholder.com/150" alt="Curso">
         </div>
+        <c:forEach var="cursos" items="${cursos}">
         <div>
             <input type="hidden" name="id" id="id">
-            <label for="nomecurso">Nome do Curso</label>
+            <label for="nomecurso"><c:out value="${cursos.nome}"/></label>
         </div>
         <div>
-            <label for="descricaocurso">Descrição do curso</label>
+            <label for="descricaocurso"><c:out value="${cursos.descricao}"/></label>
         </div>
         <div>
             <input type="button" value="☆">
@@ -24,6 +25,8 @@
             <input type="button" value="Editar">
             <input type="button" value="Expandir">
         </div>
+        </c:forEach>
         </div>
+        
 </body>
 </head>
