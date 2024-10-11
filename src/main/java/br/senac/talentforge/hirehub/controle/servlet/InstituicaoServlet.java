@@ -1,14 +1,15 @@
 package br.senac.talentforge.hirehub.controle.servlet;
-
+ 
 import java.io.IOException;
 import java.time.LocalDate;
-
+ 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+ 
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
@@ -20,41 +21,43 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-
-@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-instituicao"})
+ 
+@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-perfil-instituicao", "/recuperar-perfil-instituicao"})
 public class InstituicaoServlet extends HttpServlet {
-
+ 
     private static final long serialVersionUID = 772514583419437616L;
-
+ 
     PapelDAO papelDAO;
     private InstituicaoDAO instituicaoDAO;
     private UsuarioDAO usuarioDAO;
     private EnderecoDAO enderecoDAO;
-
+ 
     public void init() {
         papelDAO = new PapelDAOImpl();
         instituicaoDAO = new InstituicaoDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         enderecoDAO = new EnderecoDAOImpl();
     }
-
+ 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
-
+ 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         String action = request.getServletPath();
         try {
             switch (action) {
                 case "/inserir-instituicao" -> inserirInstituicao(request, response);
+                case "/atualizar-perfil-instituicao" -> atualizarPerfilInstituicao(request, response);
+                case "/recuperar-perfil-instituicao" -> recuperarPerfilInstituicao(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+ 
     private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) {
         String nome = request.getParameter("nome-instituicao");
         String descricao = request.getParameter("descricao-instituicao");
@@ -71,19 +74,59 @@ public class InstituicaoServlet extends HttpServlet {
         int numero = Integer.parseInt(request.getParameter("numero"));
         String complemento = request.getParameter("complemento");
         String via = request.getParameter("via");
-
+ 
         //papel mais detalhado quando for construido.
         Papel papel = new Papel();
         papel.setPapel("Nulo");
-
+ 
         Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
-
+ 
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
     }
-
+    
+    private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	 String nome = request.getParameter("nome-instituicao");
+         String descricao = request.getParameter("descricao-instituicao");
+         String email = request.getParameter("email");
+         String cnpj = request.getParameter("cnpj");
+         String telefone = request.getParameter("telefone");
+         String senha = request.getParameter("senha");
+         LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
+         
+         Instituicao instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(cnpj);
+         
+         instituicaoRecuperada.setNome(nome);
+         instituicaoRecuperada.setDescricao(descricao);
+         instituicaoRecuperada.setEmail(email);
+         instituicaoRecuperada.setCnpj(cnpj);
+         instituicaoRecuperada.setTelefone(telefone);
+         instituicaoRecuperada.setSenha(senha);
+         instituicaoRecuperada.setDataFundacao(dataFundacao);
+         
+         usuarioDAO.atualizarUsuario(instituicaoRecuperada);
+ 
+         request.setAttribute("instituicao", instituicaoRecuperada);
+         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-instituicao.jsp");
+         dispatcher.forward(request, response);
+     }
+    
+    private void recuperarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    	Papel papel = new Papel();
+    	papel.setPapel("sim");
+    	 Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
+    	 Instituicao instituicao = new Instituicao("senhatal", endereco, papel, "988238934", "instituicao@gmail.com", "1234567890", "senac blumenau", LocalDate.now(), "instituicao Legal");
+    	
+    	    request.setAttribute("instituicao", instituicao );
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-instituicao.jsp");
+            dispatcher.forward(request, response);
+    }
+    
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
     }
 }
+ 
+ 

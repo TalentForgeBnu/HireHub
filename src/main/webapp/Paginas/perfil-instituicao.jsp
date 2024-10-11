@@ -9,12 +9,14 @@
     <title>Perfil Instituição</title>
 </head>
 <body>
-    <form action="TelaPerfilInstituicao.html">
+    <form action="<%=request.getContextPath()%>/atualizar-perfil-instituicao" method="post">
+    
+    <input type="hidden" value="${instituicao.id}" id="id" name="id">
         <div>
-        <input type="text" placeholder="CNPJ" id="cnpj" name="cnpj">
-        <input type="text" placeholder="Nome da Instituição" id="nome" name="nomeempresa">
-        <textarea placeholder="Descrição" name="descricaoempresa" id="descricao"></textarea>
-        <input type="date" placeholder="Data de Fundação" id="dataFundacao" name="dataFundacao">
+        <input type="text" value="${instituicao.cnpj}" placeholder="CNPJ" id="cnpj" name="cnpj" disabled>
+        <input type="text" value="${instituicao.nome}" placeholder="Nome da Instituição" id="nome" name="nomeempresa">
+        <textarea placeholder="Descrição" name="descricaoempresa" id="descricao" >${instituicao.descricao}</textarea>
+        <input type="date" value="${instituicao.dataFundacao}" placeholder="Data de Fundação" id="dataFundacao" name="dataFundacao">
         <input type="text" placeholder="Endereço" id="endereco" name="endereco">
         </div>
     </form>
