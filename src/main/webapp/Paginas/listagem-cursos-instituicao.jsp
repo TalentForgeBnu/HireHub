@@ -5,17 +5,18 @@
 <html lang="pt-br">
 <head>
 <body>
+<form action="<%=request.getContextPath()%>/recuperar-curso" method="post">
     <h1>Seus Cursos</h1>
     <div>
         <div>
             <img src="https://via.placeholder.com/150" alt="Curso">
         </div>
         <div>
-            <input type="hidden" name="id" id="id">
-            <label for="nomecurso">Nome do Curso</label>
+            <input type="hidden" name="id" id="id" value="${curso.id}">
+            <label for="nome-curso">${curso.nome}</label>
         </div>
         <div>
-            <label for="descricaocurso">Descrição do curso</label>
+            <label for="descricao-curso">${curso.descricao}</label>
         </div>
         <div>
             <input type="button" value="☆">
@@ -25,5 +26,6 @@
             <input type="button" value="Expandir">
         </div>
         </div>
+</form>
 </body>
 </head>
