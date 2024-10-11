@@ -10,14 +10,21 @@
 </head>
 
 <body>
-    <div>
-        <a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a>
-    </div>
-
-    <div>
-        <a href="Paginas/cadastro-empresa.jsp">Cadastro Empresa</a>
-    </div>
-
+<div>
+<a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a>
+</div>
+<div>
+<a href="Paginas/cadastro-empresa.jsp">Cadastro Empresa</a>
+</div>
+<div>
+<a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a>
+</div>
+<div>
+<a href="Paginas/cadastro-professor.jsp">Cadastro Professor</a>
+</div>
+<div>
+<a href="Paginas/proposta-curso.jsp">Proposta Curso</a>
+</div>
     <div>
         <a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a>
     </div>

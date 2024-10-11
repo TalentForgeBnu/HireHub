@@ -9,14 +9,16 @@
 <title>CADASTRO</title>
 </head>
 <style>
+
+
+
 body {
 	font-family: Arial, sans-serif;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 	margin: 0;
-	background-color: #f0f0f0;
+	background-color: #f4f4f9;
 }
  
 .container {
@@ -58,6 +60,15 @@ form {
 	display: flex;
 	flex-direction: column;
 }
+.form-section {
+		    width: 50%;
+		}
+		
+		h1 {
+		    font-size: 36px;
+		    color: #3B82F6;
+		    margin-bottom: 10px;
+		}
  
 input, select {
 	padding: 10px;
@@ -119,7 +130,8 @@ input[type="checkbox"] {
 		<img src="../Resources/Images/cadastroProfessor.png"
 			alt="Ilustra��o de pessoa em cadeira de rodas">
 	</div>
-	<div>
+	<div class="form-section">
+		<h1>CADASTRO</h1>
 		<p>Olá, professor! Por favor, preencha suas informações.</p>
 		<form>
 			<input type="text" placeholder="Nome" required> <input
