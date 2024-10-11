@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Registros do Aluno</h1>
-    <form action="inserir-dossie" method="post">
+    <form action="<%=request.getContextPath()%>/inserir-dossie" method="post">
         <div>
             <h2>Dossie</h2>
             <textarea placeholder="Escreva o Dossiê" id="conteudo" name="conteudo"></textarea>

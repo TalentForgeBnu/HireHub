@@ -145,7 +145,7 @@
         </div>
         <div class="form-section">
             <h2>Adicionar Turma</h2>
-            <form action="submitTurma" method="post">
+            <form action="<%=request.getContextPath()%>/inserir-turma" method="post">
                 <div class="form-group">
                     <input type="text" id="nome" name="nome" placeholder="Nome da turma">
                 </div>

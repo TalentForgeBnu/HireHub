@@ -162,7 +162,7 @@
             <form action="<%=request.getContextPath()%>/inserir-aluno" method="POST">
                 <input type="text" name="nome" placeholder="Nome" required>
                 <input type="text" name="sobrenome" placeholder="Sobrenome" required>
-                <input type="text" name="nome_social" placeholder="Nome Social">
+                <input type="text" name="nome-social" placeholder="Nome Social">
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="text" name="cpf" placeholder="Cpf" required>
 

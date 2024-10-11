@@ -96,7 +96,7 @@
         <!-- Seção do Formulário à Direita -->
         <div class="right-section">
             <h2>Adicionar Vaga</h2>
-            <form action="<%=request.getContextPath()%>/inserir-vaga" method="POST">
+            <form action="<%=request.getContextPath()%>/inserir-vaga" method="post">
                 <input type="text" placeholder="Nome da Vaga" name="nome" required>
                 <input type="text" placeholder="Descrição da vaga" name="descricao-vaga" required>
                 <select name="modalidade-contratacao" required>
