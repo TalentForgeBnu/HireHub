@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-professor"})
+@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor"})
 public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
@@ -52,6 +53,8 @@ public class ProfessorServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-professor" -> inserirProfessor(request, response);
+                case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
+                case "/recuperar-perfil-professor" -> recuperarPerfilProfessor(request, response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -101,5 +104,50 @@ public class ProfessorServlet extends HttpServlet {
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Professor(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, etnia, sexo, instituicao));
     }
+   
+    private void atualizarPerfilProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //dados professorS
+        String nome = request.getParameter("nome");
+        String sobrenome = request.getParameter("sobrenome");
+        String nomeSocial = request.getParameter("nome-social");
+        String cpf = request.getParameter("cpf");
+        LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
+        Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+        Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String telefone = request.getParameter("telefone");
 
+        Professor professorRecuperado = professorDAO.recuperarProfessor(cpf);
+
+        //atualizando dados.
+        professorRecuperado.setNome(nome);
+        professorRecuperado.setSobrenome(sobrenome);
+        professorRecuperado.setNomeSocial(nomeSocial);
+        professorRecuperado.setDataNascimento(dataNascimento);
+        professorRecuperado.setEtnia(etnia);
+        professorRecuperado.setSexo(sexo);
+        professorRecuperado.setEmail(email);
+        professorRecuperado.setSenha(senha);
+        professorRecuperado.setTelefone(telefone);
+
+        usuarioDAO.atualizarUsuario(professorRecuperado);
+
+        request.setAttribute("professor", professorRecuperado);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void recuperarPerfilProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Apos a tela de login, montar isso de forma correta.
+        Papel papel = new Papel("papel");
+        Papel papelInstituicao = new Papel("papelInsti");
+        Endereco enderecoInstituicao = new Endereco("rua 2", "bairro2", "Cidade2", "estado2", "cep2", 2, "complemento2", "via2");
+        Instituicao instituicao = new Instituicao("senha2", enderecoInstituicao, papelInstituicao, "telefone2", "instituicao@gmail.com", "cnpj1", "nomeInstituicao", LocalDate.now(), "uma descricão");
+        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
+        Professor professor = new Professor("minhasenha", endereco, papel, "12345678", "professor@email.com", "1234567890", "nomeprofessor", "sobrenome professor", "sim", LocalDate.now(), Etnia.ASIATICO, Sexo.MASCULINO, instituicao);
+        request.setAttribute("professor", professor);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+        dispatcher.forward(request, response);
+    }
 }
