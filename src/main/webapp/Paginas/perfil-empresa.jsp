@@ -8,20 +8,23 @@
 <title>Perfil</title>
 </head>
 <body>
-    <div>
-    <p>Excluir Perfil</p>
-    </div>
-    <div>
-    <label for="cnpj">CNPJ</label>
-    <input type="text" name="cnpj" placeholder="CNPJ">
-    <label for="nomeempresa">Nome</label>
-    <input type="text" name="nomeempresa" placeholder="Nome">
-    <label for="descricao">DescriÃ§Ã£o</label>
-    <input type="text" name="descricao" placeholder="DescriÃ§Ã£o">
-    <label for="datafundacao">Data de FundaÃ§Ã£o</label>
-    <input type="date" name="datafundacao" placeholder="Data de FundaÃ§Ã£o">
-    <label for="endereco">EndereÃ§o</label>
-    <input type="text" name="endereco" placeholder="EndereÃ§o">
-    </div>
+	<form action="<%=request.getContextPath()%>/atualizar-perfil-empresa" method="post">
+
+		<input type="hidden" value="${empresa.id}" id="id" name="id">
+
+		<div>
+			<input type="text" value="${empresa.cnpj}" id="cnpj" name="cnpj" disabled>
+			<input type="text" value="${empresa.nome}" placeholder="Nome" id="nome" name="nome">
+			<input type="text" value="${empresa.descricao}" placeholder="Descrição" id="descricao" name="descricao">
+			<input type="date" value="${empresa.data-fundacao}" placeholder="Data de Fundação" id="data-fundacao" name="data-fundacao" >
+			<input type="text" value="${empresa.senha}" placeholder="Senha" id="senha" name="senha">
+		</div>
+
+		<div>
+			<input type="text" placeholder="Endereço" id="endereco" name="endereco">
+		</div>
+
+		<button type="submit">Atualizar</button>
+	</form>
 </body>
 </html>	
