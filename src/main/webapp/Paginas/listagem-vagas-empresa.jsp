@@ -68,40 +68,35 @@
             <div class="nome">Hire Hub</div>
             <div class="perfil" onclick=""></div>
         </div>
-        <div class="lista">
-            <h3>Lista de Vagas</h3>
-        </div>
-        <div class="label-container">
-            <label>Código</label>
-        </div>
-        <div class="label-container">
-            <label>Nome da Vaga</label>
-        </div>
-        <div class="label-container">
-            <label>Modalidade de Contratação</label>
-        </div>
-        <div class="label-container">
-            <label>Descrição</label>
-        </div>
-        </div>
-        <div>
-        <div class="info-container">
-            <label for="codigovaga">01</label>
-        </div>
-        <div class="info-container">
-        <label for="nomevaga">Programador Full Stack</label>
-        </div>
-        <div class="info-container">
-        <label for="modalidadecontratacao">Estágio</label>
-        </div>
-        <div class="info-container">
-        <label for="descricaovaga">Estágio em desenvolvimento web, com foco em front-end e back-end.</label>
-        </div>
+         <div>
+        <h2>Lista de Vagas</h2>
+    
+        <table id="lista-vaga">
+            <thead>
+                <tr>
+                    <th>Código da Vaga</th>
+                    <th>Vaga</th>
+                    <th>Contratação</th>
+                    <th>Descrição da Vaga</th>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="vagas" items="${vagas}">
+            
+                <tr>
+                    <td><c:out value="${vagas.codigo}"/></td>
+                    <td><c:out value="${vagas.nome}"/></td>
+                    <td><c:out value="${vagas.contratacao}"/></td>
+                    <td><c:out value="${vagas.descricao}"/></td>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
         <div class="info-container">
             <div class="button">
             <input type="button" value="Editar Vaga">
             </div>
         </div>
         </div>
-    </div>
 </body>
