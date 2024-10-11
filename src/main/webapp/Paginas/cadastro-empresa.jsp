@@ -126,7 +126,7 @@
             <p>Por favor, preencha as informações da empresa.</p>
             <form action="<%=request.getContextPath()%>/inserir-empresa" method="post">
                 <input type="text" name="cnpj"placeholder="CNPJ" required>
-                <input type="text" name="nome-empresa" placeholder="Nome da Empresa" required>
+                <input type="text" name="nome" placeholder="Nome da Empresa" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <div class="form-group">
                     <select id="estado" name="estado" required>
@@ -154,7 +154,7 @@
                 <input type="text" name="cep" placeholder="CEP" required>
                 <input type="date" name="data-fundacao" placeholder="Data de Fundação" required>
                 <input type="tel" name="telefone" placeholder="Telefone" required>
-                <textarea rows="4" name="descricao-empresa" placeholder="Adicione uma descrição da sua empresa" required></textarea>
+                <textarea rows="4" name="descricao" placeholder="Adicione uma descrição da sua empresa" required></textarea>
                 <input type="password" name="senha" placeholder="Senha" required>
                 <input type="password" name="confimar-senha" placeholder="Confirme sua Senha" required>
                 <div>
