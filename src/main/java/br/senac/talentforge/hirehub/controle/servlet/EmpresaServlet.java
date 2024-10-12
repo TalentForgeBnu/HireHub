@@ -19,13 +19,9 @@ import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
-import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
-import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa", "/recuperar-perfil-empresa"})
 public class EmpresaServlet extends HttpServlet {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +30,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-apontamento", "/atualizar-apontamento"})
+@WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-apontamento"})
 public class ApontamentoServlet extends HttpServlet {
 
     private static final long serialVersionUID = -4592280850903991380L;
@@ -45,6 +46,7 @@ public class ApontamentoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-apontamento" -> inserirApontamento(request, response);
+                case "/recuperar-apontamento" -> recuperarApontamento(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -86,5 +88,15 @@ public class ApontamentoServlet extends HttpServlet {
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
     }
-
+    private void recuperarApontamento(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    	Endereco endereco = new Endereco("rua", "pontaguda", "pomerode", "ceará", "89050490", (int)10, "ap", "rua");
+    	Papel papel = new Papel("aluno");
+    	Aluno aluno = new Aluno("123", endereco, papel, "123", "jao@gmail.com", "123", "joao", "ataide", "joao ataide", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO, Etnia.ASIATICO, Sexo.MASCULINO);
+    	Dossie dossie = new Dossie("do bom", aluno);
+    	Apontamento apontamento = new Apontamento("apontae", LocalDate.now(), dossie);
+    	request.setAttribute("apontamento", apontamento);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-apontamento-aluno.jsp");
+        dispatcher.forward(request, response);
+    }
+ 
 }

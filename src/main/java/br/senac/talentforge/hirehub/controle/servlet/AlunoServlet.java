@@ -138,7 +138,6 @@ public class AlunoServlet extends HttpServlet {
         papel.setPapel("sim");
         Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
         Aluno aluno = new Aluno("minhasenha", endereco, papel, "12345678", "aluno@email.com", "1234567890", "nomealuno", "sobrenome aluno", "sim", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO, Etnia.BRANCO, Sexo.MASCULINO);
-
         request.setAttribute("aluno", aluno);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
         dispatcher.forward(request, response);

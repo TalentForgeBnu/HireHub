@@ -15,9 +15,6 @@ import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
-import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
 @WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-curso"})
