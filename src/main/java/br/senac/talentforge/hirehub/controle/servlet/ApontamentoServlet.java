@@ -3,7 +3,9 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +25,20 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
+import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
-@WebServlet(urlPatterns = {"/inserir-apontamento", "/atualizar-apontamento"})
+@WebServlet(urlPatterns = {"/inserir-apontamento", "/atualizar-apontamento", "/recuperar-lista-vagas"})
 public class ApontamentoServlet extends HttpServlet {
 
     private static final long serialVersionUID = -4592280850903991380L;
@@ -45,6 +54,7 @@ public class ApontamentoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-apontamento" -> inserirApontamento(request, response);
+                case "/recuperar-lista-vagas" -> recuperarListaVagas(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -83,6 +93,24 @@ public class ApontamentoServlet extends HttpServlet {
         apontamentoDAO.inserirApontamento(new Apontamento(apontamento, dataCriacao, dossie));
     }
 
+    private void recuperarListaVagas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 
+        String data = "2024-03-01";
+        LocalDate dataCriacao= LocalDate.parse(data);
+
+        Apontamento apontamento1 = new Apontamento("daora", dataCriacao, null);
+        Apontamento apontamento2 = new Apontamento("daora", dataCriacao, null);
+        Apontamento apontamento3 = new Apontamento("daora", dataCriacao, null);
+        Apontamento apontamento4 = new Apontamento("daora", dataCriacao, null);
+        Apontamento apontamento5 = new Apontamento("daora", dataCriacao, null);
+
+        List<Apontamento> apontamentos = List.of(apontamento1, apontamento2, apontamento3, apontamento4, apontamento5);
+
+        request.setAttribute("apontamentos", apontamentos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
     }

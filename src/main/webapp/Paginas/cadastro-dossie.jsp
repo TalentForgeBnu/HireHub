@@ -21,8 +21,8 @@
     <form action="<%=request.getContextPath()%>/inserir-apontamento" method="post">
         <div>
             <h2>Apontamento</h2>
-            <textarea placeholder="Escreva o Apontamento" name="apontamento" id="apontamento"></textarea>
-            <div><input type="date" name="data-criacao" id="data-criacao"></div>
+            <textarea placeholder="Escreva o Apontamento" name="apontamento" id="apontamento">${apontamento.descricao}</textarea>
+            <div><input type="date" name="data-criacao" id="data-criacao" ${apontamento.data}></div>
             <input type="submit" value="Cadastrar">
         </div>
     </form>
