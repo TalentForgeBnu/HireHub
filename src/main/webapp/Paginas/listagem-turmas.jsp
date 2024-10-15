@@ -1,3 +1,5 @@
+<!-- Me substitua por recuperar-lista-turma no index.jsp -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -112,7 +114,6 @@
 </head>
 <body>
 
-    <!-- Cabe�alho -->
     <header>
         <h1>Hire Hub</h1>
         <div class="profile-icon">

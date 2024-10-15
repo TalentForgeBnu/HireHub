@@ -80,7 +80,7 @@ public class TurmaServlet extends HttpServlet {
 
     private void inserirTurma(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
-        //Endereco Professor e inst retirar depois
+        //Endereco Professor e instituição retirar depois
 
         String estado = "SC";
         String cidade = "Blumenau";
@@ -140,6 +140,7 @@ public class TurmaServlet extends HttpServlet {
         Turma turma3 = new Turma("nome3", "codigo3", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
         Turma turma4 = new Turma("nome4", "codigo4", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
 
+        //funciona yipee
         List<Turma> turmas = List.of(turma1, turma2, turma3, turma4);
 
         request.setAttribute("turmas", turmas);
