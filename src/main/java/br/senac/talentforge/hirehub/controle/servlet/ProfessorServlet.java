@@ -31,7 +31,7 @@ public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
 
-    PapelDAO papelDAO;
+    private PapelDAO papelDAO;
     private EnderecoDAO enderecoDAO;
     private ProfessorDAO professorDAO;
     private UsuarioDAO usuarioDAO;
