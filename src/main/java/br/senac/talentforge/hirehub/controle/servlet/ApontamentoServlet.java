@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,9 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
@@ -45,6 +48,7 @@ public class ApontamentoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-apontamento" -> inserirApontamento(request, response);
+                case "/recuperar-proposta" -> recuperarApontamento(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -86,5 +90,20 @@ public class ApontamentoServlet extends HttpServlet {
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
     }
-
+    
+    private void recuperarApontamento(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Apos a tela de login, montar isso de forma correta.
+        Papel papelProf = new Papel("papel");
+        Papel papelInstituicao = new Papel("papelInsti");
+        Aluno aluno = new Aluno();
+        Dossie dossie = new Dossie("da boa", aluno);
+        Apontamento apontamento = new Apontamento("da boa",  LocalDate.now(), dossie );
+        Endereco enderecoInstituicao = new Endereco("rua 2", "bairro2", "Cidade2", "estado2", "cep2", 2, "complemento2", "via2");
+        Instituicao instituicao = new Instituicao("senha2", enderecoInstituicao, papelInstituicao, "telefone2", "instituicao@gmail.com", "cnpj1", "nomeInstituicao", LocalDate.now(), "uma descricão");
+        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
+        Professor professor = new Professor("minhasenha", endereco, papelProf, "12345678", "professor@email.com", "1234567890", "nomeprofessor", "sobrenome professor", "sim", LocalDate.now(), Etnia.ASIATICO, Sexo.MASCULINO, instituicao);
+        request.setAttribute("apontamento", apontamento);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/Apontamento.jsp");
+        dispatcher.forward(request, response);
+    }
 }
