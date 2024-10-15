@@ -3,7 +3,9 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +37,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibil
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
-@WebServlet(urlPatterns = {"/inserir-turma", "/atualizar-turma"})
+@WebServlet(urlPatterns = {"/inserir-turma", "/atualizar-turma", "/recuperar-lista-turma"})
 public class TurmaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -1567154649778415575L;
@@ -63,6 +65,7 @@ public class TurmaServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-turma" -> inserirTurma(request, response);
+                case "/recuperar-lista-turma" -> recuperarListaTurma(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -77,7 +80,7 @@ public class TurmaServlet extends HttpServlet {
 
     private void inserirTurma(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
-        //Endereco Professor e inst retirar depois
+        //Endereco Professor e instituição retirar depois
 
         String estado = "SC";
         String cidade = "Blumenau";
@@ -123,7 +126,27 @@ public class TurmaServlet extends HttpServlet {
 
         turmaDAO.inserirTurma(new Turma(nome, codigo, tamanho, prof, inst, turno, curso));
     }
+    private void recuperarListaTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        Papel papel = new Papel();
+        papel.setPapel("sim");
 
+        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
+        Instituicao instituicao = new Instituicao("123", endereco, papel, "123", "123@gmail.com", "123", "UmDoisTres", LocalDate.now(), "Comida");
+        Curso curso = new Curso("Nomde", "NOdme", Disponibilidade.ABERTO, LocalDate.now(), LocalDate.now(), "YIE", null);
+        Professor professor = new Professor("213",endereco, papel,"123","123@gmail.com","123","Rogerio", "Mario", "Pedro", LocalDate.now(), Etnia.BRANCO, Sexo.OUTROS, instituicao);
+
+        Turma turma1 = new Turma("nome1", "codigo1", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
+        Turma turma2 = new Turma("nome2", "codigo2", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
+        Turma turma3 = new Turma("nome3", "codigo3", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
+        Turma turma4 = new Turma("nome4", "codigo4", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
+
+        //funciona yipee
+        List<Turma> turmas = List.of(turma1, turma2, turma3, turma4);
+
+        request.setAttribute("turmas", turmas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-turmas.jsp");
+        dispatcher.forward(request, response);
+    }
 
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
         //pagina para referência não encontrada.
