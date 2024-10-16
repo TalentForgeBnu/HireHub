@@ -147,7 +147,7 @@ public class ProfessorServlet extends HttpServlet {
         Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
         Professor professor = new Professor("minhasenha", endereco, papel, "12345678", "professor@email.com", "1234567890", "nomeprofessor", "sobrenome professor", "sim", LocalDate.now(), Etnia.ASIATICO, Sexo.MASCULINO, instituicao);
         request.setAttribute("professor", professor);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
         dispatcher.forward(request, response);
     }
 }

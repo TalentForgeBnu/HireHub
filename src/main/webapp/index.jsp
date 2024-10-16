@@ -9,77 +9,31 @@
     <title>HireHub</title>
 </head>
 <body>
-    <div>
-        <a href="Paginas/cadastro-acesso.jsp">Cadastro Acesso</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-curriculo.jsp">Cadastro Currículo</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-curso.jsp">Cadastro Curso</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-dossie.jsp">Cadastro Dossie</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-empresa.jsp">Cadastro Empresa</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-professor.jsp">Cadastro Professor</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-turma.jsp">Cadastro Turma</a>
-    </div>
-    <div>
-        <a href="Paginas/cadastro-vaga.jsp">Cadastro Vaga</a>
-    </div>
-    <div>
-        <a href="Paginas/listagem-alunos-professor.jsp">Listagem Alunos</a>
-    </div>
-    <div>
-        <a href="Paginas/listagem-cursos-instituicao.jsp">Listagem Cursos</a>
-    </div>
-    <div>
-        <a href="Paginas/listagem-turmas.jsp">Listagem Turmas</a>
-    </div>
-    <div>
-        <a href="recuperar-lista-vagas">Listagem Vagas</a>
-    </div>
-    <div>
-        <a href="Paginas/perfil-aluno.jsp">Perfil Aluno</a>
-    </div>
-    <div>
-        <a href="Paginas/perfil-empresa.jsp">Perfil Empresa</a>
-    </div>
-    <div>
-        <a href="Paginas/perfil-instituicao.jsp">Perfil Instituição</a>
-    </div>
-    <div>
-    <a href="Paginas/perfil-professor.jsp">Perfil Professor</a>
-    </div>
-    <div>
-    <a href="Paginas/proposta-curso.jsp">Proposta Curso</a>
-    </div>
-    <div>
-    <a href="Paginas/proposta-vaga.jsp">Proposta Vaga</a>
-    </div>
-    <div>
-    <a href="Paginas/resposta-curso.jsp">Resposta Curso</a>
-    </div>
-    <div>
-    <a href="Paginas/resposta-vaga.jsp">Resposta Vaga</a>
-    </div>
-    <div>
-    <a href="Paginas/tela-perfil-aluno.jsp">Tela Perfil Aluno</a>
-    </div>
-    <div>
-    <a href="Paginas/tela-login.jsp">Tela Login</a>
-    </div>
+    <h2>Cadastro</h2>
+       <ul>
+           <li><a href="Paginas/cadastro-aluno.jsp">Cadastro Aluno</a></li>
+           <li><a href="Paginas/cadastro-curriculo.jsp">Cadastro Currículo</a></li>
+           <li><a href="Paginas/cadastro-curso.jsp">Cadastro Curso</a></li>
+           <li><a href="Paginas/cadastro-dossie.jsp">Cadastro Dossie</a></li>
+           <li><a href="Paginas/cadastro-empresa.jsp">Cadastro Empresa</a></li>
+           <li><a href="Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a></li>
+           <li><a href="Paginas/cadastro-professor.jsp">Cadastro Professor</a></li>
+           <li><a href="Paginas/cadastro-turma.jsp">Cadastro Turma</a></li>
+           <li><a href="Paginas/cadastro-vaga.jsp">Cadastro Vaga</a></li>
+       </ul>
+    <h2>Listagem</h2>
+       <ul>
+           <li><a href="Paginas/listagem-alunos-professor.jsp">Listagem Alunos</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-lista-cursos">Listagem Cursos</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-lista-turma">Listagem Turmas</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-lista-vagas">Listagem Vagas</a></li>
+       </ul>
+    <h2>Perfis</h2>
+       <ul>
+           <li><a href="<%=request.getContextPath()%>/recuperar-perfil-aluno">Perfil Aluno</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-perfil-empresa">Perfil Empresa</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-perfil-instituicao">Perfil Instituição</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-perfil-professor">Perfil Professor</a></li>
+       </ul>
 </body>
 </html>

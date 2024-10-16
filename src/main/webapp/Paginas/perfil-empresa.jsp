@@ -16,7 +16,7 @@
 			<input type="text" value="${empresa.cnpj}" id="cnpj" name="cnpj" disabled>
 			<input type="text" value="${empresa.nome}" placeholder="Nome" id="nome" name="nome">
 			<input type="text" value="${empresa.descricao}" placeholder="Descrição" id="descricao" name="descricao">
-			<input type="date" value="${empresa.data-fundacao}" placeholder="Data de Fundação" id="data-fundacao" name="data-fundacao" >
+			<input type="date" value="${empresa.dataFundacao}" placeholder="Data de Fundação" id="data-fundacao" name="data-fundacao" >
 			<input type="text" value="${empresa.senha}" placeholder="Senha" id="senha" name="senha">
 		</div>
 
