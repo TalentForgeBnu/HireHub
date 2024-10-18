@@ -17,9 +17,9 @@
         </div>
         <div class="right-section">
             <h1>LOGIN</h1>
-            <form>
-                <input type="email" placeholder="Email ou Nome do Usuário" required>
-                <input type="password" placeholder="Senha" required>
+            <form action="<%=request.getContextPath()%>/usuario-login" method="POST">
+                <input type="email" name="email" placeholder="Email ou Nome do Usuário" required>
+                <input type="password" name="senha" placeholder="Senha" required>
                 <a href="#">Esqueceu sua Senha?</a>
 
                 <div class="form-actions">
