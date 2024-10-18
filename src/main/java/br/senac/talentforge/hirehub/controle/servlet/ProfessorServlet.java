@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
@@ -139,13 +140,10 @@ public class ProfessorServlet extends HttpServlet {
     }
     
     private void recuperarPerfilProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //Apos a tela de login, montar isso de forma correta.
-        Papel papel = new Papel("papel");
-        Papel papelInstituicao = new Papel("papelInsti");
-        Endereco enderecoInstituicao = new Endereco("rua 2", "bairro2", "Cidade2", "estado2", "cep2", 2, "complemento2", "via2");
-        Instituicao instituicao = new Instituicao("senha2", enderecoInstituicao, papelInstituicao, "telefone2", "instituicao@gmail.com", "cnpj1", "nomeInstituicao", LocalDate.now(), "uma descricão");
-        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
-        Professor professor = new Professor("minhasenha", endereco, papel, "12345678", "professor@email.com", "1234567890", "nomeprofessor", "sobrenome professor", "sim", LocalDate.now(), Etnia.ASIATICO, Sexo.MASCULINO, instituicao);
+
+    	HttpSession session = request.getSession();
+    	Professor professor = (Professor)session.getAttribute("usuario-logado");
+    	
         request.setAttribute("professor", professor);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
         dispatcher.forward(request, response);
