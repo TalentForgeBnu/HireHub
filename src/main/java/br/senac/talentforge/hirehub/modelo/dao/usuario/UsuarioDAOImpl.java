@@ -1,5 +1,12 @@
 package br.senac.talentforge.hirehub.modelo.dao.usuario;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import org.hibernate.Session;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
@@ -53,6 +60,26 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         } finally {
             fecharSessao(sessao);
         }
+    }
+
+    public Usuario recuperarUsuarioPeloEmail(String email) {
+        Session sessao = null;
+        Usuario usuarioRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
+            Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+            criteria.select(raizUsuario).where(construtor.equal(raizUsuario.get(Usuario_.EMAIL), email));
+            usuarioRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return usuarioRecuperado;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

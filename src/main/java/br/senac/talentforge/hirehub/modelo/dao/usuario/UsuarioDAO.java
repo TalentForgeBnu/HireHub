@@ -8,4 +8,6 @@ public interface UsuarioDAO {
     void deletarUsuario(Usuario usuario);
 
     void atualizarUsuario(Usuario usuario);
+
+    Usuario recuperarUsuarioPeloEmail(String email);
 }
