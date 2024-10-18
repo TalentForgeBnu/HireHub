@@ -9,11 +9,10 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <h1>Hire Hub</h1>
         <div>
-            <!-- Display User Profile Image and Name -->
+            
             <p>Olá, <c:out value="${usuario.nome}"/>! Seja bem-vindo(a)!</p>
         </div>
     </header>
