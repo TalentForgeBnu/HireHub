@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
  
-@WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-apontamento"})
+@WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-apontamento", "/recuperar-lista-apontamentos"})
 public class ApontamentoServlet extends HttpServlet {
  
     private static final long serialVersionUID = -4592280850903991380L;
@@ -45,6 +46,7 @@ public class ApontamentoServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-apontamento" -> inserirApontamento(request, response);
                 case "/recuperar-apontamento" -> recuperarApontamento(request, response);
+                case "/recuperar-lista-apontamentos" -> recuperarListaApontamentos(request, response);
                 default -> referenciaNaoEncontrada(request, response);
             }
         } catch (Exception e) {
@@ -77,10 +79,24 @@ public class ApontamentoServlet extends HttpServlet {
         apontamentoDAO.inserirApontamento(new Apontamento(apontamento, dataCriacao, dossie));
     }
  
-    private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
-    	
-    }
-    private void recuperarApontamento(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void recuperarListaApontamentos(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException { 
+
+    	LocalDate data = LocalDate.parse("2024-10-01"); 
+
+    	Apontamento a = new Apontamento("Daora", data, null ); 
+    	Apontamento a2 = new Apontamento("oloco bixo", data, null ); 
+    	Apontamento a3 = new Apontamento("Ele gosta", data, null ); 
+    	Apontamento a4 = new Apontamento("Uuui", data, null ); 
+
+    	List<Apontamento> apontamentos= List.of(a, a2, a3, a4); 
+
+    	request.setAttribute("apontamentos", apontamentos); 
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/apontamentos.jsp"); 
+    	dispatcher.forward(request, response); 
+    } 
+    
+    	private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {} 
+    	private void recuperarApontamento(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	Papel papel = new Papel("sim");
     	Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
     	Aluno aluno = new Aluno("minhasenha", endereco, papel, "12345678", "aluno@email.com", "1234567890", "nomealuno", "sobrenome aluno", "sim", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO, Etnia.BRANCO, Sexo.MASCULINO);
