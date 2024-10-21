@@ -23,7 +23,7 @@
        </ul>
     <h2>Listagem</h2>
        <ul>
-           <li><a href="Paginas/listagem-alunos-professor.jsp">Listagem Alunos</a></li>
+           <li><a href="<%=request.getContextPath()%>/recuperar-lista-alunos">Listagem Alunos</a></li>
            <li><a href="<%=request.getContextPath()%>/recuperar-lista-cursos">Listagem Cursos</a></li>
            <li><a href="<%=request.getContextPath()%>/recuperar-lista-turma">Listagem Turmas</a></li>
            <li><a href="<%=request.getContextPath()%>/recuperar-lista-vagas">Listagem Vagas</a></li>
