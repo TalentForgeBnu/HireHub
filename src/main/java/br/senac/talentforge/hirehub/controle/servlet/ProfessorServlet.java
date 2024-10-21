@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
@@ -26,128 +27,145 @@ import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor"})
+@WebServlet(urlPatterns = { "/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor" })
 public class ProfessorServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 512561250174084370L;
+	private static final long serialVersionUID = 512561250174084370L;
 
-    PapelDAO papelDAO;
-    private EnderecoDAO enderecoDAO;
-    private ProfessorDAO professorDAO;
-    private UsuarioDAO usuarioDAO;
+	PapelDAO papelDAO;
+	private EnderecoDAO enderecoDAO;
+	private ProfessorDAO professorDAO;
+	private UsuarioDAO usuarioDAO;
 
-    public void init() {
-        papelDAO = new PapelDAOImpl();
-        enderecoDAO = new EnderecoDAOImpl();
-        professorDAO = new ProfessorDAOImpl();
-        usuarioDAO = new UsuarioDAOImpl();
-    }
+	public void init() {
+		papelDAO = new PapelDAOImpl();
+		enderecoDAO = new EnderecoDAOImpl();
+		professorDAO = new ProfessorDAOImpl();
+		usuarioDAO = new UsuarioDAOImpl();
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getServletPath();
-        try {
-            switch (action) {
-                case "/inserir-professor" -> inserirProfessor(request, response);
-                case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
-                case "/recuperar-perfil-professor" -> recuperarPerfilProfessor(request, response);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = request.getServletPath();
+		try {
+			switch (action) {
+			case "/inserir-professor" -> inserirProfessor(request, response);
+			case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
+			case "/recuperar-perfil-professor" -> recuperarPerfilProfessor(request, response);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    private void inserirProfessor(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        //Lembrar de remover intituicao pois é para testes
-        Papel papelInstituicao = new Papel("papelInst");
-        Endereco enderecoInstituicao = new Endereco("rua 1", "bairro1", "Cidade1", "estado1", "cep1", 1, "complemento1", "via1");
+	private void inserirProfessor(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException {
 
-        Instituicao instituicao = new Instituicao("senha1", enderecoInstituicao, papelInstituicao, "telefone1", "instituicao@email.com", "cnpj1", "nomeInstituicao", LocalDate.now(), "uma descricão");
+		HttpSession session = request.getSession();
+		Instituicao instituicao = null;
 
-        Papel papel = new Papel("papelProfessor");
+		if (session == null) {
+			response.sendRedirect(request.getContextPath() + ("/usuario-login"));
+		}
 
-        //Pt1 Dados Professor
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
-        String nomeSocial = request.getParameter("nome-social");
-        String senha = request.getParameter("senha");
-        String telefone = request.getParameter("telefone");
-        String email = request.getParameter("email");
-        String cpf = request.getParameter("cpf");
+		instituicao = (Instituicao) session.getAttribute("usuario-logado");
 
-        //Pt1 Dados Endereço
-        String estado = request.getParameter("estado");
-        String logradouro = request.getParameter("logradouro");
-        String cidade = request.getParameter("cidade");
-        String bairro = request.getParameter("bairro");
-        int numero = Integer.parseInt(request.getParameter("numero"));
-        String cep = request.getParameter("cep");
-        String complemento = request.getParameter("complemento");
-        String via = request.getParameter("via");
+		if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
-        //Pt2 Dados Professor
-        LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
-        Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
-        Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+			if (instituicao != null) {
 
-        Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
+				String nome = request.getParameter("nome");
+				String sobrenome = request.getParameter("sobrenome");
+				String nomeSocial = request.getParameter("nome-social");
+				String senha = request.getParameter("senha");
+				String telefone = request.getParameter("telefone");
+				String email = request.getParameter("email");
+				String cpf = request.getParameter("cpf");
+				LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
+				Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+				Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+				Papel papel = new Papel("Professor");
 
-        papelDAO.inserirPapel(papelInstituicao);
-        enderecoDAO.inserirEndereco(enderecoInstituicao);
-        usuarioDAO.inserirUsuario(instituicao);
+				String estado = request.getParameter("estado");
+				String logradouro = request.getParameter("logradouro");
+				String cidade = request.getParameter("cidade");
+				String bairro = request.getParameter("bairro");
+				int numero = Integer.parseInt(request.getParameter("numero"));
+				String cep = request.getParameter("cep");
+				String complemento = request.getParameter("complemento");
+				String via = request.getParameter("via");
 
-        papelDAO.inserirPapel(papel);
-        enderecoDAO.inserirEndereco(endereco);
-        usuarioDAO.inserirUsuario(new Professor(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, etnia, sexo, instituicao));
-    }
-   
-    private void atualizarPerfilProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //dados professorS
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
-        String nomeSocial = request.getParameter("nome-social");
-        String cpf = request.getParameter("cpf");
-        LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
-        Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
-        Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        String telefone = request.getParameter("telefone");
+				Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
 
-        Professor professorRecuperado = professorDAO.recuperarProfessor(cpf);
+				papelDAO.inserirPapel(papel);
+				enderecoDAO.inserirEndereco(endereco);
+				usuarioDAO.inserirUsuario(new Professor(senha, endereco, papel, telefone, email, cpf, nome, sobrenome,
+						nomeSocial, dataNascimento, etnia, sexo, instituicao));
 
-        //atualizando dados.
-        professorRecuperado.setNome(nome);
-        professorRecuperado.setSobrenome(sobrenome);
-        professorRecuperado.setNomeSocial(nomeSocial);
-        professorRecuperado.setDataNascimento(dataNascimento);
-        professorRecuperado.setEtnia(etnia);
-        professorRecuperado.setSexo(sexo);
-        professorRecuperado.setEmail(email);
-        professorRecuperado.setSenha(senha);
-        professorRecuperado.setTelefone(telefone);
+			}
+		}
+	}
 
-        usuarioDAO.atualizarUsuario(professorRecuperado);
+	private void atualizarPerfilProfessor(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        request.setAttribute("professor", professorRecuperado);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
-        dispatcher.forward(request, response);
-    }
-    
-    private void recuperarPerfilProfessor(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //Apos a tela de login, montar isso de forma correta.
-        Papel papel = new Papel("papel");
-        Papel papelInstituicao = new Papel("papelInsti");
-        Endereco enderecoInstituicao = new Endereco("rua 2", "bairro2", "Cidade2", "estado2", "cep2", 2, "complemento2", "via2");
-        Instituicao instituicao = new Instituicao("senha2", enderecoInstituicao, papelInstituicao, "telefone2", "instituicao@gmail.com", "cnpj1", "nomeInstituicao", LocalDate.now(), "uma descricão");
-        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
-        Professor professor = new Professor("minhasenha", endereco, papel, "12345678", "professor@email.com", "1234567890", "nomeprofessor", "sobrenome professor", "sim", LocalDate.now(), Etnia.ASIATICO, Sexo.MASCULINO, instituicao);
-        request.setAttribute("professor", professor);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
-        dispatcher.forward(request, response);
-    }
+		HttpSession session = request.getSession();
+		Professor professorRecuperado = null;
+
+		if (session == null) {
+			response.sendRedirect(request.getContextPath() + ("/usuario-login"));
+		}
+
+		professorRecuperado = (Professor) session.getAttribute("usuario-logado");
+
+		if (professorRecuperado.equals(session.getAttribute("usuario-logado"))) {
+
+			if (professorRecuperado != null) {
+
+				String nome = request.getParameter("nome");
+				String sobrenome = request.getParameter("sobrenome");
+				String nomeSocial = request.getParameter("nome-social");
+				LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
+				Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+				Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+				String email = request.getParameter("email");
+				String senha = request.getParameter("senha");
+				String telefone = request.getParameter("telefone");
+
+				// atualizando dados.
+				professorRecuperado.setNome(nome);
+				professorRecuperado.setSobrenome(sobrenome);
+				professorRecuperado.setNomeSocial(nomeSocial);
+				professorRecuperado.setDataNascimento(dataNascimento);
+				professorRecuperado.setEtnia(etnia);
+				professorRecuperado.setSexo(sexo);
+				professorRecuperado.setEmail(email);
+				professorRecuperado.setSenha(senha);
+				professorRecuperado.setTelefone(telefone);
+
+				usuarioDAO.atualizarUsuario(professorRecuperado);
+
+				request.setAttribute("professor", professorRecuperado);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
+				dispatcher.forward(request, response);
+
+			}
+		}
+	}
+
+	private void recuperarPerfilProfessor(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		HttpSession session = request.getSession();
+		Professor professor = (Professor) session.getAttribute("usuario-logado");
+
+		request.setAttribute("professor", professor);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
+		dispatcher.forward(request, response);
+	}
 }
