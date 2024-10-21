@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
@@ -59,8 +60,6 @@ public class AlunoServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-
     private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
         //Papel ainda tem que ser melhor revisado com o professor.
         Papel papel = new Papel();
@@ -133,15 +132,19 @@ public class AlunoServlet extends HttpServlet {
     }
 
     private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //Apos a tela de login, montar isso de forma correta.
-        Papel papel = new Papel();
-        papel.setPapel("sim");
-        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
-        Aluno aluno = new Aluno("minhasenha", endereco, papel, "12345678", "aluno@email.com", "1234567890", "nomealuno", "sobrenome aluno", "sim", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO, Etnia.BRANCO, Sexo.MASCULINO);
 
-        request.setAttribute("aluno", aluno);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
-        dispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+        session.getAttribute("usuarioLogado");
+        Aluno aluno = (Aluno) session.getAttribute("usuario-logado");
+        if (aluno == null) {
+            response.sendRedirect("Paginas/tela-login.jsp");
+        } else {
+            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
+
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("rendafamiliar", rendafamiliar);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+            dispatcher.forward(request, response);
+        }
     }
-
 }
