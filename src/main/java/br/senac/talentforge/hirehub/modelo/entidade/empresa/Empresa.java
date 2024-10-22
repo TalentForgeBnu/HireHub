@@ -31,10 +31,10 @@ public class Empresa extends PessoaJuridica implements Serializable {
     public Empresa() {
     }
 
-    public Empresa(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+    public Empresa(String senha, Endereco endereco, List<Papel> papeis, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setSenha(senha);
         setEndereco(endereco);
-        setPapel(papel);
+        setPapeis(papeis);
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);
@@ -43,11 +43,11 @@ public class Empresa extends PessoaJuridica implements Serializable {
         setDescricao(descricao);
     }
 
-    public Empresa(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+    public Empresa(long id, String senha, Endereco endereco, List<Papel> papeis, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
-        setPapel(papel);
+        setPapeis(papeis);
         setTelefone(telefone);
         setEmail(email);
         setCnpj(cnpj);

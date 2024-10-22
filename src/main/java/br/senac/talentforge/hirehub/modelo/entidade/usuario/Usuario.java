@@ -1,8 +1,11 @@
 package br.senac.talentforge.hirehub.modelo.entidade.usuario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,7 +29,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
 public class Usuario implements Serializable {
 
-    private static final long serialVersionUID = -7754498462408877687L;
+    private static final long serialVersionUID = -3599224523479097585L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +43,9 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_endereco")
     protected Endereco endereco;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_papel")
-    protected Papel papel;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "papeis", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_papel"))
+    private List<Papel> papeis = new ArrayList<>();
 
     @Column(name = "telefone", length = 13, nullable = false, unique = true)
     protected String telefone;
@@ -75,12 +80,16 @@ public class Usuario implements Serializable {
         this.endereco = endereco;
     }
 
-    public Papel getPapel() {
-        return papel;
+    public List<Papel> getPapeis() {
+        return papeis;
     }
 
-    public void setPapel(Papel papel) {
-        this.papel = papel;
+    public void setPapeis(List<Papel> papeis) {
+        this.papeis = papeis;
+    }
+
+    public void adicionarPapel(Papel papel){
+        this.papeis.add(papel);
     }
 
     public String getTelefone() {
@@ -107,13 +116,13 @@ public class Usuario implements Serializable {
         return id == usuario.id &&
                 Objects.equals(senha, usuario.senha) &&
                 Objects.equals(endereco, usuario.endereco) &&
-                Objects.equals(papel, usuario.papel) &&
+                Objects.equals(papeis, usuario.papeis) &&
                 Objects.equals(telefone, usuario.telefone) &&
                 Objects.equals(email, usuario.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, senha, endereco, papel, telefone, email);
+        return Objects.hash(id, senha, endereco, papeis, telefone, email);
     }
 }

@@ -1,9 +1,9 @@
 package br.senac.talentforge.hirehub.modelo.entidade.papel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 @Table(name = "papel")
 public class Papel implements Serializable {
 
-    private static final long serialVersionUID = -2742798415290393914L;
+    private static final long serialVersionUID = 3787108980344503362L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,13 +32,18 @@ public class Papel implements Serializable {
     @Column(name = "papel", length = 25, nullable = false, unique = true)
     private String papel;
 
-    @OneToMany(mappedBy = "papel", fetch = FetchType.LAZY)
-    private List<Usuario> usuarios = new ArrayList<>();
+    @ManyToMany(mappedBy = "papeis", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Usuario> usuarios;
 
     public Papel() {
     }
 
     public Papel(String papel) {
+        setPapel(papel);
+    }
+
+    public Papel(long id, String papel) {
+        setId(id);
         setPapel(papel);
     }
 
@@ -56,6 +61,14 @@ public class Papel implements Serializable {
 
     public void setPapel(String papel) {
         this.papel = papel;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
 }

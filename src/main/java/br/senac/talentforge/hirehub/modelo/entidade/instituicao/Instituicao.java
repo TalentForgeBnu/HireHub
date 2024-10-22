@@ -24,134 +24,109 @@ import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 @Table(name = "instituicao")
 public class Instituicao extends PessoaJuridica implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Curso> cursos = new ArrayList<Curso>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Curso> cursos = new ArrayList<Curso>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Professor> professores = new ArrayList<Professor>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Professor> professores = new ArrayList<Professor>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Aluno> alunos = new ArrayList<Aluno>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Aluno> alunos = new ArrayList<Aluno>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Proposta> propostas = new ArrayList<Proposta>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Proposta> propostas = new ArrayList<Proposta>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Turma> turmas = new ArrayList<Turma>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instituicao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Turma> turmas = new ArrayList<Turma>();
 
-	public Instituicao() {
-	}
+    public Instituicao() {
+    }
 
-	public Instituicao(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj,
-			String nome, LocalDate dataFundacao, String descricao) {
-		setSenha(senha);
-		setEndereco(endereco);
-		setPapel(papel);
-		setTelefone(telefone);
-		setEmail(email);
-		setCnpj(cnpj);
-		setNome(nome);
-		setDataFundacao(dataFundacao);
-		setDescricao(descricao);
-	}
+    public Instituicao(String senha, Endereco endereco, List<Papel> papeis, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapeis(papeis);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNome(nome);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public Instituicao(long id, String senha, Endereco endereco, Papel papel, String telefone, String email,
-			String cnpj, String nome, LocalDate dataFundacao, String descricao) {
-		setId(id);
-		setSenha(senha);
-		setEndereco(endereco);
-		setPapel(papel);
-		setTelefone(telefone);
-		setEmail(email);
-		setCnpj(cnpj);
-		setNome(nome);
-		setDataFundacao(dataFundacao);
-		setDescricao(descricao);
-	}
+    public Instituicao(long id, String senha, Endereco endereco, List<Papel> papeis, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapeis(papeis);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNome(nome);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public List<Curso> getCursos() {
-		return cursos;
-	}
+    public List<Curso> getCursos() {
+        return cursos;
+    }
 
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
-	}
+    public void setCursos(List<Curso> cursos) {
+        this.cursos = cursos;
+    }
 
-	public void adicionarCurso(Curso curso) {
-		this.cursos.add(curso);
-	}
+    public void adicionarCurso(Curso curso) {
+        this.cursos.add(curso);
+    }
 
-	public List<Professor> getProfessores() {
-		return professores;
-	}
+    public List<Professor> getProfessores() {
+        return professores;
+    }
 
-	public void setProfessores(List<Professor> professores) {
-		this.professores = professores;
-	}
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
+    }
 
-	public void adicionarProfessor(Professor professor) {
-		this.professores.add(professor);
-	}
+    public void adicionarProfessor(Professor professor) {
+        this.professores.add(professor);
+    }
 
-	public List<Aluno> getAlunos() {
-		return alunos;
-	}
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
 
-	public void adicionarAluno(Aluno aluno) {
-		this.alunos.add(aluno);
-	}
+    public void adicionarAluno(Aluno aluno) {
+        this.alunos.add(aluno);
+    }
 
-	public List<Proposta> getPropostas() {
-		return propostas;
-	}
+    public List<Proposta> getPropostas() {
+        return propostas;
+    }
 
-	public void setPropostas(List<Proposta> propostas) {
-		this.propostas = propostas;
-	}
+    public void setPropostas(List<Proposta> propostas) {
+        this.propostas= propostas;
+    }
 
-	public void adicionarProposta(Proposta proposta) {
-		this.propostas.add(proposta);
-	}
+    public void adicionarProposta(Proposta proposta) {
+        this.propostas.add(proposta);
+    }
 
-	public List<Turma> getTurmas() {
-		return turmas;
-	}
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
 
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
-	}
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
+    }
 
-	public void adicionarTurmas(Turma turma) {
-		this.turmas.add(turma);
-	}
-
-	public boolean equals(Object obj) {
-
-		if (obj == null)
-			return false;
-
-		if (this == obj)
-			return true;
-
-		if (this.getClass() != obj.getClass())
-			return false;
-
-		Instituicao instituicao = (Instituicao) obj;
-
-		return this.getSenha().equals(instituicao.getSenha()) && this.getEndereco().equals(instituicao.getEndereco())
-				&& this.getPapel().equals(instituicao.getPapel())
-				&& this.getTelefone().equals(instituicao.getTelefone())
-				&& this.getEmail().equals(instituicao.getEmail()) && this.getCnpj().equals(instituicao.getCnpj())
-				&& this.getNome().equals(instituicao.getNome())
-				&& this.getDataFundacao().equals(instituicao.getDataFundacao())
-				&& this.getDescricao().equals(instituicao.getDescricao());
-
-	}
+    public void adicionarTurmas(Turma turma) {
+        this.turmas.add(turma);
+    }
 
 }
