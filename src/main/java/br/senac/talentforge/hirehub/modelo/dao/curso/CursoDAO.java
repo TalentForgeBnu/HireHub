@@ -10,7 +10,11 @@ public interface CursoDAO {
     void deletarCurso(Curso curso);
 
     void atualizarCurso(Curso curso);
-
+    
+    Curso recuperarCurso(long idInstituicao);
+ 
+    Curso recuperarCurso(String areaDeAtuacao);
+    
     List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao);
 
     List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao);
