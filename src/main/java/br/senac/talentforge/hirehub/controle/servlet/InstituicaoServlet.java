@@ -85,8 +85,7 @@ public class InstituicaoServlet extends HttpServlet {
 
 		papelDAO.inserirPapel(papel);
 		enderecoDAO.inserirEndereco(endereco);
-		usuarioDAO.inserirUsuario(
-				new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
+		usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
 	}
 
 	private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)
