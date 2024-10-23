@@ -10,6 +10,8 @@ import org.hibernate.Session;
 
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
 
 public class CursoDAOImpl implements CursoDAO{
@@ -62,6 +64,46 @@ public class CursoDAOImpl implements CursoDAO{
         }
     }
 
+    public Curso recuperarCurso(long idInstituicao) {
+        Session sessao = null;
+        Curso cursoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
+            Root<Curso> raizCurso= criteria.from(Curso.class);
+            criteria.select(raizCurso).where(construtor.equal(raizCurso.get(Curso_.INSTITUICAO), idInstituicao));
+            cursoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return cursoRecuperado;
+    }
+    
+    public Curso recuperarCurso(String areaDeAtuacao) {
+        Session sessao = null;
+        Curso cursoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
+            Root<Curso> raizCurso= criteria.from(Curso.class);
+            criteria.select(raizCurso).where(construtor.equal(raizCurso.get(Curso_.AREA_ATUACAO), areaDeAtuacao));
+            cursoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return cursoRecuperado;
+    }
+    
     public List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao){
         Session sessao = null;
         List<Curso> cursosRecuperados = null;
