@@ -14,4 +14,6 @@ public interface TurmaDAO {
     Turma recuperarTurmaPeloIdIntituicao(long idInstituicao);
 
     List<Turma> recuperarTurmasPeloIdCurso(long idCurso);
+    
+    List<Turma> recuperarTurmasPeloIdProfessor(long idProfessor);
 }
