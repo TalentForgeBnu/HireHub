@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAOImpl;
@@ -32,6 +34,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
@@ -126,26 +129,25 @@ public class TurmaServlet extends HttpServlet {
 
         turmaDAO.inserirTurma(new Turma(nome, codigo, tamanho, prof, inst, turno, curso));
     }
-    private void recuperarListaTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-        Papel papel = new Papel();
-        papel.setPapel("sim");
 
-        Endereco endereco = new Endereco("rua tal", "um bairro ae", "cidade", "um Estado", "cep", 123, "complemento ai", "via");
-        Instituicao instituicao = new Instituicao("123", endereco, papel, "123", "123@gmail.com", "123", "UmDoisTres", LocalDate.now(), "Comida");
-        Curso curso = new Curso("Nomde", "NOdme", Disponibilidade.ABERTO, LocalDate.now(), LocalDate.now(), "YIE", null);
-        Professor professor = new Professor("213",endereco, papel,"123","123@gmail.com","123","Rogerio", "Mario", "Pedro", LocalDate.now(), Etnia.BRANCO, Sexo.OUTROS, instituicao);
+    private void recuperarListaTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        Professor professor = null;
 
-        Turma turma1 = new Turma("nome1", "codigo1", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
-        Turma turma2 = new Turma("nome2", "codigo2", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
-        Turma turma3 = new Turma("nome3", "codigo3", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
-        Turma turma4 = new Turma("nome4", "codigo4", (byte) 4, professor, instituicao, Turno.MATUTINO, curso);
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect("Paginas/tela-login.jsp");
+        }
 
-        //funciona yipee
-        List<Turma> turmas = List.of(turma1, turma2, turma3, turma4);
+        professor = (Professor) session.getAttribute("usuario-logado");
 
-        request.setAttribute("turmas", turmas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-turmas.jsp");
-        dispatcher.forward(request, response);
+        if (professor.equals(session.getAttribute("usuario-logado"))) {
+
+            List<Turma> turmas = turmaDAO.recuperarTurmasPeloIdProfessor(professor.getId());
+
+            request.setAttribute("turmas", turmas);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-turmas.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
