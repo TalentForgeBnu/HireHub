@@ -76,5 +76,4 @@ public class DossieServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    .
 }
