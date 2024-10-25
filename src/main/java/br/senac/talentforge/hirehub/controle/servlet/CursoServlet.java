@@ -100,7 +100,7 @@ public class CursoServlet extends HttpServlet {
 
 			if (aluno != null) {
 
-				Curso curso = cursoDAO.recuperarCurso("");
+				Curso curso = cursoDAO.recuperarCursoPorAtuacao("");
 
 				request.setAttribute("curso", curso);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
@@ -112,7 +112,7 @@ public class CursoServlet extends HttpServlet {
 		if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
 			if (instituicao != null) {
-				Curso curso = cursoDAO.recuperarCurso(instituicao.getId());
+				Curso curso = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
 			}
 		}
 
@@ -148,7 +148,7 @@ public class CursoServlet extends HttpServlet {
 		if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
 			if (instituicao != null) {
-				cursos = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
+				cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
 			}
 		}
 		request.setAttribute("cursos", cursos);

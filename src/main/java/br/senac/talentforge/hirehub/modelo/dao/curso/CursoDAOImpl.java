@@ -64,7 +64,7 @@ public class CursoDAOImpl implements CursoDAO{
         }
     }
 
-    public Curso recuperarCurso(long idInstituicao) {
+    public Curso recuperarCursoPeloIdDaInstituicao(long idInstituicao) {
         Session sessao = null;
         Curso cursoRecuperado = null;
         try {
@@ -84,7 +84,7 @@ public class CursoDAOImpl implements CursoDAO{
         return cursoRecuperado;
     }
     
-    public Curso recuperarCurso(String areaDeAtuacao) {
+    public Curso recuperarCursoPorAtuacao(String areaDeAtuacao) {
         Session sessao = null;
         Curso cursoRecuperado = null;
         try {
@@ -104,7 +104,7 @@ public class CursoDAOImpl implements CursoDAO{
         return cursoRecuperado;
     }
     
-    public List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao){
+    public List<Curso> recuperarCursosPeloIdDaInstituicao(long idInstituicao){
         Session sessao = null;
         List<Curso> cursosRecuperados = null;
         try {

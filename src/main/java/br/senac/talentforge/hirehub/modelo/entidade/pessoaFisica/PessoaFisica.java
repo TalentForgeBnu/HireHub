@@ -13,7 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @Entity

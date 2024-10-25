@@ -11,11 +11,11 @@ public interface CursoDAO {
 
     void atualizarCurso(Curso curso);
     
-    Curso recuperarCurso(long idInstituicao);
+    Curso recuperarCursoPeloIdDaInstituicao(long idInstituicao);
  
-    Curso recuperarCurso(String areaDeAtuacao);
+    Curso recuperarCursoPorAtuacao(String areaDeAtuacao);
     
-    List<Curso> recuperarCursoPeloIdDaInstituicao(long idInstituicao);
+    List<Curso> recuperarCursosPeloIdDaInstituicao(long idInstituicao);
 
     List<Curso> recuperarCursosPorAtuacao(String areaDeAtuacao);
 }

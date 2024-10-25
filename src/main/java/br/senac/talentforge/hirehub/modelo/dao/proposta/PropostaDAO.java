@@ -13,7 +13,7 @@ public interface PropostaDAO {
 
     Proposta recuperarPropostaPeloIdCurso(long idCurso);
 
-    List<Proposta> recuperarPropostasPelosIdEmpresa(long idEmpresa);
+    List<Proposta> recuperarPropostasPeloIdEmpresa(long idEmpresa);
 
-    List<Proposta> recuperarPropostasPelosIdInstituicao(long idInstituicao);
+    List<Proposta> recuperarPropostasPeloIdInstituicao(long idInstituicao);
 }

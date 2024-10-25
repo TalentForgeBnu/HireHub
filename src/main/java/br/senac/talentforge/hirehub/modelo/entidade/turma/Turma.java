@@ -36,7 +36,7 @@ public class Turma implements Serializable {
     @Column(name = "nome_turma", length = 30, nullable = false, unique = false)
     private String nome;
 
-    @Column(name = "codigo", length = 50, nullable = false, unique = false)
+    @Column(name = "codigo", length = 50, nullable = false, unique = true)
     private String codigo;
 
     @OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)

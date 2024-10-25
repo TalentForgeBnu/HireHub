@@ -14,12 +14,10 @@ import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -87,7 +85,7 @@ public class TurmaServlet extends HttpServlet {
 
         if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
-            Professor professor = professorDAO.recuperarProfessor(request.getParameter("professor-cpf"));
+            Professor professor = professorDAO.recuperarProfessorPeloCpf(request.getParameter("professor-cpf"));
 
             String nome = request.getParameter("nome");
             String codigo = request.getParameter("codigo");

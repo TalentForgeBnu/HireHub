@@ -87,7 +87,7 @@ public class PropostaDAOImpl implements PropostaDAO {
         return oferta;
     }
 
-    public List<Proposta> recuperarPropostasPelosIdEmpresa(long idEmpresa) {
+    public List<Proposta> recuperarPropostasPeloIdEmpresa(long idEmpresa) {
         Session sessao = null;
         List<Proposta> ofertas = null;
         try {
