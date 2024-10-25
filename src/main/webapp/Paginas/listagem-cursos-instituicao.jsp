@@ -27,6 +27,7 @@
             <input type="button" value="Expandir">
         </div>
         </c:forEach>
-        </div>       
+        </div> 
+        </form>      
 </body>
 </head>
