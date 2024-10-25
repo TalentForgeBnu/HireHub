@@ -17,7 +17,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @Entity

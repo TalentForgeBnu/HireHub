@@ -57,5 +57,4 @@ public class Papel implements Serializable {
     public void setPapel(String papel) {
         this.papel = papel;
     }
-
 }

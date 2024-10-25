@@ -113,7 +113,7 @@ public class InstituicaoServlet extends HttpServlet {
 				String senha = request.getParameter("senha");
 				LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
 
-				instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(cnpj);
+				instituicaoRecuperada = instituicaoDAO.recuperarInstituicaoPeloCnpj(cnpj);
 
 				instituicaoRecuperada.setNome(nome);
 				instituicaoRecuperada.setDescricao(descricao);

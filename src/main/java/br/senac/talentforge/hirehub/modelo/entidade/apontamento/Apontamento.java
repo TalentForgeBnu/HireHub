@@ -26,7 +26,7 @@ public class Apontamento implements Serializable {
     @Column(name = "id_apontamento")
     private long id;
 
-    @Column(name = "descricao", length = 200, nullable = false, unique = true)
+    @Column(name = "descricao", length = 200, nullable = false, unique = false)
     private String descricao;
 
     @Column(name = "data_criacao", nullable = false, unique = true)
