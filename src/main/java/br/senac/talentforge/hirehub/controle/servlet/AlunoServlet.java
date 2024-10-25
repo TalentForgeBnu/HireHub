@@ -2,6 +2,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,12 +22,15 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = { "/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno" })
+@WebServlet(urlPatterns = { "/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno", "/recuperar-lista-alunos" })
 public class AlunoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1817596775729858905L;
@@ -55,6 +59,8 @@ public class AlunoServlet extends HttpServlet {
 			case "/inserir-aluno" -> inserirAluno(request, response);
 			case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
 			case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
+			case "/recuperar-lista-alunos" -> recuperarListaAlunos(request, response);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +113,7 @@ public class AlunoServlet extends HttpServlet {
 		if (session == null || session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
 		}
-		
+
 		alunoRecuperado = (Aluno) session.getAttribute("usuario-logado");
 
 		if (alunoRecuperado.equals(session.getAttribute("usuario-logado"))) {
@@ -154,19 +160,44 @@ public class AlunoServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.getAttribute("usuario-lgado");
-		
+
 		Aluno aluno = (Aluno) session.getAttribute("usuario-logado");
-		
+
 		if (aluno == null && session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect("Paginas/tela-login.jsp");
-		}			
-		if(aluno.equals(session.getAttribute("usuario-logado"))) {
-			
+		}
+		if (aluno.equals(session.getAttribute("usuario-logado"))) {
+
 			String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
 			request.setAttribute("aluno", aluno);
 			request.setAttribute("rendafamiliar", rendafamiliar);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
 			dispatcher.forward(request, response);
 		}
+	}
+
+	private void recuperarListaAlunos(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Endereco endereco = new Endereco("Rua ", "Bairro ", "Blumenau", "SC", "89000000", 456, "Casa", "Rua");
+
+		Papel papel1 = new Papel("sim");
+		Papel papel2 = new Papel("sim");
+		Instituicao instituicao1 = new Instituicao();
+		Turma turma1 = new Turma();
+		Aluno aluno1 = new Aluno("senha123", endereco, papel1, "123456789", "aluno1@email.com", "106572194377",
+				"Aluno Nome 1", "Sobrenome 1", "Nome Social 1", LocalDate.now(),
+				RendaFamiliar.ENTRE_2_A_4_SALARIOS_MINIMOS, Etnia.BRANCO, Sexo.MASCULINO,"001",instituicao1,turma1,Estudante.CURSANDO);
+
+		Aluno aluno2 = new Aluno("senha456", endereco, papel2, "987654321", "aluno2@email.com", "506672194377",
+				"Aluno Nome 2", "Sobrenome 2", "Nome Social 2", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO,
+				Etnia.PARDO, Sexo.FEMININO, "002",instituicao1,turma1,Estudante.CURSANDO);
+		
+
+		List<Aluno> alunos = List.of(aluno1, aluno2);
+
+		request.setAttribute("alunos", alunos);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-alunos-professor.jsp");
+		dispatcher.forward(request, response);
 	}
 }
