@@ -25,12 +25,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="aluno" items="${alunos}">
+				<c:forEach var="alunos" items="${alunos}">
 					<tr>
-						<td>${aluno.matricula}</td>
-						<td>${aluno.nome}</td>
-						<td>${aluno.dataNascimento}</td>
-						<td><span>${aluno.status}</span></td>
+						<td>${alunos.matricula}</td>
+						<td>${alunos.nome}</td>
+						<td>${alunos.dataNascimento}</td>
+						<td><span>${alunos.estudante}</span></td>
 						<td><button>Editar Dossiê</button></td>
 					</tr>
 				</c:forEach>
