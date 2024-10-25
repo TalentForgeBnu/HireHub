@@ -62,7 +62,7 @@ public class TurmaDAOImpl implements TurmaDAO {
 		}
 	}
 
-	public Turma recuperarTurmaPeloIdIntituicao(long idInstituicao) {
+	public Turma recuperarTurmaPeloIdInstituicao(long idInstituicao) {
 		Session sessao = null;
 		Turma turmaRecuperada = null;
 		try {
@@ -134,5 +134,4 @@ public class TurmaDAOImpl implements TurmaDAO {
 			sessao.close();
 		}
 	}
-
 }

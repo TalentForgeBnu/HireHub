@@ -68,7 +68,7 @@ public class Curso implements Serializable {
     
     public Curso() {}
 
-    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta) {
+    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta, Instituicao instituicao) {
         setNome(nome);
         setAreaAtuacao(areaAtuacao);
         setDisponibilidade(disponibilidade);
@@ -76,18 +76,20 @@ public class Curso implements Serializable {
         setDataFim(dataFim);
         setDescricao(descricao);
         setProposta(proposta);
+        setInstituicao(instituicao);
     }
     
-    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao) {
+    public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Instituicao instituicao) {
         setNome(nome);
         setAreaAtuacao(areaAtuacao);
         setDisponibilidade(disponibilidade);
         setDataInicio(dataInicio);
         setDataFim(dataFim);
         setDescricao(descricao);
+        setInstituicao(instituicao);
     }
 
-    public Curso(long id, String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta) {
+    public Curso(long id, String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta, Instituicao instituicao) {
         setId(id);
         setNome(nome);
         setAreaAtuacao(areaAtuacao);
@@ -96,6 +98,7 @@ public class Curso implements Serializable {
         setDataFim(dataFim);
         setDescricao(descricao);
         setProposta(proposta);
+        setInstituicao(instituicao);
     }
 
     public Long getId() {

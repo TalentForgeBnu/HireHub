@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
