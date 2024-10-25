@@ -151,7 +151,5 @@ public class Instituicao extends PessoaJuridica implements Serializable {
 				&& this.getNome().equals(instituicao.getNome())
 				&& this.getDataFundacao().equals(instituicao.getDataFundacao())
 				&& this.getDescricao().equals(instituicao.getDescricao());
-
 	}
-
 }

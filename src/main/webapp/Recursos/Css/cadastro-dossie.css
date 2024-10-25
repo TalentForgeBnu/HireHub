@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.profile-container {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.profile-container img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-container h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+textarea {
+    width: calc(100% - 20px);
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
+}
+
+button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+button.cancel {
+    background-color: #e5e7eb;
+    color: #333;
+    margin-right: 10px;
+}
+
+button.cancel:hover {
+    background-color: #d1d5db;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+.form-section h3 {
+    color: #3b82f6;
+    margin-bottom: 10px;
+}

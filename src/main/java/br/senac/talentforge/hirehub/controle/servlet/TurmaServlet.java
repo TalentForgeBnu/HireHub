@@ -14,13 +14,11 @@ import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAO;
 import br.senac.talentforge.hirehub.modelo.dao.professor.ProfessorDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -86,13 +84,12 @@ public class TurmaServlet extends HttpServlet {
         instituicao = (Instituicao) session.getAttribute("usuario-logado");
 
         if (instituicao.equals(session.getAttribute("usuario-logado"))) {
-
             String nome = request.getParameter("nome");
             String codigo = request.getParameter("codigo");
             byte tamanho = Byte.valueOf(request.getParameter("tamanho"));
             Turno turno = Turno.valueOf(request.getParameter("turno").toUpperCase());
             Curso curso = null; //cursoDAO.recuperarCurso("SODA"); // Deixa aqui para caso ser util
-            Professor professor = professorDAO.recuperarProfessor(request.getParameter("professor-cpf"));
+            Professor professor = professorDAO.recuperarProfessorPeloCpf(request.getParameter("professor-cpf"));
 
             List<Curso> cursoList = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
             for (int i = 0; i < cursoList.size(); i++) {
