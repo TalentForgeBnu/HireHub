@@ -7,7 +7,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
 public interface VagaDAO {
-	void inserirVaga(Vaga vaga);
+	Vaga inserirVaga(Vaga vaga);
 
 	void deletarVaga(Vaga vaga);
 
