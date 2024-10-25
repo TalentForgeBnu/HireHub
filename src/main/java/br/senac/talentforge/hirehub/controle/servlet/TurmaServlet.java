@@ -18,6 +18,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.turno.Turno;
 
 import javax.servlet.RequestDispatcher;
@@ -74,8 +75,6 @@ public class TurmaServlet extends HttpServlet {
 
     private void inserirTurma(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
-        //Endereco Professor e instituição retirar depois
-
         HttpSession session = request.getSession();
         Instituicao instituicao = null;
 
@@ -83,17 +82,29 @@ public class TurmaServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + ("/usuario-login"));
         }
 
+
         instituicao = (Instituicao) session.getAttribute("usuario-logado");
 
         if (instituicao.equals(session.getAttribute("usuario-logado"))) {
-
-            Professor professor = professorDAO.recuperarProfessor(request.getParameter("professor-cpf"));
 
             String nome = request.getParameter("nome");
             String codigo = request.getParameter("codigo");
             byte tamanho = Byte.valueOf(request.getParameter("tamanho"));
             Turno turno = Turno.valueOf(request.getParameter("turno").toUpperCase());
-            turmaDAO.inserirTurma(new Turma(nome, codigo, tamanho, professor, instituicao, turno, null));
+            Curso curso = null; //cursoDAO.recuperarCurso("SODA"); // Deixa aqui para caso ser util
+            Professor professor = professorDAO.recuperarProfessor(request.getParameter("professor-cpf"));
+
+            List<Curso> cursoList = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
+            for (int i = 0; i < cursoList.size(); i++) {
+                String cursoNome = cursoList.get(i).getNome();
+
+                if (cursoNome == request.getParameter("nome-curso")) {
+                    curso = cursoList.get(i);
+                }
+            }
+            // Se tiver uma lógica melhor para isso, pode mudar a vontade!!!
+
+            turmaDAO.inserirTurma(new Turma(nome, codigo, tamanho, professor, instituicao, turno, curso));
             //Jonathan THE MAN disse que curso está nulo para testes. REMOVA ASSIM QUE PUDER!!!!!!!
 
         }
