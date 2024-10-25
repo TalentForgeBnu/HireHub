@@ -113,7 +113,7 @@ public class InstituicaoServlet extends HttpServlet {
 				String senha = request.getParameter("senha");
 				LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
 
-				instituicaoRecuperada = instituicaoDAO.recuperarInstituicaoPeloCnpj(cnpj);
+				instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(cnpj);
 
 				instituicaoRecuperada.setNome(nome);
 				instituicaoRecuperada.setDescricao(descricao);
@@ -138,7 +138,7 @@ public class InstituicaoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Instituicao instituicaoRecuperada = null;
 
-		if (session == null) {
+		if (session == null || session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
 		}
 

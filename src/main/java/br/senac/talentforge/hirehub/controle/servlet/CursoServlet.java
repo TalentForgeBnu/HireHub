@@ -100,7 +100,7 @@ public class CursoServlet extends HttpServlet {
 
 			if (aluno != null) {
 
-				Curso curso = cursoDAO.recuperarCursoPorAtuacao("");
+				Curso curso = cursoDAO.recuperarCurso("");
 
 				request.setAttribute("curso", curso);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
@@ -112,7 +112,7 @@ public class CursoServlet extends HttpServlet {
 		if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
 			if (instituicao != null) {
-				Curso curso = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
+				Curso curso = cursoDAO.recuperarCurso(instituicao.getId());
 			}
 		}
 
@@ -126,21 +126,19 @@ public class CursoServlet extends HttpServlet {
 		Aluno aluno = new Aluno();
 		List<Curso> cursos = new ArrayList<Curso>();
 
-		if (session == null) {
-			response.sendRedirect(request.getContextPath() + ("/usuario-login"));
+		if (session == null || session.getAttribute("usuario-logado") == null) {
+			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
 		}
 
 		aluno = (Aluno) session.getAttribute("usuario-logado");
 
-		if (aluno.equals(session.getAttribute("usuario-login"))) {
+		if (aluno.equals(session.getAttribute("usuario-logado"))) {
 
-			if (aluno != null) {
 				cursos = cursoDAO.recuperarCursosPorAtuacao("");
 
 				request.setAttribute("curso", cursos);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
 				dispatcher.forward(request, response);
-			}
 		}
 
 		instituicao = (Instituicao) session.getAttribute("usuario-logado");
@@ -148,7 +146,7 @@ public class CursoServlet extends HttpServlet {
 		if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
 			if (instituicao != null) {
-				cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
+				cursos = cursoDAO.recuperarCursoPeloIdDaInstituicao(instituicao.getId());
 			}
 		}
 		request.setAttribute("cursos", cursos);
