@@ -2,6 +2,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
@@ -24,180 +27,183 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
+import org.hibernate.Session;
 
-@WebServlet(urlPatterns = { "/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno", "/recuperar-lista-alunos" })
+@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno", "/recuperar-lista-alunos"})
 public class AlunoServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1817596775729858905L;
+    private static final long serialVersionUID = 1817596775729858905L;
 
-	private EnderecoDAO enderecoDAO;
-	private PapelDAO papelDAO;
-	private AlunoDAO alunoDAO;
-	private UsuarioDAO usuarioDAO;
+    private EnderecoDAO enderecoDAO;
+    private PapelDAO papelDAO;
+    private AlunoDAO alunoDAO;
+    private UsuarioDAO usuarioDAO;
 
-	public void init() {
-		enderecoDAO = new EnderecoDAOImpl();
-		papelDAO = new PapelDAOImpl();
-		alunoDAO = new AlunoDAOImpl();
-		usuarioDAO = new UsuarioDAOImpl();
-	}
+    public void init() {
+        enderecoDAO = new EnderecoDAOImpl();
+        papelDAO = new PapelDAOImpl();
+        alunoDAO = new AlunoDAOImpl();
+        usuarioDAO = new UsuarioDAOImpl();
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String action = request.getServletPath();
-		try {
-			switch (action) {
-			case "/inserir-aluno" -> inserirAluno(request, response);
-			case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
-			case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
-			case "/recuperar-lista-alunos" -> recuperarListaAlunos(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String action = request.getServletPath();
+        try {
+            switch (action) {
+                case "/inserir-aluno" -> inserirAluno(request, response);
+                case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
+                case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
+                case "/recuperar-lista-alunos" -> recuperarListaAlunos(request, response);
 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
+    private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
 
-		// Papel ainda tem que ser melhor revisado com o professor.
-		Papel papel = new Papel();
+        // Papel ainda tem que ser melhor revisado com o professor.
+        Papel papel = new Papel();
 
-		// Dados endereço
-		String estado = request.getParameter("estado");
-		String cidade = request.getParameter("cidade");
-		String logadouro = request.getParameter("logradouro");
-		String bairro = request.getParameter("bairro");
-		String cep = request.getParameter("cep");
-		int numero = Integer.parseInt(request.getParameter("numero"));
-		String complemento = request.getParameter("complemento");
-		String via = request.getParameter("via");
+        // Dados endereço
+        String estado = request.getParameter("estado");
+        String cidade = request.getParameter("cidade");
+        String logadouro = request.getParameter("logradouro");
+        String bairro = request.getParameter("bairro");
+        String cep = request.getParameter("cep");
+        int numero = Integer.parseInt(request.getParameter("numero"));
+        String complemento = request.getParameter("complemento");
+        String via = request.getParameter("via");
 
-		// Dados aluno
-		String nome = request.getParameter("nome");
-		String sobrenome = request.getParameter("sobrenome");
-		String nomeSocial = request.getParameter("nome-social");
-		String cpf = request.getParameter("cpf");
-		LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
-		Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
-		Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
-		String email = request.getParameter("email");
-		String senha = request.getParameter("senha");
-		String telefone = request.getParameter("telefone");
-		String renda = request.getParameter("renda-familiar").replace("-", "_");
-		RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
+        // Dados aluno
+        String nome = request.getParameter("nome");
+        String sobrenome = request.getParameter("sobrenome");
+        String nomeSocial = request.getParameter("nome-social");
+        String cpf = request.getParameter("cpf");
+        LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
+        Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+        Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        String telefone = request.getParameter("telefone");
+        String renda = request.getParameter("renda-familiar").replace("-", "_");
+        RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-		papel.setPapel("Sim");
-		Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
-		papelDAO.inserirPapel(papel);
-		enderecoDAO.inserirEndereco(endereco);
-		usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial,
-				dataNascimento, rendaFamiliar, etnia, sexo));
-	}
+        papel.setPapel("Sim");
+        Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
+        papelDAO.inserirPapel(papel);
+        enderecoDAO.inserirEndereco(endereco);
+        usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
+    }
 
-	private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		Aluno alunoRecuperado = null;
+        HttpSession session = request.getSession();
+        Aluno alunoRecuperado = null;
 
-		if (session == null || session.getAttribute("usuario-logado") == null) {
-			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
-		}
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
+        }
 
-		alunoRecuperado = (Aluno) session.getAttribute("usuario-logado");
+        alunoRecuperado = (Aluno) session.getAttribute("usuario-logado");
 
-		if (alunoRecuperado.equals(session.getAttribute("usuario-logado"))) {
+        if (alunoRecuperado.equals(session.getAttribute("usuario-logado"))) {
+            // dados aluno
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            String nomeSocial = request.getParameter("nome-social");
+            String cpf = request.getParameter("cpf");
+            LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
+            Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+            Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String telefone = request.getParameter("telefone");
+            String renda = request.getParameter("renda-familiar").replace("-", "_");
+            RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-			if (alunoRecuperado != null) {
+            // atualizando dados.
+            alunoRecuperado.setNome(nome);
+            alunoRecuperado.setSobrenome(sobrenome);
+            alunoRecuperado.setNomeSocial(nomeSocial);
+            alunoRecuperado.setDataNascimento(dataNascimento);
+            alunoRecuperado.setEtnia(etnia);
+            alunoRecuperado.setSexo(sexo);
+            alunoRecuperado.setEmail(email);
+            alunoRecuperado.setSenha(senha);
+            alunoRecuperado.setTelefone(telefone);
+            alunoRecuperado.setRendaFamiliar(rendaFamiliar);
 
-				// dados aluno
-				String nome = request.getParameter("nome");
-				String sobrenome = request.getParameter("sobrenome");
-				String nomeSocial = request.getParameter("nome-social");
-				String cpf = request.getParameter("cpf");
-				LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
-				Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
-				Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
-				String email = request.getParameter("email");
-				String senha = request.getParameter("senha");
-				String telefone = request.getParameter("telefone");
-				String renda = request.getParameter("renda-familiar").replace("-", "_");
-				RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
-				// atualizando dados.
-				alunoRecuperado.setNome(nome);
-				alunoRecuperado.setSobrenome(sobrenome);
-				alunoRecuperado.setNomeSocial(nomeSocial);
-				alunoRecuperado.setDataNascimento(dataNascimento);
-				alunoRecuperado.setEtnia(etnia);
-				alunoRecuperado.setSexo(sexo);
-				alunoRecuperado.setEmail(email);
-				alunoRecuperado.setSenha(senha);
-				alunoRecuperado.setTelefone(telefone);
-				alunoRecuperado.setRendaFamiliar(rendaFamiliar);
+            usuarioDAO.atualizarUsuario(alunoRecuperado);
 
-				usuarioDAO.atualizarUsuario(alunoRecuperado);
+            request.setAttribute("aluno", alunoRecuperado);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
 
-				request.setAttribute("aluno", alunoRecuperado);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
-				dispatcher.forward(request, response);
+    private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
 
-			}
-		}
-	}
+        HttpSession session = request.getSession();
+        session.getAttribute("usuario-lgado");
 
-	private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+        Aluno aluno = null;
 
-		HttpSession session = request.getSession();
-		session.getAttribute("usuario-lgado");
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
 
-		Aluno aluno = (Aluno) session.getAttribute("usuario-logado");
+        aluno = (Aluno) session.getAttribute("usuario-logado");
 
-		if (aluno == null && session.getAttribute("usuario-logado") == null) {
-			response.sendRedirect("Paginas/tela-login.jsp");
-		}
-		if (aluno.equals(session.getAttribute("usuario-logado"))) {
+        if (aluno.equals(session.getAttribute("usuario-logado"))) {
+            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("rendafamiliar", rendafamiliar);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+            dispatcher.forward(request, response);
+        }
 
-			String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
-			request.setAttribute("aluno", aluno);
-			request.setAttribute("rendafamiliar", rendafamiliar);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
+    }
 
-	private void recuperarListaAlunos(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    private void recuperarListaAlunos(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		Endereco endereco = new Endereco("Rua ", "Bairro ", "Blumenau", "SC", "89000000", 456, "Casa", "Rua");
+        HttpSession session = request.getSession();
+        Professor professor = null;
+        List<Aluno> alunos = new ArrayList<Aluno>();
 
-		Papel papel1 = new Papel("sim");
-		Papel papel2 = new Papel("sim");
-		Instituicao instituicao1 = new Instituicao();
-		Turma turma1 = new Turma();
-		Aluno aluno1 = new Aluno("senha123", endereco, papel1, "123456789", "aluno1@email.com", "106572194377",
-				"Aluno Nome 1", "Sobrenome 1", "Nome Social 1", LocalDate.now(),
-				RendaFamiliar.ENTRE_2_A_4_SALARIOS_MINIMOS, Etnia.BRANCO, Sexo.MASCULINO,"001",instituicao1,turma1,Estudante.CURSANDO);
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
 
-		Aluno aluno2 = new Aluno("senha456", endereco, papel2, "987654321", "aluno2@email.com", "506672194377",
-				"Aluno Nome 2", "Sobrenome 2", "Nome Social 2", LocalDate.now(), RendaFamiliar.ATE_1_SALARIO_MINIMO,
-				Etnia.PARDO, Sexo.FEMININO, "002",instituicao1,turma1,Estudante.CURSANDO);
-		
+        professor = (Professor) session.getAttribute("usuario-logado");
 
-		List<Aluno> alunos = List.of(aluno1, aluno2);
+        if (professor.equals(session.getAttribute("usuario-logado"))) {
+            long tumarId = Long.parseLong(request.getParameter("turma-id"));
 
-		request.setAttribute("alunos", alunos);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-alunos-professor.jsp");
-		dispatcher.forward(request, response);
-	}
+            alunos = alunoDAO.recuperarAlunosPeloIdTurma(tumarId);
+
+            request.setAttribute("alunos", alunos);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-alunos-professor.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath());
+        }
+
+    }
+
 }
