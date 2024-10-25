@@ -1,8 +1,6 @@
 package br.senac.talentforge.hirehub.controle.servlet;
  
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
  
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,10 +22,8 @@ import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
  
-@WebServlet(urlPatterns = { "/inserir-vaga", "/atualizar-vaga", "/recuperar-lista-vagas" })
+@WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-vaga" })
 public class VagaServlet extends HttpServlet {
  
 	private static final long serialVersionUID = 3963892615335298562L;
@@ -51,7 +47,6 @@ public class VagaServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "/inserir-vaga" -> inserirVaga(request, response);
-			case "/recuperar-lista-vagas" -> recuperaListaVagas(request, response);
 			case "/recuperar-vagas" -> recuperarVaga(request, response);
 			}
 		} catch (Exception e) {
@@ -65,12 +60,13 @@ public class VagaServlet extends HttpServlet {
 	}
  
 	private void inserirVaga(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws IOException, ServletException {
  
 		HttpSession session = request.getSession();
 		Empresa empresa = null;
+		Vaga vaga = null;
  
-		if (session == null) {
+		if (session == null && session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
 		}
  
@@ -79,47 +75,11 @@ public class VagaServlet extends HttpServlet {
 		if (empresa.equals(session.getAttribute("usuario-logado"))) {
  
 			if (empresa != null) {
- 
-				String codigo = request.getParameter("codigo-vaga");
-				String nome = request.getParameter("nome");
-				String descricao = request.getParameter("descricao-vaga");
-				Contratacao contratacao = Contratacao
-						.valueOf(request.getParameter("modalidade-contratacao").toUpperCase());
-				Situacao situacao = Situacao.ABERTA;
-				Vaga vaga = new Vaga(codigo, nome, descricao, contratacao, situacao, empresa);
+				
 				vagaDAO.inserirVaga(vaga);
-			}
-		}
-	}
- 
-	private void recuperaListaVagas(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
- 
-		HttpSession session = request.getSession();
-		Empresa empresa = null;
- 
-		if (session == null) {
-			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
-		}
- 
-		empresa = (Empresa) session.getAttribute("usuario-logado");
- 
-		if (empresa.equals(session.getAttribute("usuario-logado"))) {
- 
-			if (empresa != null) {
- 
-				Vaga vaga1 = new Vaga("codigo1", "nome1", "descrição1", Contratacao.MEIO_PERIODO, Situacao.ABERTA,
-						empresa);
-				Vaga vaga2 = new Vaga("codigo2", "nome2", "descrição2", Contratacao.ESTAGIO, Situacao.FECHADA, empresa);
-				Vaga vaga3 = new Vaga("codigo3", "nome3", "descrição3", Contratacao.INTEGRAL, Situacao.ABERTA, empresa);
-				Vaga vaga4 = new Vaga("codigo4", "nome4", "descrição4", Contratacao.MEIO_PERIODO, Situacao.FECHADA,
-						empresa);
-				Vaga vaga5 = new Vaga("codigo5", "nome5", "descrição5", Contratacao.INTEGRAL, Situacao.ABERTA, empresa);
- 
-				List<Vaga> vagas = List.of(vaga1, vaga2, vaga3, vaga4, vaga5);
- 
-				request.setAttribute("vagas", vagas);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa.jsp");
+				
+				request.setAttribute("vaga", vaga);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa");
 				dispatcher.forward(request, response);
 			}
 		}
@@ -130,8 +90,9 @@ public class VagaServlet extends HttpServlet {
  
 		HttpSession session = request.getSession();
 		Empresa empresa = null;
+		Vaga vaga = null;
  
-		if (session == null) {
+		if (session == null && session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
 		}
  
@@ -140,14 +101,14 @@ public class VagaServlet extends HttpServlet {
 		if (empresa.equals(session.getAttribute("usuario-logado"))) {
  
 			if (empresa != null) {
- 
-				Vaga vaga = new Vaga("codigo1", "nome1", "descricao1", Contratacao.MEIO_PERIODO, Situacao.ABERTA,
-						empresa);
- 
+				
+				vaga = vagaDAO.recuperarVagaPeloIdEmpresa(empresa.getId());
+				
 				request.setAttribute("vaga", vaga);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-aluno.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa.jsp");
 				dispatcher.forward(request, response);
 			}
 		}
 	}
 }
+ 
