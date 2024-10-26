@@ -76,10 +76,7 @@ public class InstituicaoServlet extends HttpServlet {
 		int numero = Integer.parseInt(request.getParameter("numero"));
 		String complemento = request.getParameter("complemento");
 		String via = request.getParameter("via");
-
-		// papel mais detalhado quando for construido.
-		Papel papel = new Papel();
-		papel.setPapel("Nulo");
+		Papel papel = new Papel("instituicao");
 
 		Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
 
@@ -113,7 +110,7 @@ public class InstituicaoServlet extends HttpServlet {
 				String senha = request.getParameter("senha");
 				LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
 
-				instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(cnpj);
+				instituicaoRecuperada = instituicaoDAO.recuperarInstituicaoPeloCnpj(cnpj);
 
 				instituicaoRecuperada.setNome(nome);
 				instituicaoRecuperada.setDescricao(descricao);

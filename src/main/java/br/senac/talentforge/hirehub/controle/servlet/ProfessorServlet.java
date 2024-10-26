@@ -24,7 +24,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @WebServlet(urlPatterns = { "/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor" })
@@ -89,7 +89,7 @@ public class ProfessorServlet extends HttpServlet {
 				LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
 				Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
 				Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
-				Papel papel = new Papel("Professor");
+				Papel papel = new Papel("professor");
 
 				String estado = request.getParameter("estado");
 				String logradouro = request.getParameter("logradouro");

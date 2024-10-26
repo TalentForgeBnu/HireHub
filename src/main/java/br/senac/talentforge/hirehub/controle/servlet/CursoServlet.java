@@ -76,7 +76,7 @@ public class CursoServlet extends HttpServlet {
             LocalDate dataFim = LocalDate.parse(request.getParameter("data-termino"));
             Disponibilidade disponibilidade = Disponibilidade.ABERTO;
 
-            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, null);
+            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
 
             cursoDAO.inserirCurso(curso);
         } else {
