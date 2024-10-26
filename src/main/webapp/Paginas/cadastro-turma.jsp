@@ -27,12 +27,23 @@
                     <input type="number" id="tamanho" name="tamanho" placeholder="Tamanho da turma">
                 </div>
                 <div class="form-group">
+                    <input type="text" id="professor-cpf" name="professor-cpf" placeholder="CPF do professor da turma">
+                </div>
+                <div class="form-group">
                     <select id="turno" name="turno" required>
                         <option value="" disabled selected>Turno</option>
                         <option value="matutino">Matutino</option>
                         <option value="vespertino">Vespertino</option>
                         <option value="noturno">Noturno</option>
                     </select>
+                </div>
+                <div class="form-group">
+                     <select id="nome-curso" name="curso" required>
+                         <c:forEach var="curso" items="${cursoList}">
+                            <option value="${curso.nome}" selected><c:out value="${curso.nome}"/></option>
+                         </c:forEach>
+                         <option value="SODA" selected>SODA</option>
+                     </select>
                 </div>
                 <div class="form-actions">
                     <button type="submit">Salvar Turma</button>
