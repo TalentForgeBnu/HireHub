@@ -19,7 +19,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "funcao")
+@Table(name = "papel")
 public class Papel implements Serializable {
 
     private static final long serialVersionUID = -2742798415290393914L;
@@ -32,7 +32,7 @@ public class Papel implements Serializable {
     @Column(name = "funcao", length = 25, nullable = false, unique = true)
     private String funcao;
 
-    @OneToMany(mappedBy = "funcao", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "papel", fetch = FetchType.LAZY)
     private List<Usuario> usuarios = new ArrayList<>();
 
     public Papel() {

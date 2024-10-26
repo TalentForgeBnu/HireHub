@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.instituicao.InstituicaoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
@@ -29,14 +27,12 @@ public class InstituicaoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 772514583419437616L;
 
-    PapelDAO papelDAO;
-    private InstituicaoDAO instituicaoDAO;
+    private PapelDAO papelDAO;
     private UsuarioDAO usuarioDAO;
     private EnderecoDAO enderecoDAO;
 
     public void init() {
         papelDAO = new PapelDAOImpl();
-        instituicaoDAO = new InstituicaoDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         enderecoDAO = new EnderecoDAOImpl();
     }
@@ -59,7 +55,7 @@ public class InstituicaoServlet extends HttpServlet {
         }
     }
 
-    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) {
+    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException{
         Papel papel = new Papel("instituicao");
 
         String nome = request.getParameter("nome-instituicao");
@@ -83,6 +79,7 @@ public class InstituicaoServlet extends HttpServlet {
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
+        response.sendRedirect(request.getContextPath());
     }
 
     private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)

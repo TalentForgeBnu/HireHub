@@ -102,7 +102,7 @@ public class ProfessorServlet extends HttpServlet {
             papelDAO.inserirPapel(papel);
             enderecoDAO.inserirEndereco(endereco);
             usuarioDAO.inserirUsuario(new Professor(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, etnia, sexo, instituicao));
-
+            response.sendRedirect(request.getContextPath());
         } else {
             response.sendRedirect(request.getContextPath());
         }
