@@ -24,7 +24,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
-import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.Etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @WebServlet(urlPatterns = { "/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor" })
@@ -117,7 +117,7 @@ public class ProfessorServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Professor professorRecuperado = null;
 
-		if (session == null) {
+		if (session == null || session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + ("/usuario-login"));
 		}
 
