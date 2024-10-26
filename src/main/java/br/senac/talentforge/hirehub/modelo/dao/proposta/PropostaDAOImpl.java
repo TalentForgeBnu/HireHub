@@ -68,6 +68,26 @@ public class PropostaDAOImpl implements PropostaDAO {
         }
     }
 
+    public Proposta recuperarPropostaPeloId(long idProposta) {
+        Session sessao = null;
+        Proposta oferta = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Proposta> criteria = construtor.createQuery(Proposta.class);
+            Root<Proposta> raizOferta = criteria.from(Proposta.class);
+            criteria.select(raizOferta).where(construtor.equal(raizOferta.get(Proposta_.ID), idProposta));
+            oferta = sessao.createQuery(criteria).getSingleResult();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return oferta;
+    }
+    
+    
     public Proposta recuperarPropostaPeloIdCurso(long idCurso) {
         Session sessao = null;
         Proposta oferta = null;
