@@ -131,35 +131,23 @@ public class CursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
         }
 
-        aluno = (Aluno) session.getAttribute("usuario-logado");
 
-        if (aluno.equals(session.getAttribute("usuario-logado"))) {
+        if (session.getAttribute("usuario-logado") instanceof Aluno) {
+
             cursos = cursoDAO.recuperarCursoPelaDisponibilidade(Disponibilidade.ABERTO);
 
-            request.setAttribute("curso", cursos);
+            request.setAttribute("cursos", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
-        }
 
-    }
+        } else if (session.getAttribute("usuario-logado") instanceof Instituicao instituicao) {
 
-    private void recuperarCursoDaPropriaInstituicao(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        Instituicao instituicao = null;
-        List<Curso> cursos = new ArrayList<Curso>();
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
-
-        instituicao = (Instituicao) session.getAttribute("usuario-logado");
-
-        if (instituicao.equals(session.getAttribute("usuario-logado"))) {
             cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
-            request.setAttribute("curso", cursos);
+
+            request.setAttribute("cursos", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
+
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -182,7 +170,7 @@ public class CursoServlet extends HttpServlet {
             String atuacao = request.getParameter("atuacao");
             cursos = cursoDAO.recuperarCursosPorAtuacao(atuacao);
 
-            request.setAttribute("curso", cursos);
+            request.setAttribute("cursos", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
         }
