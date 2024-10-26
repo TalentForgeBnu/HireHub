@@ -78,6 +78,8 @@ public class PropostaServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("instituicao")) {
         	
+        	instituicao = (Instituicao) session.getAttribute("usuario-logado");
+        	
         	String proposta = request.getParameter("proposta");        	
         	String resposta = request.getParameter("resposta");
         	Long idcurso = Long.parseLong(request.getParameter("curso-id"));
@@ -121,6 +123,7 @@ public class PropostaServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Instituicao instituicao = null;
+		Empresa empresa = null;
 		List<Proposta> propostas = new ArrayList<Proposta>();
 		
 		if (session == null || session.getAttribute("usuario-logado") == null) {
@@ -131,14 +134,17 @@ public class PropostaServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("instituicao")){
         	
-        	propostas = propostaDAO.recuperarPropostasPeloIdInstituicao(usuario.getId());    
+        	instituicao = (Instituicao) session.getAttribute("usuario-logado");
+        	
+        	propostas = propostaDAO.recuperarPropostasPeloIdInstituicao(instituicao.getId());    
         	request.setAttribute("propostas", propostas);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-propostas-instituicao.jsp");
             dispatcher.forward(request, response);
         }
         if(usuario.getPapel().getFuncao().equals("empresa")) {
         
-        	propostas = propostaDAO.recuperarPropostasPeloIdEmpresa(usuario.getId());
+        	empresa = (Empresa) session.getAttribute("usuario-logado");
+        	propostas = propostaDAO.recuperarPropostasPeloIdEmpresa(empresa.getId());
         	request.setAttribute("propostas", propostas);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-propostas-empresa.jsp");
             dispatcher.forward(request, response);
