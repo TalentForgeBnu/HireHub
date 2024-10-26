@@ -67,7 +67,9 @@ public class AlunoServlet extends HttpServlet {
         }
     }
 
-    private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
+    private void inserirAluno(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+
         Papel papel = new Papel("aluno");
 
         // Dados endereço
@@ -99,6 +101,7 @@ public class AlunoServlet extends HttpServlet {
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
 
+        response.sendRedirect(request.getContextPath());
     }
 
     private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)

@@ -1,7 +1,6 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
-import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
@@ -31,13 +28,11 @@ public class EmpresaServlet extends HttpServlet {
     private static final long serialVersionUID = -7157263069775551523L;
 
     private PapelDAO papelDAO;
-    private EmpresaDAO empresaDAO;
     private UsuarioDAO usuarioDAO;
     private EnderecoDAO enderecoDAO;
 
     public void init() {
         papelDAO = new PapelDAOImpl();
-        empresaDAO = new EmpresaDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         enderecoDAO = new EnderecoDAOImpl();
     }
@@ -136,7 +131,7 @@ public class EmpresaServlet extends HttpServlet {
             request.setAttribute("empresa", empresa);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-empresa.jsp");
             dispatcher.forward(request, response);
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 
@@ -162,7 +157,7 @@ public class EmpresaServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-empresa.jsp");
             dispatcher.forward(request, response);
 
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 
