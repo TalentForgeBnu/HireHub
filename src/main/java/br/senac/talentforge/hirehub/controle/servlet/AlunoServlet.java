@@ -67,9 +67,7 @@ public class AlunoServlet extends HttpServlet {
     }
 
     private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
-
-        // Papel ainda tem que ser melhor revisado com o professor.
-        Papel papel = new Papel();
+        Papel papel = new Papel("aluno");
 
         // Dados endereço
         String estado = request.getParameter("estado");
@@ -95,7 +93,6 @@ public class AlunoServlet extends HttpServlet {
         String renda = request.getParameter("renda-familiar").replace("-", "_");
         RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-        papel.setPapel("Sim");
         Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);

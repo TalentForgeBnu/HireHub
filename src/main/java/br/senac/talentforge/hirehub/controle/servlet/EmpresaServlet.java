@@ -61,7 +61,7 @@ public class EmpresaServlet extends HttpServlet {
     }
 
     private void inserirEmpresa(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        Papel papel = new Papel();
+        Papel papel = new Papel("empresa");
 
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
@@ -78,7 +78,6 @@ public class EmpresaServlet extends HttpServlet {
         int numero = Integer.parseInt(request.getParameter("numero"));
         String complemento = request.getParameter("complemento");
         String via = request.getParameter("via");
-        papel.setPapel("sim:)");
 
         Endereco endereco = new Endereco(logradouro,bairro,cidade,estado,cep,numero,complemento,via);
         papelDAO.inserirPapel(papel);
