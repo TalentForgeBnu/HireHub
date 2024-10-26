@@ -22,7 +22,6 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 
 @WebServlet(urlPatterns = { "/inserir-instituicao", "/atualizar-perfil-instituicao", "/recuperar-perfil-instituicao" })
 public class InstituicaoServlet extends HttpServlet {
@@ -113,7 +112,7 @@ public class InstituicaoServlet extends HttpServlet {
 				String senha = request.getParameter("senha");
 				LocalDate dataFundacao = LocalDate.parse(request.getParameter("data-fundacao"));
 
-				instituicaoRecuperada = instituicaoDAO.recuperarIntituicaoPeloCnpj(cnpj);
+				instituicaoRecuperada = instituicaoDAO.recuperarInstituicaoPeloCnpj(cnpj);
 
 				instituicaoRecuperada.setNome(nome);
 				instituicaoRecuperada.setDescricao(descricao);
