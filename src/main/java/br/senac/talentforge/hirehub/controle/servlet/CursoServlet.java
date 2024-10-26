@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/recuperar-lista-curso-instituicao", "/recuperar-lista-cursos-atuacao"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/recuperar-lista-cursos-atuacao"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -47,7 +47,6 @@ public class CursoServlet extends HttpServlet {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
-                case "/recuperar-lista-cursos-instituicao" -> recuperarCursoDaPropriaInstituicao(request, response);
                 case "/recuperar-lista-cursos-atuacao" -> recuperarCursoPelaAreaDeAtuacao(request, response);
             }
         } catch (Exception e) {
@@ -76,7 +75,7 @@ public class CursoServlet extends HttpServlet {
             LocalDate dataFim = LocalDate.parse(request.getParameter("data-termino"));
             Disponibilidade disponibilidade = Disponibilidade.ABERTO;
 
-            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, null);
+            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
 
             cursoDAO.inserirCurso(curso);
         } else {

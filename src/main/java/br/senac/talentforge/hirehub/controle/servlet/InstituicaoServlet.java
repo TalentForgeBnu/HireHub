@@ -60,6 +60,7 @@ public class InstituicaoServlet extends HttpServlet {
 	}
 
 	private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) {
+		
 		String nome = request.getParameter("nome-instituicao");
 		String descricao = request.getParameter("descricao-instituicao");
 		String email = request.getParameter("email");
@@ -75,11 +76,8 @@ public class InstituicaoServlet extends HttpServlet {
 		int numero = Integer.parseInt(request.getParameter("numero"));
 		String complemento = request.getParameter("complemento");
 		String via = request.getParameter("via");
-
-		// papel mais detalhado quando for construido.
-		Papel papel = new Papel();
-		papel.setPapel("Nulo");
-
+		Papel papel = new Papel("instituicao");
+		
 		Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
 
 		papelDAO.inserirPapel(papel);
