@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/recuperar-lista-cursos-atuacao"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/recuperar-lista-curso-instituicao", "/recuperar-lista-cursos-atuacao"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -47,6 +47,7 @@ public class CursoServlet extends HttpServlet {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
+                case "/recuperar-lista-cursos-instituicao" -> recuperarCursoDaPropriaInstituicao(request, response);
                 case "/recuperar-lista-cursos-atuacao" -> recuperarCursoPelaAreaDeAtuacao(request, response);
             }
         } catch (Exception e) {
@@ -75,7 +76,7 @@ public class CursoServlet extends HttpServlet {
             LocalDate dataFim = LocalDate.parse(request.getParameter("data-termino"));
             Disponibilidade disponibilidade = Disponibilidade.ABERTO;
 
-            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
+            Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, null);
 
             cursoDAO.inserirCurso(curso);
         } else {
@@ -130,23 +131,35 @@ public class CursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
         }
 
+        aluno = (Aluno) session.getAttribute("usuario-logado");
 
-        if (session.getAttribute("usuario-logado") instanceof Aluno) {
-
+        if (aluno.equals(session.getAttribute("usuario-logado"))) {
             cursos = cursoDAO.recuperarCursoPelaDisponibilidade(Disponibilidade.ABERTO);
 
-            request.setAttribute("cursos", cursos);
+            request.setAttribute("curso", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
+        }
 
-        } else if (session.getAttribute("usuario-logado") instanceof Instituicao instituicao) {
+    }
 
+    private void recuperarCursoDaPropriaInstituicao(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        Instituicao instituicao = null;
+        List<Curso> cursos = new ArrayList<Curso>();
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
+
+        instituicao = (Instituicao) session.getAttribute("usuario-logado");
+
+        if (instituicao.equals(session.getAttribute("usuario-logado"))) {
             cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
-
-            request.setAttribute("cursos", cursos);
+            request.setAttribute("curso", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
-
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -169,7 +182,7 @@ public class CursoServlet extends HttpServlet {
             String atuacao = request.getParameter("atuacao");
             cursos = cursoDAO.recuperarCursosPorAtuacao(atuacao);
 
-            request.setAttribute("cursos", cursos);
+            request.setAttribute("curso", cursos);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
             dispatcher.forward(request, response);
         }
