@@ -21,6 +21,11 @@
            <li><a href="Paginas/cadastro-turma.jsp">Cadastro Turma</a></li>
            <li><a href="Paginas/cadastro-vaga.jsp">Cadastro Vaga</a></li>
        </ul>
+   <h2>Login</h2>
+          <ul>
+              <li><a href="Paginas/tela-login.jsp">Login</a></li>
+              <li><a href="<%=request.getContextPath()%>/usuario-logout">Logout (direto)</a></li>
+          </ul>
     <h2>Listagem</h2>
        <ul>
            <li><a href="<%=request.getContextPath()%>/recuperar-lista-alunos">Listagem Alunos</a></li>

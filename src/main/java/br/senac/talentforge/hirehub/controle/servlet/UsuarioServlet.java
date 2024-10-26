@@ -31,6 +31,7 @@ public class UsuarioServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/usuario-login" -> loginUsuario(request, response);
+                case "/usuario-logout" -> logoutUsuario(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
