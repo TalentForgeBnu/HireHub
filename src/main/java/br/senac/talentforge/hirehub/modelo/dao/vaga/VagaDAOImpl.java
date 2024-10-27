@@ -64,26 +64,6 @@ public class VagaDAOImpl implements VagaDAO {
 		}
 	}
 
-	public Vaga recuperarVagaPeloIdEmpresa(long codigo) {
-		Session sessao = null;
-		Vaga vagaRecuperada = null;
-		try {
-			sessao = fabrica.getConexao().openSession();
-			sessao.beginTransaction();
-			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
-			CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
-			Root<Vaga> raizVaga = criteria.from(Vaga.class);
-			criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.EMPRESA), codigo));
-			vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
-			sessao.getTransaction().commit();
-		} catch (Exception exception) {
-			erroSessao(sessao, exception);
-		} finally {
-			fecharSessao(sessao);
-		}
-		return vagaRecuperada;
-	}
-
 	public Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao) {
 		Session sessao = null;
 		Vaga vagaRecuperada = null;

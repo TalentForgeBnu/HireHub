@@ -13,8 +13,6 @@ public interface VagaDAO {
 
 	void atualizarVaga(Vaga vaga);
 
-	Vaga recuperarVagaPeloIdEmpresa(long codigo);
-
 	Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao);
 
 	Vaga recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga);
