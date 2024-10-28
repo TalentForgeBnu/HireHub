@@ -83,9 +83,10 @@ public class PropostaServlet extends HttpServlet {
         	String proposta = request.getParameter("proposta");        	
         	String resposta = request.getParameter("resposta");
         	Long idcurso = Long.parseLong(request.getParameter("curso-id"));
+        	Long idvaga = Long.parseLong(request.getParameter("vaga-id"));
         	Oferta oferta = Oferta.valueOf(request.getParameter("andamento-oferta").toUpperCase());
         	Empresa empresa = empresaDAO.recuperarEmpresaPeloCnpj("cnpj");
-        	Vaga vaga = vagaDAO.recuperarVagaPeloIdEmpresa(empresa.getId());
+        	Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
         	Curso curso = cursoDAO.recuperarCursoPeloId(idcurso);
         	
         	Proposta prosposta = new Proposta(proposta,resposta,oferta,vaga,curso,empresa,instituicao);
