@@ -111,6 +111,8 @@ public class TurmaServlet extends HttpServlet {
             request.setAttribute("turmas", turmas);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-turmas.jsp");
             dispatcher.forward(request, response);
+        }else {
+            response.sendRedirect(request.getContextPath());
         }
 
     }
