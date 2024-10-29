@@ -74,7 +74,7 @@ public class TurmaServlet extends HttpServlet {
 
             instituicao = (Instituicao) usuario;
 
-            long cursoId = Long.parseLong(request.getParameter("curso-id"));
+            long cursoId = Long.parseLong(request.getParameter("id"));
             String cpf = request.getParameter("professor-cpf");
 
             Curso curso = cursoDAO.recuperarCursoPeloId(cursoId);

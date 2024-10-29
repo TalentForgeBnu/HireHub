@@ -19,7 +19,7 @@
             <label for="descricaocurso"><c:out value="${cursos.descricao}"/></label>
         </div>
         <div>
-            <input type="button" value="${pageContext.request.contextPath}/Paginas/cadastro-turma.jsp?id=<c:out value='${cursos.id}'/>" name="Criar Turma"> 
+            <a href="<%=request.getContextPath()%>/Paginas/cadastro-turma.jsp?id=<c:out value='${cursos.id}'/>">Cadastro Turma</a>
         </div>
         </c:forEach>
         </div> 

@@ -17,9 +17,15 @@ pageEncoding="UTF-8"%>
         <h2>Listagem</h2>
         <ul>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-alunos">Listagem Alunos</a></li>
-            <li><a href="${pageContext.request.contextPath}/recuperar-lista-cursos">Listagem Cursos</a></li>
+            <li><a href="${pageContext.request.contextPath}/recuperar-lista-cursos-instituicao">Listagem Cursos</a></li>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-turma">Listagem Turmas</a></li>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-vagas">Listagem Vagas</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-curriculo.jsp">Cadastro Currículo</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-curso.jsp">Cadastro Curso</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-dossie.jsp">Cadastro Dossiê</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-turma.jsp">Cadastro Turma</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-vaga.jsp">Cadastro Vaga</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-professor.jsp">Cadastro Professor</a></li>
         </ul>
 
         <h2>Perfis</h2>
@@ -40,14 +46,8 @@ pageEncoding="UTF-8"%>
         <h2>Cadastro</h2>
         <ul>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-aluno.jsp">Cadastro Aluno</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-curriculo.jsp">Cadastro Currículo</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-curso.jsp">Cadastro Curso</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-dossie.jsp">Cadastro Dossiê</a></li>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-empresa.jsp">Cadastro Empresa</a></li>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-instituicao.jsp">Cadastro Instituição</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-professor.jsp">Cadastro Professor</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-turma.jsp">Cadastro Turma</a></li>
-            <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-vaga.jsp">Cadastro Vaga</a></li>
         </ul>
 
         <h2>Login</h2>

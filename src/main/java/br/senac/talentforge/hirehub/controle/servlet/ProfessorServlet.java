@@ -71,7 +71,7 @@ public class ProfessorServlet extends HttpServlet {
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
 
-        if (usuario.getPapel().getFuncao().equals("Instituicao")) {
+        if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
             instituicao = (Instituicao) usuario;
 

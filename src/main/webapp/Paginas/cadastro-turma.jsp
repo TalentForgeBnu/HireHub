@@ -37,6 +37,7 @@
                         <option value="noturno">Noturno</option>
                         <option value="integral">Integral</option>
                     </select>
+                    <input type="hidden" name="id" value="<c:out value='${cursos.id}'/>" />
                 </div>
                 <div class="form-actions">
                     <button type="submit">Salvar Turma</button>
