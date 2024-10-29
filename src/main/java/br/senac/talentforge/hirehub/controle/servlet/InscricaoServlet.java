@@ -9,7 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.inscricao.InscricaoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.inscricao.InscricaoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
@@ -19,10 +26,12 @@ public class InscricaoServlet extends HttpServlet {
 	private static final long serialVersionUID = 6745024583303936471L;
 	
 	private InscricaoDAO inscricaoDAO;
+	private CursoDAO cursoDAO;
 	
 	public void init() {
 		
 		inscricaoDAO = new InscricaoDAOImpl();
+		cursoDAO = new CursoDAOImpl();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -56,13 +65,13 @@ public class InscricaoServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("aluno")) {
 		
-        long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+         aluno = (Aluno) session.getAttribute("usuario-logado");
+        
         long idCurso = Long.parseLong(request.getParameter("id-curso"));
+        Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
         boolean estado = Boolean.getBoolean(request.getParameter("estado"));
-        
-        Inscricao inscricao = new Inscricao(idAluno,estado,idCurso);
-        
-        inscricaoDAO.inserirInscricao(inscricao);
+    
+        inscricaoDAO.inserirInscricao(new Inscricao(aluno,estado,curso));
 
         response.sendRedirect(request.getContextPath());
         
