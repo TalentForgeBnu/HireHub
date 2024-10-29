@@ -36,15 +36,17 @@ public class Inscricao {
     public Inscricao() {
     }
 
-    public Inscricao(Aluno aluno, boolean estado) {
+    public Inscricao(Aluno aluno, boolean estado, Curso curso) {
         setAluno(aluno);
         setEstado(estado);
+        setCurso(curso);
     }
 
-    public Inscricao(long id, Aluno aluno, boolean estado) {
+    public Inscricao(long id, Aluno aluno, boolean estado, Curso curso) {
         setId(id);
         setAluno(aluno);
         setEstado(estado);
+        setCurso(curso);
     }
 
     public long getId() {
