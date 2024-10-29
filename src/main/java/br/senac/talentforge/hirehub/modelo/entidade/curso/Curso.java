@@ -21,12 +21,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@Entity	
+@Entity
 @Table(name = "curso")
 public class Curso implements Serializable {
 
@@ -61,11 +62,14 @@ public class Curso implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Turma> turmas = new ArrayList<Turma>();
-    
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proposta")
     private Proposta proposta;
-    
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inscricao> inscricao = new ArrayList<>();
+
     public Curso() {}
 
     public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Proposta proposta, Instituicao instituicao) {
@@ -78,7 +82,7 @@ public class Curso implements Serializable {
         setProposta(proposta);
         setInstituicao(instituicao);
     }
-    
+
     public Curso(String nome, String areaAtuacao, Disponibilidade disponibilidade, LocalDate dataInicio, LocalDate dataFim, String descricao, Instituicao instituicao) {
         setNome(nome);
         setAreaAtuacao(areaAtuacao);
@@ -164,7 +168,7 @@ public class Curso implements Serializable {
     public void setInstituicao(Instituicao instituicao) {
         this.instituicao = instituicao;
     }
-    
+
     public List<Turma> getTurmas() {
         return turmas;
     }
@@ -172,13 +176,13 @@ public class Curso implements Serializable {
     public void setTurmas(List<Turma> turmas) {
         this.turmas = turmas;
     }
-    
+
     public Proposta getProposta() {
-    	return proposta;
+        return proposta;
     }
-    
+
     public void setProposta(Proposta proposta) {
-    	this.proposta = proposta;
+        this.proposta = proposta;
     }
 
     @Override
