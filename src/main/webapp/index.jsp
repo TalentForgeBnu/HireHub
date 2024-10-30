@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 
         <h2>Login</h2>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/Paginas/tela-login.jsp">Login</a></li>
+            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
         </ul>
     </c:otherwise>
 </c:choose>
