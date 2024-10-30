@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/cadastro-turma"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -47,6 +47,7 @@ public class CursoServlet extends HttpServlet {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
+                case "/cadastro-turma" -> cadastroTurma(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,6 +164,28 @@ public class CursoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath());
         }
 
+    }
+    
+    private void cadastroTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        Usuario usuario = null;
+ 
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
+ 
+        usuario = (Usuario) session.getAttribute("usuario-logado");
+ 
+        if (usuario.getPapel().getFuncao().equals("instituicao")) {
+ 
+        	long idCurso = Long.parseLong(request.getParameter("id"));
+            Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
+ 
+            request.setAttribute("curso", curso);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-turma.jsp");
+            dispatcher.forward(request, response);
+        }
+ 
     }
 
 

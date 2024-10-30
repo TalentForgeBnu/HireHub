@@ -19,7 +19,7 @@
             <label for="descricaocurso"><c:out value="${cursos.descricao}"/></label>
         </div>
         <div>
-            <a href="<%=request.getContextPath()%>/Paginas/cadastro-turma.jsp?id=<c:out value='${cursos.id}'/>">Cadastro Turma</a>
+            <a href="${pageContext.request.contextPath}/cadastro-turma?id=<c:out value='${cursos.id}'/>">Cadastrar Turma</a>
         </div>
         </c:forEach>
         </div> 

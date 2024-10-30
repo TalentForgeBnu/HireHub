@@ -17,6 +17,7 @@
         <div class="form-section">
             <h2>Adicionar Turma</h2>
             <form action="<%=request.getContextPath()%>/inserir-turma" method="post">
+               <input type="hidden" name="id" value="<c:out value='${curso.id}'/>" />
                 <div class="form-group">
                     <input type="text" id="nome" name="nome" placeholder="Nome da turma">
                 </div>
@@ -36,8 +37,7 @@
                         <option value="vespertino">Vespertino</option>
                         <option value="noturno">Noturno</option>
                         <option value="integral">Integral</option>
-                    </select>
-                    <input type="hidden" name="id" value="<c:out value='${cursos.id}'/>" />
+                    </select>                  
                 </div>
                 <div class="form-actions">
                     <button type="submit">Salvar Turma</button>
