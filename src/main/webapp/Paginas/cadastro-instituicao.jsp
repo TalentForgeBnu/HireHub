@@ -13,7 +13,7 @@
 
     <div class="container">
         <div class="left-section">
-            <img src="../Recursos/Imagens/cadastro-instituicao.png" alt="Ilustração de prédio institucional">
+            <img src="${pageContext.request.contextPath}/Recursos/Imagens/cadastroInstituicao 3.png" alt="Ilustração de prédio institucional">
         </div>
         <div class="right-section">
             <h1>CADASTRO</h1>

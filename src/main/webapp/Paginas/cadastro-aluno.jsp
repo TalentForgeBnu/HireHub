@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="image-section">
-            <img src="../Recursos/Imagens/cadastro-aluno.png" alt="Ilustração">
+            <img src="${pageContext.request.contextPath}/Recursos/Imagens/cadastro-aluno.png" alt="Ilustração">
         </div>
 
         <div class="form-section">

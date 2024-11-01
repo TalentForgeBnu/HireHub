@@ -130,12 +130,12 @@ button.cancelar:hover {
 }
 
 .image-section {
-	width: 40%;
+	width: 50%;
 	text-align: center;
 }
 
 .image-section img {
 	max-width: 100%;
-	height: auto;
+	height: 500px;
 	border-radius: 10px;
 }
