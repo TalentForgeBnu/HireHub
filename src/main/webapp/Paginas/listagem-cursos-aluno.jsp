@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
             </div>
             <div>
                 <div>
-                    <form action="<%=request.getContextPath()%>/tela-exibicao-curso" method="post">
+                    <form action="<%=request.getContextPath()%>/perfil-curso" method="post">
                         <input type="hidden" name="id" value="${cursos.id}"/>
                         <button type="submit">Ver Mais</button>
                     </form>
