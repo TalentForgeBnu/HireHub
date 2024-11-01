@@ -68,8 +68,8 @@ public class ApontamentoServlet extends HttpServlet {
 
 		if (professor.equals(session.getAttribute("usuario-logado"))) {
 
-			long id = Long.parseLong(request.getParameter("aluno-id"));
-			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(id);
+			long idAluno = Long.parseLong(request.getParameter("id"));
+			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			String apontamento = request.getParameter("apontamento");
 			LocalDate dataCriacao = LocalDate.parse(request.getParameter("data-criacao"));
 			apontamentoDAO.inserirApontamento(new Apontamento(apontamento, dataCriacao, dossie));
@@ -91,8 +91,8 @@ public class ApontamentoServlet extends HttpServlet {
 
 		if (professor.equals(session.getAttribute("usuario-logado"))) {
 
-			long id = Long.parseLong(request.getParameter("aluno-id"));
-			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(id);
+			long idAluno = Long.parseLong(request.getParameter("id"));
+			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			apontamentos = apontamentoDAO.recuperarApontamentosPeloIdDossie(dossie.getId());
 			request.setAttribute("apontamentos", apontamentos);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/apontamentos.jsp");
