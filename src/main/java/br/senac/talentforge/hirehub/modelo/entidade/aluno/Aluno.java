@@ -2,90 +2,171 @@ package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import br.senac.talentforge.hirehub.modelo.enumeracao.alunomatriculado.AlunoMatriculado;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
+import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
+import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-public class Aluno extends Usuario implements Serializable {
-	
-private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_aluno")
-	private long id;
-	
-	@Column(name = "matricula", length = 30, nullable = false, unique = false)
-	private String matricula;
-	
-	@Column(name = "codigo_turma", length = 30, nullable = false, unique = false)
-	private String codigoTurma;
-	
-	@Column(name = "dossie", length = 200, nullable = false, unique = false)
-	private String dossie;
-	
-	@Enumerated(EnumType.STRING)
-	private AlunoMatriculado status;
-	
-	public Aluno() {
-		
-	}
-	
-	public Aluno(String matricula, String codigoTurma, String dossie, AlunoMatriculado status, long id, String nomeUsuario, String sobrenome, LocalDate dataNascimento, String cpf) {
-		
-		super(id, nomeUsuario,sobrenome,dataNascimento, cpf, cpf);
-		setMatricula(matricula);
-		setCodigoTurma(codigoTurma);
-		setDossie(dossie);
-		setStatusAluno(status);
-		setId(id);
-		
-	}
-	
-	public String getMatricula() {
-		return matricula;
-	}
-	
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;		
-	}
-	
-	public String getCodigoTurma() {
-		return codigoTurma;
-	}
-	
-	public void setCodigoTurma(String codigoTurma) {
-		this.codigoTurma = codigoTurma;		
-	}
-	
-	public String getDossie() {
-		return dossie;
-	}
-	
-	public void setDossie(String dossie) {
-		this.dossie = dossie;		
-	}
-	
-	public AlunoMatriculado getStatus() {
-		return status;
-	}
-	
-	public void setStatusAluno(AlunoMatriculado status) {
-		this.status = status;		
-	}
+@Entity
+@Table(name = "aluno")
+public class Aluno extends PessoaFisica implements Serializable {
 
-	public long getId() {
-		return id;		
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
+    private static final long serialVersionUID = -1588651712344525933L;
+
+    @Column(name = "matricula", length = 30, nullable = true, unique = true)
+    private String matricula;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_turma")
+    private Turma turma;
+
+    @Enumerated(EnumType.STRING)
+    private Estudante estudante;
+
+    @Enumerated(EnumType.STRING)
+    private RendaFamiliar rendaFamiliar;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inscricao> inscricoes = new ArrayList<>();
+
+    public Aluno() {
+    }
+
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Turma turma, Estudante estudante) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
+        setDataNascimento(dataNascimento);
+        setEtnia(etnia);
+        setSexo(sexo);
+        setMatricula(matricula);
+        setTurma(turma);
+        setEstudante(estudante);
+        setRendaFamiliar(rendaFamiliar);
+    }
+
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Turma turma, Estudante estudante) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
+        setDataNascimento(dataNacimento);
+        setRendaFamiliar(rendaFamiliar);
+        setEtnia(etnia);
+        setSexo(sexo);
+        setMatricula(matricula);
+        setTurma(turma);
+        setEstudante(estudante);
+    }
+
+    //esse contrutor no momento foi criado para pode suprir a necessidade do AlunoServlet.
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCpf(cpf);
+        setNome(nome);
+        setSobrenome(sobrenome);
+        setNomeSocial(nomeSocial);
+        setDataNascimento(dataNascimento);
+        setRendaFamiliar(rendaFamiliar);
+        setEtnia(etnia);
+        setSexo(sexo);
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public Estudante getEstudante() {
+        return estudante;
+    }
+
+    public void setEstudante(Estudante estudante) {
+        this.estudante = estudante;
+    }
+
+    public RendaFamiliar getRendaFamiliar() {
+        return rendaFamiliar;
+    }
+
+    public void setRendaFamiliar(RendaFamiliar rendaFamiliar) {
+        this.rendaFamiliar = rendaFamiliar;
+    }
+
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
+    public void adicionarInscricao(Inscricao inscricao) {
+        this.inscricoes.add(inscricao);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        Aluno aluno = (Aluno) object;
+        return Objects.equals(matricula, aluno.matricula) &&
+                Objects.equals(turma, aluno.turma) &&
+                estudante == aluno.estudante &&
+                rendaFamiliar == aluno.rendaFamiliar;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), matricula, turma, estudante);
+    }
+
 }

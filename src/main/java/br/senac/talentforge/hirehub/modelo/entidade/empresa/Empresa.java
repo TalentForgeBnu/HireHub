@@ -1,99 +1,75 @@
 package br.senac.talentforge.hirehub.modelo.entidade.empresa;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.pessoaJuridica.PessoaJuridica;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
-
 
 @Entity
 @Table(name = "empresa")
-public class Empresa extends Usuario implements Serializable {
-	
-	
-private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_empresa")
-	private long id;
-	
-	@Column(name = "nomeEmpresa", length = 25, nullable = false, unique = false)
-	private String nomeEmpresa;
-	
-	@Column(name = "cnpj", length = 14, nullable = false, unique = false)
-	private String cnpj;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa",cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Vaga> demandaVagas;
-	
-	public Empresa(String nomeEmpresa, String cnpj, List<Vaga> vaga) {
-		super();
-		setNomeEmpresa(nomeEmpresa);
-		setCnpj(cnpj);
-		this.demandaVagas = new ArrayList<>();
-		setId(id);
-	}
+public class Empresa extends PessoaJuridica implements Serializable {
 
+    private static final long serialVersionUID = -6802369364395050191L;
 
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vaga> vagas = new ArrayList<Vaga>();
 
-	public String getNomeEmpresa() {
-		return nomeEmpresa;
-	}
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Proposta> propostas = new ArrayList<Proposta>();
 
-	public void setNomeEmpresa(String nomeEmpresa) {
-		this.nomeEmpresa = nomeEmpresa;
-	}
+    public Empresa() {
+    }
 
-	public String getCnpj() {
-		return cnpj;
-	}
+    public Empresa(String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNome(nome);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
+    public Empresa(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cnpj, String nome, LocalDate dataFundacao, String descricao) {
+        setId(id);
+        setSenha(senha);
+        setEndereco(endereco);
+        setPapel(papel);
+        setTelefone(telefone);
+        setEmail(email);
+        setCnpj(cnpj);
+        setNome(nome);
+        setDataFundacao(dataFundacao);
+        setDescricao(descricao);
+    }
 
-	public List<Vaga> getVagas() {
-		return demandaVagas;
-	}
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
 
-	public void setVagas(List<Vaga> vagas) {
-		this.demandaVagas = vagas;
-	}
-	
-	public void OfertarVagas(String nomeVaga, int codigoVaga, String descricaoVaga) {
-		
-	    Vaga novaVaga = new Vaga(nomeVaga, codigoVaga, descricaoVaga);
-	    this.demandaVagas.add(novaVaga);
-	    System.out.println("Vaga adicionada: " + novaVaga);
-	}
+    public void adicionarVaga(Vaga vaga) {
+        this.vagas.add(vaga);
+    }
 
-	
-	public void DeterminarDemanda() {
-		
-		int totalVagas = demandaVagas.size();
-        System.out.println("Total de vagas: " + totalVagas);
+    public List<Proposta> getPropostas() {
+        return propostas;
+    }
 
-	}
-	
-	public long getId() {
-		return id;		
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void adicionarProposta(Proposta propostas) {
+        this.propostas.add(propostas);
+    }
 
 }
