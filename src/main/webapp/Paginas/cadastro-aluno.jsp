@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Aluno</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Recursos/Css/cadastro-aluno.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/Recursos/Css/cadastro-aluno.css">
 </head>
 <body>
     <div class="container">
