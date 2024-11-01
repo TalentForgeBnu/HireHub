@@ -25,6 +25,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
@@ -66,10 +67,10 @@ public class AlunoServlet extends HttpServlet {
         }
     }
 
-    private void inserirAluno(HttpServletRequest request, HttpServletResponse response) {
+    private void inserirAluno(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-        // Papel ainda tem que ser melhor revisado com o professor.
-        Papel papel = new Papel();
+        Papel papel = new Papel("aluno");
 
         // Dados endereço
         String estado = request.getParameter("estado");
@@ -95,26 +96,30 @@ public class AlunoServlet extends HttpServlet {
         String renda = request.getParameter("renda-familiar").replace("-", "_");
         RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-        papel.setPapel("Sim");
         Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
         papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
+
+        response.sendRedirect(request.getContextPath());
     }
 
     private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Aluno alunoRecuperado = null;
+        Aluno aluno = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
             response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
         }
 
-        alunoRecuperado = (Aluno) session.getAttribute("usuario-logado");
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
 
-        if (alunoRecuperado.equals(session.getAttribute("usuario-logado"))) {
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
+
+            aluno = (Aluno) usuario;
+
             // dados aluno
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
@@ -130,23 +135,26 @@ public class AlunoServlet extends HttpServlet {
             RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
             // atualizando dados.
-            alunoRecuperado.setNome(nome);
-            alunoRecuperado.setSobrenome(sobrenome);
-            alunoRecuperado.setNomeSocial(nomeSocial);
-            alunoRecuperado.setDataNascimento(dataNascimento);
-            alunoRecuperado.setEtnia(etnia);
-            alunoRecuperado.setSexo(sexo);
-            alunoRecuperado.setEmail(email);
-            alunoRecuperado.setSenha(senha);
-            alunoRecuperado.setTelefone(telefone);
-            alunoRecuperado.setRendaFamiliar(rendaFamiliar);
+            aluno.setNome(nome);
+            aluno.setSobrenome(sobrenome);
+            aluno.setNomeSocial(nomeSocial);
+            aluno.setDataNascimento(dataNascimento);
+            aluno.setEtnia(etnia);
+            aluno.setSexo(sexo);
+            aluno.setEmail(email);
+            aluno.setSenha(senha);
+            aluno.setTelefone(telefone);
+            aluno.setRendaFamiliar(rendaFamiliar);
 
-            usuarioDAO.atualizarUsuario(alunoRecuperado);
+            usuarioDAO.atualizarUsuario(aluno);
 
-            request.setAttribute("aluno", alunoRecuperado);
+            request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
+        }else {
+            response.sendRedirect(request.getContextPath());
         }
+
     }
 
     private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
@@ -161,14 +169,21 @@ public class AlunoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
         }
 
-        aluno = (Aluno) session.getAttribute("usuario-logado");
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
 
-        if (aluno.equals(session.getAttribute("usuario-logado"))) {
-            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
+
+            aluno = (Aluno) usuario;
             request.setAttribute("aluno", aluno);
+
+            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
             request.setAttribute("rendafamiliar", rendafamiliar);
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
+
+        }else {
+            response.sendRedirect(request.getContextPath());
         }
 
     }
@@ -184,9 +199,9 @@ public class AlunoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
         }
 
-        professor = (Professor) session.getAttribute("usuario-logado");
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
 
-        if (professor.equals(session.getAttribute("usuario-logado"))) {
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
             long tumarId = Long.parseLong(request.getParameter("turma-id"));
 
             alunos = alunoDAO.recuperarAlunosPeloIdTurma(tumarId);

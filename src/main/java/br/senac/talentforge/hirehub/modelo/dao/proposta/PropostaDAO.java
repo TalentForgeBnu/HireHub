@@ -11,6 +11,8 @@ public interface PropostaDAO {
 
     void atualizarOferta(Proposta oferta);
 
+    Proposta recuperarPropostaPeloId(long idProposta);
+    
     Proposta recuperarPropostaPeloIdCurso(long idCurso);
 
     List<Proposta> recuperarPropostasPeloIdEmpresa(long idEmpresa);

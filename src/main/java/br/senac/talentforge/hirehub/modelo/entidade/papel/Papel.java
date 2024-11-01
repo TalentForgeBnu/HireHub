@@ -29,8 +29,8 @@ public class Papel implements Serializable {
     @Column(name = "id_papel")
     private long id;
 
-    @Column(name = "papel", length = 25, nullable = false, unique = true)
-    private String papel;
+    @Column(name = "funcao", length = 25, nullable = false, unique = true)
+    private String funcao;
 
     @OneToMany(mappedBy = "papel", fetch = FetchType.LAZY)
     private List<Usuario> usuarios = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Papel implements Serializable {
     }
 
     public Papel(String papel) {
-        setPapel(papel);
+        setFuncao(papel);
     }
 
     public long getId() {
@@ -50,11 +50,11 @@ public class Papel implements Serializable {
         this.id = id;
     }
 
-    public String getPapel() {
-        return papel;
+    public String getFuncao() {
+        return funcao;
     }
 
-    public void setPapel(String papel) {
-        this.papel = papel;
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
 }

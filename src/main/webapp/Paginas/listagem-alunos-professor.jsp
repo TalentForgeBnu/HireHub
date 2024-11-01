@@ -20,7 +20,6 @@
 					<th>Matrícula</th>
 					<th>Aluno</th>
 					<th>Data de Nascimento</th>
-					<th>Status</th>
 					<th>Dossiê</th>
 				</tr>
 			</thead>
@@ -30,8 +29,9 @@
 						<td>${alunos.matricula}</td>
 						<td>${alunos.nome}</td>
 						<td>${alunos.dataNascimento}</td>
-						<td><span>${alunos.estudante}</span></td>
-						<td><button>Editar Dossiê</button></td>
+						<td>
+						<a href="<%=request.getContextPath()%>/recuperar-dossie?id=<c:out value='${alunos.id}'/>"></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

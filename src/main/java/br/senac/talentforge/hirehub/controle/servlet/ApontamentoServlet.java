@@ -20,6 +20,7 @@ import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAO;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
+import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 
 @WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-apontamento", "/recuperar-lista-apontamentos"})
 public class ApontamentoServlet extends HttpServlet {

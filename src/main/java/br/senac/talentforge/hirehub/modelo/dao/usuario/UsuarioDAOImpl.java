@@ -2,15 +2,13 @@ package br.senac.talentforge.hirehub.modelo.dao.usuario;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
-import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
-import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
-import org.hibernate.Session;
-
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
+import org.hibernate.Session;
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -71,6 +69,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             CriteriaBuilder construtor = sessao.getCriteriaBuilder();
             CriteriaQuery<Usuario> criteria = construtor.createQuery(Usuario.class);
             Root<Usuario> raizUsuario = criteria.from(Usuario.class);
+            raizUsuario.fetch(Usuario_.PAPEL, JoinType.INNER);
             criteria.select(raizUsuario).where(construtor.equal(raizUsuario.get(Usuario_.EMAIL), email));
             usuarioRecuperado = sessao.createQuery(criteria).getSingleResult();
             sessao.getTransaction().commit();

@@ -17,11 +17,12 @@
         <div class="form-section">
             <h2>Adicionar Turma</h2>
             <form action="<%=request.getContextPath()%>/inserir-turma" method="post">
+               <input type="hidden" name="id" value="<c:out value='${curso.id}'/>" />
                 <div class="form-group">
                     <input type="text" id="nome" name="nome" placeholder="Nome da turma">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="codigo" name="codigo" placeholder="CÃ³digo da turma">
+                    <input type="text" id="codigo" name="codigo" placeholder="Código da turma">
                 </div>
                 <div class="form-group">
                     <input type="number" id="tamanho" name="tamanho" placeholder="Tamanho da turma">
@@ -35,15 +36,8 @@
                         <option value="matutino">Matutino</option>
                         <option value="vespertino">Vespertino</option>
                         <option value="noturno">Noturno</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                     <select id="nome-curso" name="curso" required>
-                         <c:forEach var="curso" items="${cursoList}">
-                            <option value="${curso.nome}" selected><c:out value="${curso.nome}"/></option>
-                         </c:forEach>
-                         <option value="SODA" selected>SODA</option>
-                     </select>
+                        <option value="integral">Integral</option>
+                    </select>                  
                 </div>
                 <div class="form-actions">
                     <button type="submit">Salvar Turma</button>

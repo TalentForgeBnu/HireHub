@@ -2,8 +2,11 @@ package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,15 +14,16 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
+import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
-import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.estudante.Estudante;
+import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
@@ -33,23 +37,22 @@ public class Aluno extends PessoaFisica implements Serializable {
     private String matricula;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_instituicao")
-    private Instituicao instituicao;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_turma")
     private Turma turma;
 
     @Enumerated(EnumType.STRING)
     private Estudante estudante;
-    
+
     @Enumerated(EnumType.STRING)
     private RendaFamiliar rendaFamiliar;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inscricao> inscricoes = new ArrayList<>();
 
     public Aluno() {
     }
 
-    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
+    public Aluno(String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNascimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Turma turma, Estudante estudante) {
         setSenha(senha);
         setEndereco(endereco);
         setPapel(papel);
@@ -60,16 +63,15 @@ public class Aluno extends PessoaFisica implements Serializable {
         setSobrenome(sobrenome);
         setNomeSocial(nomeSocial);
         setDataNascimento(dataNascimento);
-        setRendaFamiliar(rendaFamiliar);
         setEtnia(etnia);
         setSexo(sexo);
         setMatricula(matricula);
-        setInstituicao(instituicao);
         setTurma(turma);
         setEstudante(estudante);
+        setRendaFamiliar(rendaFamiliar);
     }
 
-    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Instituicao instituicao, Turma turma, Estudante estudante) {
+    public Aluno(long id, String senha, Endereco endereco, Papel papel, String telefone, String email, String cpf, String nome, String sobrenome, String nomeSocial, LocalDate dataNacimento, RendaFamiliar rendaFamiliar, Etnia etnia, Sexo sexo, String matricula, Turma turma, Estudante estudante) {
         setId(id);
         setSenha(senha);
         setEndereco(endereco);
@@ -85,7 +87,6 @@ public class Aluno extends PessoaFisica implements Serializable {
         setEtnia(etnia);
         setSexo(sexo);
         setMatricula(matricula);
-        setInstituicao(instituicao);
         setTurma(turma);
         setEstudante(estudante);
     }
@@ -115,14 +116,6 @@ public class Aluno extends PessoaFisica implements Serializable {
         this.matricula = matricula;
     }
 
-    public Instituicao getInstituicao() {
-        return instituicao;
-    }
-
-    public void setInstituicao(Instituicao instituicao) {
-        this.instituicao = instituicao;
-    }
-
     public Turma getTurma() {
         return turma;
     }
@@ -136,15 +129,27 @@ public class Aluno extends PessoaFisica implements Serializable {
     }
 
     public void setEstudante(Estudante estudante) {
-        this.estudante= estudante;
+        this.estudante = estudante;
     }
-    
+
     public RendaFamiliar getRendaFamiliar() {
         return rendaFamiliar;
     }
 
     public void setRendaFamiliar(RendaFamiliar rendaFamiliar) {
-        this.rendaFamiliar= rendaFamiliar;
+        this.rendaFamiliar = rendaFamiliar;
+    }
+
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
+    public void adicionarInscricao(Inscricao inscricao) {
+        this.inscricoes.add(inscricao);
     }
 
     @Override
@@ -154,14 +159,14 @@ public class Aluno extends PessoaFisica implements Serializable {
         if (!super.equals(object)) return false;
         Aluno aluno = (Aluno) object;
         return Objects.equals(matricula, aluno.matricula) &&
-                Objects.equals(instituicao, aluno.instituicao) &&
                 Objects.equals(turma, aluno.turma) &&
                 estudante == aluno.estudante &&
-        		rendaFamiliar == aluno.rendaFamiliar;
+                rendaFamiliar == aluno.rendaFamiliar;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), matricula, instituicao, turma, estudante);
+        return Objects.hash(super.hashCode(), matricula, turma, estudante);
     }
+
 }
