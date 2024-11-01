@@ -46,7 +46,7 @@ public class Turma implements Serializable {
     private byte capacidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_professor", nullable = false)
     private Professor professor;
 
     @ManyToOne

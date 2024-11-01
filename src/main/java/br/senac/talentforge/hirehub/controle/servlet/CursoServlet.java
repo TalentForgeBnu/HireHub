@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/cadastro-turma"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso","/recuperar-perfil-curso", "/recuperar-lista-cursos", "/cadastro-turma"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -46,6 +46,7 @@ public class CursoServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
+                case "/recuperar-perfil-curso" -> recuperarPerfilCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
                 case "/cadastro-turma" -> cadastroTurma(request, response);
             }
@@ -121,6 +122,36 @@ public class CursoServlet extends HttpServlet {
 
     }
 
+    private void recuperarPerfilCurso(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        HttpSession session = request.getSession();
+        Curso curso = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
+
+            String atuacao = request.getParameter("atuacao");
+
+            if (atuacao == null || atuacao.isEmpty()) {
+            	long idCurso = Long.parseLong(request.getParameter("id"));
+                curso = cursoDAO.recuperarCursoPeloId(idCurso);
+            }
+
+            request.setAttribute("curso", curso);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-curso.jsp");
+            dispatcher.forward(request, response);
+
+        }else {
+            response.sendRedirect(request.getContextPath());
+        }
+    }
+    
     private void recuperarListaCursos(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
