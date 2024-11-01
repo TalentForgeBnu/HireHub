@@ -4,6 +4,8 @@ pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+<title>Seus Cursos</title>
+</head>
 <body>
     <h1>Seus Cursos</h1>
     <div>
@@ -32,4 +34,4 @@ pageEncoding="UTF-8"%>
         </c:forEach>
     </div>
 </body>
-</head>
+</html>
