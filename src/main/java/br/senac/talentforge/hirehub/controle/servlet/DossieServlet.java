@@ -42,6 +42,7 @@ public class DossieServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-dossie" -> inserirDossie(request, response);
+                case "/atualizar-dossie" -> atualizarDossie(request, response);
                 case "/recuperar-dossie" -> recuperarDossie(request, response);
             }
         } catch (Exception e) {
@@ -63,6 +64,30 @@ public class DossieServlet extends HttpServlet {
             Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(request.getParameter("aluno-cpf"));
             String conteudo = request.getParameter("conteudo");
             dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
+        }else {
+            response.sendRedirect(request.getContextPath());
+        }
+
+    }
+    
+    private void atualizarDossie(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        HttpSession session = request.getSession();
+        Professor professor = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
+        }
+
+        professor = (Professor) session.getAttribute("usuario-logado");
+
+        if(professor.equals(session.getAttribute("usuario-logado"))){
+        	
+        	Dossie dossieRecuperadoDossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(Long.parseLong(request.getParameter("aluno-id")));
+        	dossieRecuperadoDossie.setConteudo(request.getParameter("conteudo"));
+        	dossieDAO.atualizarDossie(dossieRecuperadoDossie);
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
+            dispatcher.forward(request, response);
+        	
         }else {
             response.sendRedirect(request.getContextPath());
         }
