@@ -49,8 +49,16 @@ pageEncoding="UTF-8"%>
                         <option value="${professor.id}">${professor.nome} ${professor.sobrenome}</option>
                     </c:forEach>
                 </select>
-            </div>
-
+            </div>           
+            <div class="form-group">
+                    <select id="turno" name="turno" required>
+                        <option value="" disabled selected>Turno</option>
+                        <option value="matutino">Matutino</option>
+                        <option value="vespertino">Vespertino</option>
+                        <option value="noturno">Noturno</option>
+                        <option value="integral">Integral</option>
+                    </select>                  
+                </div>
             <div class="form-actions">
                 <button type="submit">Salvar Turma</button>
             </div>
