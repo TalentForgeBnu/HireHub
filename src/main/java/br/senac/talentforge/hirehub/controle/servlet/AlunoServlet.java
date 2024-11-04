@@ -24,13 +24,12 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno", "/recuperar-lista-alunos"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos"})
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
@@ -59,8 +58,6 @@ public class AlunoServlet extends HttpServlet {
                 case "/inserir-aluno" -> inserirAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
                 case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
-                case "/recuperar-lista-alunos" -> recuperarListaAlunos(request, response);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,33 +180,6 @@ public class AlunoServlet extends HttpServlet {
             dispatcher.forward(request, response);
 
         }else {
-            response.sendRedirect(request.getContextPath());
-        }
-
-    }
-
-    private void recuperarListaAlunos(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        Professor professor = null;
-        List<Aluno> alunos = new ArrayList<Aluno>();
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("aluno")) {
-            long tumarId = Long.parseLong(request.getParameter("turma-id"));
-
-            alunos = alunoDAO.recuperarAlunosPeloIdTurma(tumarId);
-
-            request.setAttribute("alunos", alunos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-alunos-professor.jsp");
-            dispatcher.forward(request, response);
-        } else {
             response.sendRedirect(request.getContextPath());
         }
 

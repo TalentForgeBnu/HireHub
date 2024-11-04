@@ -30,10 +30,7 @@ pageEncoding="UTF-8"%>
 
         <h2>Perfis</h2>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/recuperar-perfil-aluno">Perfil Aluno</a></li>
-            <li><a href="${pageContext.request.contextPath}/recuperar-perfil-empresa">Perfil Empresa</a></li>
-            <li><a href="${pageContext.request.contextPath}/recuperar-perfil-instituicao">Perfil Instituição</a></li>
-            <li><a href="${pageContext.request.contextPath}/recuperar-perfil-professor">Perfil Professor</a></li>
+            <li><a href="${pageContext.request.contextPath}/perfil">Perfil</a></li>
         </ul>
 
         <h2>Logout</h2>
