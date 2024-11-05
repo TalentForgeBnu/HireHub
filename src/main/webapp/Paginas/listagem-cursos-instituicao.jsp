@@ -30,7 +30,15 @@ pageEncoding="UTF-8"%>
                         <button type="submit">Cadastrar Turma</button>
                     </form>
                 </div>
+                
+                <div>
+                    <form action="<%=request.getContextPath()%>/recuperar-perfil-curso" method="post">
+                        <input type="hidden" name="id" value="${cursos.id}"/>
+                        <button type="submit">Ver Mais</button>
+                    </form>
+                </div>
             </div>
+
         </c:forEach>
     </div>
 </body>

@@ -31,7 +31,7 @@
 					<td><c:out value="${turmas.codigo}" /></td>
 					<td><c:out value="${turmas.nome}" /></td>
 					<td><a
-						href="<%=request.getContextPath()%>/recuperar-lista-alunos?id=<c:out value='${turmnas.id}'/>"></a>
+						href="<%=request.getContextPath()%>/recuperar-lista-alunos?id=<c:out value='${turmnas.id}'/>">Alunos</a>
 					</td>
 				<tr>
 			</c:forEach>

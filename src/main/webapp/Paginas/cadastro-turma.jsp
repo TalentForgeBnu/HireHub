@@ -27,13 +27,16 @@ pageEncoding="UTF-8"%>
             <div class="form-group">
                 <input type="text" id="nome" name="nome" placeholder="Nome da turma">
             </div>
+            <div class="form-group">
+                <input type="text" id="codigo" name="codigo" placeholder="Código da turma">
+            </div>
 
             <div class="form-group">
                 <input type="number" id="tamanho" name="tamanho" placeholder="Tamanho da turma">
             </div>
 
             <div class="form-group">
-                <input type="hidden" name="id" value="<c:out value='${curso.id}'/>" />
+                <input type="hidden" name="id-curso" value="<c:out value='${curso.id}'/>" />
                 <label>Dados do Curso</label>
                 <div>
                     <label>Nome: ${curso.nome}</label>
@@ -43,10 +46,10 @@ pageEncoding="UTF-8"%>
             </div>
 
             <div class="form-group">
-                <select id="professor" name="professor" required>
+                <select id="cpf-professor" name="cpf-professor" required>
                     <option value="" disabled selected>Selecione o professor</option>
                     <c:forEach var="professor" items="${professores}">
-                        <option value="${professor.id}">${professor.nome} ${professor.sobrenome}</option>
+                        <option value="${professor.cpf}">${professor.nome} ${professor.sobrenome}</option>
                     </c:forEach>
                 </select>
             </div>           
