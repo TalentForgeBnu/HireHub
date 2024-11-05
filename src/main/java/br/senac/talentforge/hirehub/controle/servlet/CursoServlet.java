@@ -179,7 +179,7 @@ public class CursoServlet extends HttpServlet {
 
         }
 
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
+        else if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
             instituicao = (Instituicao) usuario;
 
