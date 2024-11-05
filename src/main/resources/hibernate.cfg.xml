@@ -22,6 +22,5 @@
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie"/>
 		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento"/>
-		<mapping class="br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao"/>
 	</session-factory>
 </hibernate-configuration>
