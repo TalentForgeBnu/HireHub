@@ -51,7 +51,7 @@ public class DossieServlet extends HttpServlet {
 	}
 
 	private void inserirDossie(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		HttpSession session = request.getSession();
 		Professor professor = null;
 
@@ -65,6 +65,8 @@ public class DossieServlet extends HttpServlet {
 			Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(request.getParameter("aluno-cpf"));
 			String conteudo = request.getParameter("conteudo");
 			dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
+			dispatcher.forward(request, response);
 		} else {
 			response.sendRedirect(request.getContextPath());
 		}
@@ -99,16 +101,13 @@ public class DossieServlet extends HttpServlet {
 
 	private void recuperarDossie(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(Long.parseLong(request.getParameter("aluno-id")));
-		if (dossie != null) {
+		
+		    long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+		
+		    Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			request.setAttribute("dossie", dossie);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
 			dispatcher.forward(request, response);
-		}
-		else {		
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
-			dispatcher.forward(request, response);
-		}
 	}
 
 }

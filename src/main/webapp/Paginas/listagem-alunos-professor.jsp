@@ -30,9 +30,9 @@
 						<td>${alunos.nome}</td>
 						<td>${alunos.dataNascimento}</td>
 						<td>
-							<form action="<%=request.getContextPath()%>/recuperar-dossie"
+							<form action="<%=request.getContextPath()%>/Paginas/cadastro-dossie.jsp"
 								method="post">
-								<input type="hidden" name="id" value="${alunos.id}" /> <input
+								<input type="hidden" name="id-aluno" value="${alunos.id}" /> <input
 									type="hidden" name="aluno-cpf" value="${alunos.cpf}" />
 								<button type="submit">Cadastrar Dossie</button>
 							</form>

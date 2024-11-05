@@ -30,8 +30,11 @@
 				<tr>
 					<td><c:out value="${turmas.codigo}" /></td>
 					<td><c:out value="${turmas.nome}" /></td>
-					<td><a
-						href="<%=request.getContextPath()%>/recuperar-lista-alunos?id=<c:out value='${turmnas.id}'/>">Alunos</a>
+					<td><form action="<%=request.getContextPath()%>/listagem-alunos-turma"
+								method="post">
+								<input type="hidden" name="id-turma" value="${turmas.id}" />
+								<button type="submit">Ver alunos</button>
+							</form>
 					</td>
 				<tr>
 			</c:forEach>
