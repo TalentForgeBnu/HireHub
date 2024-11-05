@@ -14,6 +14,7 @@
     <form action="<%=request.getContextPath()%>/recuperar-dossie" method="post">
         <div>
             <h2>Dossie</h2>
+            <input type=hidden name="id-dossie" value="${dossie.id}">
             <textarea placeholder="Escreva o Dossiê" id="conteudo" name="conteudo">${dossie.conteudo}</textarea>
             <input type="submit" value="Cadastrar">
         </div>

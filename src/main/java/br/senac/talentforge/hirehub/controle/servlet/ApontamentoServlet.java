@@ -42,7 +42,6 @@ public class ApontamentoServlet extends HttpServlet {
 			switch (action) {
 			case "/inserir-apontamento" -> inserirApontamento(request, response);
 			case "/recuperar-lista-apontamentos" -> recuperarListaApontamentos(request, response);
-			default -> referenciaNaoEncontrada(request, response);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -73,6 +72,8 @@ public class ApontamentoServlet extends HttpServlet {
 			String apontamento = request.getParameter("apontamento");
 			LocalDate dataCriacao = LocalDate.parse(request.getParameter("data-criacao"));
 			apontamentoDAO.inserirApontamento(new Apontamento(apontamento, dataCriacao, dossie));
+		}else {
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 
@@ -97,10 +98,9 @@ public class ApontamentoServlet extends HttpServlet {
 			request.setAttribute("apontamentos", apontamentos);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/apontamentos.jsp");
 			dispatcher.forward(request, response);
-
 		}
-	}
-
-	private void referenciaNaoEncontrada(HttpServletRequest request, HttpServletResponse response) {
+		else {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 }

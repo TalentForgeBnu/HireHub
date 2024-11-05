@@ -30,11 +30,12 @@
 						<td>${alunos.nome}</td>
 						<td>${alunos.dataNascimento}</td>
 						<td>
-						<form action="<%=request.getContextPath()%>/cadastro-dossie" method="post">
-                        <input type="hidden" name="id" value="${alunos.id}"/>
-                        <input type="hidden" name="aluno-cpf" value="${alunos.cpf}"/>
-                        <button type="submit">Cadastrar Dossie</button>
-                        </form>
+							<form action="<%=request.getContextPath()%>/recuperar-dossie"
+								method="post">
+								<input type="hidden" name="id" value="${alunos.id}" /> <input
+									type="hidden" name="aluno-cpf" value="${alunos.cpf}" />
+								<button type="submit">Cadastrar Dossie</button>
+							</form>
 						</td>
 					</tr>
 				</c:forEach>
