@@ -11,7 +11,12 @@
 </head>
 <body>
     <h1>Registros do Aluno</h1>
-    <form action="<%=request.getContextPath()%>/recuperar-dossie" method="post">
+    <c:if test="${dossie == null}">
+        <form action="<%=request.getContextPath()%>/inserir-dossie" method="post">
+    </c:if>
+    <c:if test="${dossie != null}">
+        <form action="<%=request.getContextPath()%>/atualizar-dossie" method="post">
+    </c:if>
         <div>
             <h2>Dossie</h2>
             <input type="hidden" name="id-aluno" value="${aluno.id}">
