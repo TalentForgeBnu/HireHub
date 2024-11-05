@@ -8,4 +8,6 @@ public interface PapelDAO {
 	void deletarPapel(Papel papel);
 		
 	void atualizarPapel(Papel papel);
+
+	Papel recuperarPapelPelaFuncao(String funcao);
 }

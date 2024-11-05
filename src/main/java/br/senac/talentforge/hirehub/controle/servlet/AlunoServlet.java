@@ -2,8 +2,6 @@ package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,7 +65,10 @@ public class AlunoServlet extends HttpServlet {
     private void inserirAluno(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        //arrumar gambiarra
         Papel papel = new Papel("aluno");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("aluno");
 
         // Dados endereço
         String estado = request.getParameter("estado");
@@ -94,7 +95,6 @@ public class AlunoServlet extends HttpServlet {
         RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
         Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
-        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
 
@@ -148,7 +148,7 @@ public class AlunoServlet extends HttpServlet {
             request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 
@@ -179,7 +179,7 @@ public class AlunoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
 
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 

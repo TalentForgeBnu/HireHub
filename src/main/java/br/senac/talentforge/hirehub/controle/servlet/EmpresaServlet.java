@@ -56,7 +56,11 @@ public class EmpresaServlet extends HttpServlet {
 
     private void inserirEmpresa(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+
+        //arrumar gambiarra
         Papel papel = new Papel("empresa");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("empresa");
 
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");

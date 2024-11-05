@@ -74,7 +74,10 @@ public class ProfessorServlet extends HttpServlet {
 
             instituicao = (Instituicao) usuario;
 
+            //arrumar gambiarra
             Papel papel = new Papel("professor");
+            papelDAO.inserirPapel(papel);
+            papel = papelDAO.recuperarPapelPelaFuncao("professor");
 
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");

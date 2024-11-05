@@ -55,7 +55,11 @@ public class InstituicaoServlet extends HttpServlet {
     }
 
     private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+        //arrumar gambiarra
         Papel papel = new Papel("instituicao");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("instituicao");
 
         String nome = request.getParameter("nome-instituicao");
         String descricao = request.getParameter("descricao-instituicao");
@@ -75,7 +79,6 @@ public class InstituicaoServlet extends HttpServlet {
 
         Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
 
-        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
         response.sendRedirect(request.getContextPath());
