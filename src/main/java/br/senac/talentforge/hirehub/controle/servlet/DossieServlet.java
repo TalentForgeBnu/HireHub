@@ -101,6 +101,7 @@ public class DossieServlet extends HttpServlet {
 
             dossieDAO.atualizarDossie(dossie);
 
+            request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
             dispatcher.forward(request, response);
         } else {
@@ -112,17 +113,40 @@ public class DossieServlet extends HttpServlet {
     private void recuperarDossie(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+    	Aluno aluno = null;
+    	
         long idAluno = Long.parseLong(request.getParameter("id-aluno"));
         String cpfAluno = request.getParameter("cpf-aluno");
+        
+        if(cpfAluno != null) {
+        	
+        	aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
+            Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 
-        Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
-        Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("dossie", dossie);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+            dispatcher.forward(request, response);
+        	
+        }else {
+        	
+        	aluno = (Aluno) request.getAttribute("aluno");
+        	
+        	idAluno = aluno.getId();
+        	
+        	Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 
-        request.setAttribute("aluno", aluno);
-        request.setAttribute("dossie", dossie);
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("dossie", dossie);
+        	
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+            dispatcher.forward(request, response);
+        }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
-        dispatcher.forward(request, response);
+
+
+
     }
 
 }
