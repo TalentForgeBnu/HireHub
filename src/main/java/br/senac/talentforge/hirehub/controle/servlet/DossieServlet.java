@@ -69,6 +69,7 @@ public class DossieServlet extends HttpServlet {
             String conteudo = request.getParameter("conteudo");
             dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
 
+            request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
             dispatcher.forward(request, response);
         } else {
