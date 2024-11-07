@@ -30,7 +30,7 @@
 						<td>${alunos.nome}</td>
 						<td>${alunos.dataNascimento}</td>
 						<td>
-							<form action="<%=request.getContextPath()%>/recuperar-dossie"
+							<form action="<%=request.getContextPath()%>/recuperar-lista-apontamentos"
 								method="post">
 								<input type="hidden" name="id-aluno" value="${alunos.id}" /> <input
 									type="hidden" name="cpf-aluno" value="${alunos.cpf}" />

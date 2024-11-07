@@ -14,25 +14,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.apontamento.ApontamentoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAO;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAOImpl;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 
-@WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-apontamento", "/recuperar-lista-apontamentos"})
+@WebServlet(urlPatterns = {"/inserir-apontamento", "/recuperar-lista-apontamentos"})
 public class ApontamentoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -4592280850903991380L;
 
 	private ApontamentoDAO apontamentoDAO;
 	private DossieDAO dossieDAO;
+	private AlunoDAO alunoDAO;
 
 	public void init() {
 		apontamentoDAO = new ApontamentoDAOImpl();
 		dossieDAO = new DossieDAOImpl();
+		alunoDAO = new AlunoDAOImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +59,7 @@ public class ApontamentoServlet extends HttpServlet {
 	}
 
 	private void inserirApontamento(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 
 		HttpSession session = request.getSession();
 		Professor professor = null;
@@ -68,10 +73,17 @@ public class ApontamentoServlet extends HttpServlet {
 		if (professor.equals(session.getAttribute("usuario-logado"))) {
 
 			long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+			String cpfAluno = request.getParameter("aluno-cpf");
+			Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
 			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			String apontamento = request.getParameter("apontamento");
 			LocalDate dataCriacao = LocalDate.parse(request.getParameter("data-criacao"));
 			apontamentoDAO.inserirApontamento(new Apontamento(apontamento, dataCriacao, dossie));
+			
+			
+			request.setAttribute("aluno", aluno);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-lista-apontamentos");
+            dispatcher.forward(request, response);
 		}else {
 			response.sendRedirect(request.getContextPath());
 		}
@@ -93,11 +105,16 @@ public class ApontamentoServlet extends HttpServlet {
 		if (professor.equals(session.getAttribute("usuario-logado"))) {
 
 			long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+			String cpfAluno = request.getParameter("aluno-cpf");
+			Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
 			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			apontamentos = apontamentoDAO.recuperarApontamentosPeloIdDossie(dossie.getId());
 			request.setAttribute("apontamentos", apontamentos);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/apontamentos.jsp");
-			dispatcher.forward(request, response);
+			
+			
+			request.setAttribute("aluno", aluno);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
+            dispatcher.forward(request, response);
 		}
 		else {
 			response.sendRedirect(request.getContextPath());

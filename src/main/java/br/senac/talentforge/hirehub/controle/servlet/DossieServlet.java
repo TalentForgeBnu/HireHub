@@ -102,7 +102,7 @@ public class DossieServlet extends HttpServlet {
             dossieDAO.atualizarDossie(dossie);
 
             request.setAttribute("aluno", aluno);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-lista-apontamentos");
             dispatcher.forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath());
