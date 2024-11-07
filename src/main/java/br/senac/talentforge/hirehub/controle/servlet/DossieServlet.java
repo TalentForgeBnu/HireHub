@@ -16,7 +16,6 @@ import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAO;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 @WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie", "/recuperar-dossie"})
@@ -113,13 +112,12 @@ public class DossieServlet extends HttpServlet {
     private void recuperarDossie(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-    	Aluno aluno = null;
-    	
-        long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+    	Aluno aluno = null;            
         String cpfAluno = request.getParameter("cpf-aluno");
         
         if(cpfAluno != null) {
         	
+        	long idAluno = Long.parseLong(request.getParameter("id-aluno"));
         	aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
             Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 
@@ -132,10 +130,8 @@ public class DossieServlet extends HttpServlet {
         }else {
         	
         	aluno = (Aluno) request.getAttribute("aluno");
-        	
-        	idAluno = aluno.getId();
-        	
-        	Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
+       	
+        	Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(aluno.getId());
 
             request.setAttribute("aluno", aluno);
             request.setAttribute("dossie", dossie);
