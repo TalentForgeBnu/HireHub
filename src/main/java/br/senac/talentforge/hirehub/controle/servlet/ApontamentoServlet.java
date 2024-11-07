@@ -92,7 +92,7 @@ public class ApontamentoServlet extends HttpServlet {
 
 		if (professor.equals(session.getAttribute("usuario-logado"))) {
 
-			long idAluno = Long.parseLong(request.getParameter("id"));
+			long idAluno = Long.parseLong(request.getParameter("id-aluno"));
 			Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
 			apontamentos = apontamentoDAO.recuperarApontamentosPeloIdDossie(dossie.getId());
 			request.setAttribute("apontamentos", apontamentos);
