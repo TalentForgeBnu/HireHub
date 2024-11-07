@@ -30,6 +30,9 @@
     <form action="<%=request.getContextPath()%>/inserir-apontamento" method="post">
         <div>
             <h2>Apontamento</h2>
+            <input type="hidden" name="id-aluno" value="${aluno.id}">
+            <input type="hidden" name="aluno-cpf" value="${aluno.cpf}">
+            <input type=hidden name="id-dossie" value="${dossie.id}">
             <textarea placeholder="Escreva o Apontamento" name="apontamento" id="apontamento"></textarea>
             <div><input type="date" name="data-criacao" id="data-criacao"></div>
             <input type="submit" value="Cadastrar">
