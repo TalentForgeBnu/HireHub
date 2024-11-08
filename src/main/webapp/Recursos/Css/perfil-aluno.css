@@ -1,0 +1,122 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+body {
+	background-color: #f4f4f9;
+}
+
+.pfp {
+    display: flex;
+	justify-content: center;
+	position: relative;
+	margin: 50px;
+}
+
+.foto {
+     width: 250px;
+     display: flex;
+     position: relative;
+}
+
+.foto img {
+	border-radius: 1000px;
+	cursor: pointer;
+}
+
+.foto .editarbotao {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+.container {
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 900px;
+	display: flex;
+	margin: auto;
+}
+.navbar {
+	background-color: #4A90E2;
+	padding: 10px;
+	color: white;
+	display: flex;
+	align-items: center;
+}
+.navbar .voltar {
+	font-size: 24px;
+	cursor: pointer;
+	margin-right: 10px;
+}
+.navbar .excluir {
+	cursor: pointer;
+}
+.navbar .nome {
+	flex-grow: 1;
+	font-size: 20px;
+}
+
+h1 {
+	font-size: 36px;
+	color: #4A90E2;
+	text-decoration-thickness: 7px;
+	margin-bottom: 10px;
+}
+
+p {
+	font-size: 16px;
+	color: #666;
+	margin-bottom: 20px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+input, select {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	font-size: 14px;
+	width: 100%;
+}
+
+input[type="email"], input[type="password"], input[type="tel"], input[type="date"],
+	input[type="text"], select {
+	background-color: #fafafa;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
+	input[type="date"]:focus, input[type="text"]:focus, select:focus {
+	border-color: #0066cc;
+	outline: none;
+}
+
+.input-group {
+	display: flex;
+	gap: 10px;
+}
+
+button {
+	padding: 10px 20px;
+	background-color: #3B82F6;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+button:hover {
+	background-color: #005bb5;
+}
