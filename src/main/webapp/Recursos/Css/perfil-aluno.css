@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: Arial, sans-serif;
+	font-family: Inter, Arial, sans-serif;
 }
 
 body {
@@ -49,6 +49,8 @@ body {
 	color: white;
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	font-size: 48px;
 }
 .navbar .voltar {
 	font-size: 24px;
@@ -60,7 +62,7 @@ body {
 }
 .navbar .nome {
 	flex-grow: 1;
-	font-size: 20px;
+	font-size: 48px;
 }
 
 h1 {
