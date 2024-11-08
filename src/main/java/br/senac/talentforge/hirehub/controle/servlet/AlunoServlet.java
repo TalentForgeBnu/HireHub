@@ -136,10 +136,8 @@ public class AlunoServlet extends HttpServlet {
             String sobrenome = request.getParameter("sobrenome");
             String nomeSocial = request.getParameter("nome-social");
             LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
-            String et = request.getParameter("etnia");
-            Etnia etnia = Etnia.valueOf(et.toUpperCase());
-            String sex = request.getParameter("sexo");
-            Sexo sexo = Sexo.valueOf(sex.toUpperCase());
+            Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
+            Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
             String senha = request.getParameter("senha");
             String renda = request.getParameter("renda-familiar").replace("-", "_");
             RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
