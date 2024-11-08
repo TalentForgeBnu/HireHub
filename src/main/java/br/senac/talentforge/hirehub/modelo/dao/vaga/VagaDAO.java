@@ -15,9 +15,9 @@ public interface VagaDAO {
 
 	Vaga recuperarVagaPeloId(long idVaga);
 	
-	Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao);
+	List<Vaga> recuperarVagaPelaModalidade(Contratacao modalidadeContratacao);
 
-	Vaga recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga);
+	List<Vaga> recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga);
 
 	List<Vaga> recuperarVagasPeloIdDaEmpresa(long idEmpresa);
 }
