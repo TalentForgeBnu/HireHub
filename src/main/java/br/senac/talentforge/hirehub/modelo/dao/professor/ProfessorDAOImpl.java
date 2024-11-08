@@ -1,5 +1,7 @@
 package br.senac.talentforge.hirehub.modelo.dao.professor;
 
+import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,7 +20,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
 
     public Professor recuperarProfessorPeloId(long idProfessor) {
-
         Session sessao = null;
         Professor professorRecuperado = null;
         try {
@@ -39,7 +40,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
     }
 
     public Professor recuperarProfessorPeloCpf(String cpf) {
-
         Session sessao = null;
         Professor professorRecuperado = null;
         try {
@@ -57,6 +57,26 @@ public class ProfessorDAOImpl implements ProfessorDAO {
             fecharSessao(sessao);
         }
         return professorRecuperado;
+    }
+
+    public List<Professor> recuperarProfessoresPeloIdInstituicao(long idInstituicao) {
+        Session sessao = null;
+        List<Professor> professoresRecuperados = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Professor> criteria = construtor.createQuery(Professor.class);
+            Root<Professor> raizProfessor = criteria.from(Professor.class);
+            criteria.select(raizProfessor).where(construtor.equal(raizProfessor.get(Professor_.INSTITUICAO), idInstituicao));
+            professoresRecuperados = sessao.createQuery(criteria).getResultList();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return professoresRecuperados;
     }
 
     private void erroSessao(Session sessao, Exception exception) {

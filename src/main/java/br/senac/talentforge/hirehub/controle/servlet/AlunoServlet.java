@@ -2,8 +2,6 @@ package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,13 +22,12 @@ import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-perfil-aluno", "/recuperar-lista-alunos"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos"})
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
@@ -59,8 +56,6 @@ public class AlunoServlet extends HttpServlet {
                 case "/inserir-aluno" -> inserirAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
                 case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
-                case "/recuperar-lista-alunos" -> recuperarListaAlunos(request, response);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +65,10 @@ public class AlunoServlet extends HttpServlet {
     private void inserirAluno(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        //arrumar gambiarra
         Papel papel = new Papel("aluno");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("aluno");
 
         // Dados endereço
         String estado = request.getParameter("estado");
@@ -97,7 +95,6 @@ public class AlunoServlet extends HttpServlet {
         RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
         Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
-        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
 
@@ -158,7 +155,7 @@ public class AlunoServlet extends HttpServlet {
             request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 
@@ -193,33 +190,6 @@ public class AlunoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
 
-        }else {
-            response.sendRedirect(request.getContextPath());
-        }
-
-    }
-
-    private void recuperarListaAlunos(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        Professor professor = null;
-        List<Aluno> alunos = new ArrayList<Aluno>();
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("aluno")) {
-            long tumarId = Long.parseLong(request.getParameter("turma-id"));
-
-            alunos = alunoDAO.recuperarAlunosPeloIdTurma(tumarId);
-
-            request.setAttribute("alunos", alunos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-alunos-professor.jsp");
-            dispatcher.forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath());
         }

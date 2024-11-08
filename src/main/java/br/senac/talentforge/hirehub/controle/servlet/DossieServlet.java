@@ -1,7 +1,6 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +16,7 @@ import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAO;
 import br.senac.talentforge.hirehub.modelo.dao.dossie.DossieDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie;
-import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
 @WebServlet(urlPatterns = {"/inserir-dossie", "/atualizar-dossie", "/recuperar-dossie"})
 public class DossieServlet extends HttpServlet {
@@ -42,6 +41,7 @@ public class DossieServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-dossie" -> inserirDossie(request, response);
+                case "/atualizar-dossie" -> atualizarDossie(request, response);
                 case "/recuperar-dossie" -> recuperarDossie(request, response);
             }
         } catch (Exception e) {
@@ -49,31 +49,101 @@ public class DossieServlet extends HttpServlet {
         }
     }
 
-    private void inserirDossie(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    private void inserirDossie(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
         HttpSession session = request.getSession();
-        Professor professor = null;
+        Usuario usuario = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
-        professor = (Professor) session.getAttribute("usuario-logado");
+        usuario = (Usuario) session.getAttribute("usuario-logado");
 
-        if(professor.equals(session.getAttribute("usuario-logado"))){
-            Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(request.getParameter("aluno-cpf"));
+        if (usuario.getPapel().getFuncao().equals("professor")) {
+
+            String cpf = request.getParameter("aluno-cpf");
+            Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(cpf);
+
             String conteudo = request.getParameter("conteudo");
             dossieDAO.inserirDossie(new Dossie(conteudo, aluno));
-        }else {
+
+            request.setAttribute("aluno", aluno);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-dossie");
+            dispatcher.forward(request, response);
+        } else {
             response.sendRedirect(request.getContextPath());
         }
 
     }
 
-    private void recuperarDossie(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(Long.parseLong(request.getParameter("aluno-id")));
-        request.setAttribute("dossie", dossie);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
-        dispatcher.forward(request, response);
+    private void atualizarDossie(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        Usuario usuario = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
+
+        usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("professor")) {
+
+            String cpfAluno = request.getParameter("aluno-cpf");
+            String conteudo = request.getParameter("conteudo");
+
+            Aluno aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
+            Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(aluno.getId());
+
+            dossie.setConteudo(conteudo);
+
+            dossieDAO.atualizarDossie(dossie);
+
+            request.setAttribute("aluno", aluno);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/recuperar-lista-apontamentos");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath());
+        }
+
+    }
+
+    private void recuperarDossie(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+    	Aluno aluno = null;            
+        String cpfAluno = request.getParameter("cpf-aluno");
+        
+        if(cpfAluno != null) {
+        	
+        	long idAluno = Long.parseLong(request.getParameter("id-aluno"));
+        	aluno = alunoDAO.recuperarAlunoPeloCpf(cpfAluno);
+            Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(idAluno);
+
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("dossie", dossie);
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+            dispatcher.forward(request, response);
+        	
+        }else {
+        	
+        	aluno = (Aluno) request.getAttribute("aluno");
+       	
+        	Dossie dossie = dossieDAO.recuperarDossiePeloIdDoUsuarioAluno(aluno.getId());
+
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("dossie", dossie);
+        	
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-dossie.jsp");
+            dispatcher.forward(request, response);
+        }
+
+
+
+
     }
 
 }

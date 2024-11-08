@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa", "/recuperar-perfil-empresa"})
+@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa"})
 public class EmpresaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7157263069775551523L;
@@ -48,7 +48,6 @@ public class EmpresaServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-empresa" -> inserirEmpresa(request, response);
                 case "/atualizar-perfil-empresa" -> atualizarPerfilEmpresa(request, response);
-                case "/recuperar-perfil-empresa" -> recuperarPerfilEmpresa(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +56,11 @@ public class EmpresaServlet extends HttpServlet {
 
     private void inserirEmpresa(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+
+        //arrumar gambiarra
         Papel papel = new Papel("empresa");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("empresa");
 
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
@@ -131,32 +134,6 @@ public class EmpresaServlet extends HttpServlet {
             request.setAttribute("empresa", empresa);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-empresa.jsp");
             dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath());
-        }
-
-    }
-
-    private void recuperarPerfilEmpresa(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-
-        HttpSession session = request.getSession();
-        Empresa empresa = null;
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("empresa")) {
-
-            empresa = (Empresa) usuario;
-            request.setAttribute("empresa", empresa);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-empresa.jsp");
-            dispatcher.forward(request, response);
-
         } else {
             response.sendRedirect(request.getContextPath());
         }

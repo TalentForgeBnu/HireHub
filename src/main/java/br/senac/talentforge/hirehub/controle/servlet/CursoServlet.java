@@ -15,23 +15,19 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
-import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso","/recuperar-perfil-curso", "/recuperar-lista-cursos", "/cadastro-turma"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/recuperar-lista-cursos"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
 
-    private PropostaDAO propostaDAO;
     private CursoDAO cursoDAO;
 
     public void init() {
-        propostaDAO = new PropostaDAOImpl();
         cursoDAO = new CursoDAOImpl();
     }
 
@@ -48,7 +44,7 @@ public class CursoServlet extends HttpServlet {
                 case "/atualizar-curso" -> atualizarCurso(request, response);
                 case "/recuperar-perfil-curso" -> recuperarPerfilCurso(request, response);
                 case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
-                case "/cadastro-turma" -> cadastroTurma(request, response);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,6 +75,8 @@ public class CursoServlet extends HttpServlet {
             Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
 
             cursoDAO.inserirCurso(curso);
+
+            response.sendRedirect(request.getContextPath() + "/recuperar-lista-cursos");
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -97,8 +95,6 @@ public class CursoServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
-            instituicao = (Instituicao) usuario;
-
             long cursoId = Long.parseLong(request.getParameter("curso-id"));
 
             Curso curso = cursoDAO.recuperarCursoPeloId(cursoId);
@@ -116,6 +112,8 @@ public class CursoServlet extends HttpServlet {
             curso.setDisponibilidade(disponibilidade);
 
             cursoDAO.atualizarCurso(curso);
+
+            response.sendRedirect(request.getContextPath() + "/recuperar-lista-cursos");
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -139,7 +137,7 @@ public class CursoServlet extends HttpServlet {
             String atuacao = request.getParameter("atuacao");
 
             if (atuacao == null || atuacao.isEmpty()) {
-            	long idCurso = Long.parseLong(request.getParameter("id"));
+                long idCurso = Long.parseLong(request.getParameter("id"));
                 curso = cursoDAO.recuperarCursoPeloId(idCurso);
             }
 
@@ -147,11 +145,11 @@ public class CursoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-curso.jsp");
             dispatcher.forward(request, response);
 
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath());
         }
     }
-    
+
     private void recuperarListaCursos(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
@@ -160,7 +158,7 @@ public class CursoServlet extends HttpServlet {
         Instituicao instituicao = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -181,7 +179,7 @@ public class CursoServlet extends HttpServlet {
 
         }
 
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
+        else if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
             instituicao = (Instituicao) usuario;
 
@@ -196,28 +194,5 @@ public class CursoServlet extends HttpServlet {
         }
 
     }
-    
-    private void cadastroTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        Usuario usuario = null;
- 
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
- 
-        usuario = (Usuario) session.getAttribute("usuario-logado");
- 
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
- 
-        	long idCurso = Long.parseLong(request.getParameter("id"));
-            Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
- 
-            request.setAttribute("curso", curso);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-turma.jsp");
-            dispatcher.forward(request, response);
-        }
- 
-    }
-
 
 }

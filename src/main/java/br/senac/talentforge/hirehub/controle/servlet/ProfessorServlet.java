@@ -25,7 +25,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-perfil-professor", "/recuperar-perfil-professor"})
+@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-perfil-professor"})
 public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
@@ -52,7 +52,6 @@ public class ProfessorServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-professor" -> inserirProfessor(request, response);
                 case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
-                case "/recuperar-perfil-professor" -> recuperarPerfilProfessor(request, response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -75,7 +74,10 @@ public class ProfessorServlet extends HttpServlet {
 
             instituicao = (Instituicao) usuario;
 
+            //arrumar gambiarra
             Papel papel = new Papel("professor");
+            papelDAO.inserirPapel(papel);
+            papel = papelDAO.recuperarPapelPelaFuncao("professor");
 
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
@@ -147,29 +149,6 @@ public class ProfessorServlet extends HttpServlet {
             professor.setTelefone(telefone);
 
             usuarioDAO.atualizarUsuario(professor);
-
-            request.setAttribute("professor", professor);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath());
-        }
-
-    }
-
-    private void recuperarPerfilProfessor(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        Professor professor = null;
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + ("/usuario-login"));
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("professor")) {
-            professor = (Professor) usuario;
 
             request.setAttribute("professor", professor);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");

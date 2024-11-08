@@ -24,13 +24,26 @@ pageEncoding="UTF-8"%>
                 </label>
             </div>
             <div>
+            <c:set var="usuarioLogado" value="${sessionScope['usuario-logado']}" />
+            
+            <c:if test="${usuarioLogado.papel.funcao == 'instituicao'}">
                 <div>
                     <form action="<%=request.getContextPath()%>/cadastro-turma" method="post">
                         <input type="hidden" name="id" value="${cursos.id}"/>
                         <button type="submit">Cadastrar Turma</button>
                     </form>
                 </div>
+                </c:if>
+                <c:if test="${usuarioLogado.papel.funcao == 'aluno'}">               
+                <div>
+                    <form action="<%=request.getContextPath()%>/recuperar-perfil-curso" method="post">
+                        <input type="hidden" name="id" value="${cursos.id}"/>
+                        <button type="submit">Ver Mais</button>
+                    </form>
+                </div>
+                </c:if>
             </div>
+
         </c:forEach>
     </div>
 </body>
