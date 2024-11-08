@@ -120,17 +120,25 @@ public class AlunoServlet extends HttpServlet {
 
             aluno = (Aluno) usuario;
 
+            // Dados endereço
+            String estado = request.getParameter("estado");
+            String cidade = request.getParameter("cidade");
+            String logadouro = request.getParameter("logradouro");
+            String bairro = request.getParameter("bairro");
+            String cep = request.getParameter("cep");
+            int numero = Integer.parseInt(request.getParameter("numero"));
+            String complemento = request.getParameter("complemento");
+            String via = request.getParameter("via");
+            Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
+
             // dados aluno
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
             String nomeSocial = request.getParameter("nome-social");
-            String cpf = request.getParameter("cpf");
             LocalDate dataNascimento = LocalDate.parse(request.getParameter("data-nascimento"));
             Etnia etnia = Etnia.valueOf(request.getParameter("etnia").toUpperCase());
             Sexo sexo = Sexo.valueOf(request.getParameter("sexo").toUpperCase());
-            String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            String telefone = request.getParameter("telefone");
             String renda = request.getParameter("renda-familiar").replace("-", "_");
             RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
@@ -141,10 +149,9 @@ public class AlunoServlet extends HttpServlet {
             aluno.setDataNascimento(dataNascimento);
             aluno.setEtnia(etnia);
             aluno.setSexo(sexo);
-            aluno.setEmail(email);
             aluno.setSenha(senha);
-            aluno.setTelefone(telefone);
             aluno.setRendaFamiliar(rendaFamiliar);
+            aluno.setEndereco(endereco);
 
             usuarioDAO.atualizarUsuario(aluno);
 
@@ -161,12 +168,13 @@ public class AlunoServlet extends HttpServlet {
             throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        session.getAttribute("usuario-lgado");
+        session.getAttribute("usuario-logado");
 
         Aluno aluno = null;
+        Endereco alunoEndereco = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -174,12 +182,15 @@ public class AlunoServlet extends HttpServlet {
         if (usuario.getPapel().getFuncao().equals("aluno")) {
 
             aluno = (Aluno) usuario;
+            alunoEndereco = enderecoDAO.recuperarEnderecoPeloIdUsuario(aluno.getId());
+
             request.setAttribute("aluno", aluno);
+            request.setAttribute("endereco", alunoEndereco);
 
             String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
             request.setAttribute("rendafamiliar", rendafamiliar);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
 
         }else {
