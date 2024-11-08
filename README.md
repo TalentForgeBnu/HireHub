@@ -26,7 +26,6 @@
 - **Jonathan** - Desenvolvedor Backend
 - **Thiago** - Desenvolvedor Backend
 - **João Ataide** - Desenvolvedor Backend
-- **Erick Vinicius** - Desenvolvedor Backend
 - **Daniel** - Desenvolvedor Frontend
 
 ## 📦 Como clonar o repositório
