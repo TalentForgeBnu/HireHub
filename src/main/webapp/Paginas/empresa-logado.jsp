@@ -13,7 +13,7 @@
         <h1>Hire Hub</h1>
         <div>
             
-            <p>Olá, <c:out value="${usuario.nome}"/>! Seja bem-vindo(a)!</p>
+            <p>Olá, <c:out value="${empresa.nome}"/>! Seja bem-vindo(a)!</p>
         </div>
     </header>
 </body>
