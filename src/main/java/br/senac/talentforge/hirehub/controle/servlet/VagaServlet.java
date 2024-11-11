@@ -17,6 +17,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
+import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
 @WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-lista-vaga", "/recuperar-vaga" })
@@ -87,6 +88,7 @@ public class VagaServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Usuario usuario = null;
 		Empresa empresa = null;
+		List<Vaga> vagas = null;
 
 		if (session == null || session.getAttribute("usuario-logado") == null) {
 			response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
@@ -98,12 +100,19 @@ public class VagaServlet extends HttpServlet {
 
 			empresa = (Empresa) usuario;
 
-			List<Vaga> vagas = vagaDAO.recuperarVagasPeloIdDaEmpresa(empresa.getId());
+			vagas = vagaDAO.recuperarVagasPeloIdDaEmpresa(empresa.getId());
 
 			request.setAttribute("vagas", vagas);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa.jsp");
 			dispatcher.forward(request, response);
-		} else {
+		}else if(usuario.getPapel().getFuncao().equals("aluno") || usuario.getPapel().getFuncao().equals("instituicao")){
+			
+			vagas = vagaDAO.recuperarVagaPelaSituacaoVaga(Situacao.ABERTA); 
+	
+			request.setAttribute("vagas", vagas);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-vagas-empresa.jsp");
+			dispatcher.forward(request, response);
+		}else {
 			response.sendRedirect(request.getContextPath());
 		}
 	}
