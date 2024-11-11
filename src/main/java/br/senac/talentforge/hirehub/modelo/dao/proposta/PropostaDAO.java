@@ -5,11 +5,11 @@ import java.util.List;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 
 public interface PropostaDAO {
-    void inserirOferta(Proposta oferta);
+    void inserirProposta(Proposta proposta);
 
-    void deletarOferta(Proposta oferta);
+    void deletarProposta(Proposta proposta);
 
-    void atualizarOferta(Proposta oferta);
+    void atualizarProposta(Proposta proposta);
 
     Proposta recuperarPropostaPeloId(long idProposta);
     

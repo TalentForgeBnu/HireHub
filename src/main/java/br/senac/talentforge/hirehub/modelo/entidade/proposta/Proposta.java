@@ -69,6 +69,15 @@ public class Proposta implements Serializable {
         setEmpresa(empresa);
         setInstituicao(instituicao);
     }
+    
+    public Proposta(String proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Empresa empresa, Instituicao instituicao) {
+        setProposta(proposta);
+        setResposta(resposta);
+        setAndamentoOferta(andamentoOferta);
+        setVaga(vaga);
+        setEmpresa(empresa);
+        setInstituicao(instituicao);
+    }
 
     public Proposta(long id, String proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
         setId(id);

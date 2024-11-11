@@ -12,15 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
@@ -28,19 +25,17 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.oferta.Oferta;
  
-@WebServlet(urlPatterns = { "/inserir-proposta","/recuperar-proposta", "/recuperar-lista-proposta"})
+@WebServlet(urlPatterns = { "/inserir-proposta","/atualizar-proposta","/recuperar-proposta", "/recuperar-lista-proposta"})
 public class PropostaServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 4400143644977694774L;
 	
 	private EmpresaDAO empresaDAO;
 	private VagaDAO vagaDAO;
-	private CursoDAO cursoDAO;
 	private PropostaDAO propostaDAO;
  
 	public void init() {
 		vagaDAO = new VagaDAOImpl();
-		cursoDAO = new CursoDAOImpl();
 		propostaDAO = new PropostaDAOImpl();
 		empresaDAO = new EmpresaDAOImpl();
 	}
@@ -51,6 +46,7 @@ public class PropostaServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "/inserir-proposta" -> inserirProposta(request, response);
+			case "/atualizar-proposta" -> atualizarProposta(request, response);
 			case "/recuperar-proposta" -> recuperarProposta(request, response);
 			case "/recuperar-lista-proposta" -> recuperarListaProposta(request, response);
 			}
@@ -78,24 +74,55 @@ public class PropostaServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("instituicao")) {
         	
-        	instituicao = (Instituicao) session.getAttribute("usuario-logado");
+        	instituicao = (Instituicao) usuario;
         	
         	String proposta = request.getParameter("proposta");        	
-        	String resposta = request.getParameter("resposta");
-        	Long idcurso = Long.parseLong(request.getParameter("curso-id"));
         	Long idvaga = Long.parseLong(request.getParameter("vaga-id"));
         	Oferta oferta = Oferta.valueOf(request.getParameter("andamento-oferta").toUpperCase());
         	Empresa empresa = empresaDAO.recuperarEmpresaPeloCnpj("cnpj");
         	Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
-        	Curso curso = cursoDAO.recuperarCursoPeloId(idcurso);
         	
-        	Proposta prosposta = new Proposta(proposta,resposta,oferta,vaga,curso,empresa,instituicao);
-        	propostaDAO.inserirOferta(prosposta);
+        	Proposta prosposta = new Proposta(proposta,null,oferta,vaga,empresa,instituicao);
+        	propostaDAO.inserirProposta(prosposta);
         	
         }else {
             response.sendRedirect(request.getContextPath());
         }		
 	}
+	
+	private void atualizarProposta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Empresa empresa = null;
+		
+		if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("empresa")) {
+        	
+        	empresa = (Empresa) usuario;
+        	
+        	String resposta = request.getParameter("resposta");        	
+        	Oferta oferta = Oferta.valueOf(request.getParameter("andamento-oferta").toUpperCase());
+        	long idProposta = Long.parseLong(request.getParameter("id-proposta")); 
+        	Proposta proposta = propostaDAO.recuperarPropostaPeloId(idProposta);
+        	
+        	proposta.setResposta(resposta);
+        	proposta.setAndamentoOferta(oferta);
+        	
+        	propostaDAO.atualizarProposta(proposta);
+        	
+        }else {
+            response.sendRedirect(request.getContextPath());
+        }
+		
+		
+		
+	}
+	
 	private void recuperarProposta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
