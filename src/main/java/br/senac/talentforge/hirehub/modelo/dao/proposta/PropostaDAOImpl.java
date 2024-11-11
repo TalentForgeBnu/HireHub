@@ -21,9 +21,9 @@ public class PropostaDAOImpl implements PropostaDAO {
         fabrica = new ConexaoFactory();
     }
 
-    public void inserirProposta(Proposta proposta) {
+    public void inserirOferta(Proposta oferta) {
         Session sessao = null;
-        Vaga vaga = proposta.getVaga();
+        Vaga vaga = oferta.getVaga();
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
@@ -31,7 +31,7 @@ public class PropostaDAOImpl implements PropostaDAO {
             if (vaga != null) {
                 sessao.save(vaga);
             }
-            sessao.save(proposta);
+            sessao.save(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -40,12 +40,12 @@ public class PropostaDAOImpl implements PropostaDAO {
         }
     }
 
-    public void deletarProposta(Proposta proposta) {
+    public void deletarOferta(Proposta oferta) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.delete(proposta);
+            sessao.delete(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
@@ -54,12 +54,12 @@ public class PropostaDAOImpl implements PropostaDAO {
         }
     }
 
-    public void atualizarProposta(Proposta proposta) {
+    public void atualizarOferta(Proposta oferta) {
         Session sessao = null;
         try {
             sessao = fabrica.getConexao().openSession();
             sessao.beginTransaction();
-            sessao.update(proposta);
+            sessao.update(oferta);
             sessao.getTransaction().commit();
         } catch (Exception exception) {
             erroSessao(sessao, exception);
