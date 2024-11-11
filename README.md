@@ -20,11 +20,10 @@
 - ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat&logo=javascript&logoColor=black) JavaScript
 
 ## 👥 Equipe
-- **Thomas Hess** - Líder do Projeto
+- **Jonathan** - Líder do Projeto
 - **Pedro José** - Líder do Frontend
-- **Elisa Vitória** - Líder do Backend
-- **Jonathan** - Desenvolvedor Backend
-- **Thiago** - Desenvolvedor Backend
+- **Thiago** - Líder do Backend
+- **Elisa** - Desenvolvedor Backend
 - **João Ataide** - Desenvolvedor Backend
 - **Daniel** - Desenvolvedor Frontend
 
