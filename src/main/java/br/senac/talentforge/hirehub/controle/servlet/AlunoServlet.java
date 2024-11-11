@@ -98,7 +98,10 @@ public class AlunoServlet extends HttpServlet {
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
 
-        response.sendRedirect(request.getContextPath());
+        if (request.getParameter("senha").equals(request.getParameter("confirmar-senha"))) {
+            response.sendRedirect(request.getContextPath());
+        }
+        else {response.sendRedirect("../Paginas/cadastro-aluno.jsp");}
     }
 
     private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
