@@ -17,6 +17,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import org.hibernate.Session;
 
 @WebServlet(urlPatterns = {"/login", "/perfil", "/usuario-login", "/usuario-logout"})
 public class UsuarioServlet extends HttpServlet {
@@ -48,12 +49,11 @@ public class UsuarioServlet extends HttpServlet {
     private void paginaLogin(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/tela-login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/tela-login.jsp");
         dispatcher.forward(request, response);
-
     }
 
-    private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Usuario usuarioRecuperado = null;
         HttpSession session = request.getSession();
 
@@ -68,15 +68,17 @@ public class UsuarioServlet extends HttpServlet {
 
         if (usuarioRecuperado != null && usuarioRecuperado.getEmail().equals(email) && usuarioRecuperado.getSenha().equals(senha)) {
             session.setAttribute("usuario-logado", usuarioRecuperado);
+            session.setMaxInactiveInterval(6000);
             response.sendRedirect(request.getContextPath());
         } else {
-            response.sendRedirect(request.getContextPath() + "/login");
+            request.setAttribute("erro", "Usuario não existe ou as credenciais são invalidadas");
+            paginaLogin(request, response);
         }
 
     }
 
     private void logoutUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
@@ -95,7 +97,6 @@ public class UsuarioServlet extends HttpServlet {
 
         String funcao = usuario.getPapel().getFuncao();
 
-        //Não sei se é a melhor maneira. Rever ideia depois
         switch (funcao) {
             case "aluno" -> perfilAluno(request, response, usuario);
             case "empresa" -> perfilEmpresa(request, response, usuario);
