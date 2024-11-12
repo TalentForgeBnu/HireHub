@@ -18,6 +18,7 @@
         <div class="right-section">
             <h1>LOGIN</h1>
             <form action="<%=request.getContextPath()%>/usuario-login" method="POST">
+                <p>${erro}</p>
                 <input type="email" name="email" placeholder="Email ou Nome do Usuário" required>
                 <input type="password" name="senha" placeholder="Senha" required>
                 <a href="#">Esqueceu sua Senha?</a>
