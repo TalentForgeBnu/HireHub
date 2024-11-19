@@ -15,7 +15,8 @@ pageEncoding="UTF-8"%>
 <c:set var="usuarioLogado" value="${sessionScope['usuario-logado']}" />
 
 <c:choose>
-    <c:when test="${not empty usuarioLogado}">
+
+    <c:when test="${usuarioLogado != null}">
         <h2>Listagem</h2>
         <ul>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-alunos">Listagem Alunos</a></li>
@@ -37,7 +38,7 @@ pageEncoding="UTF-8"%>
 
         <h2>Logout</h2>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/usuario-logout">Logout</a></li>
+            <li><a href="<%=request.getContextPath()%>/usuario-logout">Logout</a></li>
         </ul>
     </c:when>
 
