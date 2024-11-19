@@ -35,7 +35,7 @@ body {
 
         .right-section h1 {
             font-size: 36px;
-            color: #4a90e2;
+            color: #390879;
             margin-bottom: 10px;
         }
 
@@ -89,7 +89,7 @@ body {
         }
 
         .form-actions button.submit {
-            background-color: #4a90e2;
+            background-color: #390879;
             color: white;
         }
 
