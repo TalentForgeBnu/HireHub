@@ -28,7 +28,7 @@ body {
 
 h1 {
 	font-size: 36px;
-	color: #3B82F6;
+	color: #7A6FDE;
 	margin-bottom: 10px;
 }
 
@@ -43,14 +43,14 @@ form {
 	flex-direction: column;
 }
 
-label {
+label, textearea {
 	font-size: 16px;
 	margin-bottom: 5px;
 	color: #555555;
 	padding: 10px;
 }
 
-input, select {
+input, select, textarea {
 	padding: 10px;
 	margin-bottom: 15px;
 	border: 1px solid #cccccc;
@@ -60,13 +60,13 @@ input, select {
 }
 
 input[type="email"], input[type="password"], input[type="tel"], input[type="date"],
-	input[type="text"], select {
+	input[type="text"], select, textarea {
 	background-color: #fafafa;
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
-	input[type="date"]:focus, input[type="text"]:focus, select:focus {
-	border-color: #0066cc;
+	input[type="date"]:focus, input[type="text"]:focus, select:focus, textarea:focus {
+	border-color: #390879;
 	outline: none;
 }
 
@@ -86,13 +86,13 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus
 }
 
 .form-actions {
-	display: flex;
+	display: flex;	
 	justify-content: space-between;
 }
 
 button {
 	padding: 10px 20px;
-	background-color: #3B82F6;
+	background-color: #390879;
 	color: #ffffff;
 	border: none;
 	border-radius: 5px;
@@ -102,7 +102,7 @@ button {
 }
 
 button:hover {
-	background-color: #005bb5;
+	background-color: #390879;
 }
 
 button.cancelar {
