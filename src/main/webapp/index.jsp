@@ -10,9 +10,12 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 
+<h1><a href="${pageContext.request.contextPath}/Paginas/inicio.jsp">Ir para o inicio</a></h1>
+
 <c:set var="usuarioLogado" value="${sessionScope['usuario-logado']}" />
 
 <c:choose>
+
     <c:when test="${usuarioLogado != null}">
         <h2>Listagem</h2>
         <ul>

@@ -33,6 +33,7 @@ body {
     right: 0;
     cursor: pointer;
 }
+
 .container {
 	background-color: #ffffff;
 	padding: 20px;
@@ -43,26 +44,26 @@ body {
 	display: flex;
 	margin: auto;
 }
-.navbar {
+
+header {
 	background-color: #4A90E2;
 	padding: 10px;
 	color: white;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 48px;
 }
-.navbar .voltar {
-	font-size: 24px;
+header .voltar {
 	cursor: pointer;
 	margin-right: 10px;
+	font-size: 24px;
 }
-.navbar .excluir {
+header .excluir {
 	cursor: pointer;
 }
-.navbar .nome {
+header .nome {
 	flex-grow: 1;
-	font-size: 48px;
+	font-size: 24px;
 }
 
 h1 {
