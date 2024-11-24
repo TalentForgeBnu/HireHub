@@ -1,0 +1,58 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 10px;
+	background-color: 390879;
+  }
+  
+  .voltar {
+	flex: 1;
+	text-align: left;
+  }
+  
+  .nome {
+	flex: 2;
+	text-align: center;
+  }
+  
+  .excluir {
+	flex: 1;
+	text-align: right;
+  }
+  
+
+.container {
+    display: grid;
+	justify-content: center;
+	grid-template-columns: 1;
+	grid-template-rows: auto;
+	margin: 20px;
+	gap: 20px;
+	padding: 5px;
+}
+
+.itens {
+	padding: 5px;
+	font-size: 20px;
+	margin: 2px;
+}
+
+.foto img {
+	width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.foto .editarbotao {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
