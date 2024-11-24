@@ -3,56 +3,75 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
+ 
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	padding: 10px;
-	background-color: 390879;
+    display: flex;
+	background-color: #390879;
+    justify-content: space-between;
+    font-size: 30px;
+    margin-bottom: 20px;
   }
-  
-  .voltar {
-	flex: 1;
-	text-align: left;
-  }
-  
-  .nome {
-	flex: 2;
-	text-align: center;
-  }
-  
-  .excluir {
-	flex: 1;
-	text-align: right;
-  }
-  
-
-.container {
-    display: grid;
-	justify-content: center;
-	grid-template-columns: 1;
-	grid-template-rows: auto;
-	margin: 20px;
-	gap: 20px;
-	padding: 5px;
-}
-
+ 
 .itens {
-	padding: 5px;
 	font-size: 20px;
-	margin: 2px;
 }
-
-.foto img {
-	width: 100px;
-    height: 100px;
+#container {
+    display: grid;
+    justify-items: center;
+    row-gap: 20px;
+  }
+ 
+  input, textarea {
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	font-size: 14px;
+	width: 100%;
+}
+ 
+input[type="email"], input[type="password"], input[type="tel"], input[type="date"],
+	input[type="text"], textarea {
+	background-color: #fafafa;
+}
+ 
+input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
+	input[type="date"]:focus, input[type="text"]:focus, textarea:focus {
+	border-color: #390879;
+	outline: none;
+}
+ 
+.input-group {
+	display: flex;
+	gap: 10px;
+}
+ 
+  img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     object-fit: cover;
-}
-
+  }
+ 
 .foto .editarbotao {
     position: absolute;
     bottom: 0;
     right: 0;
     cursor: pointer;
 }
+ 
+button {
+	padding: 10px 20px;
+	background-color: #3B82F6;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+ 
+button:hover {
+	background-color: #005bb5;
+}
+ 
