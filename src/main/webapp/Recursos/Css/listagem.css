@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Inter", Arial, sans-serif;
+	font-style: normal;
+	font-optical-sizing: auto;
+}
+
+body {
+    background-color: white;
+}
+
+header {
+	background-color: #390879;
+	color: white;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-height: 80px;
+}
+
+header .lado-esquerdo {
+    display: flex;
+    align-items: center;
+}
+
+header .menu {
+	cursor: pointer;
+	margin: 10px;
+}
+
+.navbar .perfil {
+	border-radius: 50%;
+	background-color: #ccc;
+}
+
+.lista {
+	padding: 10px;
+	text-align: left;
+	display: block;
+	flex-grow: 0;
+}
+
+.classificacao {
+	display: flex;
+	justify-content: space-between;
+}
+
+.info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.info div {
+	border: #ccc solid 1px;
+}
+
+.container-botao {
+	margin-right: 80px;
+	display: inline-block;
+	margin-left: 35px;
+}
+
+button {
+	padding: 10px 20px;
+	width: 48%;
+	background-color: #390879;
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #FCAE11;
+	color: #390879;
+}
