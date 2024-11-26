@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
@@ -32,10 +35,12 @@ public class PropostaServlet extends HttpServlet {
 	
 	private EmpresaDAO empresaDAO;
 	private VagaDAO vagaDAO;
+	private CursoDAO cursoDAO;
 	private PropostaDAO propostaDAO;
  
 	public void init() {
 		vagaDAO = new VagaDAOImpl();
+		cursoDAO = new CursoDAOImpl();
 		propostaDAO = new PropostaDAOImpl();
 		empresaDAO = new EmpresaDAOImpl();
 	}
@@ -76,13 +81,15 @@ public class PropostaServlet extends HttpServlet {
         	
         	instituicao = (Instituicao) usuario;
         	
-        	String proposta = request.getParameter("proposta");        	
-        	Long idvaga = Long.parseLong(request.getParameter("vaga-id"));
-        	Oferta oferta = Oferta.valueOf(request.getParameter("andamento-oferta").toUpperCase());
+        	long proposta = Long.parseLong(request.getParameter("proposta"));  
+        	long idCurso = Long.parseLong(request.getParameter("curso-id"));
+        	long idvaga = Long.parseLong(request.getParameter("vaga-id"));
+        	Oferta oferta = Oferta.EM_ESPERA;
         	Empresa empresa = empresaDAO.recuperarEmpresaPeloCnpj("cnpj");
         	Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
+        	Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
         	
-        	Proposta prosposta = new Proposta(proposta,null,oferta,vaga,empresa,instituicao);
+        	Proposta prosposta = new Proposta(proposta,null,oferta,vaga,curso,empresa,instituicao);
         	propostaDAO.inserirProposta(prosposta);
         	
         }else {

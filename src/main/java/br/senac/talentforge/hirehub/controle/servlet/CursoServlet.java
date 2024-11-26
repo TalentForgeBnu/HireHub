@@ -52,7 +52,7 @@ public class CursoServlet extends HttpServlet {
     }
 
     private void inserirCurso(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
 
         HttpSession session = request.getSession();
         Instituicao instituicao = null;
@@ -70,13 +70,18 @@ public class CursoServlet extends HttpServlet {
             String descricao = request.getParameter("descricao-curso");
             LocalDate dataInicio = LocalDate.parse(request.getParameter("data-inicio"));
             LocalDate dataFim = LocalDate.parse(request.getParameter("data-termino"));
-            Disponibilidade disponibilidade = Disponibilidade.ABERTO;
+            Disponibilidade disponibilidade = Disponibilidade.ABERTO;            
 
             Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
 
             cursoDAO.inserirCurso(curso);
 
-            response.sendRedirect(request.getContextPath() + "/recuperar-lista-cursos");
+            long idvaga = Long.parseLong(request.getParameter("vaga-id"));
+                     
+            request.setAttribute("curso", curso);
+            request.setAttribute("vaga-id", idvaga);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/proposta-curso.jsp");
+            dispatcher.forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -113,6 +118,7 @@ public class CursoServlet extends HttpServlet {
 
             cursoDAO.atualizarCurso(curso);
 
+            
             response.sendRedirect(request.getContextPath() + "/recuperar-lista-cursos");
         } else {
             response.sendRedirect(request.getContextPath());
