@@ -2,8 +2,9 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: "Inter", Arial, sans-serif;
 }
- 
+
 header {
     display: flex;
 	background-color: #390879;
@@ -11,17 +12,42 @@ header {
     font-size: 30px;
     margin-bottom: 20px;
   }
- 
-.itens {
+
+  #voltar {
+	text-decoration: none;
+	color: white;
+	margin-left: 20px;
+  }
+
+  #nome {
+	color:white;
+	margin-top: 4px;
+  }
+
+  #excluir {
+	margin-right: 20px;
+  }
+
+ .itens {
 	font-size: 20px;
 }
-#container {
+ #container {
     display: grid;
     justify-items: center;
+    grid-template-columns: 1fr;	
     row-gap: 20px;
+	width: 100%;
   }
- 
-  input, textarea {
+
+ form {
+		display: grid;
+		grid-template-columns: 1fr;
+		row-gap: 15px;
+		width: 100%;
+		max-width: 500px;
+  }
+
+  input{
 	padding: 10px;
 	margin-bottom: 15px;
 	border: 1px solid #cccccc;
@@ -29,49 +55,47 @@ header {
 	font-size: 14px;
 	width: 100%;
 }
- 
-input[type="email"], input[type="password"], input[type="tel"], input[type="date"],
-	input[type="text"], textarea {
+
+  input[type="email"], input[type="password"], input[type="date"],
+	input[type="text"] {
 	background-color: #fafafa;
 }
- 
-input[type="email"]:focus, input[type="password"]:focus, input[type="tel"]:focus,
-	input[type="date"]:focus, input[type="text"]:focus, textarea:focus {
+
+  input[type="email"]:focus, input[type="password"]:focus,input[type="date"]:focus,
+    input[type="text"]:focus {
 	border-color: #390879;
 	outline: none;
 }
- 
-.input-group {
-	display: flex;
-	gap: 10px;
-}
- 
+
   img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
   }
- 
-.foto .editarbotao {
+
+ .foto .editarbotao {
     position: absolute;
     bottom: 0;
     right: 0;
     cursor: pointer;
 }
- 
-button {
+
+form button {
 	padding: 10px 20px;
-	background-color: #3B82F6;
+	width: 175px;
+	height: 50px;
+	background-color: #390879;
 	color: #ffffff;
 	border: none;
 	border-radius: 5px;
-	font-size: 16px;
+	font-size: 24px;
 	cursor: pointer;
 	margin-bottom: 10px;
+	margin-left: 150px;
 }
- 
-button:hover {
-	background-color: #005bb5;
+
+form button:hover {
+	background-color: #FCAE11;
+	color: #390879;
 }
- 
