@@ -11,29 +11,30 @@
 
 body {
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
-}
-.imagem {
-	display: flex;
-	flex-grow: 0;
+	flex-wrap: nowrap;
+	margin: auto;
+	margin: 120px;
+	margin-top: 30px;
+	margin-bottom: 0;
 }
 
 .imagem img {
-	width: 600px;
+	display: flex;
 }
 
 .formulario {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	width: 50%;
 }
 
 form {
 	justify-content: center;
 	display: flex;
 	flex-direction: column;
+	gap: 6px;
 }
 
 h1 {
@@ -43,14 +44,14 @@ h1 {
 }
 
 .topo p {
-	color: #ccc;
+	color: #7E7E7E;
 	text-align: center;
 }
 
-input, select, textarea {
+input:not([type="checkbox"]), select, textarea {
 	padding: 7px;
 	margin-top: 12px;
-	border: 1px solid #390879;
+	border: 1px solid #E0E0E0;
 	border-radius: 8px;
 	font-size: 14px;
 	background-color: white;
@@ -61,7 +62,7 @@ input:focus, select:focus, textarea:focus {
 	outline: none;
 }
 
-.input-group {
+.grupo-input {
 	display: flex;
 	gap: 10px;
 	flex-wrap: nowrap;
@@ -70,17 +71,29 @@ input:focus, select:focus, textarea:focus {
 
 textarea {resize: none;}
 input:disabled {background-color: lightgray;}
-.input-group input, select {flex: 50%;}
+.grupo-input input, select {flex: 50%;}
 
-.form-acoes {
+.termos {
+	display: flex;
+	justify-content: center;
+}
+
+.termos label {
+	color: #757575;
+}
+
+a {
+	color: #FCAE11;
+	text-decoration: none;
+}
+
+.acoes-form {
 	display: flex;
 	justify-content: space-between;
 }
 
 button {
 	padding: 10px 20px;
-	width: 175px;
-	height: 50px;
 	background-color: #390879;
 	color: #ffffff;
 	border: none;
@@ -93,4 +106,20 @@ button {
 button:hover {
 	background-color: #FCAE11;
 	color: #390879;
+}
+
+button.cancelar {
+	padding: 10px 20px;
+	background-color: rgb(0, 0, 0, 0);
+	color: black;
+	border: #ccc solid 1px;
+	border-radius: 5px;
+	font-size: 24px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+button.cancelar:hover {
+	color: #FCAE11;
+	border: #FCAE11 solid 1px;
 }

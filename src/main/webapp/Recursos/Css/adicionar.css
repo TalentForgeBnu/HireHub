@@ -42,11 +42,12 @@ body {
     display: flex;
     justify-content: left;
     align-items: center;
+    max-width: 470px;
 }
 
 .imagem img {
     border-radius: 10px;
-    max-width: 100%;
+    max-width: 450px;
 }
 
 .formulario {
@@ -84,11 +85,16 @@ input, select, textarea {
     border-radius: 8px;
     border: 1px solid lightgray;
     background-color: white;
+    width: 100%;
     font-size: 20px;
 }
 
-input:not([type="file"]), select{
+input:not([type="file"]), select {
     height: 80px;
+}
+
+.curso-input {
+    height: 60px;
 }
 
 input[type="file"] {
@@ -100,7 +106,15 @@ input:focus, select:focus, textarea:focus {
 	outline: none;
 }
 
+.grupo-input {
+	display: flex;
+	gap: 10px;
+	flex-wrap: nowrap;
+	flex: 50%;
+}
+
 textarea {resize: none;}
+.grupo-input .input {flex: 50%;}
 
 .form-acoes {
     display: flex;
@@ -122,6 +136,10 @@ textarea {resize: none;}
 .form-acoes button:hover {
 	background-color: #FCAE11;
 	color: #390879;
+}
+
+.descricao-curso {
+    margin-bottom: 10px;
 }
 
 .descricao-curso h2 {
