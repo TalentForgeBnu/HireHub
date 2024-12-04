@@ -1,0 +1,127 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+	color: #333;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 40px auto;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 40px 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	font-size: 15px;
+	color: #333;
+	font-weight: bolder;
+	text-align: left;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.form-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 30px;
+}
+
+.form-actions {
+	display: flex;
+	justify-content: center;
+}
+
+.left-section {
+	text-align: center;
+	width: 65%;
+	margin-top: 25px;
+}
+
+.left-section input {
+	display: flex;
+	justify-content: flex-start;
+	width: 30%;
+	padding: 10px;
+	margin-top: 50px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #333;
+}
+
+.right-section {
+	margin-top: 0px;
+	text-align: center;
+	width: 50%;
+}
+
+.right-section img {
+	width: 45%;
+	max-width: 600px;
+	margin-bottom: 10px;
+}
+
+.right-section h3 {
+	font-size: 16px;
+	color: #333;
+	font-weight: normal;
+}
+
+button[type="submit"] {
+	display: flex; 
+	justify-content : center;
+	width: 30%;
+	background-color: #390879;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;
+	padding: 15px 50px;
+	justify-content: center;
+}
+
+button[type="submit"]:hover {
+	background-color: #6a1b9a;
+}
+
+label[for="curso"] {
+	font-size: 14px;
+	color: #64748B;
+	margin-bottom: 5px;
+	display: flex;
+	width: 93%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+}
+label[for="data"] {
+	font-size: 14px;
+	color: #64748B;
+	margin-bottom: 5px;
+	display: flex;
+	width: 50%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+}
+textarea {
+	font-size: 14px;
+	color: #64748B;
+	background-color: #fff;
+	margin-bottom: 5px;
+	display: flex;
+	width: 93%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+	resize: none;
+}
