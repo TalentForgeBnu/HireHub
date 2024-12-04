@@ -14,8 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAO;
-import br.senac.talentforge.hirehub.modelo.dao.empresa.EmpresaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
@@ -33,7 +31,6 @@ public class PropostaServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 4400143644977694774L;
 	
-	private EmpresaDAO empresaDAO;
 	private VagaDAO vagaDAO;
 	private CursoDAO cursoDAO;
 	private PropostaDAO propostaDAO;
@@ -42,7 +39,6 @@ public class PropostaServlet extends HttpServlet {
 		vagaDAO = new VagaDAOImpl();
 		cursoDAO = new CursoDAOImpl();
 		propostaDAO = new PropostaDAOImpl();
-		empresaDAO = new EmpresaDAOImpl();
 	}
  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -64,7 +60,7 @@ public class PropostaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
- 
+	
 	private void inserirProposta(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 		
@@ -81,16 +77,15 @@ public class PropostaServlet extends HttpServlet {
         	
         	instituicao = (Instituicao) usuario;
         	
-        	long proposta = Long.parseLong(request.getParameter("proposta"));  
+        	long idproposta = Long.parseLong(request.getParameter("proposta"));  
         	long idCurso = Long.parseLong(request.getParameter("curso-id"));
         	long idvaga = Long.parseLong(request.getParameter("vaga-id"));
         	Oferta oferta = Oferta.EM_ESPERA;
-        	Empresa empresa = empresaDAO.recuperarEmpresaPeloCnpj("cnpj");
         	Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
         	Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
         	
-        	Proposta prosposta = new Proposta(proposta,null,oferta,vaga,curso,empresa,instituicao);
-        	propostaDAO.inserirProposta(prosposta);
+        	Proposta proposta = new Proposta(idproposta,null,oferta,null,curso,vaga.getEmpresa(),instituicao);
+        	propostaDAO.inserirProposta(proposta);
         	
         }else {
             response.sendRedirect(request.getContextPath());

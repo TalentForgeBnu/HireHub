@@ -213,7 +213,7 @@ public class CursoServlet extends HttpServlet {
     	long idvaga = Long.parseLong(request.getParameter("vaga-id"));
     	Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
         request.setAttribute("vaga", vaga);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-curso.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-curso.jsp");
         dispatcher.forward(request, response);
     	
     }
