@@ -79,7 +79,6 @@ public class EmpresaServlet extends HttpServlet {
         String via = request.getParameter("via");
 
         Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
-        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Empresa(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
 
