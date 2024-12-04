@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Inter", Arial, sans-serif;
+	font-style: normal;
+	font-optical-sizing: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #EEEEEE;
+}
+
+.container {
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0px 14px 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 1234px;
+    max-height: 900px;
+	display: flex;
+	justify-content: space-between;
+    align-items: flex-start;
+}
+
+.topo button {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+}
+
+.imagem {
+    width: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.imagem img {
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.formulario {
+    width: 75%;
+    height: max-content;
+    padding-right: 20px;
+    flex-grow: 1;
+}
+
+.topo {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.topo button {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.topo h2 {
+    padding-left: 5px;
+    font-size: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+input, select, textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    background-color: white;
+    font-size: 20px;
+}
+
+input:not([type="file"]), select{
+    height: 80px;
+}
+
+input[type="file"] {
+    padding: 3px;
+}
+
+input:focus, select:focus, textarea:focus {
+	border-color: #FCAE11;
+	outline: none;
+}
+
+textarea {resize: none;}
+
+.form-acoes {
+    display: flex;
+    justify-content: center;
+}
+.form-acoes button {
+	padding: 10px 20px;
+	width: 340px;
+	height: 65px;
+	background-color: #390879;
+	color: #ffffff;
+	border: none;
+	border-radius: 5px;
+	font-size: 24px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.form-acoes button:hover {
+	background-color: #FCAE11;
+	color: #390879;
+}
+
+.descricao-curso h2 {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.descricao-curso div {
+    max-height: 220px;
+    border: lightgray solid 1px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.descricao-curso div p {
+    border: lightgray solid 1px;
+    padding: 15px;
+    word-break: break-all;
+    white-space: normal;
+}

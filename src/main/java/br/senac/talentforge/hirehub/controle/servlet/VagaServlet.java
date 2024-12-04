@@ -20,7 +20,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
-@WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-lista-vaga", "/recuperar-vaga" })
+@WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-lista-vagas", "/recuperar-vaga" })
 public class VagaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3963892615335298562L;
@@ -36,7 +36,7 @@ public class VagaServlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "/inserir-vaga" -> inserirVaga(request, response);
-			case "/recuperar-lista-vaga" -> recuperarListaVagas(request, response);
+			case "/recuperar-lista-vagas" -> recuperarListaVagas(request, response);
 			case "/recuperar-vaga" -> recuperarVaga(request, response);
 			}
 		} catch (Exception e) {

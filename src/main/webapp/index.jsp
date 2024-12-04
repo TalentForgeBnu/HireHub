@@ -29,6 +29,10 @@ pageEncoding="UTF-8"%>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-turma.jsp">Cadastro Turma</a></li>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-vaga.jsp">Cadastro Vaga</a></li>
             <li><a href="${pageContext.request.contextPath}/Paginas/cadastro-professor.jsp">Cadastro Professor</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/proposta-curso.jsp">Proposta Curso</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/resposta-curso.jsp">Resposta Curso</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/proposta-vaga.jsp">Proposta Vaga</a></li>
+            <li><a href="${pageContext.request.contextPath}/Paginas/resposta-vaga.jsp">Resposta Vaga</a></li>
         </ul>
 
         <h2>Perfis</h2>

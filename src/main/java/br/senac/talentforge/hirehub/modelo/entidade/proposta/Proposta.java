@@ -33,7 +33,7 @@ public class Proposta implements Serializable {
     private long id;
 
     @Column(name = "proposta", unique = false)
-    private long proposta;
+    private double proposta;
 
     @Column(name = "resposta", length = 50, unique = false)
     private String resposta;
@@ -60,7 +60,7 @@ public class Proposta implements Serializable {
     public Proposta() {
     }
 
-    public Proposta(long proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
+    public Proposta(double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
         setProposta(proposta);
         setResposta(resposta);
         setAndamentoOferta(andamentoOferta);
@@ -70,7 +70,7 @@ public class Proposta implements Serializable {
         setInstituicao(instituicao);
     }
     
-    public Proposta(long proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Empresa empresa, Instituicao instituicao) {
+    public Proposta(double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Empresa empresa, Instituicao instituicao) {
         setProposta(proposta);
         setResposta(resposta);
         setAndamentoOferta(andamentoOferta);
@@ -79,7 +79,7 @@ public class Proposta implements Serializable {
         setInstituicao(instituicao);
     }
 
-    public Proposta(long id, long proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
+    public Proposta(long id, double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
         setId(id);
         setProposta(proposta);
         setResposta(resposta);
@@ -98,11 +98,11 @@ public class Proposta implements Serializable {
         this.id = id;
     }
 
-    public long getProposta() {
+    public double getProposta() {
         return proposta;
     }
 
-    public void setProposta(long proposta) {
+    public void setProposta(double proposta) {
         this.proposta = proposta;
     }
 
