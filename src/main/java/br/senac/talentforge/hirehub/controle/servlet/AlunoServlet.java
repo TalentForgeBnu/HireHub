@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.persistence.metamodel.SetAttribute;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -201,8 +202,27 @@ public class AlunoServlet extends HttpServlet {
     }
     
     private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
-        dispatcher.forward(request, response);
+    	
+    	HttpSession session = request.getSession();
+         session.getAttribute("usuario-logado");
+
+         Aluno aluno = null;
+
+         if (session == null || session.getAttribute("usuario-logado") == null) {
+             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
+         }
+
+         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+         if (usuario.getPapel().getFuncao().equals("aluno")) {
+    	    	   
+        	 aluno = (Aluno) usuario;
+        	 
+        	 request.setAttribute("aluno", aluno);
+        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
+             dispatcher.forward(request, response);
+        
+         }
     }
 
 }
