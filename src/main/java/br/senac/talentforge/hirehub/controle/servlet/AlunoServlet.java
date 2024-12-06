@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
@@ -27,20 +25,18 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/cadastro-aluno", "/atualizar-perfil-aluno"})
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
 
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
-    private AlunoDAO alunoDAO;
     private UsuarioDAO usuarioDAO;
 
     public void init() {
         enderecoDAO = new EnderecoDAOImpl();
         papelDAO = new PapelDAOImpl();
-        alunoDAO = new AlunoDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
     }
 
@@ -54,8 +50,8 @@ public class AlunoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-aluno" -> inserirAluno(request, response);
+                case "/cadastro-aluno" -> cadastroAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
-                case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,8 +96,14 @@ public class AlunoServlet extends HttpServlet {
 
         if (request.getParameter("senha").equals(request.getParameter("confirmar-senha"))) {
             response.sendRedirect(request.getContextPath());
+        } else {
+            response.sendRedirect("../Paginas/cadastro-aluno.jsp");
         }
-        else {response.sendRedirect("../Paginas/cadastro-aluno.jsp");}
+    }
+
+    private void cadastroAluno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-aluno.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
@@ -158,41 +160,6 @@ public class AlunoServlet extends HttpServlet {
             request.setAttribute("aluno", aluno);
             RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
             dispatcher.forward(request, response);
-        } else {
-            response.sendRedirect(request.getContextPath());
-        }
-
-    }
-
-    private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-
-        HttpSession session = request.getSession();
-        session.getAttribute("usuario-logado");
-
-        Aluno aluno = null;
-        Endereco alunoEndereco = null;
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("aluno")) {
-
-            aluno = (Aluno) usuario;
-            alunoEndereco = enderecoDAO.recuperarEnderecoPeloIdUsuario(aluno.getId());
-
-            request.setAttribute("aluno", aluno);
-            request.setAttribute("endereco", alunoEndereco);
-
-            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
-            request.setAttribute("rendafamiliar", rendafamiliar);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/perfil-aluno.jsp");
-            dispatcher.forward(request, response);
-
         } else {
             response.sendRedirect(request.getContextPath());
         }

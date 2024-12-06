@@ -8,7 +8,6 @@ pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
     <link rel="stylesheet" href="Recursos/Css/tela-login.css">
 
 </head>
@@ -36,7 +35,7 @@ pageEncoding="UTF-8"%>
             </form>
 
             <div class="cadastra-se">
-                <p>Não possui uma conta? <a href="#">Cadastre-se!</a></p>
+                <p>Não possui uma conta? <a href="<%=request.getContextPath()%>/cadastro">Cadastre-se!</a></p>
             </div>
         </div>
     </div>

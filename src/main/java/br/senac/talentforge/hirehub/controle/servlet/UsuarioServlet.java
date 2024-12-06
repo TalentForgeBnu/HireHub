@@ -17,9 +17,8 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.professor.Professor;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
-import org.hibernate.Session;
 
-@WebServlet(urlPatterns = {"/login", "/perfil", "/usuario-login", "/usuario-logout"})
+@WebServlet(urlPatterns = {"/login", "/perfil", "/usuario-login", "/usuario-logout", "/cadastro"})
 public class UsuarioServlet extends HttpServlet {
 
     UsuarioDAO usuarioDAO;
@@ -40,6 +39,7 @@ public class UsuarioServlet extends HttpServlet {
                 case "/perfil" -> perfilUsuario(request, response);
                 case "/usuario-login" -> loginUsuario(request, response);
                 case "/usuario-logout" -> logoutUsuario(request, response);
+                case "/cadastro" -> cadastro(request,response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,6 +139,11 @@ public class UsuarioServlet extends HttpServlet {
 
         request.setAttribute("professor", professor);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-professor.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void cadastro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-acesso.jsp");
         dispatcher.forward(request, response);
     }
 
