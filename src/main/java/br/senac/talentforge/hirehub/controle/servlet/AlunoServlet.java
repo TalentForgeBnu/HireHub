@@ -27,7 +27,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos", "/tela-logado-aluno"})
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
@@ -56,6 +56,7 @@ public class AlunoServlet extends HttpServlet {
                 case "/inserir-aluno" -> inserirAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
                 case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
+                case "/tela-logado-aluno" -> alunoLogado(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,6 +198,11 @@ public class AlunoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath());
         }
 
+    }
+    
+    private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
+        dispatcher.forward(request, response);
     }
 
 }
