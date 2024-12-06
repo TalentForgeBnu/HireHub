@@ -44,11 +44,12 @@ div p {
 
 .areadosbotoes {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: start;
     gap: 60px;
     margin-top: 140px;
-    margin-left: 70px;
+    margin-left: 220px;
+    margin-right: 220px;
 }
 
 .botao {
@@ -57,7 +58,7 @@ div p {
     border-radius: 10px;
     text-align: center;
     width: 275px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 3px 2px 3px rgba(0, 0, 0, 1);
 }
 
 .botao img {
@@ -68,39 +69,6 @@ div p {
     display: flex;
     justify-content: space-between;
     justify-items: left;
-}
-
-.areadosbotoes .cursos {
-    margin: 20px auto 70px;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    text-align: center;
-}
-
-.areadosbotoes .cursos label {
-    font-size: 40px;
-    display: flex;
-    justify-items: center;
-    font-weight: bold;
-    color: #000;
-    margin-left: 5px;
-}
-
-.areadosbotoes .cursos button {
-    background-color: #390879;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.areadosbotoes .cursos button:hover {
-    background-color: #FCAE11;
 }
 
 label {
