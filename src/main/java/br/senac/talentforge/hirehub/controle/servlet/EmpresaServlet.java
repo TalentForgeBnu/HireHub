@@ -2,6 +2,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,14 +16,20 @@ import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
+import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
-@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa"})
+@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa", "/tela-logado-empresa"})
 public class EmpresaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7157263069775551523L;
@@ -30,11 +37,15 @@ public class EmpresaServlet extends HttpServlet {
     private PapelDAO papelDAO;
     private UsuarioDAO usuarioDAO;
     private EnderecoDAO enderecoDAO;
+    private PropostaDAO propostaDAO;
+    private VagaDAO vagaDAO;
 
     public void init() {
         papelDAO = new PapelDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         enderecoDAO = new EnderecoDAOImpl();
+        propostaDAO = new PropostaDAOImpl();
+        vagaDAO = new VagaDAOImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,6 +59,7 @@ public class EmpresaServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-empresa" -> inserirEmpresa(request, response);
                 case "/atualizar-perfil-empresa" -> atualizarPerfilEmpresa(request, response);
+                case "/tela-logado-empresa" -> empresaLogado(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,5 +150,35 @@ public class EmpresaServlet extends HttpServlet {
         }
 
     }
+
+private void empresaLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	 HttpSession session = request.getSession();
+         session.getAttribute("usuario-logado");
+
+         Empresa empresa = null;
+
+         if (session == null || session.getAttribute("usuario-logado") == null) {
+             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
+         }
+
+         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+         if (usuario.getPapel().getFuncao().equals("empresa")) {
+    	    	   
+        	 empresa = (Empresa) usuario;
+        	 
+        	 List<Proposta> propostas = propostaDAO.recuperarPropostasPeloIdEmpresa(empresa.getId());
+        	 List<Vaga> vagas = vagaDAO.recuperarVagasPeloIdDaEmpresa(empresa.getId());
+        	 
+        	 request.setAttribute("empresa", empresa);
+        	 request.setAttribute("propostas", propostas);
+        	 request.setAttribute("vagas", vagas);
+        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/empresa-logado.jsp");
+             dispatcher.forward(request, response);
+        
+         }
+    }
+    
 
 }

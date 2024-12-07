@@ -17,10 +17,9 @@ import br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
-import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.enumeracao.situacao.Situacao;
 
-@WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-lista-vagas", "/recuperar-vaga" })
+@WebServlet(urlPatterns = { "/inserir-vaga", "/recuperar-lista-vagas", "/recuperar-vaga", "/cadastro-vaga" })
 public class VagaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3963892615335298562L;
@@ -38,6 +37,7 @@ public class VagaServlet extends HttpServlet {
 			case "/inserir-vaga" -> inserirVaga(request, response);
 			case "/recuperar-lista-vagas" -> recuperarListaVagas(request, response);
 			case "/recuperar-vaga" -> recuperarVaga(request, response);
+			case "/cadastro-vaga" -> cadastroVaga(request, response);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -140,5 +140,31 @@ public class VagaServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-vaga");
 			dispatcher.forward(request, response);
 		}
+	}
+	
+	private void cadastroVaga(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+		HttpSession session = request.getSession();
+		Empresa empresa = null;
+
+		if (session == null || session.getAttribute("usuario-logado") == null) {
+			response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+		}
+
+		Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+		if (usuario.getPapel().getFuncao().equals("empresa")) {
+			
+			empresa = (Empresa) usuario;
+       	 
+       	    request.setAttribute("empresa", empresa);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-vaga");
+			dispatcher.forward(request, response);
+		}
+		
+		
+		
+		
 	}
 }
