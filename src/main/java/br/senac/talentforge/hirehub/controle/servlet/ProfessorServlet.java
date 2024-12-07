@@ -25,7 +25,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-professor", "/atualizar-perfil-professor"})
+@WebServlet(urlPatterns = {"/inserir-professor", "/cadastro-professor", "/atualizar-perfil-professor"})
 public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
@@ -51,6 +51,7 @@ public class ProfessorServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-professor" -> inserirProfessor(request, response);
+                case "/cadastro-professor" -> cadastroProfessor(request, response);
                 case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
             }
         } catch (Exception e) {
@@ -111,6 +112,10 @@ public class ProfessorServlet extends HttpServlet {
 
     }
 
+    private void cadastroProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-professor.jsp");
+        dispatcher.forward(request, response);
+    }
 
     private void atualizarPerfilProfessor(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
