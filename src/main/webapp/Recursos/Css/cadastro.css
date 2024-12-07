@@ -14,9 +14,10 @@ body {
 	justify-content: space-around;
 	align-items: center;
 	flex-wrap: nowrap;
-	margin: auto;
+	height: 100vh;
+	lmargin: auto;
 	margin: 120px;
-	margin-top: 30px;
+	margin-top: 0;
 	margin-bottom: 0;
 }
 
@@ -30,11 +31,12 @@ body {
 	flex-direction: column;
 }
 
-.tab {
+form .tab {
 	justify-content: center;
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
+	width: 450px;
 }
 
 h1 {
