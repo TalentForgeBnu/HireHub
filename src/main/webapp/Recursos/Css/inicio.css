@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    padding-top: 60px; /* Para evitar que o conteúdo fique escondido atrás do header fixo */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4D4192;
+    color: white;
+    padding: 10px 30px;
+    height: 60px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+header .voltar {
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    margin-right: 20px;
+}
+
+header .nome {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    flex-grow: 1;
+}
+
+header .botao-direita {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+header .botao-login,
+header .botao-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header .botao-login button,
+header .botao-cadastro button {
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: white;
+    font-size: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header .botao-login button:hover,
+header .botao-cadastro button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+header .botao-login img,
+header .botao-cadastro img {
+    width: 30px;
+    margin-right: 2.5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#titulo {
+    margin-top: 100px;
+    text-align: center;
+}
+
+#titulo .titulo-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+#titulo img {
+    width: 100%;
+    max-width: 500px;
+}
+
+#titulo h1 {
+    font-size: 120px;
+    color: #FCAE11;
+    margin: 0;
+}
+
+#cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 150px;
+    margin-top: 30px;
+	margin-bottom: 100px
+}
+
+#cards > div {
+    background-color: #4D4192;
+    color: #FCAE11;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 250px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 350px;
+    height: auto;
+}
+
+#cards > div:hover {
+    transform: scale(1.05);
+}
+
+#cards > div h2 {
+    color: #FFD700;
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+#cards > div p {
+    color: #FFD700;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
+#sobre-o-hirehub {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha o conteúdo à esquerda */
+    justify-content: flex-start; /* Alinha o conteúdo ao topo */
+    background-color: #f5f5f5;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1200px;
+    width: 100%;
+    height: auto; /* Ajusta a altura conforme o conteúdo */
+    text-align: left; /* Alinha o texto à esquerda */
+    box-sizing: border-box;
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+#sobre-o-hirehub h2 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #4D4192;
+    margin-bottom: 7.5px;
+    border-bottom: 2px solid #4D4192; /* Linha de destaque */
+    padding-bottom: 0px; /* Espaço entre o texto e a linha */
+}
+
+#sobre-o-hirehub p {
+    font-size: 20px;
+    color: #4D4192;
+    line-height: 1.6;
+    margin-top: 7.5px;
+    max-width: 100%; /* Permite que o texto ocupe toda a largura da div */
+    width: 100%; /* Garante que o parágrafo ocupe a largura completa da div */
+    padding-left: 40px; /* Desloca o parágrafo para a direita */
+}
+
+footer {
+    background-color: #4D4192;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    display: flex; /* Flexbox para alinhar tudo em uma linha */
+    justify-content: space-between; /* Alinha todos os itens ao centro */
+    gap: 20px; /* Espaçamento entre os itens */
+    flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+}
+
+footer .Email {
+    font-size: 14px;
+    margin: 0; 
+	display: flex;
+	justify-items: flex-start;
+}
+
+footer .link {
+    gap: 40px;
+}
+
+footer .link a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.3s;
+}
+
+footer .link a:hover {
+    opacity: 0.7;
+}

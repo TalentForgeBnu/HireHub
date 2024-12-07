@@ -3,6 +3,7 @@ package br.senac.talentforge.hirehub.controle.servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import javax.persistence.metamodel.SetAttribute;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamilia
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @WebServlet(urlPatterns = {"/inserir-aluno", "/cadastro-aluno", "/atualizar-perfil-aluno", "/tela-logado-aluno"})
+
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
@@ -206,5 +208,5 @@ public class AlunoServlet extends HttpServlet {
         }
 
     }
-
+    
 }

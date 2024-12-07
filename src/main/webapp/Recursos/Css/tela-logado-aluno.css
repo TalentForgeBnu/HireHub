@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+.navbar {
+    background-color: #390879; 
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.voltar {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nome {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+.iconeperfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+
+div p {
+    text-align: left;
+    font-size: 50px;
+    margin-top: 80px;
+    margin-left: 100px;
+}
+
+
+.areadosbotoes {
+    display: flex;
+    justify-content: left;
+    align-items: start;
+    gap: 60px;
+    margin-top: 140px;
+    margin-left: 70px;
+}
+
+.botao {
+    background-color: #f8f0ff;
+    padding: 60px;
+    border-radius: 10px;
+    text-align: center;
+    width: 275px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.botao img {
+    margin-top: 10px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: left;
+}
+
+.areadosbotoes .cursos {
+    margin: 20px auto 70px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    text-align: center;
+}
+
+.areadosbotoes .cursos label {
+    font-size: 40px;
+    display: flex;
+    justify-items: center;
+    font-weight: bold;
+    color: #000;
+    margin-left: 5px;
+}
+
+.areadosbotoes .cursos button {
+    background-color: #390879;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.areadosbotoes .cursos button:hover {
+    background-color: #FCAE11;
+}
+
+label {
+    font-size: 40px;
+    display: flex;
+    justify-items: center;
+    color: #1D0024;
+    margin-left: 130px;
+}

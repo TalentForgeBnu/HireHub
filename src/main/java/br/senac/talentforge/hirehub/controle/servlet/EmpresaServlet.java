@@ -30,6 +30,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
 @WebServlet(urlPatterns = {"/inserir-empresa", "/cadastro-empresa", "/atualizar-perfil-empresa", "/tela-logado-empresa"})
+
 public class EmpresaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7157263069775551523L;

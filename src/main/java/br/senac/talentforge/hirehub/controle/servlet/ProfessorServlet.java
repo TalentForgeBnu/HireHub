@@ -17,6 +17,7 @@ import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
@@ -26,6 +27,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 @WebServlet(urlPatterns = {"/inserir-professor", "/cadastro-professor", "/atualizar-perfil-professor", "/tela-logado-professor"})
+
 public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
