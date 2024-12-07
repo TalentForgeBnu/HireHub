@@ -22,7 +22,8 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-perfil-instituicao","/tela-logado-instituicao"})
+@WebServlet(urlPatterns = {"/inserir-instituicao", "/cadastro-instituicao", "/atualizar-perfil-instituicao", "/tela-logado-instituicao"})
+
 public class InstituicaoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 772514583419437616L;
@@ -47,6 +48,7 @@ public class InstituicaoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-instituicao" -> inserirInstituicao(request, response);
+                case "/cadastro-instituicao" -> cadastroInstituicao(request, response);
                 case "/atualizar-perfil-instituicao" -> atualizarPerfilInstituicao(request, response);
                 case "/tela-logado-instituicao" -> instituicaoLogado(request, response);
             }
@@ -55,9 +57,8 @@ public class InstituicaoServlet extends HttpServlet {
         }
     }
 
-    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        //arrumar gambiarra
         Papel papel = new Papel("instituicao");
         papelDAO.inserirPapel(papel);
         papel = papelDAO.recuperarPapelPelaFuncao("instituicao");
@@ -85,6 +86,11 @@ public class InstituicaoServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath());
     }
 
+    private void cadastroInstituicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-instituicao.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -92,7 +98,7 @@ public class InstituicaoServlet extends HttpServlet {
         Instituicao instituicao = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -126,31 +132,30 @@ public class InstituicaoServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath());
         }
+    }
 
+    private void instituicaoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        session.getAttribute("usuario-logado");
+
+        Instituicao instituicao = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("instituicao")) {
+
+            instituicao = (Instituicao) usuario;
+
+            request.setAttribute("instituicao", instituicao);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/instituicao-logado.jsp");
+            dispatcher.forward(request, response);
+
+        }
     }
     
-private void instituicaoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession();
-         session.getAttribute("usuario-logado");
-
-         Instituicao instituicao = null;
-
-         if (session == null || session.getAttribute("usuario-logado") == null) {
-             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
-         }
-
-         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-         if (usuario.getPapel().getFuncao().equals("instituicao")) {
-    	    	   
-        	 instituicao = (Instituicao) usuario;
-        	 
-        	 request.setAttribute("instituicao", instituicao);
-        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/instituicao-logado.jsp");
-             dispatcher.forward(request, response);
-        
-         }
-    }
-
 }

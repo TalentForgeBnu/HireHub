@@ -29,7 +29,8 @@ import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 
-@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa", "/tela-logado-empresa"})
+@WebServlet(urlPatterns = {"/inserir-empresa", "/cadastro-empresa", "/atualizar-perfil-empresa", "/tela-logado-empresa"})
+
 public class EmpresaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7157263069775551523L;
@@ -48,6 +49,7 @@ public class EmpresaServlet extends HttpServlet {
         vagaDAO = new VagaDAOImpl();
     }
 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
@@ -58,6 +60,7 @@ public class EmpresaServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-empresa" -> inserirEmpresa(request, response);
+                case "/cadastro-empresa" -> cadastroEmpresa(request, response);
                 case "/atualizar-perfil-empresa" -> atualizarPerfilEmpresa(request, response);
                 case "/tela-logado-empresa" -> empresaLogado(request, response);
             }
@@ -69,7 +72,6 @@ public class EmpresaServlet extends HttpServlet {
     private void inserirEmpresa(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        //arrumar gambiarra
         Papel papel = new Papel("empresa");
         papelDAO.inserirPapel(papel);
         papel = papelDAO.recuperarPapelPelaFuncao("empresa");
@@ -97,6 +99,11 @@ public class EmpresaServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath());
     }
 
+    private void cadastroEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-empresa.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void atualizarPerfilEmpresa(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
@@ -104,7 +111,7 @@ public class EmpresaServlet extends HttpServlet {
         Empresa empresa = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
+            response.sendRedirect(request.getContextPath() + ("/login"));
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -148,37 +155,35 @@ public class EmpresaServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath());
         }
-
     }
 
-private void empresaLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	 HttpSession session = request.getSession();
-         session.getAttribute("usuario-logado");
+    private void empresaLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-         Empresa empresa = null;
+        HttpSession session = request.getSession();
+        session.getAttribute("usuario-logado");
 
-         if (session == null || session.getAttribute("usuario-logado") == null) {
-             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
-         }
+        Empresa empresa = null;
 
-         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
 
-         if (usuario.getPapel().getFuncao().equals("empresa")) {
-    	    	   
-        	 empresa = (Empresa) usuario;
-        	 
-        	 List<Proposta> propostas = propostaDAO.recuperarPropostasPeloIdEmpresa(empresa.getId());
-        	 List<Vaga> vagas = vagaDAO.recuperarVagasPeloIdDaEmpresa(empresa.getId());
-        	 
-        	 request.setAttribute("empresa", empresa);
-        	 request.setAttribute("propostas", propostas);
-        	 request.setAttribute("vagas", vagas);
-        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/empresa-logado.jsp");
-             dispatcher.forward(request, response);
-        
-         }
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("empresa")) {
+
+            empresa = (Empresa) usuario;
+
+            List<Proposta> propostas = propostaDAO.recuperarPropostasPeloIdEmpresa(empresa.getId());
+            List<Vaga> vagas = vagaDAO.recuperarVagasPeloIdDaEmpresa(empresa.getId());
+
+            request.setAttribute("empresa", empresa);
+            request.setAttribute("propostas", propostas);
+            request.setAttribute("vagas", vagas);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/empresa-logado.jsp");
+            dispatcher.forward(request, response);
+
+        }
     }
-    
 
 }

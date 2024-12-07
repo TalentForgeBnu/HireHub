@@ -33,7 +33,8 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/atualizar-perfil-aluno", "/recuperar-lista-alunos", "/tela-logado-aluno"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/cadastro-aluno", "/atualizar-perfil-aluno", "/tela-logado-aluno"})
+
 public class AlunoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1817596775729858905L;
@@ -64,8 +65,8 @@ public class AlunoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-aluno" -> inserirAluno(request, response);
+                case "/cadastro-aluno" -> cadastroAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
-                case "/recuperar-perfil-aluno" -> recuperarPerfilAluno(request, response);
                 case "/tela-logado-aluno" -> alunoLogado(request, response);
             }
         } catch (Exception e) {
@@ -76,12 +77,10 @@ public class AlunoServlet extends HttpServlet {
     private void inserirAluno(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        //arrumar gambiarra
         Papel papel = new Papel("aluno");
         papelDAO.inserirPapel(papel);
         papel = papelDAO.recuperarPapelPelaFuncao("aluno");
 
-        // Dados endereço
         String estado = request.getParameter("estado");
         String cidade = request.getParameter("cidade");
         String logadouro = request.getParameter("logradouro");
@@ -91,7 +90,6 @@ public class AlunoServlet extends HttpServlet {
         String complemento = request.getParameter("complemento");
         String via = request.getParameter("via");
 
-        // Dados aluno
         String nome = request.getParameter("nome");
         String sobrenome = request.getParameter("sobrenome");
         String nomeSocial = request.getParameter("nome-social");
@@ -105,14 +103,20 @@ public class AlunoServlet extends HttpServlet {
         String renda = request.getParameter("renda-familiar").replace("-", "_");
         RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-        Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
-        enderecoDAO.inserirEndereco(endereco);
-        usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
-
         if (request.getParameter("senha").equals(request.getParameter("confirmar-senha"))) {
+            Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
+            enderecoDAO.inserirEndereco(endereco);
+            usuarioDAO.inserirUsuario(new Aluno(senha, endereco, papel, telefone, email, cpf, nome, sobrenome, nomeSocial, dataNascimento, rendaFamiliar, etnia, sexo));
             response.sendRedirect(request.getContextPath());
+        } else {
+            response.sendRedirect(request.getContextPath() + "/cadastro-aluno");
         }
-        else {response.sendRedirect("../Paginas/cadastro-aluno.jsp");}
+
+    }
+
+    private void cadastroAluno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-aluno.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void atualizarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
@@ -122,7 +126,7 @@ public class AlunoServlet extends HttpServlet {
         Aluno aluno = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + ("Paginas/tela-login.jsp"));
+            response.sendRedirect(request.getContextPath() + ("/login"));
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -175,17 +179,15 @@ public class AlunoServlet extends HttpServlet {
 
     }
 
-    private void recuperarPerfilAluno(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+    private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         session.getAttribute("usuario-logado");
 
         Aluno aluno = null;
-        Endereco alunoEndereco = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -193,23 +195,19 @@ public class AlunoServlet extends HttpServlet {
         if (usuario.getPapel().getFuncao().equals("aluno")) {
 
             aluno = (Aluno) usuario;
-            alunoEndereco = enderecoDAO.recuperarEnderecoPeloIdUsuario(aluno.getId());
+
+            Turma turma = turmaDAO.recuperarTurmaPeloIdAluno(aluno.getId());
+            Curso curso = cursoDAO.recuperarCursoPeloIdTurma(turma.getId());
 
             request.setAttribute("aluno", aluno);
-            request.setAttribute("endereco", alunoEndereco);
-
-            String rendafamiliar = aluno.getRendaFamiliar().toString().replace("_", "-").toLowerCase();
-            request.setAttribute("rendafamiliar", rendafamiliar);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/perfil-aluno.jsp");
+            request.setAttribute("curso", curso);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
             dispatcher.forward(request, response);
 
-        } else {
-            response.sendRedirect(request.getContextPath());
         }
 
     }
-    
+
     private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	HttpSession session = request.getSession();
