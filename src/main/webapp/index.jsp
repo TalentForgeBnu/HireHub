@@ -23,6 +23,7 @@ pageEncoding="UTF-8"%>
             <li><a href="${pageContext.request.contextPath}/tela-logado-aluno">Tela Logado</a></li>
             <li><a href="${pageContext.request.contextPath}/tela-logado-professor">Tela Logado Professor</a></li>
             <li><a href="${pageContext.request.contextPath}/tela-logado-instituicao">Tela Logado Instituicao</a></li>
+            <li><a href="${pageContext.request.contextPath}/tela-logado-empresa">Tela Logado Empresa</a></li>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-cursos">Listagem Cursos</a></li>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-turma">Listagem Turmas</a></li>
             <li><a href="${pageContext.request.contextPath}/recuperar-lista-vagas">Listagem Vagas</a></li>
