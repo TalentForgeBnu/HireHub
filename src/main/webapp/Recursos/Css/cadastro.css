@@ -11,24 +11,22 @@
 
 body {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	flex-wrap: nowrap;
 	height: 100vh;
-	lmargin: auto;
-	margin: 120px;
-	margin-top: 0;
-	margin-bottom: 0;
 }
 
 .imagem img {
 	display: flex;
+	margin-right: 10vh;
 }
 
 .formulario {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	margin-left: 10vh;
 }
 
 form .tab {
