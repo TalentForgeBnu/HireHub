@@ -16,11 +16,11 @@ function showTab(n) {
     }
 
     if (n === (tabs.length - 1)) {
-        document.getElementById("proximo").type = "submit";
-        document.getElementById("proximo").innerHTML = "Enviar";
+        document.getElementById("proximo").style.display = "none";
+        document.getElementById("enviar").style.display = "flex";
     } else {
-        document.getElementById("proximo").type = "button";
-        document.getElementById("proximo").innerHTML = "Próximo";
+        document.getElementById("proximo").style.display = "flex";
+        document.getElementById("enviar").style.display = "none";
     }
 }
 
