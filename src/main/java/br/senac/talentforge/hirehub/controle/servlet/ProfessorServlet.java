@@ -25,7 +25,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-professor", "/cadastro-professor", "/atualizar-perfil-professor"})
+@WebServlet(urlPatterns = {"/inserir-professor", "/cadastro-professor", "/atualizar-perfil-professor", "/tela-logado-professor"})
 public class ProfessorServlet extends HttpServlet {
 
     private static final long serialVersionUID = 512561250174084370L;
@@ -53,6 +53,7 @@ public class ProfessorServlet extends HttpServlet {
                 case "/inserir-professor" -> inserirProfessor(request, response);
                 case "/cadastro-professor" -> cadastroProfessor(request, response);
                 case "/atualizar-perfil-professor" -> atualizarPerfilProfessor(request, response);
+                case "/tela-logado-professor" -> professorLogado(request, response);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -161,7 +162,30 @@ public class ProfessorServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath());
         }
+    }
 
+    private void professorLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        session.getAttribute("usuario-logado");
+
+        Professor professor = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("professor")) {
+
+            professor = (Professor) usuario;
+
+            request.setAttribute("professor", professor);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/professor-logado.jsp");
+            dispatcher.forward(request, response);
+
+        }
     }
 
 }
