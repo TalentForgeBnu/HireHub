@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
+import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno_;
+import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
@@ -72,6 +76,27 @@ public class TurmaDAOImpl implements TurmaDAO {
 			CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
 			Root<Turma> raizTurma = criteria.from(Turma.class);
 			criteria.select(raizTurma).where(construtor.equal(raizTurma.get(Turma_.INSTITUICAO), idInstituicao));
+			turmaRecuperada = sessao.createQuery(criteria).getSingleResult();
+			sessao.getTransaction().commit();
+		} catch (Exception exception) {
+			erroSessao(sessao, exception);
+		} finally {
+			fecharSessao(sessao);
+		}
+		return turmaRecuperada;
+	}
+	
+	public Turma recuperarTurmaPeloIdAluno(long idAluno) {
+		Session sessao = null;
+		Turma turmaRecuperada = null;
+		try {
+			sessao = fabrica.getConexao().openSession();
+			sessao.beginTransaction();
+			CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+			CriteriaQuery<Turma> criteria = construtor.createQuery(Turma.class);
+			Root<Aluno> raizAluno = criteria.from(Aluno.class);
+			Join<Aluno, Turma> joinTurmaAluno = raizAluno.join(Aluno_.TURMA);
+			criteria.select(joinTurmaAluno).where(construtor.equal(raizAluno.get(Aluno_.TURMA), idAluno));
 			turmaRecuperada = sessao.createQuery(criteria).getSingleResult();
 			sessao.getTransaction().commit();
 		} catch (Exception exception) {

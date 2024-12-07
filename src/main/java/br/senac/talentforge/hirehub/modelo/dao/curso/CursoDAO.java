@@ -13,6 +13,8 @@ public interface CursoDAO {
     void atualizarCurso(Curso curso);
 
     Curso recuperarCursoPeloId(long idCurso);
+    
+    Curso recuperarCursoPeloIdTurma(long idTurma);
 
     List<Curso> recuperarCursosPeloIdDaInstituicao(long idInstituicao);
 
