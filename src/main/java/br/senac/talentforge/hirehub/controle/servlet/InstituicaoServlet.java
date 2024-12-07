@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-perfil-instituicao"})
+@WebServlet(urlPatterns = {"/inserir-instituicao", "/cadastro-instituicao", "/atualizar-perfil-instituicao"})
 public class InstituicaoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 772514583419437616L;
@@ -47,6 +47,7 @@ public class InstituicaoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-instituicao" -> inserirInstituicao(request, response);
+                case "/cadastro-instituicao" -> cadastroInstituicao(request, response);
                 case "/atualizar-perfil-instituicao" -> atualizarPerfilInstituicao(request, response);
             }
         } catch (Exception e) {
@@ -54,7 +55,7 @@ public class InstituicaoServlet extends HttpServlet {
         }
     }
 
-    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         //arrumar gambiarra
         Papel papel = new Papel("instituicao");
@@ -82,6 +83,11 @@ public class InstituicaoServlet extends HttpServlet {
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
         response.sendRedirect(request.getContextPath());
+    }
+
+    private void cadastroInstituicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-instituicao.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)

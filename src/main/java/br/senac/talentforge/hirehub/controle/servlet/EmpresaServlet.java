@@ -22,7 +22,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-@WebServlet(urlPatterns = {"/inserir-empresa", "/atualizar-perfil-empresa"})
+@WebServlet(urlPatterns = {"/inserir-empresa", "/cadastro-empresa", "/atualizar-perfil-empresa"})
 public class EmpresaServlet extends HttpServlet {
 
     private static final long serialVersionUID = -7157263069775551523L;
@@ -47,6 +47,7 @@ public class EmpresaServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-empresa" -> inserirEmpresa(request, response);
+                case "/cadastro-empresa" -> cadastroEmpresa(request, response);
                 case "/atualizar-perfil-empresa" -> atualizarPerfilEmpresa(request, response);
             }
         } catch (Exception e) {
@@ -83,6 +84,11 @@ public class EmpresaServlet extends HttpServlet {
         usuarioDAO.inserirUsuario(new Empresa(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
 
         response.sendRedirect(request.getContextPath());
+    }
+
+    private void cadastroEmpresa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-empresa.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void atualizarPerfilEmpresa(HttpServletRequest request, HttpServletResponse response)
