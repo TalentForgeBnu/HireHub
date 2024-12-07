@@ -13,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAO;
 import br.senac.talentforge.hirehub.modelo.dao.Turma.TurmaDAOImpl;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
@@ -41,7 +39,6 @@ public class AlunoServlet extends HttpServlet {
 
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
-    private AlunoDAO alunoDAO;
     private UsuarioDAO usuarioDAO;
     private CursoDAO cursoDAO;
     private TurmaDAO turmaDAO;
@@ -49,7 +46,6 @@ public class AlunoServlet extends HttpServlet {
     public void init() {
         enderecoDAO = new EnderecoDAOImpl();
         papelDAO = new PapelDAOImpl();
-        alunoDAO = new AlunoDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
         cursoDAO = new CursoDAOImpl();
         turmaDAO = new TurmaDAOImpl();
@@ -135,7 +131,6 @@ public class AlunoServlet extends HttpServlet {
 
             aluno = (Aluno) usuario;
 
-            // Dados endereço
             String estado = request.getParameter("estado");
             String cidade = request.getParameter("cidade");
             String logadouro = request.getParameter("logradouro");
@@ -146,7 +141,6 @@ public class AlunoServlet extends HttpServlet {
             String via = request.getParameter("via");
             Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
 
-            // dados aluno
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
             String nomeSocial = request.getParameter("nome-social");
@@ -157,7 +151,6 @@ public class AlunoServlet extends HttpServlet {
             String renda = request.getParameter("renda-familiar").replace("-", "_");
             RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-            // atualizando dados.
             aluno.setNome(nome);
             aluno.setSobrenome(sobrenome);
             aluno.setNomeSocial(nomeSocial);
@@ -206,34 +199,6 @@ public class AlunoServlet extends HttpServlet {
 
         }
 
-    }
-
-    private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession();
-         session.getAttribute("usuario-logado");
-
-         Aluno aluno = null;
-
-         if (session == null || session.getAttribute("usuario-logado") == null) {
-             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
-         }
-
-         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-         if (usuario.getPapel().getFuncao().equals("aluno")) {
-    	    	   
-        	 aluno = (Aluno) usuario;
-        	 
-        	 Turma turma = turmaDAO.recuperarTurmaPeloIdAluno(aluno.getId());
-        	 Curso curso = cursoDAO.recuperarCursoPeloIdTurma(turma.getId());
-        	 
-        	 request.setAttribute("aluno", aluno);
-        	 request.setAttribute("curso", curso);
-        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
-             dispatcher.forward(request, response);
-        
-         }
     }
 
 }
