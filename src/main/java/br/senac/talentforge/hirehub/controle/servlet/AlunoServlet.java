@@ -208,32 +208,4 @@ public class AlunoServlet extends HttpServlet {
 
     }
 
-    private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession();
-         session.getAttribute("usuario-logado");
-
-         Aluno aluno = null;
-
-         if (session == null || session.getAttribute("usuario-logado") == null) {
-             response.sendRedirect(request.getContextPath() + "/Paginas/tela-login.jsp");
-         }
-
-         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-         if (usuario.getPapel().getFuncao().equals("aluno")) {
-    	    	   
-        	 aluno = (Aluno) usuario;
-        	 
-        	 Turma turma = turmaDAO.recuperarTurmaPeloIdAluno(aluno.getId());
-        	 Curso curso = cursoDAO.recuperarCursoPeloIdTurma(turma.getId());
-        	 
-        	 request.setAttribute("aluno", aluno);
-        	 request.setAttribute("curso", curso);
-        	 RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
-             dispatcher.forward(request, response);
-        
-         }
-    }
-
 }
