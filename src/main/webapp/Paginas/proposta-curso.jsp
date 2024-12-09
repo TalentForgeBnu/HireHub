@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HireHub - Proposta</title>
-<link rel="stylesheet" href="Recursos/Css/proposta-curso.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Recursos/Css/proposta-curso.css">
 </head>
 <body>
 	<div class="container">

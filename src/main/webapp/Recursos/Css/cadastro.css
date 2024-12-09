@@ -44,11 +44,13 @@ h1 {
 }
 
 .topo p {
-	color: #7E7E7E;
+	color: #757575;
 	text-align: center;
 }
 
-input:not([type="checkbox"]), select, textarea {
+input:not([type="checkbox"]),
+select,
+textarea {
 	padding: 7px;
 	margin-top: 12px;
 	border: 1px solid #E0E0E0;
@@ -57,7 +59,9 @@ input:not([type="checkbox"]), select, textarea {
 	background-color: white;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
 	border-color: #FCAE11;
 	outline: none;
 }
@@ -69,18 +73,91 @@ input:focus, select:focus, textarea:focus {
 	flex: 50%;
 }
 
-textarea {resize: none;}
-input:disabled {background-color: lightgray;}
-.grupo-input input, select {flex: 50%;}
+textarea {
+	resize: none;
+}
+
+input:disabled {
+	background-color: lightgray;
+}
+
+.grupo-input input,
+select {
+	flex: 50%;
+}
 
 .termos {
-	display: flex;
 	justify-content: center;
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	user-select: none;
 }
 
-.termos label {
+.termos span {
 	color: #757575;
 }
+
+/* Região da caixa de termos */
+/* Esconde o original (to tendo q anotar) */
+.termos input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/* Cria o customizado */
+.caixa-customizada {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	border: #B0A1A1 solid 1px;
+	border-radius: 8px;
+}
+
+/* Quando passa o mouse, adiciona um fundo cinza */
+.termos:hover input~.caixa-customizada {
+	background-color: #ccc;
+}
+
+/* Adiciona um fundo laranja quando assinado */
+.termos input:checked~.caixa-customizada {
+	background-color: #FCAE11;
+}
+
+/* Cria o indicador */
+.caixa-customizada:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Mostra o confere se marcado */
+.termos input:checked~.caixa-customizada:after {
+	display: block;
+}
+
+/* Estiliza ele */
+.termos .caixa-customizada:after {
+	left: 8px;
+	top: 4px;
+	width: 4px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+/* Acabou a região */
 
 a {
 	color: #FCAE11;
