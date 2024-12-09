@@ -60,6 +60,10 @@ h1 {
     gap: 120px;
 }
 
+.descricao{
+    flex-direction: column;
+}
+
 .curso {
     width: 300px;
     height: 500px;
