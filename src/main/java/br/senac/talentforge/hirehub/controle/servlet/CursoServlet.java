@@ -23,7 +23,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/recuperar-lista-cursos", "/recuperar-curso-pagina"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/lista-cursos", "/recuperar-curso-pagina"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -48,9 +48,8 @@ public class CursoServlet extends HttpServlet {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
                 case "/recuperar-perfil-curso" -> recuperarPerfilCurso(request, response);
-                case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
+                case "/lista-cursos" -> recuperarListaCursos(request, response);
                 case "/recuperar-curso-pagina" -> recuperarPaginaCurso(request, response);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,9 +185,8 @@ public class CursoServlet extends HttpServlet {
             }
 
             request.setAttribute("cursos", cursos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos.jsp");
             dispatcher.forward(request, response);
-
         }
 
         else if (usuario.getPapel().getFuncao().equals("instituicao")) {
@@ -198,7 +196,7 @@ public class CursoServlet extends HttpServlet {
             cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
 
             request.setAttribute("cursos", cursos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos.jsp");
             dispatcher.forward(request, response);
 
         } else {
@@ -215,7 +213,6 @@ public class CursoServlet extends HttpServlet {
         request.setAttribute("vaga", vaga);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-curso.jsp");
         dispatcher.forward(request, response);
-    	
     }
 
 }
