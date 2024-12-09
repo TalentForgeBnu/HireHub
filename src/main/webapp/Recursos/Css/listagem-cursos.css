@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+.navbar {
+    background-color: #390879;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nome {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.iconeperfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.cursos div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin-top: 40px;
+    display: flex;
+    color: #000;
+    font-size: 48px;
+    align-items: center;
+    justify-content: center;
+}
+
+.listagem {
+    display: flex;  
+    height: 70vh;
+    gap: 120px;
+}
+
+.curso {
+    width: 300px;
+    height: 500px;
+    background-color: #f8f0ff;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.curso img {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;    
+    margin-top: 12px;
+    margin-bottom: auto;
+}
+
+.curso p {
+    text-align: start;
+    display: flex;
+    margin: 12px;
+    text-align: center;
+}
+
+p.nome-curso {
+    font-size: 24px;
+}
+
+.curso .botao {
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.curso .botao button {
+    padding: 15px 40px;
+    border-radius: 8px  ;
+    border: none;
+}
+
+button{
+    color: #fff;
+    border-radius: 8px;
+}
+
+button:disabled {
+    background-color: #bbbbbb;
+}
+
+button:disabled:hover {
+    background-color: #8b8b8b;
+}
+
+button:enabled {
+    background-color: #390879;
+}
+
+button:enabled:hover{
+    background-color: #FCAE11;
+}
+
+button.voltar, button.proximo {
+    position: absolute;
+    bottom: 5vh;
+    padding: 15px 15px;
+    border: 1px solid #000;
+}
+
+button.voltar{
+    left: 40vh;
+}
+
+button.proximo{
+    right: 40vh;
+}
+
