@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
@@ -31,7 +30,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 public class AlunoServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1817596775729858905L;
+    private static final long serialVersionUID = 6686034075307749497L;
 
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
@@ -166,33 +165,4 @@ public class AlunoServlet extends HttpServlet {
 
     }
 
-    private void alunoLogado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        session.getAttribute("usuario-logado");
-
-        Aluno aluno = null;
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("aluno")) {
-
-            aluno = (Aluno) usuario;
-
-            Turma turma = turmaDAO.recuperarTurmaPeloIdAluno(aluno.getId());
-            Curso curso = cursoDAO.recuperarCursoPeloIdTurma(turma.getId());
-
-            request.setAttribute("aluno", aluno);
-            request.setAttribute("curso", curso);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/aluno-logado.jsp");
-            dispatcher.forward(request, response);
-
-        }
-
-    }
-  
 }
