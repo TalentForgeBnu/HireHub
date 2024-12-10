@@ -23,6 +23,10 @@ body {
 .nome {
     font-size: 50px;
     font-weight: bold;
+    color: white;
+    margin-left: 20px; 
+    text-align: left; 
+    flex: 1; 
 }
 
 

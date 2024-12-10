@@ -15,14 +15,18 @@ body {
 }
 
 .voltar {
-    font-size: 24px;
+    font-size: 50px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .nome {
     font-size: 50px;
     font-weight: bold;
+    color: white;
+    margin-left: 20px; 
+    text-align: left; 
+    flex: 1; 
 }
 
 
