@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom:15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    margin-left: 6px;
+    margin-right: auto;
+}
+
+label {
+    margin-left: 4px;
+    margin-right: auto;
+}
+
+.navbar {
+    background-color: #390879;
+    color: #f8f0ff;;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nome {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.iconeperfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.pagina {
+    display: flex;
+	align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.curso {
+    display: flex;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.dado-pt1 {
+    display: flex;
+    align-items: start;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dado-pt2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dados {
+    margin-left: 20px;
+}
+
+.linha ,.linha-data{
+    display: flex;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    width: 600px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 1px solid #390879;
+    align-items: center;
+}
+
+.dado-pt1 img {
+    display: flex;
+    margin: auto;
+    margin-left: 30px;
+    width: 300px;
+    height: 300px;  
+    border-radius: 8px;
+}
+
+.descricao {
+    display: flex;
+    width: 570px;
+    height: 200px;
+    border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 2px solid #390879;
+}
+
+textarea:disabled {
+    font-size: 18px;
+    color: #000;
+    background-color: #fff;
+    resize: none;
+    width: 500px;
+    height: 175px;
+    border: none;
+}
+
+.botao {
+    display: flex;
+    margin: auto;
+}
+
+.botao button {
+    width: 200px;
+    height: 60px;
+    font-size: 22px;
+    color: #fff;
+    background-color: #390879;
+    border-radius: 8px;
+    border: none;
+}
+
+.botao button:hover {
+    background-color: #FCAE11;
+}
