@@ -36,9 +36,12 @@
 
                 <div class="curso">
                     <img src="https://via.placeholder.com/50">
-                    <p class="nome-curso" for="nomecurso">${cursos.nome}</p>
-                    <p class="descricao-curso" for="descricaocurso">${cursos.descricao}</p>
                     
+                    <div class="descricao">
+                        <p class="nome-curso" for="nomecurso">${cursos.nome}</p>
+                        <p class="descricao-curso" for="descricaocurso">${cursos.descricao}</p>
+                    </div>
+
                     <div class="botao">
 
                         <c:if test="${usuarioLogado.papel.funcao == 'instituicao'}">
