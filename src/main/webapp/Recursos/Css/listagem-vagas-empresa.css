@@ -17,7 +17,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #4b0082;
+    background-color: #390879;
     padding: 15px 20px;
     color: white;
 }
@@ -40,7 +40,7 @@ header .nome {
 h2 {
     text-align: center;
     font-size: 1.8rem;
-    color: #4b0082;
+    color: #390879;
     margin: 20px 0;
 }
 
@@ -55,7 +55,7 @@ table.lista {
 }
 
 table.lista th {
-    background-color: #6a0dad;
+    background-color: #390879;
     color: white;
     text-transform: uppercase;
     font-size: 14px;
@@ -87,7 +87,7 @@ table.lista tr:nth-child(odd) {
 }
 
 table.lista tr:nth-child(even) {
-    background-color: #6a0dad;
+    background-color: #390879;
     color: white;
 }
 
@@ -96,7 +96,7 @@ table.lista tr:hover {
 }
 
 .container-botao button {
-    background-color: #4b0082;
+    background-color: #390879;
     color: white;
     border: none;
     padding: 10px 15px;

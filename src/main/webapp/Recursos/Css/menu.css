@@ -1,0 +1,32 @@
+.icone {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    margin-right: 5px;
+    position: relative; 
+}
+
+.dropdown {
+    display: none; 
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #390879;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    z-index: 10;
+    width: 85px;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.dropdown a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

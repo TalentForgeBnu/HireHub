@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-16"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-16"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HireHub - Início</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Recursos/Css/inicio.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Recursos/Css/menu.css">
+    
 </head>
 <body>
     <header>
-        <div class="voltar">☰</div>
+       	<div class="voltar">☰</div>
         <div class="nome">HireHub</div>
         <div class="botao-direita">
             <div class="botao-login">
@@ -23,7 +25,7 @@
             </div>
         </div>
     </header>
-
+	
     <div class="container">
         <div id="titulo">
             <div class="titulo-conteudo">
@@ -46,14 +48,14 @@
             </div>
         </div>
     </div>
-
+ 
     <div id="sobre-o-hirehub">
         <h2>Sobre o HireHub</h2>
         <p>Nós somos a Talent Forge, uma equipe dedicada a transformar o mercado de trabalho por meio da inclusão e capacitação. Nosso projeto, o HireHub, nasceu do desejo de combater as desigualdades sociais, criando oportunidades reais para grupos vulneráveis. Acreditamos que a educação e a inclusão são ferramentas essenciais para mudar vidas e promover a igualdade.</p>
         <p>Com o HireHub, buscamos conectar empresas, instituições de ensino, professores e alunos em um ecossistema colaborativo. Nossa missão é reduzir barreiras de entrada ao mercado de trabalho e alinhar a capacitação às demandas reais das empresas, garantindo que cada indivíduo tenha acesso a um futuro mais promissor.</p>
         <p>Juntos, estamos moldando um mundo mais inclusivo e acessível para todos.</p>
     </div>
-
+ 
 	<footer>
 		<p class="Email">talentforgeblu@gmail.com</p>
 		<div class="link">
