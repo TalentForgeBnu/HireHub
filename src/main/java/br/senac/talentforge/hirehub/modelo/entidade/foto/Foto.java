@@ -26,6 +26,9 @@ public class Foto {
     @Column(name = "imagem", nullable = false)
     private byte[] imagem;
 
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
+
     @OneToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
@@ -41,45 +44,42 @@ public class Foto {
     public Foto() {
     }
 
-    public Foto(byte[] imagem) {
+    public Foto(byte[] imagem, String tipo, Usuario usuario) {
         this.imagem = imagem;
-    }
-
-    public Foto(long id, byte[] imagem) {
-        this.id = id;
-        this.imagem = imagem;
-    }
-
-    public Foto(long id, byte[] imagem, Usuario usuario) {
-        this.id = id;
-        this.imagem = imagem;
+        this.tipo = tipo;
         this.usuario = usuario;
     }
 
-    public Foto(long id, byte[] imagem, Curso curso) {
+    public Foto(long id, byte[] imagem, String tipo, Usuario usuario) {
         this.id = id;
         this.imagem = imagem;
+        this.tipo = tipo;
+        this.usuario = usuario;
+    }
+
+    public Foto(byte[] imagem, String tipo, Curso curso) {
+        this.imagem = imagem;
+        this.tipo = tipo;
         this.curso = curso;
     }
 
-    public Foto(long id, byte[] imagem, Vaga vaga) {
+    public Foto(long id, byte[] imagem, String tipo, Curso curso) {
         this.id = id;
         this.imagem = imagem;
+        this.tipo = tipo;
+        this.curso = curso;
+    }
+
+    public Foto(byte[] imagem, String tipo, Vaga vaga) {
+        this.imagem = imagem;
+        this.tipo = tipo;
         this.vaga = vaga;
     }
 
-    public Foto(byte[] imagem, Usuario usuario) {
+    public Foto(long id, byte[] imagem, String tipo, Vaga vaga) {
+        this.id = id;
         this.imagem = imagem;
-        this.usuario = usuario;
-    }
-
-    public Foto(byte[] imagem, Curso curso) {
-        this.imagem = imagem;
-        this.curso = curso;
-    }
-
-    public Foto(byte[] imagem, Vaga vaga) {
-        this.imagem = imagem;
+        this.tipo = tipo;
         this.vaga = vaga;
     }
 
@@ -97,6 +97,14 @@ public class Foto {
 
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Usuario getUsuario() {
