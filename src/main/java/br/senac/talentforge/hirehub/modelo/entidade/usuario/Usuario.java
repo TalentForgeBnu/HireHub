@@ -13,9 +13,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.foto.Foto;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 
 @Entity
@@ -47,9 +49,6 @@ public class Usuario implements Serializable {
 
     @Column(name = "email", length = 40, nullable = false, unique = true)
     protected String email;
-
-    public Usuario() {
-    }
 
     public long getId() {
         return id;

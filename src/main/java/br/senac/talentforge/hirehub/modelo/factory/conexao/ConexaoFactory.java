@@ -15,6 +15,7 @@ public class ConexaoFactory {
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.curso.Curso.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco.class);
+        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.foto.Foto.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.professor.Professor.class);
