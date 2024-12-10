@@ -1,7 +1,6 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -14,19 +13,22 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.foto.FotoDAO;
+import br.senac.talentforge.hirehub.modelo.dao.foto.FotoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAO;
 import br.senac.talentforge.hirehub.modelo.dao.usuario.UsuarioDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.aluno.Aluno;
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.foto.Foto;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.enumeracao.etnia.Etnia;
 import br.senac.talentforge.hirehub.modelo.enumeracao.rendafamiliar.RendaFamiliar;
 import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
-@WebServlet(urlPatterns = {"/inserir-aluno", "/cadastro-aluno", "/atualizar-perfil-aluno"})
+@WebServlet(urlPatterns = {"/inserir-aluno", "/cadastro-aluno", "/atualizar-perfil-aluno", "/inserir-foto"})
 
 public class AlunoServlet extends HttpServlet {
 
@@ -35,11 +37,13 @@ public class AlunoServlet extends HttpServlet {
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
     private UsuarioDAO usuarioDAO;
+    private FotoDAO fotoDAO;
 
     public void init() {
         enderecoDAO = new EnderecoDAOImpl();
         papelDAO = new PapelDAOImpl();
         usuarioDAO = new UsuarioDAOImpl();
+        fotoDAO = new FotoDAOImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +58,7 @@ public class AlunoServlet extends HttpServlet {
                 case "/inserir-aluno" -> inserirAluno(request, response);
                 case "/cadastro-aluno" -> cadastroAluno(request, response);
                 case "/atualizar-perfil-aluno" -> atualizarPerfilAluno(request, response);
+                case "/inserir-foto" -> inserirFotoAluno(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,5 +166,42 @@ public class AlunoServlet extends HttpServlet {
         }
 
     }
-  
+
+    
+    private void inserirFotoAluno(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession();
+        Aluno aluno = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + ("/login"));
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
+        	
+        	String imagem = request.getParameter("foto-perfil");
+        	String tipo = ".png";
+        	
+        	byte[] imagens = new byte[(int)request.getParameter("foto-perfil").length()];
+        	
+        	for (int i = imagens.length; i< 0; i++) {
+				imagens[i] = Byte.parseByte(imagem);
+			}
+        	
+        	aluno = (Aluno) usuario;
+        	
+            fotoDAO.inserirFoto(new Foto(imagens,tipo,aluno, null, null));
+            Foto foto =fotoDAO.recuperarFotoPeloIdDeUsuario(aluno.getId());
+            request.setAttribute("aluno", aluno);
+            request.setAttribute("foto", foto);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-aluno.jsp");
+            dispatcher.forward(request, response);       		      	
+        }
+    	
+    	
+    }
+
 }

@@ -3,11 +3,11 @@ package br.senac.talentforge.hirehub.modelo.dao.foto;
 import br.senac.talentforge.hirehub.modelo.entidade.foto.Foto;
 
 public interface FotoDAO {
-    void inserirUsuario(Foto foto);
+    void inserirFoto(Foto foto);
 
-    void deletarUsuario(Foto foto);
+    void deletarFoto(Foto foto);
 
-    void atualizarUsuario(Foto foto);
+    void atualizarFoto(Foto foto);
 
     Foto recuperarFotoPeloIdDeUsuario(long idUsuario);
 

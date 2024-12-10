@@ -30,15 +30,15 @@ public class Foto {
     private String tipo;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = true)
     private Usuario usuario;
 
     @OneToOne
-    @JoinColumn(name = "id_curso", nullable = false)
+    @JoinColumn(name = "id_curso", nullable = true)
     private Curso curso;
 
     @OneToOne
-    @JoinColumn(name = "id_vaga", nullable = false)
+    @JoinColumn(name = "id_vaga", nullable = true)
     private Vaga vaga;
 
     public Foto() {
@@ -50,11 +50,20 @@ public class Foto {
         this.usuario = usuario;
     }
 
-    public Foto(long id, byte[] imagem, String tipo, Usuario usuario) {
+    public Foto(long id, byte[] imagem, String tipo, Usuario usuario, Curso curso,  Vaga vaga) {
         this.id = id;
         this.imagem = imagem;
         this.tipo = tipo;
         this.usuario = usuario;
+        this.curso = curso;
+        this.vaga = vaga;
+    }
+    public Foto(byte[] imagem, String tipo, Usuario usuario, Curso curso,  Vaga vaga) {
+        this.imagem = imagem;
+        this.tipo = tipo;
+        this.usuario = usuario;
+        this.curso = curso;
+        this.vaga = vaga;
     }
 
     public Foto(byte[] imagem, String tipo, Curso curso) {
@@ -63,21 +72,7 @@ public class Foto {
         this.curso = curso;
     }
 
-    public Foto(long id, byte[] imagem, String tipo, Curso curso) {
-        this.id = id;
-        this.imagem = imagem;
-        this.tipo = tipo;
-        this.curso = curso;
-    }
-
     public Foto(byte[] imagem, String tipo, Vaga vaga) {
-        this.imagem = imagem;
-        this.tipo = tipo;
-        this.vaga = vaga;
-    }
-
-    public Foto(long id, byte[] imagem, String tipo, Vaga vaga) {
-        this.id = id;
         this.imagem = imagem;
         this.tipo = tipo;
         this.vaga = vaga;
