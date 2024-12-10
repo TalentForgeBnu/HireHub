@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/lista-cursos", "/recuperar-curso-pagina", "/perfil-curso"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/lista-cursos", "/recuperar-curso-pagina", "/ver-curso"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
@@ -50,7 +51,7 @@ public class CursoServlet extends HttpServlet {
                 case "/recuperar-perfil-curso" -> recuperarPerfilCurso(request, response);
                 case "/lista-cursos" -> recuperarListaCursos(request, response);
                 case "/recuperar-curso-pagina" -> recuperarPaginaCurso(request, response);
-                case "/perfil-curso" -> perfilCurso(request, response);
+                case "/ver-curso" -> visualizarCurso(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +155,7 @@ public class CursoServlet extends HttpServlet {
             }
 
             request.setAttribute("curso", curso);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-curso.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/visualizar-curso.jsp");
             dispatcher.forward(request, response);
 
         } else {
@@ -214,11 +215,11 @@ public class CursoServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void perfilCurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void visualizarCurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.parseLong(request.getParameter("id"));
         Curso curso = cursoDAO.recuperarCursoPeloId(id);
         request.setAttribute("curso", curso);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-curso.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/visualizar-curso.jsp");
         dispatcher.forward(request, response);
     }
 

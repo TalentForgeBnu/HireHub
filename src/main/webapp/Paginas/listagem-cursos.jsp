@@ -49,7 +49,7 @@
                         </c:if>
 
                         <c:if test="${usuarioLogado.papel.funcao == 'aluno'}">               
-                            <form action="<%=request.getContextPath()%>/perfil-curso" method="post">
+                            <form action="<%=request.getContextPath()%>/ver-curso" method="post">
                                 <input type="hidden" name="id" value="${cursos.id}"/>
                                 <button type="submit">Ver Mais</button>
                             </form>
