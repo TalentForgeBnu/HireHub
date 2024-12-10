@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAO;
-import br.senac.talentforge.hirehub.modelo.dao.aluno.AlunoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.endereco.EnderecoDAOImpl;
 import br.senac.talentforge.hirehub.modelo.dao.papel.PapelDAO;
@@ -31,7 +30,7 @@ import br.senac.talentforge.hirehub.modelo.enumeracao.sexo.Sexo;
 
 public class AlunoServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1817596775729858905L;
+    private static final long serialVersionUID = 6686034075307749497L;
 
     private EnderecoDAO enderecoDAO;
     private PapelDAO papelDAO;
@@ -122,7 +121,6 @@ public class AlunoServlet extends HttpServlet {
 
             aluno = (Aluno) usuario;
 
-            // Dados endereço
             String estado = request.getParameter("estado");
             String cidade = request.getParameter("cidade");
             String logadouro = request.getParameter("logradouro");
@@ -133,7 +131,6 @@ public class AlunoServlet extends HttpServlet {
             String via = request.getParameter("via");
             Endereco endereco = new Endereco(logadouro, bairro, cidade, estado, cep, numero, complemento, via);
 
-            // dados aluno
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");
             String nomeSocial = request.getParameter("nome-social");
@@ -144,7 +141,6 @@ public class AlunoServlet extends HttpServlet {
             String renda = request.getParameter("renda-familiar").replace("-", "_");
             RendaFamiliar rendaFamiliar = RendaFamiliar.valueOf(renda.toUpperCase());
 
-            // atualizando dados.
             aluno.setNome(nome);
             aluno.setSobrenome(sobrenome);
             aluno.setNomeSocial(nomeSocial);
@@ -165,5 +161,5 @@ public class AlunoServlet extends HttpServlet {
         }
 
     }
-
+  
 }
