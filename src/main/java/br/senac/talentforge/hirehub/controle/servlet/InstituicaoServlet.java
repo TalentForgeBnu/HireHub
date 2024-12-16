@@ -22,7 +22,8 @@ import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
 
-@WebServlet(urlPatterns = {"/inserir-instituicao", "/atualizar-perfil-instituicao", "/recuperar-perfil-instituicao"})
+@WebServlet(urlPatterns = {"/inserir-instituicao", "/cadastro-instituicao", "/atualizar-perfil-instituicao"})
+
 public class InstituicaoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 772514583419437616L;
@@ -47,16 +48,19 @@ public class InstituicaoServlet extends HttpServlet {
         try {
             switch (action) {
                 case "/inserir-instituicao" -> inserirInstituicao(request, response);
+                case "/cadastro-instituicao" -> cadastroInstituicao(request, response);
                 case "/atualizar-perfil-instituicao" -> atualizarPerfilInstituicao(request, response);
-                case "/recuperar-perfil-instituicao" -> recuperarPerfilInstituicao(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    private void inserirInstituicao(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         Papel papel = new Papel("instituicao");
+        papelDAO.inserirPapel(papel);
+        papel = papelDAO.recuperarPapelPelaFuncao("instituicao");
 
         String nome = request.getParameter("nome-instituicao");
         String descricao = request.getParameter("descricao-instituicao");
@@ -76,10 +80,14 @@ public class InstituicaoServlet extends HttpServlet {
 
         Endereco endereco = new Endereco(logradouro, bairro, cidade, estado, cep, numero, complemento, via);
 
-        papelDAO.inserirPapel(papel);
         enderecoDAO.inserirEndereco(endereco);
         usuarioDAO.inserirUsuario(new Instituicao(senha, endereco, papel, telefone, email, cnpj, nome, dataFundacao, descricao));
         response.sendRedirect(request.getContextPath());
+    }
+
+    private void cadastroInstituicao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/cadastro-instituicao.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void atualizarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)
@@ -89,7 +97,7 @@ public class InstituicaoServlet extends HttpServlet {
         Instituicao instituicao = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -123,32 +131,6 @@ public class InstituicaoServlet extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath());
         }
-
-    }
-
-    private void recuperarPerfilInstituicao(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-
-        HttpSession session = request.getSession();
-        Instituicao instituicao = null;
-
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
-
-        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
-
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
-
-            instituicao = (Instituicao) usuario;
-
-            request.setAttribute("instituicao", instituicao);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/perfil-instituicao.jsp");
-            dispatcher.forward(request, response);
-        }else {
-            response.sendRedirect(request.getContextPath());
-        }
-
     }
 
 }

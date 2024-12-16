@@ -1,95 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
 body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        .container {
-            display: flex;
-            background-color: white;
-            width: 70%;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            justify-content: space-between;
-            align-items: center;
-        }
+.container {
+    display: flex;
+    justify-content: center;
+}
 
-        .left-section {
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.imagem {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
-        .left-section img {
-            max-width: 100%;
-        }
+.imagem img {
+    width: 100%;
+    max-width: 700px;
+}
 
-        .right-section {
-            width: 50%;
-            padding-left: 20px;
-        }
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width:600px;
+}
 
-        .right-section h1 {
-            font-size: 36px;
-            color: #4a90e2;
-            margin-bottom: 20px;
-        }
+.login h1 {
+    font-size: 62px;
+    color: #7b4bc9;
+    margin-bottom: 40px;
+}
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+.login form {
 
-        input {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
+}
 
-        a {
-            text-decoration: none;
-            color: #4a90e2;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
+.login input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
 
-        .form-actions {
-            display: flex;
-            justify-content: space-between;
-        }
+.login a {
+    color: #f0a500;
+    display: flex;
+    padding: 0;
+    text-decoration: none;
+    font-size: 14px;
+}
 
-        .form-actions button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+.botoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
 
-        .form-actions button.back {
-            background-color: white;
-            border: 1px solid black;
-        }
+.botoes button[type="button"] {
+    background: #fff;
+    border: 1px solid #7b4bc9;
+    color: #7b4bc9;
+    padding: 15px 50px;
+    border-radius: 4px;
+    font-size: 16px;
+}
 
-        .form-actions button.submit {
-            background-color: #4a90e2;
-            color: white;
-        }
+.botoes button[type="submit"] {
+    background: #7b4bc9;
+    color: #fff;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
 
-        .form-footer {
-            margin-top: 10px;
-            text-align: center;
-        }
+.botoes button:hover {
+    background: #FCAE11;
+    color: #fff;
+}
 
-        .form-footer a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
+.cadastra-se {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadastra-se p {
+    display: flex;
+    align-items: center;
+}
+
+.cadastra-se a {
+    color: #f0a500;
+    font-weight: bold;
+    margin-left: 7px;
+}

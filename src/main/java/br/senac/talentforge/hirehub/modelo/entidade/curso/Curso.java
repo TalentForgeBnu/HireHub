@@ -21,7 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
@@ -66,9 +65,6 @@ public class Curso implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proposta")
     private Proposta proposta;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inscricao> inscricao = new ArrayList<>();
 
     public Curso() {}
 

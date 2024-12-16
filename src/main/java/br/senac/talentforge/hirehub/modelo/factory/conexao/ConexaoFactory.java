@@ -15,6 +15,7 @@ public class ConexaoFactory {
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.curso.Curso.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.empresa.Empresa.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco.class);
+        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.foto.Foto.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.proposta.Proposta.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.professor.Professor.class);
@@ -24,7 +25,6 @@ public class ConexaoFactory {
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.apontamento.Apontamento.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.dossie.Dossie.class);
         configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.papel.Papel.class);
-        configuracao.addAnnotatedClass(br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao.class);
 
 
         configuracao.configure("hibernate.cfg.xml");

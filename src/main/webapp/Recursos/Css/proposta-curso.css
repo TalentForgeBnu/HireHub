@@ -1,100 +1,127 @@
 body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+	color: #333;
+}
 
-        .container {
-            display: flex;
-            background-color: white;
-            width: 80%;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            flex-direction: column;
-        }
-        
-        h1 {
-		    font-size: 36px;
-		    color: #3B82F6;
-		    margin-bottom: 10px;
-		}
+.container {
+	max-width: 1000px;
+	margin: 40px auto;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 40px 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-        .form-content {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
+h1 {
+	font-size: 15px;
+	color: #333;
+	font-weight: bolder;
+	text-align: left;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
 
-        .left-section {
-            width: 60%;
-        }
+.form-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 30px;
+}
 
-        .left-section input, 
-        .left-section textarea, 
-        .left-section select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
+.form-actions {
+	display: flex;
+	justify-content: center;
+}
 
-        .left-section textarea {
-            height: 100px;
-            resize: none;
-        }
+.left-section {
+	text-align: center;
+	width: 65%;
+	margin-top: 25px;
+}
 
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
+.left-section input {
+	display: flex;
+	justify-content: flex-start;
+	width: 30%;
+	padding: 10px;
+	margin-top: 50px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #333;
+}
 
-        .input-group select {
-            width: 48%;
-        }
+.right-section {
+	margin-top: 0px;
+	text-align: center;
+	width: 50%;
+}
 
-        .right-section {
-            width: 30%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.right-section img {
+	width: 45%;
+	max-width: 600px;
+	margin-bottom: 10px;
+}
 
-        .right-section img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
+.right-section h3 {
+	font-size: 16px;
+	color: #333;
+	font-weight: normal;
+}
 
-        .right-section h3 {
-            margin: 0;
-            text-align: center;
-        }
+button[type="submit"] {
+	display: flex; 
+	justify-content : center;
+	width: 30%;
+	background-color: #390879;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;
+	padding: 15px 50px;
+	justify-content: center;
+}
 
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
+button[type="submit"]:hover {
+	background-color: #6a1b9a;
+}
 
-        .form-actions button {
-            padding: 10px 20px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .form-actions button:hover {
-            background-color: #357ABD;
-        }
+label[for="curso"] {
+	font-size: 14px;
+	color: #64748B;
+	margin-bottom: 5px;
+	display: flex;
+	width: 93%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+}
+label[for="data"] {
+	font-size: 14px;
+	color: #64748B;
+	margin-bottom: 5px;
+	display: flex;
+	width: 50%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+}
+textarea {
+	font-size: 14px;
+	color: #64748B;
+	background-color: #fff;
+	margin-bottom: 5px;
+	display: flex;
+	width: 93%;
+	padding: 5px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+	resize: none;
+}

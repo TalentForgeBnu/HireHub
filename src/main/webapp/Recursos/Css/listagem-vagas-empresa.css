@@ -1,0 +1,111 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #390879;
+    padding: 15px 20px;
+    color: white;
+}
+
+header .lado-esquerdo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .voltar {
+    font-size: 24px;
+}
+
+header .nome {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #390879;
+    margin: 20px 0;
+}
+
+table.lista {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table.lista th {
+    background-color: #390879;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+table.lista td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    color: #555;
+}
+
+table.lista th, table.lista td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.lista th:last-child, table.lista td:last-child {
+    border-right: none;
+}
+
+table.lista tr:nth-child(odd) {
+    background-color: white;
+}
+
+table.lista tr:nth-child(even) {
+    background-color: #390879;
+    color: white;
+}
+
+table.lista tr:hover {
+    background-color: #f1f1f1;
+}
+
+.container-botao button {
+    background-color: #390879;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.container-botao button:hover {
+    background-color: #cec110;
+}

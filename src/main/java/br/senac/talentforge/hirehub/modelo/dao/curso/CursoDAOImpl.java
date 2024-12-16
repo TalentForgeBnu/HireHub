@@ -4,13 +4,19 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
 
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
+import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
+import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma_;
+import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario_;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 import br.senac.talentforge.hirehub.modelo.factory.conexao.ConexaoFactory;
-import org.hibernate.Session;
 
 public class CursoDAOImpl implements CursoDAO{
 
@@ -81,6 +87,28 @@ public class CursoDAOImpl implements CursoDAO{
         }
         return cursoRecuperado;
     }
+    
+    public Curso recuperarCursoPeloIdTurma(long idTurma){
+        Session sessao = null;
+        Curso cursoRecuperado = null;
+        try {
+            sessao = fabrica.getConexao().openSession();
+            sessao.beginTransaction();
+            CriteriaBuilder construtor = sessao.getCriteriaBuilder();
+            CriteriaQuery<Curso> criteria = construtor.createQuery(Curso.class);
+            Root<Turma> raizTurma = criteria.from(Turma.class);
+            Join<Turma, Curso> joinCursoTurma = raizTurma.join(Turma_.CURSO);
+            criteria.select(joinCursoTurma).where(construtor.equal(raizTurma.get(Turma_.CURSO), idTurma));
+            cursoRecuperado = sessao.createQuery(criteria).getSingleResult();
+            sessao.getTransaction().commit();
+        } catch (Exception exception) {
+            erroSessao(sessao, exception);
+        } finally {
+            fecharSessao(sessao);
+        }
+        return cursoRecuperado;
+    }
+    
 
     public List<Curso> recuperarCursosPeloIdDaInstituicao(long idInstituicao){
         Session sessao = null;

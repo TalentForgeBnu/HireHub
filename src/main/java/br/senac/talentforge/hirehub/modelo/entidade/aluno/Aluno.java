@@ -2,11 +2,8 @@ package br.senac.talentforge.hirehub.modelo.entidade.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,11 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.senac.talentforge.hirehub.modelo.entidade.endereco.Endereco;
-import br.senac.talentforge.hirehub.modelo.entidade.inscricao.Inscricao;
 import br.senac.talentforge.hirehub.modelo.entidade.papel.Papel;
 import br.senac.talentforge.hirehub.modelo.entidade.pessoaFisica.PessoaFisica;
 import br.senac.talentforge.hirehub.modelo.entidade.turma.Turma;
@@ -45,9 +40,6 @@ public class Aluno extends PessoaFisica implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private RendaFamiliar rendaFamiliar;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inscricao> inscricoes = new ArrayList<>();
 
     public Aluno() {
     }
@@ -140,17 +132,6 @@ public class Aluno extends PessoaFisica implements Serializable {
         this.rendaFamiliar = rendaFamiliar;
     }
 
-    public List<Inscricao> getInscricoes() {
-        return inscricoes;
-    }
-
-    public void setInscricoes(List<Inscricao> inscricoes) {
-        this.inscricoes = inscricoes;
-    }
-
-    public void adicionarInscricao(Inscricao inscricao) {
-        this.inscricoes.add(inscricao);
-    }
 
     @Override
     public boolean equals(Object object) {

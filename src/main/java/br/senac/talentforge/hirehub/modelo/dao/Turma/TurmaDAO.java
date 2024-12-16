@@ -12,6 +12,8 @@ public interface TurmaDAO {
     void atualizarTurma(Turma turma);
 
     Turma recuperarTurmaPeloIdInstituicao(long idInstituicao);
+    
+    Turma recuperarTurmaPeloIdAluno(long idAluno);
 
     List<Turma> recuperarTurmasPeloIdCurso(long idCurso);
     

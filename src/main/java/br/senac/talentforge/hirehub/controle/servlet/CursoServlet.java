@@ -1,6 +1,7 @@
 package br.senac.talentforge.hirehub.controle.servlet;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,24 +16,25 @@ import javax.servlet.http.HttpSession;
 
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAO;
 import br.senac.talentforge.hirehub.modelo.dao.curso.CursoDAOImpl;
-import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAO;
-import br.senac.talentforge.hirehub.modelo.dao.proposta.PropostaDAOImpl;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAO;
+import br.senac.talentforge.hirehub.modelo.dao.vaga.VagaDAOImpl;
 import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
 import br.senac.talentforge.hirehub.modelo.entidade.instituicao.Instituicao;
 import br.senac.talentforge.hirehub.modelo.entidade.usuario.Usuario;
+import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.enumeracao.disponibilidade.Disponibilidade;
 
-@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-lista-cursos", "/cadastro-turma"})
+@WebServlet(urlPatterns = {"/inserir-curso", "/atualizar-curso", "/recuperar-perfil-curso", "/lista-cursos", "/recuperar-curso-pagina", "/ver-curso"})
 public class CursoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6830527891806311155L;
 
-    private PropostaDAO propostaDAO;
     private CursoDAO cursoDAO;
+    private VagaDAO vagaDAO;
 
     public void init() {
-        propostaDAO = new PropostaDAOImpl();
         cursoDAO = new CursoDAOImpl();
+        vagaDAO = new VagaDAOImpl();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,8 +48,10 @@ public class CursoServlet extends HttpServlet {
             switch (action) {
                 case "/inserir-curso" -> inserirCurso(request, response);
                 case "/atualizar-curso" -> atualizarCurso(request, response);
-                case "/recuperar-lista-cursos" -> recuperarListaCursos(request, response);
-                case "/cadastro-turma" -> cadastroTurma(request, response);
+                case "/recuperar-perfil-curso" -> recuperarPerfilCurso(request, response);
+                case "/lista-cursos" -> recuperarListaCursos(request, response);
+                case "/recuperar-curso-pagina" -> recuperarPaginaCurso(request, response);
+                case "/ver-curso" -> visualizarCurso(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +59,7 @@ public class CursoServlet extends HttpServlet {
     }
 
     private void inserirCurso(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
 
         HttpSession session = request.getSession();
         Instituicao instituicao = null;
@@ -68,6 +72,7 @@ public class CursoServlet extends HttpServlet {
 
         if (instituicao.equals(session.getAttribute("usuario-logado"))) {
 
+            long idvaga = Long.parseLong(request.getParameter("vaga-id"));
             String nomeCurso = request.getParameter("nome-curso");
             String areaAtuacao = request.getParameter("area-atuacao");
             String descricao = request.getParameter("descricao-curso");
@@ -78,6 +83,12 @@ public class CursoServlet extends HttpServlet {
             Curso curso = new Curso(nomeCurso, areaAtuacao, disponibilidade, dataInicio, dataFim, descricao, instituicao);
 
             cursoDAO.inserirCurso(curso);
+            Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
+
+            request.setAttribute("curso", curso);
+            request.setAttribute("vaga", vaga);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paginas/proposta-curso.jsp");
+            dispatcher.forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath());
         }
@@ -96,8 +107,6 @@ public class CursoServlet extends HttpServlet {
 
         if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
-            instituicao = (Instituicao) usuario;
-
             long cursoId = Long.parseLong(request.getParameter("curso-id"));
 
             Curso curso = cursoDAO.recuperarCursoPeloId(cursoId);
@@ -115,10 +124,43 @@ public class CursoServlet extends HttpServlet {
             curso.setDisponibilidade(disponibilidade);
 
             cursoDAO.atualizarCurso(curso);
+
+
+            response.sendRedirect(request.getContextPath() + "/recuperar-lista-cursos");
         } else {
             response.sendRedirect(request.getContextPath());
         }
 
+    }
+
+    private void recuperarPerfilCurso(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        HttpSession session = request.getSession();
+        Curso curso = null;
+
+        if (session == null || session.getAttribute("usuario-logado") == null) {
+            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+        }
+
+        Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
+
+        if (usuario.getPapel().getFuncao().equals("aluno")) {
+
+            String atuacao = request.getParameter("atuacao");
+
+            if (atuacao == null || atuacao.isEmpty()) {
+                long idCurso = Long.parseLong(request.getParameter("id"));
+                curso = cursoDAO.recuperarCursoPeloId(idCurso);
+            }
+
+            request.setAttribute("curso", curso);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/visualizar-curso.jsp");
+            dispatcher.forward(request, response);
+
+        } else {
+            response.sendRedirect(request.getContextPath());
+        }
     }
 
     private void recuperarListaCursos(HttpServletRequest request, HttpServletResponse response)
@@ -129,7 +171,7 @@ public class CursoServlet extends HttpServlet {
         Instituicao instituicao = null;
 
         if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
 
         Usuario usuario = (Usuario) session.getAttribute("usuario-logado");
@@ -145,19 +187,16 @@ public class CursoServlet extends HttpServlet {
             }
 
             request.setAttribute("cursos", cursos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos.jsp");
             dispatcher.forward(request, response);
-
-        }
-
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
+        } else if (usuario.getPapel().getFuncao().equals("instituicao")) {
 
             instituicao = (Instituicao) usuario;
 
             cursos = cursoDAO.recuperarCursosPeloIdDaInstituicao(instituicao.getId());
 
             request.setAttribute("cursos", cursos);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos-instituicao.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/listagem-cursos.jsp");
             dispatcher.forward(request, response);
 
         } else {
@@ -165,28 +204,23 @@ public class CursoServlet extends HttpServlet {
         }
 
     }
-    
-    private void cadastroTurma(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        Usuario usuario = null;
- 
-        if (session == null || session.getAttribute("usuario-logado") == null) {
-            response.sendRedirect(request.getContextPath() + "Paginas/tela-login.jsp");
-        }
- 
-        usuario = (Usuario) session.getAttribute("usuario-logado");
- 
-        if (usuario.getPapel().getFuncao().equals("instituicao")) {
- 
-        	long idCurso = Long.parseLong(request.getParameter("id"));
-            Curso curso = cursoDAO.recuperarCursoPeloId(idCurso);
- 
-            request.setAttribute("curso", curso);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-turma.jsp");
-            dispatcher.forward(request, response);
-        }
- 
+
+    private void recuperarPaginaCurso(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        long idvaga = Long.parseLong(request.getParameter("vaga-id"));
+        Vaga vaga = vagaDAO.recuperarVagaPeloId(idvaga);
+        request.setAttribute("vaga", vaga);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/cadastro-curso.jsp");
+        dispatcher.forward(request, response);
     }
 
+    private void visualizarCurso(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        long id = Long.parseLong(request.getParameter("id"));
+        Curso curso = cursoDAO.recuperarCursoPeloId(id);
+        request.setAttribute("curso", curso);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Paginas/visualizar-curso.jsp");
+        dispatcher.forward(request, response);
+    }
 
 }

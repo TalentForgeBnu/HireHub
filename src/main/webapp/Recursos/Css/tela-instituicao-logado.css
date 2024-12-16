@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fdfbff;
+}
+
+.navbar {
+    background-color: #390879; 
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.voltar {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.nome {
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    margin-left: 20px; 
+    text-align: left; 
+    flex: 1; 
+}
+
+
+.iconeperfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+
+div p {
+    text-align: left;
+    font-size: 50px;
+    margin-top: 80px;
+    margin-left: 100px;
+}
+
+
+.areadosbotoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 60px;
+    margin-top: 140px;
+    margin-left: 220px;
+    margin-right: 220px;
+}
+
+.botao {
+    background-color: #f8f0ff;
+    padding: 60px;
+    border-radius: 10px;
+    text-align: center;
+    width: 275px;
+    box-shadow: 2px 3px 2px 3px rgba(0, 0, 0, 1);
+}
+
+.botao img {
+    margin-top: 10px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: left;
+}
+
+label {
+    font-size: 40px;
+    display: flex;
+    justify-items: center;
+    color: #1D0024;
+    margin-left: 130px;
+}

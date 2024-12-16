@@ -8,8 +8,6 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso;
-import br.senac.talentforge.hirehub.modelo.entidade.curso.Curso_;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga;
 import br.senac.talentforge.hirehub.modelo.entidade.vaga.Vaga_;
 import br.senac.talentforge.hirehub.modelo.enumeracao.contratacao.Contratacao;
@@ -86,9 +84,9 @@ public class VagaDAOImpl implements VagaDAO {
         return vagaRecuperada;
     }
 	
-	public Vaga recuperarVagaPelaModalidade(Contratacao modalidadeContratacao) {
+	public List<Vaga> recuperarVagaPelaModalidade(Contratacao modalidadeContratacao) {
 		Session sessao = null;
-		Vaga vagaRecuperada = null;
+		List<Vaga> vagasRecuperadas = null;
 		try {
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
@@ -96,19 +94,19 @@ public class VagaDAOImpl implements VagaDAO {
 			CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
 			Root<Vaga> raizVaga = criteria.from(Vaga.class);
 			criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.contratacao), modalidadeContratacao));
-			vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
+			vagasRecuperadas = sessao.createQuery(criteria).getResultList();
 			sessao.getTransaction().commit();
 		} catch (Exception exception) {
 			erroSessao(sessao, exception);
 		} finally {
 			fecharSessao(sessao);
 		}
-		return vagaRecuperada;
+		return vagasRecuperadas;
 	}
 
-	public Vaga recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga) {
+	public List<Vaga> recuperarVagaPelaSituacaoVaga(Situacao situacaoVaga) {
 		Session sessao = null;
-		Vaga vagaRecuperada = null;
+		List<Vaga> vagasRecuperadas = null;
 		try {
 			sessao = fabrica.getConexao().openSession();
 			sessao.beginTransaction();
@@ -116,14 +114,14 @@ public class VagaDAOImpl implements VagaDAO {
 			CriteriaQuery<Vaga> criteria = construtor.createQuery(Vaga.class);
 			Root<Vaga> raizVaga = criteria.from(Vaga.class);
 			criteria.select(raizVaga).where(construtor.equal(raizVaga.get(Vaga_.SITUACAO), situacaoVaga));
-			vagaRecuperada = sessao.createQuery(criteria).getSingleResult();
+			vagasRecuperadas = sessao.createQuery(criteria).getResultList();
 			sessao.getTransaction().commit();
 		} catch (Exception exception) {
 			erroSessao(sessao, exception);
 		} finally {
 			fecharSessao(sessao);
 		}
-		return vagaRecuperada;
+		return vagasRecuperadas;
 	}
 
 	public List<Vaga> recuperarVagasPeloIdDaEmpresa(long idEmpresa) {

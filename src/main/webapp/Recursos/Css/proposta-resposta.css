@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #EEEEEE;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+.formulario-conteudo {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.secao-esquerda {
+    flex: 1;
+}
+
+textarea,
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.grupo-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.aceitar {
+    background-color: #390879;
+    color: white;
+    margin-bottom: 15px;
+}
+
+button.aceitar:hover {
+    background-color: #FCAE11;
+}
+
+button.recusar {
+    background-color: #dc3545;
+    color: white;
+    margin-bottom: 15px;
+}
+
+button.recusar:hover {
+    background-color: #c82333;
+}
+
+button[type="submit"] {
+    background-color: #390879;
+    color: white;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+}
+
+button[type="submit"]:hover {
+    background-color: #FCAE11;
+}
+
+.secao-direita {
+    text-align: center;
+    flex: 0.5;
+}
+
+.secao-direita img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.secao-direita h3 {
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+.acao-formulario {
+    margin-top: 20px;
+}
+
+.voltar-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.voltar-btn .voltar-img {
+    width: 5px;
+    margin-right: 7px;
+}
+textarea:focus,
+input:focus,
+select:focus {
+    border-color: #FCAE11; 
+    outline: none; 
+}
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+}
+
+.right-section img {
+    max-width: 50px;
+    border-radius: 8px;
+}
+
+.right-section h3 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}

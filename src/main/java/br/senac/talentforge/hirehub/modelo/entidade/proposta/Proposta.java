@@ -32,8 +32,8 @@ public class Proposta implements Serializable {
     @Column(name = "id_proposta")
     private long id;
 
-    @Column(name = "proposta", length = 50, unique = false)
-    private String proposta;
+    @Column(name = "proposta", unique = false)
+    private double proposta;
 
     @Column(name = "resposta", length = 50, unique = false)
     private String resposta;
@@ -60,7 +60,7 @@ public class Proposta implements Serializable {
     public Proposta() {
     }
 
-    public Proposta(String proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
+    public Proposta(double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
         setProposta(proposta);
         setResposta(resposta);
         setAndamentoOferta(andamentoOferta);
@@ -69,8 +69,17 @@ public class Proposta implements Serializable {
         setEmpresa(empresa);
         setInstituicao(instituicao);
     }
+    
+    public Proposta(double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Empresa empresa, Instituicao instituicao) {
+        setProposta(proposta);
+        setResposta(resposta);
+        setAndamentoOferta(andamentoOferta);
+        setVaga(vaga);
+        setEmpresa(empresa);
+        setInstituicao(instituicao);
+    }
 
-    public Proposta(long id, String proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
+    public Proposta(long id, double proposta, String resposta, Oferta andamentoOferta, Vaga vaga, Curso curso, Empresa empresa, Instituicao instituicao) {
         setId(id);
         setProposta(proposta);
         setResposta(resposta);
@@ -89,11 +98,11 @@ public class Proposta implements Serializable {
         this.id = id;
     }
 
-    public String getProposta() {
+    public double getProposta() {
         return proposta;
     }
 
-    public void setProposta(String proposta) {
+    public void setProposta(double proposta) {
         this.proposta = proposta;
     }
 
